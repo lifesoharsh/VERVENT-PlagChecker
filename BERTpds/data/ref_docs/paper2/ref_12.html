@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html class="client-js ve-available" dir="ltr" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>Deep belief network - Wikipedia</title>
+<script>document.documentElement.className="client-js";RLCONF={"wgBreakFrames":!1,"wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgRequestId":"9f56228c-c016-4b9c-88fc-73ae2bdb5588","wgCSPNonce":!1,"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":!1,"wgNamespaceNumber":0,"wgPageName":"Deep_belief_network","wgTitle":"Deep belief network","wgCurRevisionId":1012688873,"wgRevisionId":1012688873,"wgArticleId":41416740,"wgIsArticle":!0,"wgIsRedirect":!1,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Articles with short description","Short description matches Wikidata","Artificial neural networks","Probabilistic models"],"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgRelevantPageName":"Deep_belief_network","wgRelevantArticleId":41416740,"wgIsProbablyEditable":
+!0,"wgRelevantPageIsProbablyEditable":!0,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgFlaggedRevsParams":{"tags":{"status":{"levels":-1}}},"wgMediaViewerOnClick":!0,"wgMediaViewerEnabledByDefault":!0,"wgPopupsFlags":10,"wgVisualEditor":{"pageLanguageCode":"en","pageLanguageDir":"ltr","pageVariantFallbacks":"en"},"wgMFDisplayWikibaseDescriptions":{"search":!0,"nearby":!0,"watchlist":!0,"tagline":!1},"wgWMESchemaEditAttemptStepOversample":!1,"wgULSCurrentAutonym":"English","wgNoticeProject":"wikipedia","wgCentralAuthMobileDomain":!1,"wgEditSubmitButtonLabelPublish":!0,"wgULSPosition":"interlanguage","wgULSisCompactLinksEnabled":!0,"wgGENewcomerTasksGuidanceEnabled":!0,"wgGEAskQuestionEnabled":!1,"wgGELinkRecommendationsFrontendEnabled":!1,"wgWikibaseItemId":"Q16954980"};RLSTATE={"ext.globalCssJs.user.styles":"ready","site.styles":"ready","noscript":"ready","user.styles":"ready","ext.globalCssJs.user":"ready","user":"ready","user.options":"loading",
+"ext.cite.styles":"ready","ext.math.styles":"ready","skins.vector.styles.legacy":"ready","jquery.makeCollapsible.styles":"ready","ext.visualEditor.desktopArticleTarget.noscript":"ready","ext.uls.interlanguage":"ready","ext.wikimediaBadges":"ready","wikibase.client.init":"ready"};RLPAGEMODULES=["ext.cite.ux-enhancements","ext.math.scripts","site","mediawiki.page.ready","jquery.makeCollapsible","mediawiki.toc","skins.vector.legacy.js","ext.gadget.ReferenceTooltips","ext.gadget.charinsert","ext.gadget.extra-toolbar-buttons","ext.gadget.refToolbar","ext.gadget.switcher","ext.centralauth.centralautologin","mmv.head","mmv.bootstrap.autostart","ext.popups","ext.visualEditor.desktopArticleTarget.init","ext.visualEditor.targetLoader","ext.eventLogging","ext.wikimediaEvents","ext.navigationTiming","ext.uls.compactlinks","ext.uls.interface","ext.cx.eventlogging.campaigns","ext.centralNotice.geoIP","ext.centralNotice.startUp","ext.growthExperiments.SuggestedEditSession"];</script>
+<script>(RLQ=window.RLQ||[]).push(function(){mw.loader.implement("user.options@1hzgi",function($,jQuery,require,module){/*@nomin*/mw.user.tokens.set({"patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});
+});});</script>
+<link rel="stylesheet" href="ref12_files/load_002.css">
+<script async="" src="ref12_files/load.php"></script>
+<style>
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none}.mw-collapsible-toggle-default:before{content:'['}.mw-collapsible-toggle-default:after{content:']'}.mw-customtoggle,.mw-collapsible-toggle{cursor:pointer} caption .mw-collapsible-toggle,.mw-content-ltr caption .mw-collapsible-toggle,.mw-content-rtl caption .mw-collapsible-toggle,.mw-content-rtl .mw-content-ltr caption .mw-collapsible-toggle,.mw-content-ltr .mw-content-rtl caption .mw-collapsible-toggle{float:none}
+.mw-editfont-monospace{font-family:monospace,monospace}.mw-editfont-sans-serif{font-family:sans-serif}.mw-editfont-serif{font-family:serif} .mw-editfont-monospace,.mw-editfont-sans-serif,.mw-editfont-serif{  font-size:13px;  -moz-tab-size:4; tab-size:4; }.mw-editfont-monospace.oo-ui-textInputWidget,.mw-editfont-sans-serif.oo-ui-textInputWidget,.mw-editfont-serif.oo-ui-textInputWidget{font-size:inherit}.mw-editfont-monospace.oo-ui-textInputWidget > .oo-ui-inputWidget-input,.mw-editfont-sans-serif.oo-ui-textInputWidget > .oo-ui-inputWidget-input,.mw-editfont-serif.oo-ui-textInputWidget > .oo-ui-inputWidget-input{  font-size:13px}.mw-editfont-monospace.oo-ui-textInputWidget > input.oo-ui-inputWidget-input,.mw-editfont-sans-serif.oo-ui-textInputWidget > input.oo-ui-inputWidget-input,.mw-editfont-serif.oo-ui-textInputWidget > input.oo-ui-inputWidget-input{min-height:32px}
+.mw-ui-button{background-color:#f8f9fa;color:#202122;display:inline-block;-moz-box-sizing:border-box;box-sizing:border-box;min-height:32px;min-width:4em;max-width:28.75em;margin:0;padding:5px 12px;border:1px solid #a2a9b1;border-radius:2px;cursor:pointer;vertical-align:middle;font-family:inherit;font-size:1em;font-weight:bold;line-height:1.28571429em;text-align:center;-webkit-appearance:none}.mw-ui-button:not(:disabled){-webkit-transition:background-color 100ms,color 100ms,border-color 100ms,box-shadow 100ms;transition:background-color 100ms,color 100ms,border-color 100ms,box-shadow 100ms}.mw-ui-button:not(:disabled):visited{color:#202122}.mw-ui-button:not(:disabled):hover{background-color:#ffffff;color:#404244;border-color:#a2a9b1}.mw-ui-button:not(:disabled):focus{background-color:#ffffff;color:#202122;border-color:#3366cc;box-shadow:inset 0 0 0 1px #3366cc,inset 0 0 0 2px #ffffff;outline-width:0}.mw-ui-button:not(:disabled):focus::-moz-focus-inner{border-color:transparent;padding:0}.mw-ui-button:not(:disabled):active,.mw-ui-button:not(:disabled).is-on{background-color:#c8ccd1;color:#000000;border-color:#72777d;box-shadow:none}.mw-ui-button:disabled{background-color:#c8ccd1;color:#ffffff;border-color:#c8ccd1;cursor:default}.mw-ui-button.mw-ui-quiet,.mw-ui-button.mw-ui-quiet.mw-ui-progressive,.mw-ui-button.mw-ui-quiet.mw-ui-destructive{background-color:transparent;color:#202122;min-height:32px;border-color:transparent;font-weight:bold}.mw-ui-button.mw-ui-quiet:hover,.mw-ui-button.mw-ui-quiet.mw-ui-progressive:hover,.mw-ui-button.mw-ui-quiet.mw-ui-destructive:hover{background-color:#f8f9fa;color:#404244;border-color:transparent;box-shadow:none}.mw-ui-button.mw-ui-quiet:active,.mw-ui-button.mw-ui-quiet.mw-ui-progressive:active,.mw-ui-button.mw-ui-quiet.mw-ui-destructive:active{background-color:#eaecf0;color:#000000;border-color:#72777d}.mw-ui-button.mw-ui-quiet:focus,.mw-ui-button.mw-ui-quiet.mw-ui-progressive:focus,.mw-ui-button.mw-ui-quiet.mw-ui-destructive:focus{background-color:transparent;color:#202122;border-color:#3366cc;box-shadow:none}.mw-ui-button.mw-ui-quiet:disabled,.mw-ui-button.mw-ui-quiet.mw-ui-progressive:disabled,.mw-ui-button.mw-ui-quiet.mw-ui-destructive:disabled,.mw-ui-button.mw-ui-quiet:disabled:hover,.mw-ui-button.mw-ui-quiet.mw-ui-progressive:disabled:hover,.mw-ui-button.mw-ui-quiet.mw-ui-destructive:disabled:hover,.mw-ui-button.mw-ui-quiet:disabled:active,.mw-ui-button.mw-ui-quiet.mw-ui-progressive:disabled:active,.mw-ui-button.mw-ui-quiet.mw-ui-destructive:disabled:active{background-color:transparent;color:#72777d;border-color:transparent}.mw-ui-button.mw-ui-progressive:not(:disabled){background-color:#3366cc;color:#fff;border-color:#3366cc}.mw-ui-button.mw-ui-progressive:not(:disabled):hover{background-color:#447ff5;border-color:#447ff5}.mw-ui-button.mw-ui-progressive:not(:disabled):focus{box-shadow:inset 0 0 0 1px #3366cc,inset 0 0 0 2px #ffffff}.mw-ui-button.mw-ui-progressive:not(:disabled):active,.mw-ui-button.mw-ui-progressive:not(:disabled).is-on{background-color:#2a4b8d;border-color:#2a4b8d;box-shadow:none}.mw-ui-button.mw-ui-progressive:disabled{background-color:#c8ccd1;color:#fff;border-color:#c8ccd1}.mw-ui-button.mw-ui-progressive.mw-ui-quiet{color:#3366cc}.mw-ui-button.mw-ui-progressive.mw-ui-quiet:hover{background-color:transparent;color:#447ff5}.mw-ui-button.mw-ui-progressive.mw-ui-quiet:active{color:#2a4b8d}.mw-ui-button.mw-ui-progressive.mw-ui-quiet:focus{background-color:transparent;color:#3366cc}.mw-ui-button.mw-ui-destructive:not(:disabled){background-color:#dd3333;color:#fff;border-color:#dd3333}.mw-ui-button.mw-ui-destructive:not(:disabled):hover{background-color:#ff4242;border-color:#ff4242}.mw-ui-button.mw-ui-destructive:not(:disabled):focus{box-shadow:inset 0 0 0 1px #dd3333,inset 0 0 0 2px #ffffff}.mw-ui-button.mw-ui-destructive:not(:disabled):active,.mw-ui-button.mw-ui-destructive:not(:disabled).is-on{background-color:#b32424;border-color:#b32424;box-shadow:none}.mw-ui-button.mw-ui-destructive:disabled{background-color:#c8ccd1;color:#fff;border-color:#c8ccd1}.mw-ui-button.mw-ui-destructive.mw-ui-quiet{color:#dd3333}.mw-ui-button.mw-ui-destructive.mw-ui-quiet:hover{background-color:transparent;color:#ff4242}.mw-ui-button.mw-ui-destructive.mw-ui-quiet:active{color:#b32424}.mw-ui-button.mw-ui-destructive.mw-ui-quiet:focus{background-color:transparent;color:#dd3333}.mw-ui-button.mw-ui-big{font-size:1.3em}.mw-ui-button.mw-ui-block{display:block;width:100%;margin-left:auto;margin-right:auto}a.mw-ui-button{text-decoration:none}a.mw-ui-button:hover,a.mw-ui-button:focus{text-decoration:none}.mw-ui-button-group > *{min-width:48px;border-radius:0;float:left}.mw-ui-button-group > *:first-child{border-top-left-radius:2px;border-bottom-left-radius:2px}.mw-ui-button-group > *:not(:first-child){border-left:0}.mw-ui-button-group > *:last-child{border-top-right-radius:2px;border-bottom-right-radius:2px}.mw-ui-button-group .is-on .button{cursor:default}
+.mw-ui-icon{font-size:initial;position:relative;display:inline-block;box-sizing:content-box !important;width:1.25em;height:1.25em;min-width:1.25em;min-height:1.25em;flex-basis:1.25em;vertical-align:middle;line-height:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;-moz-appearance:none;-webkit-appearance:none;background-color:transparent;border:0;margin:0;padding:0}.mw-ui-icon:before{content:'';display:block;width:100%;height:100%;min-width:1.25em;min-height:1.25em;background-repeat:no-repeat;background-size:1.25em 1.25em;background-position:center} .mw-ui-icon-flush-top{margin-top:-0.75em}.mw-ui-icon-flush-left{margin-left:-0.75em}.mw-ui-icon-flush-right{margin-right:-0.75em}.mw-ui-icon-element{border-radius:2px;padding:0.75em;-webkit-transition:background-color 100ms;transition:background-color 100ms;color:transparent}.mw-ui-icon-element:focus,.mw-ui-icon-element:active,.mw-ui-icon-element:visited{color:transparent}.mw-ui-icon-element:active{background-color:rgba(0,0,0,0.03)}@media (hover:hover){.mw-ui-icon-element:not(.disabled):hover{background-color:rgba(0,0,0,0.03)}}.mw-ui-icon-small{width:1em;height:1em;min-width:1em;min-height:1em;flex-basis:1em;line-height:1em}.mw-ui-icon-small:before{content:'';display:block;width:100%;height:100%;min-width:1em;min-height:1em;background-repeat:no-repeat;background-size:1em 1em;background-position:center}.mw-ui-icon-small.mw-ui-icon-element{padding:0.5625em}.mw-ui-icon-small.mw-ui-icon-flush-left{margin-left:-0.5625em}.mw-ui-icon-small.mw-ui-icon-flush-right{margin-right:-0.5625em}.mw-ui-icon-small.mw-ui-icon-before:before{min-width:1em;min-height:1em;margin-right:0.5625em}.mw-ui-icon-before{width:auto;max-width:100%}.mw-ui-icon-before:before{display:inline-block;font-size:initial;width:auto;min-width:1.25em;min-height:1.25em;margin-right:8px;vertical-align:middle}.mw-ui-icon-before span{vertical-align:middle}@media all and (min-width:1000px){.mw-ui-icon-with-label-desktop{color:#54595d;width:auto;line-height:inherit;flex-basis:auto}.mw-ui-icon-with-label-desktop:hover,.mw-ui-icon-with-label-desktop:focus,.mw-ui-icon-with-label-desktop:active,.mw-ui-icon-with-label-desktop:visited{color:#54595d;text-decoration:none}.mw-ui-icon-with-label-desktop:before{width:auto;display:inline-block;margin-right:8px;vertical-align:text-bottom}}
+.cite-accessibility-label{ top:-99999px;clip:rect(1px,1px,1px,1px); position:absolute !important;padding:0 !important;border:0 !important;height:1px !important;width:1px !important; overflow:hidden}:target .mw-cite-targeted-backlink{font-weight:bold}.mw-cite-up-arrow-backlink{display:none}:target .mw-cite-up-arrow-backlink{display:inline}:target .mw-cite-up-arrow{display:none}
+.ve-init-mw-progressBarWidget{height:1em;overflow:hidden;margin:0 25%}.ve-init-mw-progressBarWidget-bar{height:1em;width:0} .ve-init-mw-progressBarWidget{background-color:#fff;box-sizing:border-box;height:0.875em;border:1px solid #36c;border-radius:0.875em;box-shadow:0 1px 1px rgba(0,0,0,0.15)}.ve-init-mw-progressBarWidget-bar{background-color:#36c;height:0.875em}
+.rt-tooltip{position:absolute;z-index:100;max-width:350px;background:#fff;color:#222;font-size:13px;line-height:1.5em;border:1px solid #c8ccd1;border-radius:3px;box-shadow:0 15px 45px -10px rgba(0,0,0,0.3);overflow-wrap:break-word}.rt-tooltip.rt-tooltip-insideWindow{z-index:110}.rt-tooltipContent{padding:8px 11px}.rt-tooltip-above .rt-tooltipContent{margin-bottom:-8px;padding-bottom:16px}.rt-tooltip-below .rt-tooltipContent{margin-top:-10px;padding-top:18px}.rt-tooltipTail,.rt-tooltipTail:after{position:absolute;width:12px;height:12px}.rt-tooltipTail{background:#c8ccd1;background:-webkit-linear-gradient(bottom left,#c8ccd1 50%,rgba(0,0,0,0) 50%);background:linear-gradient(to top right,#c8ccd1 50%,rgba(0,0,0,0) 50%)}.rt-tooltipTail:after{content:"";background:#fff;bottom:1px;left:1px}.rt-tooltip-above .rt-tooltipTail{-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transform-origin:100% 100%;transform-origin:100% 100%;bottom:0;left:15px}.rt-tooltip-below .rt-tooltipTail{-webkit-transform:rotate(135deg);transform:rotate(135deg);-webkit-transform-origin:0 0;transform-origin:0 0;top:0;left:27px}.rt-settingsLink{background-image:linear-gradient(transparent,transparent),url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%0D%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%0D%0A%20%20%20%20%3Cpath%20fill%3D%22%23555%22%20d%3D%22M20%2014.5v-2.9l-1.8-.3c-.1-.4-.3-.8-.6-1.4l1.1-1.5-2.1-2.1-1.5%201.1c-.5-.3-1-.5-1.4-.6L13.5%205h-2.9l-.3%201.8c-.5.1-.9.3-1.4.6L7.4%206.3%205.3%208.4l1%201.5c-.3.5-.4.9-.6%201.4l-1.7.2v2.9l1.8.3c.1.5.3.9.6%201.4l-1%201.5%202.1%202.1%201.5-1c.4.2.9.4%201.4.6l.3%201.8h3l.3-1.8c.5-.1.9-.3%201.4-.6l1.5%201.1%202.1-2.1-1.1-1.5c.3-.5.5-1%20.6-1.4l1.5-.3zM12%2016c-1.7%200-3-1.3-3-3s1.3-3%203-3%203%201.3%203%203-1.3%203-3%203z%22%2F%3E%0D%0A%3C%2Fsvg%3E);float:right;cursor:pointer;margin:-4px -4px 0 8px;height:24px;width:24px;border-radius:2px;background-position:center center;background-repeat:no-repeat;background-size:24px 24px}.rt-settingsLink:hover{background-color:#eee}.rt-target{background-color:#def}.rt-enableSelect{font-weight:bold}.rt-settingsFormSeparator{margin:0.85714286em 0}.rt-numberInput.rt-numberInput{width:150px}.rt-tooltipsForCommentsField.rt-tooltipsForCommentsField.rt-tooltipsForCommentsField{margin-top:1.64285714em}.rt-disabledHelp{border-collapse:collapse}.rt-disabledHelp td{padding:0}.rt-disabledNote.rt-disabledNote{vertical-align:bottom;padding-left:0.36em;font-weight:bold}@-webkit-keyframes rt-fade-in-up{0%{opacity:0;-webkit-transform:translate(0,20px);-moz-transform:translate(0,20px);transform:translate(0,20px) }100%{opacity:1;-webkit-transform:translate(0,0);-moz-transform:translate(0,0);transform:translate(0,0) }}@-moz-keyframes rt-fade-in-up{0%{opacity:0;-webkit-transform:translate(0,20px);-moz-transform:translate(0,20px);transform:translate(0,20px) }100%{opacity:1;-webkit-transform:translate(0,0);-moz-transform:translate(0,0);transform:translate(0,0) }}@keyframes rt-fade-in-up{0%{opacity:0;-webkit-transform:translate(0,20px);-moz-transform:translate(0,20px);transform:translate(0,20px) }100%{opacity:1;-webkit-transform:translate(0,0);-moz-transform:translate(0,0);transform:translate(0,0) }}@-webkit-keyframes rt-fade-in-down{0%{opacity:0;-webkit-transform:translate(0,-20px);-moz-transform:translate(0,-20px);transform:translate(0,-20px) }100%{opacity:1;-webkit-transform:translate(0,0);-moz-transform:translate(0,0);transform:translate(0,0) }}@-moz-keyframes rt-fade-in-down{0%{opacity:0;-webkit-transform:translate(0,-20px);-moz-transform:translate(0,-20px);transform:translate(0,-20px) }100%{opacity:1;-webkit-transform:translate(0,0);-moz-transform:translate(0,0);transform:translate(0,0) }}@keyframes rt-fade-in-down{0%{opacity:0;-webkit-transform:translate(0,-20px);-moz-transform:translate(0,-20px);transform:translate(0,-20px) }100%{opacity:1;-webkit-transform:translate(0,0);-moz-transform:translate(0,0);transform:translate(0,0) }}@-webkit-keyframes rt-fade-out-down{0%{opacity:1;-webkit-transform:translate(0,0);-moz-transform:translate(0,0);transform:translate(0,0) }100%{opacity:0;-webkit-transform:translate(0,20px);-moz-transform:translate(0,20px);transform:translate(0,20px) }}@-moz-keyframes rt-fade-out-down{0%{opacity:1;-webkit-transform:translate(0,0);-moz-transform:translate(0,0);transform:translate(0,0) }100%{opacity:0;-webkit-transform:translate(0,20px);-moz-transform:translate(0,20px);transform:translate(0,20px) }}@keyframes rt-fade-out-down{0%{opacity:1;-webkit-transform:translate(0,0);-moz-transform:translate(0,0);transform:translate(0,0) }100%{opacity:0;-webkit-transform:translate(0,20px);-moz-transform:translate(0,20px);transform:translate(0,20px) }}@-webkit-keyframes rt-fade-out-up{0%{opacity:1;-webkit-transform:translate(0,0);-moz-transform:translate(0,0);transform:translate(0,0) }100%{opacity:0;-webkit-transform:translate(0,-20px);-moz-transform:translate(0,-20px);transform:translate(0,-20px) }}@-moz-keyframes rt-fade-out-up{0%{opacity:1;-webkit-transform:translate(0,0);-moz-transform:translate(0,0);transform:translate(0,0) }100%{opacity:0;-webkit-transform:translate(0,-20px);-moz-transform:translate(0,-20px);transform:translate(0,-20px) }}@keyframes rt-fade-out-up{0%{opacity:1;-webkit-transform:translate(0,0);-moz-transform:translate(0,0);transform:translate(0,0) }100%{opacity:0;-webkit-transform:translate(0,-20px);-moz-transform:translate(0,-20px);transform:translate(0,-20px) }}.rt-fade-in-up{-webkit-animation:rt-fade-in-up 0.2s ease forwards;-moz-animation:rt-fade-in-up 0.2s ease forwards;animation:rt-fade-in-up 0.2s ease forwards }.rt-fade-in-down{-webkit-animation:rt-fade-in-down 0.2s ease forwards;-moz-animation:rt-fade-in-down 0.2s ease forwards;animation:rt-fade-in-down 0.2s ease forwards }.rt-fade-out-down{-webkit-animation:rt-fade-out-down 0.2s ease forwards;-moz-animation:rt-fade-out-down 0.2s ease forwards;animation:rt-fade-out-down 0.2s ease forwards }.rt-fade-out-up{-webkit-animation:rt-fade-out-up 0.2s ease forwards;-moz-animation:rt-fade-out-up 0.2s ease forwards;animation:rt-fade-out-up 0.2s ease forwards }
+@media screen {
+	.toctoggle{-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none;font-size:94%}}
+@-webkit-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-webkit-transform:translateY(-20px)}100%{opacity:1;-webkit-transform:translateY(0)}}@-moz-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-moz-transform:translateY(-20px)}100%{opacity:1;-moz-transform:translateY(0)}}@-o-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-o-transform:translateY(-20px)}100%{opacity:1;-o-transform:translateY(0)}}@keyframes centralAuthPPersonalAnimation{0%{opacity:0;transform:translateY(-20px)}100%{opacity:1;transform:translateY(0)}}.centralAuthPPersonalAnimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralAuthPPersonalAnimation;-moz-animation-name:centralAuthPPersonalAnimation;-o-animation-name:centralAuthPPersonalAnimation;animation-name:centralAuthPPersonalAnimation}
+.uls-menu{border-radius:2px; font-size:medium}.uls-search,.uls-language-settings-close-block{border-top-right-radius:2px;border-top-left-radius:2px}.uls-language-list{border-bottom-right-radius:2px;border-bottom-left-radius:2px}.uls-menu.callout:before,.uls-menu.callout:after{border-top:10px solid transparent;border-bottom:10px solid transparent;display:inline-block; top:17px;position:absolute;content:''}.uls-menu.callout.selector-right:before{ border-left:10px solid #c8ccd1; right:-11px}.uls-menu.callout.selector-right:after{ border-left:10px solid #fff; right:-10px}.uls-menu.callout.selector-left:before{ border-right:10px solid #c8ccd1; left:-11px}.uls-menu.callout.selector-left:after{ border-right:10px solid #fff; left:-10px}.uls-ui-languages button{margin:5px 15px 5px 0;white-space:nowrap;overflow:hidden}.uls-search-wrapper-wrapper{position:relative;padding-left:40px;margin-top:5px;margin-bottom:5px}.uls-icon-back{background:transparent url(/w/extensions/UniversalLanguageSelector/resources/images/back-grey-ltr.svg?01868) no-repeat scroll center center;background-size:28px;height:32px;width:40px;display:block;position:absolute;left:0;border-right:1px solid #c8ccd1;opacity:0.8}.uls-icon-back:hover{opacity:1;cursor:pointer}.uls-menu .uls-no-results-view .uls-no-found-more{background-color:#fff}.uls-menu .uls-no-results-view h3{padding:0 28px;margin:0;color:#54595d;font-size:1em;font-weight:normal}   .skin-vector .uls-menu{border-color:#c8ccd1;box-shadow:0 2px 2px 0 rgba(0,0,0,0.25);font-size:0.875em}.skin-vector .uls-search{border-bottom-color:#c8ccd1}.skin-vector .uls-search-label{opacity:0.51;-webkit-transition:opacity 250ms;transition:opacity 250ms}.skin-vector .uls-search-wrapper:hover .uls-search-label{opacity:0.87}.skin-vector .uls-filtersuggestion{color:#72777d}.skin-vector .uls-lcd-region-title{color:#54595d}
+@media print{#centralNotice{display:none}}.cn-closeButton{display:inline-block;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUBAMAAAB/pwA+AAAAElBMVEUAAAAQEBDPz88AAABAQEDv7+9oe1vvAAAABnRSTlMA3rLe3rJS22KzAAAARElEQVQI12PAAUIUQCSTK5BwFgIxFU1AhKECUFAYKAAioXwwBeZChMGCEGGQIFQYJohgIhQgtCEMQ7ECYTHCOciOxA4AADgJTXIb9s8AAAAASUVORK5CYII=) no-repeat;width:20px;height:20px;text-indent:20px;white-space:nowrap;overflow:hidden}
+#uls-settings-block{background-color:#f8f9fa;border-top:1px solid #c8ccd1;padding-left:10px;line-height:1.2em;border-radius:0 0 2px 2px}#uls-settings-block > button{background:left top transparent no-repeat;background-size:20px auto;color:#54595d;display:inline-block;margin:8px 15px;border:0;padding:0 0 0 26px;font-size:medium;cursor:pointer}#uls-settings-block > button:hover{color:#202122}#uls-settings-block > button.display-settings-block{background-image:url(/w/extensions/UniversalLanguageSelector/resources/images/display.svg?b78f7)}#uls-settings-block > button.input-settings-block{background-image:url(/w/extensions/UniversalLanguageSelector/resources/images/input.svg?e7c85)}.uls-tipsy.uls-tipsy{z-index:1000}</style><style>
+.mw-mmv-overlay{position:fixed;top:0;left:0;right:0;bottom:0;z-index:1000;background-color:#000}body.mw-mmv-lightbox-open{overflow-y:auto;  }body.mw-mmv-lightbox-open #mw-page-base,body.mw-mmv-lightbox-open #mw-head-base,body.mw-mmv-lightbox-open #mw-navigation,body.mw-mmv-lightbox-open #content,body.mw-mmv-lightbox-open #footer,body.mw-mmv-lightbox-open #globalWrapper{ display:none}body.mw-mmv-lightbox-open > *{ display:none}body.mw-mmv-lightbox-open > .mw-mmv-overlay,body.mw-mmv-lightbox-open > .mw-mmv-wrapper{display:block}.mw-mmv-filepage-buttons{margin-top:5px}.mw-mmv-filepage-buttons .mw-mmv-view-expanded,.mw-mmv-filepage-buttons .mw-mmv-view-config{display:block;line-height:inherit}.mw-mmv-filepage-buttons .mw-mmv-view-expanded .mw-ui-icon:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1024 768%22%3E %3Cpath d=%22M851.2 71.6 690.7 232.1l-40.1-40.3-9.6 164.8 164.8-9.3-40.3-40.4L926 146.4l58.5 58.5L997.6 0 792.7 13.1%22/%3E %3Cpath d=%22M769.6 89.3H611.9l70.9 70.8 7.9 7.5m-47.1 234.6-51.2 3 3-51.2 9.4-164.4 5.8-100.3H26.4V768h883.1V387l-100.9 5.8-165 9.4zM813.9 678H113.6l207.2-270.2 31.5-12.9L548 599.8l105.9-63.2 159.8 140.8.2.6zm95.6-291.9V228l-79.1 78.9 7.8 7.9%22/%3E %3C/svg%3E")}.mw-mmv-filepage-buttons .mw-mmv-view-config .mw-ui-icon:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1024 768%22%3E %3Cpath d=%22M897 454.6V313.4L810.4 299c-6.4-23.3-16-45.7-27.3-65.8l50.5-71.4-99.4-100.2-71.4 50.5c-20.9-11.2-42.5-20.9-65.8-27.3L582.6-1H441.4L427 85.6c-23.3 6.4-45.7 16-65.8 27.3l-71.4-50.5-100.3 99.5 50.5 71.4c-11.2 20.9-20.9 42.5-27.3 66.6L127 313.4v141.2l85.8 14.4c6.4 23.3 16 45.7 27.3 66.6L189.6 607l99.5 99.5 71.4-50.5c20.9 11.2 42.5 20.9 66.6 27.3l14.4 85.8h141.2l14.4-86.6c23.3-6.4 45.7-16 65.8-27.3l71.4 50.5 99.5-99.5-50.5-71.4c11.2-20.9 20.9-42.5 27.3-66.6l86.4-13.6zm-385 77c-81.8 0-147.6-66.6-147.6-147.6 0-81.8 66.6-147.6 147.6-147.6S659.6 302.2 659.6 384 593.8 531.6 512 531.6z%22/%3E %3C/svg%3E");margin-right:0;opacity:0.75}.mw-mmv-filepage-buttons .mw-mmv-view-config .mw-ui-icon:before:hover{opacity:1}.mw-mmv-filepage-buttons .mw-mmv-view-config .mw-ui-icon span{display:none}.mw-mmv-button{background-color:transparent;min-width:0;border:0;padding:0;overflow-x:hidden;text-indent:-9999em}
+.ve-init-mw-tempWikitextEditorWidget{border:0;padding:0;color:inherit;line-height:1.5em;width:100%;-moz-tab-size:4;tab-size:4; }.ve-init-mw-tempWikitextEditorWidget:focus{outline:0;padding:0}.ve-init-mw-tempWikitextEditorWidget::selection{background:rgba(109,169,247,0.5); }
+#p-lang .body ul .uls-trigger,#p-lang .pBody ul .uls-trigger{background-image:none;padding:0}#p-lang .mw-interlanguage-selector,#p-lang .mw-interlanguage-selector:active{background-image:url(/w/extensions/UniversalLanguageSelector/resources/images/language-base20.svg?b7954);background-position:left 4px center;background-repeat:no-repeat;background-size:16px;margin:4px 0 8px;padding:4px 8px 4px 26px;font-size:13px;font-weight:normal;text-align:left;cursor:pointer} .mw-interlanguage-selector.selector-open{background-color:#c8ccd1} .interlanguage-uls-menu:before,.interlanguage-uls-menu:after{border-top:10px solid transparent;border-bottom:10px solid transparent;display:inline-block; top:17px;position:absolute;content:''}.interlanguage-uls-menu.selector-right:before{ border-left:10px solid #c8ccd1; right:-11px}.interlanguage-uls-menu.selector-right:after{ border-left:10px solid #fff; right:-10px}.interlanguage-uls-menu.selector-left:before{ border-right:10px solid #c8ccd1; left:-11px}.interlanguage-uls-menu.selector-left:after{ border-right:10px solid #fff; left:-10px}.mw-body-header .mw-interlanguage-selector,.mw-body-header .mw-interlanguage-selector:active{margin:0;font-weight:bold}</style><style>
+.ve-activated .ve-init-mw-desktopArticleTarget-editableContent #toc,.ve-activated #siteNotice,.ve-activated .mw-indicators,.ve-activated #t-print,.ve-activated #t-permalink,.ve-activated #p-coll-print_export,.ve-activated #t-cite,.ve-deactivating .ve-ui-surface,.ve-active .ve-init-mw-desktopArticleTarget-editableContent,.ve-active .ve-init-mw-tempWikitextEditorWidget{display:none} .ve-activating .ve-ui-surface{height:0;padding:0 !important; overflow:hidden} .ve-loading #content > :not(.ve-init-mw-desktopArticleTarget-loading-overlay), .ve-activated .ve-init-mw-desktopArticleTarget-uneditableContent{pointer-events:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;opacity:0.5}.ve-activated #firstHeading{ -webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;user-select:text;pointer-events:auto;cursor:text}.ve-activated #firstHeading a{ pointer-events:none}.ve-activated #catlinks{cursor:pointer}.ve-activated #catlinks a{opacity:1}.ve-activated #content{position:relative} .ve-init-mw-desktopArticleTarget-loading-overlay{position:absolute;top:1.25em;left:0;right:0;z-index:1;margin-top:-0.5em}.ve-init-mw-desktopArticleTarget-toolbarPlaceholder{transition:height 250ms ease;height:0; } .oo-ui-element-hidden{display:none !important; }  .mw-editsection{ unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection:before{content:'\200B'}.mw-editsection a{white-space:nowrap}.mw-editsection-divider{color:#54595d}  .ve-init-mw-desktopArticleTarget-toolbarPlaceholder{border-bottom:1px solid #c8ccd1;box-shadow:0 1px 1px 0 rgba(0,0,0,0.1)}.ve-init-mw-desktopArticleTarget-toolbarPlaceholder-open{height:42px} .ve-init-mw-desktopArticleTarget-toolbar,.ve-init-mw-desktopArticleTarget-toolbarPlaceholder{font-size:0.875em;margin:-1.42857143em -0.57142857em 1.42857143em -0.57142857em}.skin-vector-legacy .ve-init-mw-desktopArticleTarget-toolbar,.skin-vector-legacy .ve-init-mw-desktopArticleTarget-toolbarPlaceholder{ margin:-1.14em -1.14em 1.14em -1.14em; }@media screen and (min-width:982px){.skin-vector-legacy .ve-init-mw-desktopArticleTarget-toolbar,.skin-vector-legacy .ve-init-mw-desktopArticleTarget-toolbarPlaceholder{ margin:-1.43em -1.71em 1.43em -1.71em}}</style><style>
+.mw-ui-checkbox{display:table;position:relative;line-height:1.5625em;vertical-align:middle}.mw-ui-checkbox *{font-size:inherit;vertical-align:middle}.mw-ui-checkbox [type='checkbox']{display:table-cell;position:relative;width:1.5625em;height:1.5625em;max-width:none;opacity:0;z-index:1}.mw-ui-checkbox [type='checkbox'] + label{display:table-cell;padding-left:0.4em}.mw-ui-checkbox [type='checkbox'] + label:before{content:'';background-color:#fff;background-origin:border-box;background-position:center center;background-repeat:no-repeat;background-size:0 0;-moz-box-sizing:border-box;box-sizing:border-box;position:absolute;top:50%;left:0;width:1.5625em;height:1.5625em;margin-top:-0.78125em;border:1px solid #72777d;border-radius:2px}.mw-ui-checkbox [type='checkbox']:checked + label:before{background-image:url(/w/resources/src/mediawiki.ui/components/images/checkbox-checked.svg?8153e);background-size:90% 90%}.mw-ui-checkbox [type='checkbox']:enabled{cursor:pointer}.mw-ui-checkbox [type='checkbox']:enabled + label{cursor:pointer}.mw-ui-checkbox [type='checkbox']:enabled + label:before{cursor:pointer;-webkit-transition:background-color 100ms,color 100ms,border-color 100ms,box-shadow 100ms;transition:background-color 100ms,color 100ms,border-color 100ms,box-shadow 100ms}.mw-ui-checkbox [type='checkbox']:enabled:focus + label:before{border-color:#3366cc;box-shadow:inset 0 0 0 1px #3366cc}.mw-ui-checkbox [type='checkbox']:enabled:hover + label:before{border-color:#447ff5}.mw-ui-checkbox [type='checkbox']:enabled:active + label:before{background-color:#2a4b8d;border-color:#2a4b8d;box-shadow:inset 0 0 0 1px #2a4b8d}.mw-ui-checkbox [type='checkbox']:enabled:checked + label:before{background-color:#3366cc;border-color:#3366cc}.mw-ui-checkbox [type='checkbox']:enabled:checked:focus + label:before{background-color:#3366cc;border-color:#3366cc;box-shadow:inset 0 0 0 1px #3366cc,inset 0 0 0 2px #ffffff}.mw-ui-checkbox [type='checkbox']:enabled:checked:hover + label:before{background-color:#447ff5;border-color:#447ff5}.mw-ui-checkbox [type='checkbox']:enabled:checked:active + label:before{background-color:#2a4b8d;border-color:#2a4b8d}.mw-ui-checkbox [type='checkbox']:disabled + label:before{background-color:#c8ccd1;border-color:#c8ccd1}
+.oo-ui-icon-infoFilled,.mw-ui-icon-infoFilled:before{background-image:url(/w/load.php?modules=ext.popups.icons&image=infoFilled&format=rasterized&lang=en&skin=vector&version=2wgjy);background-image:linear-gradient(transparent,transparent),url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3Einfo%3C/title%3E%3Cpath d=%22M10 0C4.477 0 0 4.477 0 10s4.477 10 10 10 10-4.477 10-10S15.523 0 10 0zM9 5h2v2H9zm0 4h2v6H9z%22/%3E%3C/svg%3E")}.oo-ui-image-invert.oo-ui-icon-infoFilled,.mw-ui-icon-infoFilled-invert:before{background-image:url(/w/load.php?modules=ext.popups.icons&image=infoFilled&variant=invert&format=rasterized&lang=en&skin=vector&version=2wgjy);background-image:linear-gradient(transparent,transparent),url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3Einfo%3C/title%3E%3Cg fill=%22%23fff%22%3E%3Cpath d=%22M10 0C4.477 0 0 4.477 0 10s4.477 10 10 10 10-4.477 10-10S15.523 0 10 0zM9 5h2v2H9zm0 4h2v6H9z%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-image-progressive.oo-ui-icon-infoFilled,.mw-ui-icon-infoFilled-progressive:before{background-image:url(/w/load.php?modules=ext.popups.icons&image=infoFilled&variant=progressive&format=rasterized&lang=en&skin=vector&version=2wgjy);background-image:linear-gradient(transparent,transparent),url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3Einfo%3C/title%3E%3Cg fill=%22%2336c%22%3E%3Cpath d=%22M10 0C4.477 0 0 4.477 0 10s4.477 10 10 10 10-4.477 10-10S15.523 0 10 0zM9 5h2v2H9zm0 4h2v6H9z%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-icon-settings,.mw-ui-icon-settings:before{background-image:url(/w/load.php?modules=ext.popups.icons&image=settings&format=rasterized&skin=vector&version=2wgjy);background-image:linear-gradient(transparent,transparent),url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 xmlns:xlink=%22http://www.w3.org/1999/xlink%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3Esettings%3C/title%3E%3Cg transform=%22translate%2810 10%29%22%3E%3Cpath id=%22a%22 d=%22M1.5-10h-3l-1 6.5h5m0 7h-5l1 6.5h3%22/%3E%3Cuse transform=%22rotate%2845%29%22 xlink:href=%22%23a%22/%3E%3Cuse transform=%22rotate%2890%29%22 xlink:href=%22%23a%22/%3E%3Cuse transform=%22rotate%28135%29%22 xlink:href=%22%23a%22/%3E%3C/g%3E%3Cpath d=%22M10 2.5a7.5 7.5 0 000 15 7.5 7.5 0 000-15v4a3.5 3.5 0 010 7 3.5 3.5 0 010-7%22/%3E%3C/svg%3E")}.oo-ui-image-invert.oo-ui-icon-settings,.mw-ui-icon-settings-invert:before{background-image:url(/w/load.php?modules=ext.popups.icons&image=settings&variant=invert&format=rasterized&skin=vector&version=2wgjy);background-image:linear-gradient(transparent,transparent),url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 xmlns:xlink=%22http://www.w3.org/1999/xlink%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3Esettings%3C/title%3E%3Cg fill=%22%23fff%22%3E%3Cg xmlns:xlink=%22http://www.w3.org/1999/xlink%22 transform=%22translate%2810 10%29%22%3E%3Cpath id=%22a%22 d=%22M1.5-10h-3l-1 6.5h5m0 7h-5l1 6.5h3%22/%3E%3Cuse transform=%22rotate%2845%29%22 xlink:href=%22%23a%22/%3E%3Cuse transform=%22rotate%2890%29%22 xlink:href=%22%23a%22/%3E%3Cuse transform=%22rotate%28135%29%22 xlink:href=%22%23a%22/%3E%3C/g%3E%3Cpath d=%22M10 2.5a7.5 7.5 0 000 15 7.5 7.5 0 000-15v4a3.5 3.5 0 010 7 3.5 3.5 0 010-7%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-image-progressive.oo-ui-icon-settings,.mw-ui-icon-settings-progressive:before{background-image:url(/w/load.php?modules=ext.popups.icons&image=settings&variant=progressive&format=rasterized&skin=vector&version=2wgjy);background-image:linear-gradient(transparent,transparent),url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 xmlns:xlink=%22http://www.w3.org/1999/xlink%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3Esettings%3C/title%3E%3Cg fill=%22%2336c%22%3E%3Cg xmlns:xlink=%22http://www.w3.org/1999/xlink%22 transform=%22translate%2810 10%29%22%3E%3Cpath id=%22a%22 d=%22M1.5-10h-3l-1 6.5h5m0 7h-5l1 6.5h3%22/%3E%3Cuse transform=%22rotate%2845%29%22 xlink:href=%22%23a%22/%3E%3Cuse transform=%22rotate%2890%29%22 xlink:href=%22%23a%22/%3E%3Cuse transform=%22rotate%28135%29%22 xlink:href=%22%23a%22/%3E%3C/g%3E%3Cpath d=%22M10 2.5a7.5 7.5 0 000 15 7.5 7.5 0 000-15v4a3.5 3.5 0 010 7 3.5 3.5 0 010-7%22/%3E%3C/g%3E%3C/svg%3E")}
+.mw-ui-icon-popups-close:before{background-image:url(/w/load.php?modules=ext.popups.images&image=popups-close&format=rasterized&skin=vector&version=t43op);background-image:linear-gradient(transparent,transparent),url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E %3Ctitle%3E close %3C/title%3E %3Cpath d=%22m4.34 2.93 12.73 12.73-1.41 1.41L2.93 4.35z%22/%3E %3Cpath d=%22M17.07 4.34 4.34 17.07l-1.41-1.41L15.66 2.93z%22/%3E %3C/svg%3E")}.mw-ui-icon-preview-generic:before{background-image:url(/w/load.php?modules=ext.popups.images&image=preview-generic&format=rasterized&lang=en&skin=vector&version=t43op);background-image:linear-gradient(transparent,transparent),url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E %3Ctitle%3E sad face %3C/title%3E %3Cpath d=%22M2 0a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm4 4c1.336 0 2.007 1.617 1.06 2.56-.943.947-2.56.276-2.56-1.06A1.5 1.5 0 0 1 6 4zm8 0c1.336 0 2.007 1.617 1.06 2.56-.943.947-2.56.276-2.56-1.06A1.5 1.5 0 0 1 14 4zm-4 5c2.61 0 4.83.67 5.65 3H4.35C5.17 9.67 7.39 9 10 9z%22/%3E %3C/svg%3E")}.mw-ui-icon-footer:before{background-image:url(/w/load.php?modules=ext.popups.images&image=footer&format=rasterized&lang=en&skin=vector&version=t43op);background-image:linear-gradient(transparent,transparent),url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 xmlns:xlink=%22http://www.w3.org/1999/xlink%22 width=%22230%22 height=%22179%22 viewBox=%220 0 230 179%22%3E %3Cdefs%3E %3Crect id=%22a%22 width=%22201%22 height=%2213%22 rx=%222%22/%3E %3Crect id=%22b%22 width=%22201%22 height=%22169%22 y=%2210%22 rx=%222%22/%3E %3Crect id=%22c%22 width=%2230%22 height=%222%22 x=%22135%22 y=%22158%22 rx=%221%22/%3E %3C/defs%3E %3Cg fill=%22none%22 fill-rule=%22evenodd%22%3E %3Cg transform=%22matrix%281 0 0 -1 0 13%29%22%3E %3Cuse fill=%22%23f8f9fa%22 xlink:href=%22%23a%22/%3E %3Crect width=%22199%22 height=%2211%22 x=%221%22 y=%221%22 stroke=%22%23a2a9b1%22 stroke-width=%222%22 rx=%222%22/%3E %3C/g%3E %3Cuse fill=%22%23fff%22 xlink:href=%22%23b%22/%3E %3Crect width=%22199%22 height=%22167%22 x=%221%22 y=%2211%22 stroke=%22%23a2a9b1%22 stroke-width=%222%22 rx=%222%22/%3E %3Cg fill=%22%2372777d%22 opacity=%22.4%22 transform=%22translate%2867 35%29%22%3E %3Crect width=%2273%22 height=%222%22 y=%227%22 fill=%22%23c8ccd1%22 rx=%221%22/%3E %3Crect width=%2281%22 height=%222%22 y=%2231%22 rx=%221%22/%3E %3Crect width=%2232%22 height=%222%22 y=%2285%22 rx=%221%22/%3E %3Crect width=%2273%22 height=%222%22 x=%2235%22 y=%2285%22 rx=%221%22/%3E %3Crect width=%2217%22 height=%222%22 y=%2245%22 rx=%221%22/%3E %3Crect width=%2217%22 height=%222%22 x=%2291%22 y=%2245%22 rx=%221%22/%3E %3Crect width=%2268%22 height=%222%22 x=%2220%22 y=%2245%22 rx=%221%22/%3E %3Crect width=%2217%22 height=%222%22 y=%2278%22 rx=%221%22/%3E %3Crect width=%2237%22 height=%222%22 x=%2272%22 y=%2278%22 rx=%221%22/%3E %3Crect width=%2249%22 height=%222%22 x=%2220%22 y=%2278%22 rx=%221%22/%3E %3Crect width=%2224%22 height=%222%22 x=%2284%22 y=%2231%22 rx=%221%22 transform=%22matrix%28-1 0 0 1 192 0%29%22/%3E %3Crect width=%2281%22 height=%222%22 y=%2266%22 rx=%221%22/%3E %3Crect width=%2214%22 height=%222%22 x=%2254%22 y=%2224%22 rx=%221%22/%3E %3Crect width=%2237%22 height=%222%22 x=%2271%22 y=%2224%22 rx=%221%22/%3E %3Crect width=%2251%22 height=%222%22 y=%2224%22 rx=%221%22/%3E %3Crect width=%22108%22 height=%222%22 y=%2259%22 rx=%221%22/%3E %3Crect width=%22108%22 height=%222%22 y=%2252%22 rx=%221%22/%3E %3Crect width=%22108%22 height=%222%22 y=%2292%22 rx=%221%22/%3E %3Crect width=%22108%22 height=%222%22 y=%2238%22 rx=%221%22/%3E %3Crect width=%2251%22 height=%222%22 rx=%221%22/%3E %3C/g%3E %3Crect width=%2230%22 height=%222%22 x=%2267%22 y=%22158%22 fill=%22%2372777d%22 opacity=%22.4%22 rx=%221%22/%3E %3Crect width=%2230%22 height=%222%22 x=%2299%22 y=%22158%22 fill=%22%2372777d%22 opacity=%22.4%22 rx=%221%22/%3E %3Cuse fill=%22%2336c%22 xlink:href=%22%23c%22/%3E %3Crect width=%2233%22 height=%225%22 x=%22133.5%22 y=%22156.5%22 stroke=%22%23ffc057%22 stroke-opacity=%22.447%22 stroke-width=%223%22 rx=%222.5%22/%3E %3Ccircle cx=%2234%22 cy=%2249%22 r=%2219%22 fill=%22%23eaecf0%22/%3E %3Cg fill=%22%23a2a9b1%22 transform=%22translate%285 5%29%22%3E %3Ccircle cx=%221.5%22 cy=%221.5%22 r=%221.5%22/%3E %3Ccircle cx=%226%22 cy=%221.5%22 r=%221.5%22/%3E %3Ccircle cx=%2210.5%22 cy=%221.5%22 r=%221.5%22/%3E %3C/g%3E %3Cpath stroke=%22%23ff00af%22 stroke-linecap=%22square%22 d=%22M174.5 159.5h54.01%22/%3E %3C/g%3E %3C/svg%3E")}.mw-ui-icon-preview-disambiguation:before{background-image:url(/w/load.php?modules=ext.popups.images&image=preview-disambiguation&format=rasterized&lang=en&skin=vector&version=t43op);background-image:linear-gradient(transparent,transparent),url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E %3Ctitle%3E articles %3C/title%3E %3Cpath d=%22M5 0v2h11v14h2V2a2 2 0 0 0-2-2z%22/%3E %3Cpath d=%22M13 20a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2zM9 5h4v5H9zM4 5h4v1H4zm0 2h4v1H4zm0 2h4v1H4zm0 2h9v1H4zm0 2h9v1H4zm0 2h9v1H4z%22/%3E %3C/svg%3E")}.mw-ui-icon-reference-generic:before{background-image:url(/w/load.php?modules=ext.popups.images&image=reference-generic&format=rasterized&skin=vector&version=t43op);background-image:linear-gradient(transparent,transparent),url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E %3Ctitle%3E reference %3C/title%3E %3Cpath d=%22m15 10-2.78-2.78L9.44 10V1H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2z%22/%3E %3C/svg%3E")}.mw-ui-icon-reference-book:before{background-image:url(/w/load.php?modules=ext.popups.images&image=reference-book&format=rasterized&lang=en&skin=vector&version=t43op);background-image:linear-gradient(transparent,transparent),url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E %3Ctitle%3E book %3C/title%3E %3Cpath d=%22M15 2a7.65 7.65 0 0 0-5 2 7.65 7.65 0 0 0-5-2H1v15h4a7.65 7.65 0 0 1 5 2 7.65 7.65 0 0 1 5-2h4V2zm2.5 13.5H14a4.38 4.38 0 0 0-3 1V5s1-1.5 4-1.5h2.5z%22/%3E %3Cpath d=%22M9 3.5h2v1H9z%22/%3E %3C/svg%3E")}.mw-ui-icon-reference-journal:before{background-image:url(/w/load.php?modules=ext.popups.images&image=reference-journal&format=rasterized&lang=en&skin=vector&version=t43op);background-image:linear-gradient(transparent,transparent),url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E %3Ctitle%3E journal %3C/title%3E %3Cpath d=%22M2 18.5A1.5 1.5 0 0 0 3.5 20H5V0H3.5A1.5 1.5 0 0 0 2 1.5zM6 0v20h10a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm7 8H8V7h5zm3-2H8V5h8z%22/%3E %3C/svg%3E")}.mw-ui-icon-reference-news:before{background-image:url(/w/load.php?modules=ext.popups.images&image=reference-news&format=rasterized&lang=en&skin=vector&version=t43op);background-image:linear-gradient(transparent,transparent),url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E %3Ctitle%3E newspaper %3C/title%3E %3Cpath d=%22M5 2a2 2 0 0 0-2 2v12a1 1 0 0 1-1-1V5h-.5A1.5 1.5 0 0 0 0 6.5v10A1.5 1.5 0 0 0 1.5 18H18a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm1 2h11v4H6zm0 6h6v1H6zm0 2h6v1H6zm0 2h6v1H6zm7-4h4v5h-4z%22/%3E %3C/svg%3E")}.mw-ui-icon-reference-web:before{background-image:url(/w/load.php?modules=ext.popups.images&image=reference-web&format=rasterized&lang=en&skin=vector&version=t43op);background-image:linear-gradient(transparent,transparent),url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E %3Ctitle%3E browser %3C/title%3E %3Cpath d=%22M2 2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm2 1.5A1.5 1.5 0 1 1 2.5 5 1.5 1.5 0 0 1 4 3.5zM18 16H2V8h16z%22/%3E %3C/svg%3E")}</style><style>
+@-webkit-keyframes mwe-popups-fade-in-up{0%{opacity:0;-webkit-transform:translate(0,20px);-ms-transform:translate(0,20px);transform:translate(0,20px)}100%{opacity:1;-webkit-transform:translate(0,0);-ms-transform:translate(0,0);transform:translate(0,0)}}@keyframes mwe-popups-fade-in-up{0%{opacity:0;-webkit-transform:translate(0,20px);-ms-transform:translate(0,20px);transform:translate(0,20px)}100%{opacity:1;-webkit-transform:translate(0,0);-ms-transform:translate(0,0);transform:translate(0,0)}}@-webkit-keyframes mwe-popups-fade-in-down{0%{opacity:0;-webkit-transform:translate(0,-20px);-ms-transform:translate(0,-20px);transform:translate(0,-20px)}100%{opacity:1;-webkit-transform:translate(0,0);-ms-transform:translate(0,0);transform:translate(0,0)}}@keyframes mwe-popups-fade-in-down{0%{opacity:0;-webkit-transform:translate(0,-20px);-ms-transform:translate(0,-20px);transform:translate(0,-20px)}100%{opacity:1;-webkit-transform:translate(0,0);-ms-transform:translate(0,0);transform:translate(0,0)}}@-webkit-keyframes mwe-popups-fade-out-down{0%{opacity:1;-webkit-transform:translate(0,0);-ms-transform:translate(0,0);transform:translate(0,0)}100%{opacity:0;-webkit-transform:translate(0,20px);-ms-transform:translate(0,20px);transform:translate(0,20px)}}@keyframes mwe-popups-fade-out-down{0%{opacity:1;-webkit-transform:translate(0,0);-ms-transform:translate(0,0);transform:translate(0,0)}100%{opacity:0;-webkit-transform:translate(0,20px);-ms-transform:translate(0,20px);transform:translate(0,20px)}}@-webkit-keyframes mwe-popups-fade-out-up{0%{opacity:1;-webkit-transform:translate(0,0);-ms-transform:translate(0,0);transform:translate(0,0)}100%{opacity:0;-webkit-transform:translate(0,-20px);-ms-transform:translate(0,-20px);transform:translate(0,-20px)}}@keyframes mwe-popups-fade-out-up{0%{opacity:1;-webkit-transform:translate(0,0);-ms-transform:translate(0,0);transform:translate(0,0)}100%{opacity:0;-webkit-transform:translate(0,-20px);-ms-transform:translate(0,-20px);transform:translate(0,-20px)}}.mwe-popups-fade-in-up{-webkit-animation:mwe-popups-fade-in-up 0.2s ease forwards;animation:mwe-popups-fade-in-up 0.2s ease forwards}.mwe-popups-fade-in-down{-webkit-animation:mwe-popups-fade-in-down 0.2s ease forwards;animation:mwe-popups-fade-in-down 0.2s ease forwards}.mwe-popups-fade-out-down{-webkit-animation:mwe-popups-fade-out-down 0.2s ease forwards;animation:mwe-popups-fade-out-down 0.2s ease forwards}.mwe-popups-fade-out-up{-webkit-animation:mwe-popups-fade-out-up 0.2s ease forwards;animation:mwe-popups-fade-out-up 0.2s ease forwards}  #mwe-popups-settings{z-index:1000;background:#fff;width:420px;border:1px solid #a2a9b1;box-shadow:0 2px 2px 0 rgba(0,0,0,0.25);border-radius:2px;font-size:14px}#mwe-popups-settings header{-moz-box-sizing:border-box;box-sizing:border-box;border-bottom:1px solid #c8ccd1;position:relative;display:table;width:100%;padding:5px 7px 5px 0}#mwe-popups-settings header > div{display:table-cell;width:3.5em;vertical-align:middle;cursor:pointer}#mwe-popups-settings header h1{margin-bottom:0.6em;padding-top:0.5em;border:0;width:100%;font-family:sans-serif;font-size:18px;font-weight:bold;text-align:center}#mwe-popups-settings .mwe-ui-icon-popups-close{opacity:0.87;-webkit-transition:opacity 100ms;transition:opacity 100ms}#mwe-popups-settings .mwe-ui-icon-popups-close:hover{opacity:0.73}#mwe-popups-settings .mwe-ui-icon-popups-close:active{opacity:1}#mwe-popups-settings main#mwe-popups-settings-form{display:block;width:350px;padding:32px 0 24px;margin:0 auto}#mwe-popups-settings main#mwe-popups-settings-form p{color:#54595d;font-size:14px;margin:16px 0 0}#mwe-popups-settings main#mwe-popups-settings-form p:first-child{margin-top:0}#mwe-popups-settings main#mwe-popups-settings-form form img{margin-right:60px}#mwe-popups-settings main#mwe-popups-settings-form form input{margin-right:10px}#mwe-popups-settings main#mwe-popups-settings-form form label{font-size:13px;line-height:16px;width:300px}#mwe-popups-settings main#mwe-popups-settings-form form label > span{color:#000;font-size:14px;font-weight:bold;display:block;margin-bottom:5px}#mwe-popups-settings main#mwe-popups-settings-form form label:before{top:0.78125em !important}.mwe-popups-settings-help{font-size:13px;font-weight:800;margin:40px;position:relative}.mwe-popups-settings-help .mw-ui-icon:before,.mwe-popups-settings-help .mw-ui-icon{background-size:contain;height:140px;width:180px;max-width:none;margin:0;padding:0}.mwe-popups-settings-help p{left:180px;bottom:20px;position:absolute}.mwe-popups{background:#fff;position:absolute;z-index:110;box-shadow:0 30px 90px -20px rgba(0,0,0,0.3),0 0 1px 1px rgba(0,0,0,0.05);padding:0;display:none;font-size:14px;line-height:20px;min-width:300px;border-radius:2px; }.mwe-popups .mw-ui-icon-preview-disambiguation,.mwe-popups .mw-ui-icon-preview-generic{opacity:0.25}.mwe-popups .mwe-popups-container{color:#202122;margin-top:-9px;padding-top:9px;text-decoration:none}.mwe-popups .mwe-popups-container footer{padding:0 16px 16px;margin:0;font-size:10px;position:absolute;bottom:0;left:0}.mwe-popups .mwe-popups-settings-icon{display:block;float:right;border-radius:2px;opacity:0.67;-webkit-transition:background-color 100ms,opacity 100ms;transition:background-color 100ms,opacity 100ms}.mwe-popups .mwe-popups-settings-icon:hover{background-color:#eaecf0}.mwe-popups .mwe-popups-settings-icon:active{background-color:#c8ccd1;opacity:1}.mwe-popups .mwe-popups-extract{margin:16px;display:block;color:#202122;text-decoration:none;position:relative;   }.mwe-popups .mwe-popups-extract:hover{text-decoration:none}.mwe-popups .mwe-popups-extract:after{content:' ';position:absolute;bottom:0;width:25%;height:20px;background-color:transparent;pointer-events:none}.mwe-popups .mwe-popups-extract[dir='ltr']:after{ right:0; background-image:-webkit-linear-gradient(to right,rgba(255,255,255,0),#ffffff 50%); background-image:linear-gradient(to right,rgba(255,255,255,0),#ffffff 50%)}.mwe-popups .mwe-popups-extract[dir='rtl']:after{ left:0; background-image:-webkit-linear-gradient(to left,rgba(255,255,255,0),#ffffff 50%); background-image:linear-gradient(to left,rgba(255,255,255,0),#ffffff 50%)}.mwe-popups .mwe-popups-extract p{margin:0}.mwe-popups .mwe-popups-extract ul,.mwe-popups .mwe-popups-extract ol,.mwe-popups .mwe-popups-extract li,.mwe-popups .mwe-popups-extract dl,.mwe-popups .mwe-popups-extract dd,.mwe-popups .mwe-popups-extract dt{margin-top:0;margin-bottom:0}.mwe-popups svg{overflow:hidden}.mwe-popups.mwe-popups-is-tall{width:450px}.mwe-popups.mwe-popups-is-tall > div > a > svg{vertical-align:middle}.mwe-popups.mwe-popups-is-tall .mwe-popups-extract{width:215px;height:180px;overflow:hidden;float:left}.mwe-popups.mwe-popups-is-tall .mwe-popups-extract + footer{left:0;right:215px}.rtl .mwe-popups.mwe-popups-is-tall .mwe-popups-extract + footer{ right:-12px;width:215px}.mwe-popups.mwe-popups-is-not-tall{width:320px}.mwe-popups.mwe-popups-is-not-tall .mwe-popups-extract{min-height:40px;max-height:140px;overflow:hidden;margin-bottom:47px;padding-bottom:0}.mwe-popups.mwe-popups-is-not-tall footer{width:290px}.mwe-popups .mwe-popups-container.footer-empty .mwe-popups-extract{margin-bottom:16px}.mwe-popups .mwe-popups-container.footer-empty .mwe-popups-extract .mwe-popups-scroll{max-height:379px}.mwe-popups.flipped-y .mwe-popups-container.footer-empty .mwe-popups-extract,.mwe-popups.flipped-x-y .mwe-popups-container.footer-empty .mwe-popups-extract{margin-bottom:24px}.mwe-popups.mwe-popups-type-generic .mwe-popups-extract,.mwe-popups.mwe-popups-type-disambiguation .mwe-popups-extract{min-height:auto;padding-top:4px;margin-top:0;margin-bottom:var(--margin-bottom);--margin-bottom:60px}.mwe-popups.mwe-popups-type-generic .mwe-popups-read-link,.mwe-popups.mwe-popups-type-disambiguation .mwe-popups-read-link{font-weight:bold;font-size:12px}.mwe-popups.mwe-popups-type-generic .mwe-popups-extract:hover + footer .mwe-popups-read-link,.mwe-popups.mwe-popups-type-disambiguation .mwe-popups-extract:hover + footer .mwe-popups-read-link{text-decoration:underline}.mwe-popups.mwe-popups-no-image-pointer:before{content:'';position:absolute;border:8px solid transparent;border-top:0;border-bottom:8px solid rgba(0,0,0,0.07000000000000001);top:-8px;left:10px}.mwe-popups.mwe-popups-no-image-pointer:after{content:'';position:absolute;border:11px solid transparent;border-top:0;border-bottom:11px solid #ffffff;top:-7px;left:7px}.mwe-popups.flipped-x.mwe-popups-no-image-pointer:before{left:auto;right:10px}.mwe-popups.flipped-x.mwe-popups-no-image-pointer:after{left:auto;right:7px}.mwe-popups.mwe-popups-image-pointer:before{content:'';position:absolute;border:9px solid transparent;border-top:0;border-bottom:9px solid #a2a9b1;top:-9px;left:9px;z-index:111}.mwe-popups.mwe-popups-image-pointer:after{content:'';position:absolute;border:12px solid transparent;border-top:0;border-bottom:12px solid #ffffff;top:-8px;left:6px;z-index:112}.mwe-popups.mwe-popups-image-pointer.flipped-x:before{content:'';position:absolute;border:9px solid transparent;border-top:0;border-bottom:9px solid #a2a9b1;top:-9px;left:293px}.mwe-popups.mwe-popups-image-pointer.flipped-x:after{content:'';position:absolute;border:12px solid transparent;border-top:0;border-bottom:12px solid #ffffff;top:-8px;left:290px}.mwe-popups.mwe-popups-image-pointer .mwe-popups-extract{padding-top:16px;margin-top:200px}.mwe-popups.mwe-popups-image-pointer > div > a > svg{margin-top:-8px;position:absolute;z-index:113;left:0}.mwe-popups.flipped-x.mwe-popups-is-tall{min-height:242px}.mwe-popups.flipped-x.mwe-popups-is-tall:before{content:'';position:absolute;border:9px solid transparent;border-top:0;border-bottom:9px solid #a2a9b1;top:-9px;left:420px;z-index:111}.mwe-popups.flipped-x.mwe-popups-is-tall > div > a > svg{margin:0;margin-top:-8px;margin-bottom:-7px;position:absolute;z-index:113;right:0}.mwe-popups.flipped-x-y:before{content:'';position:absolute;border:9px solid transparent;border-bottom:0;border-top:9px solid #a2a9b1;bottom:-9px;left:293px;z-index:111}.mwe-popups.flipped-x-y:after{content:'';position:absolute;border:12px solid transparent;border-bottom:0;border-top:12px solid #ffffff;bottom:-8px;left:290px;z-index:112}.mwe-popups.flipped-x-y.mwe-popups-is-tall{min-height:242px}.mwe-popups.flipped-x-y.mwe-popups-is-tall:before{content:'';position:absolute;border:9px solid transparent;border-bottom:0;border-top:9px solid #a2a9b1;bottom:-9px;left:420px}.mwe-popups.flipped-x-y.mwe-popups-is-tall:after{content:'';position:absolute;border:12px solid transparent;border-bottom:0;border-top:12px solid #ffffff;bottom:-8px;left:417px}.mwe-popups.flipped-x-y.mwe-popups-is-tall > div > a > svg{margin:0;margin-bottom:-9px;position:absolute;z-index:113;right:0}.mwe-popups.flipped-y:before{content:'';position:absolute;border:8px solid transparent;border-bottom:0;border-top:8px solid #a2a9b1;bottom:-8px;left:10px}.mwe-popups.flipped-y:after{content:'';position:absolute;border:11px solid transparent;border-bottom:0;border-top:11px solid #ffffff;bottom:-7px;left:7px}.mwe-popups-is-tall polyline{-webkit-transform:translate(0,0);-ms-transform:translate(0,0);transform:translate(0,0)}.mwe-popups-is-tall.flipped-x-y polyline{-webkit-transform:translate(0,-8px);-ms-transform:translate(0,-8px);transform:translate(0,-8px)}.mwe-popups-is-tall.flipped-x polyline{-webkit-transform:translate(0,8px);-ms-transform:translate(0,8px);transform:translate(0,8px)}.rtl .mwe-popups-is-tall polyline{-webkit-transform:translate(-100%,0);-ms-transform:translate(-100%,0);transform:translate(-100%,0)}.rtl .mwe-popups-is-tall.flipped-x-y polyline{-webkit-transform:translate(-100%,-8px);-ms-transform:translate(-100%,-8px);transform:translate(-100%,-8px)}.rtl .mwe-popups-is-tall.flipped-x polyline{-webkit-transform:translate(-100%,8px);-ms-transform:translate(-100%,8px);transform:translate(-100%,8px)}@supports (clip-path:polygon(1px 1px)){.mwe-popups .mwe-popups-thumbnail{display:block;object-fit:cover;outline:1px solid rgba(0,0,0,0.1)}.mwe-popups .mwe-popups-discreet{margin-bottom:-9px}.mwe-popups .mwe-popups-extract[dir='rtl'] + footer{ left:unset; right:0}.mwe-popups .mwe-popups-extract[dir='rtl'] + footer .mwe-popups-settings-icon{ float:left}.mwe-popups.flipped-y .mwe-popups-discreet,.mwe-popups.flipped-x-y .mwe-popups-discreet{margin-bottom:0}.mwe-popups.flipped-y .mwe-popups-container,.mwe-popups.flipped-x-y .mwe-popups-container{--y1:100%;--y2:calc(100% - var(--pointer-height));--y3:calc(100% - var(--pointer-height) - var(--pseudo-radius));--y4:var(--pseudo-radius);--y5:0;margin-bottom:-9px;margin-top:0}.mwe-popups .mwe-popups-container{--x1:0;--x2:var(--pseudo-radius);--x3:calc(var(--pointer-offset) - (var(--pointer-width) / 2));--x4:var(--pointer-offset);--x5:calc(var(--pointer-offset) + (var(--pointer-width) / 2));--x6:calc(100% - var(--pseudo-radius));--x7:100%;--y1:0;--y2:var(--pointer-height);--y3:calc(var(--pointer-height) + var(--pseudo-radius));--y4:calc(100% - var(--pseudo-radius));--y5:100%;padding-top:0;display:flex;background:#fff;--pseudo-radius:2px;--pointer-height:8px;--pointer-width:16px;--pointer-offset:26px;clip-path:polygon(var(--x2) var(--y2),var(--x3) var(--y2),var(--x4) var(--y1),var(--x5) var(--y2),var(--x6) var(--y2),var(--x7) var(--y3),var(--x7) var(--y4),var(--x6) var(--y5),var(--x2) var(--y5),var(--x1) var(--y4),var(--x1) var(--y3))}.mwe-popups.mwe-popups-is-tall{flex-direction:row}.mwe-popups.mwe-popups-is-tall .mwe-popups-discreet{order:1}.mwe-popups.mwe-popups-is-tall .mwe-popups-discreet .mwe-popups-thumbnail{width:215px;height:250px}.mwe-popups.mwe-popups-is-not-tall .mwe-popups-thumbnail{width:320px;min-height:200px}.mwe-popups.mwe-popups-is-not-tall .mwe-popups-container{flex-direction:column}.mwe-popups:before{display:none}.mwe-popups:after{display:none}.mwe-popups.mwe-popups-image-pointer .mwe-popups-discreet{margin-bottom:0}.mwe-popups.mwe-popups-image-pointer .mwe-popups-extract{margin-top:0}.mwe-popups:not(.flipped-y):not(.flipped-x-y):not(.mwe-popups-image-pointer):not(.mwe-popups-type-disambiguation) .mwe-popups-extract{padding-top:var(--pointer-height)}.mwe-popups.mwe-popups-type-disambiguation:not(.flipped-y):not(.flipped-x-y) .mwe-popups-container{padding-top:var(--pointer-height)}.mwe-popups.mwe-popups-type-disambiguation:not(.flipped-y):not(.flipped-x-y) .mwe-popups-container .mwe-popups-extract{margin-bottom:calc(var(--margin-bottom) - var(--pointer-height))}body.ltr .mwe-popups.flipped-x .mwe-popups-container,body.ltr .mwe-popups.flipped-x-y .mwe-popups-container,body.rtl .mwe-popups:not(.flipped-x):not(.flipped-x-y) .mwe-popups-container{--x3:calc(100% - var(--pointer-offset) - (var(--pointer-width) / 2));--x4:calc(100% - var(--pointer-offset));--x5:calc(100% - var(--pointer-offset) + (var(--pointer-width) / 2))}}.mwe-popups .mwe-popups-title{display:block;font-weight:bold;margin:0 16px}#mw-content-text .reference a[href*='#'] *{pointer-events:none}.mwe-popups.mwe-popups-type-reference .mwe-popups-title{margin:0 0 12px 0}.mwe-popups.mwe-popups-type-reference .mwe-popups-title .mw-ui-icon{padding:0 8px 0 0}.mwe-popups.mwe-popups-type-reference .mwe-popups-title .mw-ui-icon:hover{ background-color:transparent !important}.mwe-popups.mwe-popups-type-reference .mwe-popups-title .mw-ui-icon-reference-note{display:none}.mwe-popups.mwe-popups-type-reference .mwe-popups-extract{margin-right:0;max-height:inherit}.mwe-popups.mwe-popups-type-reference .mwe-popups-extract .mwe-popups-scroll{max-height:348px;overflow:auto;padding-right:16px}.mwe-popups.mwe-popups-type-reference .mwe-popups-extract .mw-parser-output{overflow-wrap:break-word}.mwe-popups.mwe-popups-type-reference .mwe-popups-extract:after{display:none}.mwe-popups.mwe-popups-type-reference .mwe-popups-extract .mwe-popups-fade{position:absolute;width:100%;height:20px;background-color:transparent;background-image:-webkit-linear-gradient(top,rgba(255,255,255,0),#ffffff);background-image:linear-gradient(rgba(255,255,255,0),#ffffff);opacity:0;pointer-events:none;-webkit-transition:opacity 250ms ease;transition:opacity 250ms ease}.mwe-popups.mwe-popups-type-reference .mwe-popups-extract.mwe-popups-fade-out .mwe-popups-fade{opacity:1}.mwe-popups.mwe-popups-type-reference .mwe-collapsible-placeholder{font-weight:bold;margin:1em 0;position:relative}.mwe-popups.mwe-popups-type-reference .mwe-collapsible-placeholder .mw-ui-icon{margin-left:-0.78em;position:absolute}.mwe-popups.mwe-popups-type-reference .mwe-collapsible-placeholder .mwe-collapsible-placeholder-label{margin-left:2.5em}.mwe-popups-overlay{background-color:rgba(255,255,255,0.9);z-index:999;position:fixed;height:100%;width:100%;top:0;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center}#mwe-popups-svg{position:absolute;top:-1000px}</style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="ref12_files/load.css">
+<meta name="generator" content="MediaWiki 1.37.0-wmf.16">
+<meta name="referrer" content="origin">
+<meta name="referrer" content="origin-when-crossorigin">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="format-detection" content="telephone=no">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Deep_belief_net.svg/1200px-Deep_belief_net.svg.png">
+<meta property="og:title" content="Deep belief network - Wikipedia">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://upload.wikimedia.org/">
+<link rel="alternate" media="only screen and (max-width: 720px)" href="https://en.m.wikipedia.org/wiki/Deep_belief_network">
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="https://en.wikipedia.org/w/index.php?title=Deep_belief_network&amp;action=edit">
+<link rel="edit" title="Edit this page" href="https://en.wikipedia.org/w/index.php?title=Deep_belief_network&amp;action=edit">
+<link rel="apple-touch-icon" href="https://en.wikipedia.org/static/apple-touch/wikipedia.png">
+<link rel="shortcut icon" href="https://en.wikipedia.org/static/favicon/wikipedia.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="https://en.wikipedia.org/w/opensearch_desc.php" title="Wikipedia (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://en.wikipedia.org/w/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="canonical" href="https://en.wikipedia.org/wiki/Deep_belief_network">
+<link rel="dns-prefetch" href="https://login.wikimedia.org/">
+<link rel="dns-prefetch" href="https://meta.wikimedia.org/">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject mw-editable page-Deep_belief_network rootpage-Deep_belief_network skin-vector action-view skin-vector-legacy"><div id="mw-page-base" class="noprint"></div>
+<div id="mw-head-base" class="noprint"></div>
+<div id="content" class="mw-body" role="main">
+	<a id="top"></a>
+	<div id="siteNotice"><div id="centralNotice"></div><!-- CentralNotice --></div>
+	<div class="mw-indicators">
+	</div>
+	<h1 id="firstHeading" class="firstHeading">Deep belief network</h1>
+	<div id="bodyContent" class="vector-body">
+		<div id="siteSub" class="noprint">From Wikipedia, the free encyclopedia</div>
+		<div id="contentSub"></div>
+		<div id="contentSub2"></div>
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#searchInput">Jump to search</a>
+		<div id="mw-content-text" class="mw-body-content mw-content-ltr" dir="ltr" lang="en"><div class="mw-parser-output"><div class="shortdescription nomobile noexcerpt noprint searchaux" style="display:none">Type of artificial neural network</div>
+<div class="thumb tright"><div class="thumbinner" style="width:222px;"><a href="https://en.wikipedia.org/wiki/File:Deep_belief_net.svg" class="image"><img alt="" src="ref12_files/220px-Deep_belief_net.png" decoding="async" class="thumbimage" srcset="ref12_files/330px-Deep_belief_net.png 1.5x, ref12_files/440px-Deep_belief_net.png 2x" data-file-width="230" data-file-height="345" width="220" height="330"></a>  <div class="thumbcaption"><div class="magnify"><a href="https://en.wikipedia.org/wiki/File:Deep_belief_net.svg" class="internal" title="Enlarge"></a></div>Schematic overview of a deep belief net. Arrows represent directed connections in the <a href="https://en.wikipedia.org/wiki/Graphical_model" title="Graphical model">graphical model</a> that the net represents.</div></div></div>
+<style data-mw-deduplicate="TemplateStyles:r1036825371">.mw-parser-output .sidebar{width:22em;float:right;clear:right;margin:0.5em 0 1em 1em;background:#f8f9fa;border:1px solid #aaa;padding:0.2em;text-align:center;line-height:1.4em;font-size:88%;border-collapse:collapse;display:table}body.skin-minerva .mw-parser-output .sidebar{display:table!important;float:right!important;margin:0.5em 0 1em 1em!important}.mw-parser-output .sidebar-subgroup{width:100%;margin:0;border-spacing:0}.mw-parser-output .sidebar-left{float:left;clear:left;margin:0.5em 1em 1em 0}.mw-parser-output .sidebar-none{float:none;clear:both;margin:0.5em 1em 1em 0}.mw-parser-output .sidebar-outer-title{padding:0 0.4em 0.2em;font-size:125%;line-height:1.2em;font-weight:bold}.mw-parser-output .sidebar-top-image{padding:0.4em}.mw-parser-output .sidebar-top-caption,.mw-parser-output .sidebar-pretitle-with-top-image,.mw-parser-output .sidebar-caption{padding:0.2em 0.4em 0;line-height:1.2em}.mw-parser-output .sidebar-pretitle{padding:0.4em 0.4em 0;line-height:1.2em}.mw-parser-output .sidebar-title,.mw-parser-output .sidebar-title-with-pretitle{padding:0.2em 0.8em;font-size:145%;line-height:1.2em}.mw-parser-output .sidebar-title-with-pretitle{padding:0 0.4em}.mw-parser-output .sidebar-image{padding:0.2em 0.4em 0.4em}.mw-parser-output .sidebar-heading{padding:0.1em 0.4em}.mw-parser-output .sidebar-content{padding:0 0.5em 0.4em}.mw-parser-output .sidebar-content-with-subgroup{padding:0.1em 0.4em 0.2em}.mw-parser-output .sidebar-above,.mw-parser-output .sidebar-below{padding:0.3em 0.8em;font-weight:bold}.mw-parser-output .sidebar-collapse .sidebar-above,.mw-parser-output .sidebar-collapse .sidebar-below{border-top:1px solid #aaa;border-bottom:1px solid #aaa}.mw-parser-output .sidebar-navbar{text-align:right;font-size:115%;padding:0 0.4em 0.4em}.mw-parser-output .sidebar-list-title{padding:0 0.4em;text-align:left;font-weight:bold;line-height:1.6em;font-size:105%}.mw-parser-output .sidebar-list-title-c{padding:0 0.4em;text-align:center;margin:0 3.3em}@media(max-width:720px){body.mediawiki .mw-parser-output .sidebar{width:100%!important;clear:both;float:none!important;margin-left:0!important;margin-right:0!important}}</style><table class="sidebar sidebar-collapse nomobile nowraplinks"><tbody><tr><td class="sidebar-pretitle">Part of a series on</td></tr><tr><th class="sidebar-title-with-pretitle"><a href="https://en.wikipedia.org/wiki/Machine_learning" title="Machine learning">Machine learning</a><br>and <a href="https://en.wikipedia.org/wiki/Data_mining" title="Data mining">data mining</a></th></tr><tr><td class="sidebar-image"><a href="https://en.wikipedia.org/wiki/File:Multi-Layer_Neural_Network-Vector-Blank.svg" class="image"><img alt="Multi-Layer Neural Network-Vector-Blank.svg" src="ref12_files/150px-Multi-Layer_Neural_Network-Vector-Blank.webp" decoding="async" srcset="ref12_files/225px-Multi-Layer_Neural_Network-Vector-Blank.png 1.5x, ref12_files/300px-Multi-Layer_Neural_Network-Vector-Blank.png 2x" data-file-width="815" data-file-height="390" width="150" height="72"></a></td></tr><tr><td class="sidebar-content">
+<div class="sidebar-list mw-collapsible mw-made-collapsible"><span class="mw-collapsible-toggle mw-collapsible-toggle-default" role="button" tabindex="0" aria-expanded="true"><a class="mw-collapsible-text">hide</a></span><div class="sidebar-list-title" style="background:transparent;border-top:1px solid #aaa;text-align:center;">Problems</div><div class="sidebar-list-content mw-collapsible-content hlist">
+<ul><li><a href="https://en.wikipedia.org/wiki/Statistical_classification" title="Statistical classification">Classification</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Cluster_analysis" title="Cluster analysis">Clustering</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Regression_analysis" title="Regression analysis">Regression</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Anomaly_detection" title="Anomaly detection">Anomaly detection</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Automated_machine_learning" title="Automated machine learning">AutoML</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Association_rule_learning" title="Association rule learning">Association rules</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Reinforcement_learning" title="Reinforcement learning">Reinforcement learning</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Structured_prediction" title="Structured prediction">Structured prediction</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Feature_engineering" title="Feature engineering">Feature engineering</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Feature_learning" title="Feature learning">Feature learning</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Online_machine_learning" title="Online machine learning">Online learning</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Semi-supervised_learning" title="Semi-supervised learning">Semi-supervised learning</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Unsupervised_learning" title="Unsupervised learning">Unsupervised learning</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Learning_to_rank" title="Learning to rank">Learning to rank</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Grammar_induction" title="Grammar induction">Grammar induction</a></li></ul></div></div></td>
+</tr><tr><td class="sidebar-content">
+<div class="sidebar-list mw-collapsible mw-made-collapsible"><span class="mw-collapsible-toggle mw-collapsible-toggle-default" role="button" tabindex="0" aria-expanded="true"><a class="mw-collapsible-text">hide</a></span><div class="sidebar-list-title" style="background:transparent;border-top:1px solid #aaa;text-align:center;"><div style="display:inline-block; padding:0.1em 0;line-height:1.2em;"><a href="https://en.wikipedia.org/wiki/Supervised_learning" title="Supervised learning">Supervised learning</a><br><style data-mw-deduplicate="TemplateStyles:r886047488">.mw-parser-output .nobold{font-weight:normal}</style><span class="nobold"><span style="font-size:85%;">(<b><a href="https://en.wikipedia.org/wiki/Statistical_classification" title="Statistical classification">classification</a></b>&nbsp;• <b><a href="https://en.wikipedia.org/wiki/Regression_analysis" title="Regression analysis">regression</a></b>)</span></span> </div></div><div class="sidebar-list-content mw-collapsible-content hlist">
+<ul><li><a href="https://en.wikipedia.org/wiki/Decision_tree_learning" title="Decision tree learning">Decision trees</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Ensemble_learning" title="Ensemble learning">Ensembles</a>
+<ul><li><a href="https://en.wikipedia.org/wiki/Bootstrap_aggregating" title="Bootstrap aggregating">Bagging</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Boosting_(machine_learning)" title="Boosting (machine learning)">Boosting</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Random_forest" title="Random forest">Random forest</a></li></ul></li>
+<li><a href="https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm" title="K-nearest neighbors algorithm"><i>k</i>-NN</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Linear_regression" title="Linear regression">Linear regression</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Naive_Bayes_classifier" title="Naive Bayes classifier">Naive Bayes</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Artificial_neural_network" title="Artificial neural network">Artificial neural networks</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Logistic_regression" title="Logistic regression">Logistic regression</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Perceptron" title="Perceptron">Perceptron</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Relevance_vector_machine" title="Relevance vector machine">Relevance vector machine (RVM)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Support-vector_machine" title="Support-vector machine">Support vector machine (SVM)</a></li></ul></div></div></td>
+</tr><tr><td class="sidebar-content">
+<div class="sidebar-list mw-collapsible mw-made-collapsible"><span class="mw-collapsible-toggle mw-collapsible-toggle-default" role="button" tabindex="0" aria-expanded="true"><a class="mw-collapsible-text">hide</a></span><div class="sidebar-list-title" style="background:transparent;border-top:1px solid #aaa;text-align:center;"><a href="https://en.wikipedia.org/wiki/Cluster_analysis" title="Cluster analysis">Clustering</a></div><div class="sidebar-list-content mw-collapsible-content hlist">
+<ul><li><a href="https://en.wikipedia.org/wiki/BIRCH" title="BIRCH">BIRCH</a></li>
+<li><a href="https://en.wikipedia.org/wiki/CURE_algorithm" title="CURE algorithm">CURE</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Hierarchical_clustering" title="Hierarchical clustering">Hierarchical</a></li>
+<li><a href="https://en.wikipedia.org/wiki/K-means_clustering" title="K-means clustering"><i>k</i>-means</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm" title="Expectation–maximization algorithm">Expectation–maximization (EM)</a></li>
+<li><br><a href="https://en.wikipedia.org/wiki/DBSCAN" title="DBSCAN">DBSCAN</a></li>
+<li><a href="https://en.wikipedia.org/wiki/OPTICS_algorithm" title="OPTICS algorithm">OPTICS</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Mean_shift" title="Mean shift">Mean shift</a></li></ul></div></div></td>
+</tr><tr><td class="sidebar-content">
+<div class="sidebar-list mw-collapsible mw-made-collapsible"><span class="mw-collapsible-toggle mw-collapsible-toggle-default" role="button" tabindex="0" aria-expanded="true"><a class="mw-collapsible-text">hide</a></span><div class="sidebar-list-title" style="background:transparent;border-top:1px solid #aaa;text-align:center;"><a href="https://en.wikipedia.org/wiki/Dimensionality_reduction" title="Dimensionality reduction">Dimensionality reduction</a></div><div class="sidebar-list-content mw-collapsible-content hlist">
+<ul><li><a href="https://en.wikipedia.org/wiki/Factor_analysis" title="Factor analysis">Factor analysis</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Canonical_correlation" title="Canonical correlation">CCA</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Independent_component_analysis" title="Independent component analysis">ICA</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Linear_discriminant_analysis" title="Linear discriminant analysis">LDA</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Non-negative_matrix_factorization" title="Non-negative matrix factorization">NMF</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Principal_component_analysis" title="Principal component analysis">PCA</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Proper_generalized_decomposition" title="Proper generalized decomposition">PGD</a></li>
+<li><a href="https://en.wikipedia.org/wiki/T-distributed_stochastic_neighbor_embedding" title="T-distributed stochastic neighbor embedding">t-SNE</a></li></ul></div></div></td>
+</tr><tr><td class="sidebar-content">
+<div class="sidebar-list mw-collapsible mw-made-collapsible"><span class="mw-collapsible-toggle mw-collapsible-toggle-default" role="button" tabindex="0" aria-expanded="true"><a class="mw-collapsible-text">hide</a></span><div class="sidebar-list-title" style="background:transparent;border-top:1px solid #aaa;text-align:center;"><a href="https://en.wikipedia.org/wiki/Structured_prediction" title="Structured prediction">Structured prediction</a></div><div class="sidebar-list-content mw-collapsible-content hlist">
+<ul><li><a href="https://en.wikipedia.org/wiki/Graphical_model" title="Graphical model">Graphical models</a>
+<ul><li><a href="https://en.wikipedia.org/wiki/Bayesian_network" title="Bayesian network">Bayes net</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Conditional_random_field" title="Conditional random field">Conditional random field</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Hidden_Markov_model" title="Hidden Markov model">Hidden Markov</a></li></ul></li></ul></div></div></td>
+</tr><tr><td class="sidebar-content">
+<div class="sidebar-list mw-collapsible mw-made-collapsible"><span class="mw-collapsible-toggle mw-collapsible-toggle-default" role="button" tabindex="0" aria-expanded="true"><a class="mw-collapsible-text">hide</a></span><div class="sidebar-list-title" style="background:transparent;border-top:1px solid #aaa;text-align:center;"><a href="https://en.wikipedia.org/wiki/Anomaly_detection" title="Anomaly detection">Anomaly detection</a></div><div class="sidebar-list-content mw-collapsible-content hlist">
+<ul><li><a href="https://en.wikipedia.org/wiki/K-nearest_neighbors_classification" class="mw-redirect" title="K-nearest neighbors classification"><i>k</i>-NN</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Local_outlier_factor" title="Local outlier factor">Local outlier factor</a></li></ul></div></div></td>
+</tr><tr><td class="sidebar-content">
+<div class="sidebar-list mw-collapsible mw-made-collapsible"><span class="mw-collapsible-toggle mw-collapsible-toggle-default" role="button" tabindex="0" aria-expanded="true"><a class="mw-collapsible-text">hide</a></span><div class="sidebar-list-title" style="background:transparent;border-top:1px solid #aaa;text-align:center;"><a href="https://en.wikipedia.org/wiki/Artificial_neural_network" title="Artificial neural network">Artificial neural network</a></div><div class="sidebar-list-content mw-collapsible-content hlist">
+<ul><li><a href="https://en.wikipedia.org/wiki/Autoencoder" title="Autoencoder">Autoencoder</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Cognitive_computing" title="Cognitive computing">Cognitive computing</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Deep_learning" title="Deep learning">Deep learning</a></li>
+<li><a href="https://en.wikipedia.org/wiki/DeepDream" title="DeepDream">DeepDream</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Multilayer_perceptron" title="Multilayer perceptron">Multilayer perceptron</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Recurrent_neural_network" title="Recurrent neural network">RNN</a>
+<ul><li><a href="https://en.wikipedia.org/wiki/Long_short-term_memory" title="Long short-term memory">LSTM</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Gated_recurrent_unit" title="Gated recurrent unit">GRU</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Echo_state_network" title="Echo state network">ESN</a></li></ul></li>
+<li><a href="https://en.wikipedia.org/wiki/Restricted_Boltzmann_machine" title="Restricted Boltzmann machine">Restricted Boltzmann machine</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Generative_adversarial_network" title="Generative adversarial network">GAN</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Self-organizing_map" title="Self-organizing map">SOM</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Convolutional_neural_network" title="Convolutional neural network">Convolutional neural network</a>
+<ul><li><a href="https://en.wikipedia.org/wiki/U-Net" title="U-Net">U-Net</a></li></ul></li>
+<li><a href="https://en.wikipedia.org/wiki/Transformer_(machine_learning_model)" title="Transformer (machine learning model)">Transformer</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Spiking_neural_network" title="Spiking neural network">Spiking neural network</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Memtransistor" title="Memtransistor">Memtransistor</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Electrochemical_RAM" title="Electrochemical RAM">Electrochemical RAM</a> (ECRAM)</li></ul></div></div></td>
+</tr><tr><td class="sidebar-content">
+<div class="sidebar-list mw-collapsible mw-made-collapsible"><span class="mw-collapsible-toggle mw-collapsible-toggle-default" role="button" tabindex="0" aria-expanded="true"><a class="mw-collapsible-text">hide</a></span><div class="sidebar-list-title" style="background:transparent;border-top:1px solid #aaa;text-align:center;"><a href="https://en.wikipedia.org/wiki/Reinforcement_learning" title="Reinforcement learning">Reinforcement learning</a></div><div class="sidebar-list-content mw-collapsible-content hlist">
+<ul><li><a href="https://en.wikipedia.org/wiki/Q-learning" title="Q-learning">Q-learning</a></li>
+<li><a href="https://en.wikipedia.org/wiki/State%E2%80%93action%E2%80%93reward%E2%80%93state%E2%80%93action" title="State–action–reward–state–action">SARSA</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Temporal_difference_learning" title="Temporal difference learning">Temporal difference (TD)</a></li></ul></div></div></td>
+</tr><tr><td class="sidebar-content">
+<div class="sidebar-list mw-collapsible mw-made-collapsible"><span class="mw-collapsible-toggle mw-collapsible-toggle-default" role="button" tabindex="0" aria-expanded="true"><a class="mw-collapsible-text">hide</a></span><div class="sidebar-list-title" style="background:transparent;border-top:1px solid #aaa;text-align:center;">Theory</div><div class="sidebar-list-content mw-collapsible-content hlist">
+<ul><li><a href="https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff" title="Bias–variance tradeoff">Bias–variance tradeoff</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Computational_learning_theory" title="Computational learning theory">Computational learning theory</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Empirical_risk_minimization" title="Empirical risk minimization">Empirical risk minimization</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Occam_learning" title="Occam learning">Occam learning</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Probably_approximately_correct_learning" title="Probably approximately correct learning">PAC learning</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Statistical_learning_theory" title="Statistical learning theory">Statistical learning</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Vapnik%E2%80%93Chervonenkis_theory" title="Vapnik–Chervonenkis theory">VC theory</a></li></ul></div></div></td>
+</tr><tr><td class="sidebar-content">
+<div class="sidebar-list mw-collapsible mw-made-collapsible"><span class="mw-collapsible-toggle mw-collapsible-toggle-default" role="button" tabindex="0" aria-expanded="true"><a class="mw-collapsible-text">hide</a></span><div class="sidebar-list-title" style="background:transparent;border-top:1px solid #aaa;text-align:center;">Machine-learning venues</div><div class="sidebar-list-content mw-collapsible-content hlist">
+<ul><li><a href="https://en.wikipedia.org/wiki/Conference_on_Neural_Information_Processing_Systems" title="Conference on Neural Information Processing Systems">NeurIPS</a></li>
+<li><a href="https://en.wikipedia.org/wiki/International_Conference_on_Machine_Learning" title="International Conference on Machine Learning">ICML</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Machine_Learning_(journal)" title="Machine Learning (journal)">ML</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Journal_of_Machine_Learning_Research" title="Journal of Machine Learning Research">JMLR</a></li>
+<li><a rel="nofollow" class="external text" href="https://arxiv.org/list/cs.LG/recent">ArXiv:cs.LG</a></li></ul></div></div></td>
+</tr><tr><td class="sidebar-content">
+<div class="sidebar-list mw-collapsible mw-made-collapsible"><span class="mw-collapsible-toggle mw-collapsible-toggle-default" role="button" tabindex="0" aria-expanded="true"><a class="mw-collapsible-text">hide</a></span><div class="sidebar-list-title" style="background:transparent;border-top:1px solid #aaa;text-align:center;">Related articles</div><div class="sidebar-list-content mw-collapsible-content hlist">
+<ul><li><a href="https://en.wikipedia.org/wiki/Glossary_of_artificial_intelligence" title="Glossary of artificial intelligence">Glossary of artificial intelligence</a></li>
+<li><a href="https://en.wikipedia.org/wiki/List_of_datasets_for_machine-learning_research" title="List of datasets for machine-learning research">List of datasets for machine-learning research</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Outline_of_machine_learning" title="Outline of machine learning">Outline of machine learning</a></li></ul></div></div></td>
+</tr><tr><td class="sidebar-navbar"><style data-mw-deduplicate="TemplateStyles:r992953826">.mw-parser-output .navbar{display:inline;font-size:88%;font-weight:normal}.mw-parser-output .navbar-collapse{float:left;text-align:left}.mw-parser-output .navbar-boxtext{word-spacing:0}.mw-parser-output .navbar ul{display:inline-block;white-space:nowrap;line-height:inherit}.mw-parser-output .navbar-brackets::before{margin-right:-0.125em;content:"[ "}.mw-parser-output .navbar-brackets::after{margin-left:-0.125em;content:" ]"}.mw-parser-output .navbar li{word-spacing:-0.125em}.mw-parser-output .navbar-mini abbr{font-variant:small-caps;border-bottom:none;text-decoration:none;cursor:inherit}.mw-parser-output .navbar-ct-full{font-size:114%;margin:0 7em}.mw-parser-output .navbar-ct-mini{font-size:114%;margin:0 4em}.mw-parser-output .infobox .navbar{font-size:100%}.mw-parser-output .navbox .navbar{display:block;font-size:100%}.mw-parser-output .navbox-title .navbar{float:left;text-align:left;margin-right:0.5em}</style><div class="navbar plainlinks hlist navbar-mini"><ul><li class="nv-view"><a href="https://en.wikipedia.org/wiki/Template:Machine_learning" title="Template:Machine learning"><abbr title="View this template">v</abbr></a></li><li class="nv-talk"><a href="https://en.wikipedia.org/wiki/Template_talk:Machine_learning" title="Template talk:Machine learning"><abbr title="Discuss this template">t</abbr></a></li><li class="nv-edit"><a class="external text" href="https://en.wikipedia.org/w/index.php?title=Template:Machine_learning&amp;action=edit"><abbr title="Edit this template">e</abbr></a></li></ul></div></td></tr></tbody></table>
+<p>In <a href="https://en.wikipedia.org/wiki/Machine_learning" title="Machine learning">machine learning</a>, a <b>deep belief network</b> (<b>DBN</b>) is a <a href="https://en.wikipedia.org/wiki/Generative_model" title="Generative model">generative</a> <a href="https://en.wikipedia.org/wiki/Graphical_model" title="Graphical model">graphical model</a>, or alternatively a class of <a href="https://en.wikipedia.org/wiki/Deep_learning" title="Deep learning">deep</a> <a href="https://en.wikipedia.org/wiki/Artificial_neural_network" title="Artificial neural network">neural network</a>, composed of multiple layers of <a href="https://en.wikipedia.org/wiki/Latent_variables" class="mw-redirect" title="Latent variables">latent variables</a> ("hidden units"), with connections between the layers but not between units within each layer.<sup id="cite_ref-scholar_1-0" class="reference"><a href="#cite_note-scholar-1">[1]</a></sup>
+</p><p>When trained on a <a href="https://en.wikipedia.org/wiki/Training_set" class="mw-redirect" title="Training set">set of examples</a> <a href="https://en.wikipedia.org/wiki/Unsupervised_learning" title="Unsupervised learning">without supervision</a>, a DBN can learn to probabilistically reconstruct its inputs. The layers then act as <a href="https://en.wikipedia.org/wiki/Feature_learning" title="Feature learning">feature detectors</a>.<sup id="cite_ref-scholar_1-1" class="reference"><a href="#cite_note-scholar-1">[1]</a></sup> After this learning step, a DBN can be further trained with <a href="https://en.wikipedia.org/wiki/Supervised_learning" title="Supervised learning">supervision</a> to perform <a href="https://en.wikipedia.org/wiki/Statistical_classification" title="Statistical classification">classification</a>.<sup id="cite_ref-hinton06_2-0" class="reference"><a href="#cite_note-hinton06-2">[2]</a></sup>
+</p><p>DBNs can be viewed as a composition of simple, unsupervised networks such as <a href="https://en.wikipedia.org/wiki/Restricted_Boltzmann_machine" title="Restricted Boltzmann machine">restricted Boltzmann machines</a> (RBMs)<sup id="cite_ref-scholar_1-2" class="reference"><a href="#cite_note-scholar-1">[1]</a></sup> or <a href="https://en.wikipedia.org/wiki/Autoencoder" title="Autoencoder">autoencoders</a>,<sup id="cite_ref-3" class="reference"><a href="#cite_note-3">[3]</a></sup> where each sub-network's hidden layer serves as the visible layer for the next. An RBM is an <a href="https://en.wikipedia.org/wiki/Undirected_graph" class="mw-redirect" title="Undirected graph">undirected</a>,
+ generative energy-based model with a "visible" input layer and a hidden
+ layer and connections between but not within layers. This composition 
+leads to a fast, layer-by-layer unsupervised training procedure, where <a href="https://en.wikipedia.org/wiki/Contrastive_divergence" class="mw-redirect" title="Contrastive divergence">contrastive divergence</a> is applied to each sub-network in turn, starting from the "lowest" pair of layers (the lowest visible layer is a <a href="https://en.wikipedia.org/wiki/Training_set" class="mw-redirect" title="Training set">training set</a>).
+</p><p>The observation<sup id="cite_ref-hinton06_2-1" class="reference"><a href="#cite_note-hinton06-2">[2]</a></sup> that DBNs can be trained <a href="https://en.wikipedia.org/wiki/Greedy_algorithm" title="Greedy algorithm">greedily</a>, one layer at a time, led to one of the first effective <a href="https://en.wikipedia.org/wiki/Deep_learning" title="Deep learning">deep learning</a> algorithms.<sup id="cite_ref-4" class="reference"><a href="#cite_note-4">[4]</a></sup><sup class="reference" style="white-space:nowrap;">:<span>6</span></sup> Overall, there are many attractive implementations and uses of DBNs in real-life applications and scenarios (e.g., <a href="https://en.wikipedia.org/wiki/Electroencephalography" title="Electroencephalography">electroencephalography</a>,<sup id="cite_ref-5" class="reference"><a href="#cite_note-5">[5]</a></sup> <a href="https://en.wikipedia.org/wiki/Drug_discovery" title="Drug discovery">drug discovery</a><sup id="cite_ref-6" class="reference"><a href="#cite_note-6">[6]</a></sup><sup id="cite_ref-7" class="reference"><a href="#cite_note-7">[7]</a></sup><sup id="cite_ref-8" class="reference"><a href="#cite_note-8">[8]</a></sup>).
+</p>
+<div id="toc" class="toc" role="navigation" aria-labelledby="mw-toc-heading"><input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" dir="ltr" lang="en"><h2 id="mw-toc-heading">Contents</h2><span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Training"><span class="tocnumber">1</span> <span class="toctext">Training</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#See_also"><span class="tocnumber">2</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#References"><span class="tocnumber">3</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#External_links"><span class="tocnumber">4</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Training">Training</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Deep_belief_network&amp;action=edit&amp;section=1" title="Edit section: Training">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:222px;"><a href="https://en.wikipedia.org/wiki/File:Restricted_Boltzmann_machine.svg" class="image"><img alt="" src="ref12_files/220px-Restricted_Boltzmann_machine.png" decoding="async" class="thumbimage" srcset="ref12_files/330px-Restricted_Boltzmann_machine.png 1.5x, ref12_files/440px-Restricted_Boltzmann_machine.png 2x" data-file-width="310" data-file-height="330" width="220" height="234"></a>  <div class="thumbcaption"><div class="magnify"><a href="https://en.wikipedia.org/wiki/File:Restricted_Boltzmann_machine.svg" class="internal" title="Enlarge"></a></div>A <a href="https://en.wikipedia.org/wiki/Restricted_Boltzmann_machine" title="Restricted Boltzmann machine">restricted Boltzmann machine</a> (RBM) with fully connected visible and hidden units. Note there are no hidden-hidden or visible-visible connections.</div></div></div>
+<p>The training method for RBMs proposed by <a href="https://en.wikipedia.org/wiki/Geoffrey_Hinton" title="Geoffrey Hinton">Geoffrey Hinton</a> for use with training "Product of Expert" models is called <a href="https://en.wikipedia.org/wiki/Contrastive_divergence" class="mw-redirect" title="Contrastive divergence">contrastive divergence</a> (CD).<sup id="cite_ref-POE_9-0" class="reference"><a href="#cite_note-POE-9">[9]</a></sup> CD provides an approximation to the <a href="https://en.wikipedia.org/wiki/Maximum_likelihood" class="mw-redirect" title="Maximum likelihood">maximum likelihood</a> method that would ideally be applied for learning the weights.<sup id="cite_ref-RBMTRAIN2_10-0" class="reference"><a href="#cite_note-RBMTRAIN2-10">[10]</a></sup><sup id="cite_ref-RBMTutorial_11-0" class="reference"><a href="#cite_note-RBMTutorial-11">[11]</a></sup> In training a single RBM, weight updates are performed with <a href="https://en.wikipedia.org/wiki/Gradient_descent" title="Gradient descent">gradient descent</a> via the following equation: <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle w_{ij}(t+1)=w_{ij}(t)+\eta {\frac {\partial \log(p(v))}{\partial w_{ij}}}}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <msub>
+          <mi>w</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo stretchy="false">(</mo>
+        <mi>t</mi>
+        <mo>+</mo>
+        <mn>1</mn>
+        <mo stretchy="false">)</mo>
+        <mo>=</mo>
+        <msub>
+          <mi>w</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo stretchy="false">(</mo>
+        <mi>t</mi>
+        <mo stretchy="false">)</mo>
+        <mo>+</mo>
+        <mi>η<!-- η --></mi>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mfrac>
+            <mrow>
+              <mi mathvariant="normal">∂<!-- ∂ --></mi>
+              <mi>log</mi>
+              <mo>⁡<!-- ⁡ --></mo>
+              <mo stretchy="false">(</mo>
+              <mi>p</mi>
+              <mo stretchy="false">(</mo>
+              <mi>v</mi>
+              <mo stretchy="false">)</mo>
+              <mo stretchy="false">)</mo>
+            </mrow>
+            <mrow>
+              <mi mathvariant="normal">∂<!-- ∂ --></mi>
+              <msub>
+                <mi>w</mi>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi>i</mi>
+                  <mi>j</mi>
+                </mrow>
+              </msub>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle w_{ij}(t+1)=w_{ij}(t)+\eta {\frac {\partial \log(p(v))}{\partial w_{ij}}}}</annotation>
+  </semantics>
+</math></span><img src="ref12_files/6f829fc36461cbba37a89ed9ae9949fefe0c9c46.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -2.671ex; width:34.12ex; height:6.509ex;" alt="{\displaystyle w_{ij}(t+1)=w_{ij}(t)+\eta {\frac {\partial \log(p(v))}{\partial w_{ij}}}}"></span>
+</p><p>where, <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle p(v)}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <mi>p</mi>
+        <mo stretchy="false">(</mo>
+        <mi>v</mi>
+        <mo stretchy="false">)</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle p(v)}</annotation>
+  </semantics>
+</math></span><img src="ref12_files/cb3343f9429260136b52fb9e6544e19d8a0c0f7f.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; margin-left: -0.089ex; width:4.196ex; height:2.843ex;" alt="p(v)"></span> is the probability of a visible vector, which is given by <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle p(v)={\frac {1}{Z}}\sum _{h}e^{-E(v,h)}}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <mi>p</mi>
+        <mo stretchy="false">(</mo>
+        <mi>v</mi>
+        <mo stretchy="false">)</mo>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mfrac>
+            <mn>1</mn>
+            <mi>Z</mi>
+          </mfrac>
+        </mrow>
+        <munder>
+          <mo>∑<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>h</mi>
+          </mrow>
+        </munder>
+        <msup>
+          <mi>e</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mo>−<!-- − --></mo>
+            <mi>E</mi>
+            <mo stretchy="false">(</mo>
+            <mi>v</mi>
+            <mo>,</mo>
+            <mi>h</mi>
+            <mo stretchy="false">)</mo>
+          </mrow>
+        </msup>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle p(v)={\frac {1}{Z}}\sum _{h}e^{-E(v,h)}}</annotation>
+  </semantics>
+</math></span><img src="ref12_files/4171a11269b0edc843ff07d13633137486ff98db.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -3.005ex; margin-left: -0.089ex; width:21.271ex; height:6.343ex;" alt="p(v)={\frac {1}{Z}}\sum _{h}e^{-E(v,h)}"></span>. <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle Z}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <mi>Z</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle Z}</annotation>
+  </semantics>
+</math></span><img src="ref12_files/1cc6b75e09a8aa3f04d8584b11db534f88fb56bd.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width:1.68ex; height:2.176ex;" alt="Z"></span> is the partition function (used for normalizing) and <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle E(v,h)}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <mi>E</mi>
+        <mo stretchy="false">(</mo>
+        <mi>v</mi>
+        <mo>,</mo>
+        <mi>h</mi>
+        <mo stretchy="false">)</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle E(v,h)}</annotation>
+  </semantics>
+</math></span><img src="ref12_files/2ef506fe7ef776f665a065a9e8d46fb21a1e1fc8.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width:7.085ex; height:2.843ex;" alt="E(v,h)"></span>
+ is the energy function assigned to the state of the network. A lower 
+energy indicates the network is in a more "desirable" configuration. The
+ gradient <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle {\frac {\partial \log(p(v))}{\partial w_{ij}}}}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mfrac>
+            <mrow>
+              <mi mathvariant="normal">∂<!-- ∂ --></mi>
+              <mi>log</mi>
+              <mo>⁡<!-- ⁡ --></mo>
+              <mo stretchy="false">(</mo>
+              <mi>p</mi>
+              <mo stretchy="false">(</mo>
+              <mi>v</mi>
+              <mo stretchy="false">)</mo>
+              <mo stretchy="false">)</mo>
+            </mrow>
+            <mrow>
+              <mi mathvariant="normal">∂<!-- ∂ --></mi>
+              <msub>
+                <mi>w</mi>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi>i</mi>
+                  <mi>j</mi>
+                </mrow>
+              </msub>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {\frac {\partial \log(p(v))}{\partial w_{ij}}}}</annotation>
+  </semantics>
+</math></span><img src="ref12_files/42a24f3e794f23f4beb6b88d10a76787a360f41a.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -2.671ex; width:11.429ex; height:6.509ex;" alt="{\frac {\partial \log(p(v))}{\partial w_{ij}}}"></span> has the simple form <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle \langle v_{i}h_{j}\rangle _{\text{data}}-\langle v_{i}h_{j}\rangle _{\text{model}}}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <mo fence="false" stretchy="false">⟨<!-- ⟨ --></mo>
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mi>h</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mo fence="false" stretchy="false">⟩<!-- ⟩ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mtext>data</mtext>
+          </mrow>
+        </msub>
+        <mo>−<!-- − --></mo>
+        <mo fence="false" stretchy="false">⟨<!-- ⟨ --></mo>
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mi>h</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mo fence="false" stretchy="false">⟩<!-- ⟩ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mtext>model</mtext>
+          </mrow>
+        </msub>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \langle v_{i}h_{j}\rangle _{\text{data}}-\langle v_{i}h_{j}\rangle _{\text{model}}}</annotation>
+  </semantics>
+</math></span><img src="ref12_files/dd6aa45ea1053e153dd24bce9f96bc6b65a47e77.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.005ex; width:22.765ex; height:3.009ex;" alt="\langle v_{i}h_{j}\rangle _{\text{data}}-\langle v_{i}h_{j}\rangle _{\text{model}}"></span> where <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle \langle \cdots \rangle _{p}}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <mo fence="false" stretchy="false">⟨<!-- ⟨ --></mo>
+        <mo>⋯<!-- ⋯ --></mo>
+        <msub>
+          <mo fence="false" stretchy="false">⟩<!-- ⟩ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>p</mi>
+          </mrow>
+        </msub>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \langle \cdots \rangle _{p}}</annotation>
+  </semantics>
+</math></span><img src="ref12_files/3d08e83a70394a5ae52f11a23e9c62e683e5a8ac.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.005ex; width:5.592ex; height:3.009ex;" alt="\langle \cdots \rangle _{p}"></span> represent averages with respect to distribution <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle p}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <mi>p</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle p}</annotation>
+  </semantics>
+</math></span><img src="ref12_files/81eac1e205430d1f40810df36a0edffdc367af36.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; margin-left: -0.089ex; width:1.259ex; height:2.009ex;" alt="p"></span>. The issue arises in sampling <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle \langle v_{i}h_{j}\rangle _{\text{model}}}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <mo fence="false" stretchy="false">⟨<!-- ⟨ --></mo>
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mi>h</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mo fence="false" stretchy="false">⟩<!-- ⟩ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mtext>model</mtext>
+          </mrow>
+        </msub>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \langle v_{i}h_{j}\rangle _{\text{model}}}</annotation>
+  </semantics>
+</math></span><img src="ref12_files/18763decc7bd3d8f6026cc4b9e2aefcf4c5543d0.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.005ex; width:10.51ex; height:3.009ex;" alt="\langle v_{i}h_{j}\rangle _{\text{model}}"></span> because this requires extended alternating <a href="https://en.wikipedia.org/wiki/Gibbs_sampling" title="Gibbs sampling">Gibbs sampling</a>. CD replaces this step by running alternating Gibbs sampling for <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle n}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <mi>n</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle n}</annotation>
+  </semantics>
+</math></span><img src="ref12_files/a601995d55609f2d9f5e233e36fbe9ea26011b3b.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width:1.395ex; height:1.676ex;" alt="n"></span> steps (values of <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle n=1}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <mi>n</mi>
+        <mo>=</mo>
+        <mn>1</mn>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle n=1}</annotation>
+  </semantics>
+</math></span><img src="ref12_files/d9ec7e1edc2e6d98f5aec2a39ae5f1c99d1e1425.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width:5.656ex; height:2.176ex;" alt="n=1"></span> perform well). After <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle n}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <mi>n</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle n}</annotation>
+  </semantics>
+</math></span><img src="ref12_files/a601995d55609f2d9f5e233e36fbe9ea26011b3b.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width:1.395ex; height:1.676ex;" alt="n"></span> steps, the data are sampled and that sample is used in place of <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle \langle v_{i}h_{j}\rangle _{\text{model}}}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <mo fence="false" stretchy="false">⟨<!-- ⟨ --></mo>
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mi>h</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mo fence="false" stretchy="false">⟩<!-- ⟩ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mtext>model</mtext>
+          </mrow>
+        </msub>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \langle v_{i}h_{j}\rangle _{\text{model}}}</annotation>
+  </semantics>
+</math></span><img src="ref12_files/18763decc7bd3d8f6026cc4b9e2aefcf4c5543d0.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.005ex; width:10.51ex; height:3.009ex;" alt="\langle v_{i}h_{j}\rangle _{\text{model}}"></span>. The CD procedure works as follows:<sup id="cite_ref-RBMTRAIN2_10-1" class="reference"><a href="#cite_note-RBMTRAIN2-10">[10]</a></sup>
+</p>
+<ol><li>Initialize the visible units to a training vector.</li>
+<li>Update the hidden units in parallel given the visible units: <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle p(h_{j}=1\mid {\textbf {V}})=\sigma (b_{j}+\sum _{i}v_{i}w_{ij})}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <mi>p</mi>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>h</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <mn>1</mn>
+        <mo>∣<!-- ∣ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mtext mathvariant="bold">V</mtext>
+          </mrow>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo>=</mo>
+        <mi>σ<!-- σ --></mi>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>b</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo>+</mo>
+        <munder>
+          <mo>∑<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </munder>
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mi>w</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle p(h_{j}=1\mid {\textbf {V}})=\sigma (b_{j}+\sum _{i}v_{i}w_{ij})}</annotation>
+  </semantics>
+</math></span><img src="ref12_files/4d5192af7833138799129997ccc9e8969918e177.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -3.005ex; margin-left: -0.089ex; width:33.33ex; height:5.509ex;" alt="p(h_{j}=1\mid {\textbf {V}})=\sigma (b_{j}+\sum _{i}v_{i}w_{ij})"></span>. <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle \sigma }">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <mi>σ<!-- σ --></mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \sigma }</annotation>
+  </semantics>
+</math></span><img src="ref12_files/59f59b7c3e6fdb1d0365a494b81fb9a696138c36.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width:1.33ex; height:1.676ex;" alt="\sigma "></span> is the <a href="https://en.wikipedia.org/wiki/Sigmoid_function" title="Sigmoid function">sigmoid function</a> and <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle b_{j}}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <msub>
+          <mi>b</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+          </mrow>
+        </msub>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle b_{j}}</annotation>
+  </semantics>
+</math></span><img src="ref12_files/fa56eff4488494085785b7b0d6e2069bd45a3ce5.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.005ex; width:1.907ex; height:2.843ex;" alt="b_{j}"></span> is the bias of <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle h_{j}}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <msub>
+          <mi>h</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+          </mrow>
+        </msub>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle h_{j}}</annotation>
+  </semantics>
+</math></span><img src="ref12_files/614689f15f73ad5b4a5d7fa837a72614202b0d89.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.005ex; width:2.249ex; height:2.843ex;" alt="h_{j}"></span>.</li>
+<li>Update the visible units in parallel given the hidden units: <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle p(v_{i}=1\mid {\textbf {H}})=\sigma (a_{i}+\sum _{j}h_{j}w_{ij})}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <mi>p</mi>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <mn>1</mn>
+        <mo>∣<!-- ∣ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mtext mathvariant="bold">H</mtext>
+          </mrow>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo>=</mo>
+        <mi>σ<!-- σ --></mi>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>a</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo>+</mo>
+        <munder>
+          <mo>∑<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+          </mrow>
+        </munder>
+        <msub>
+          <mi>h</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mi>w</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle p(v_{i}=1\mid {\textbf {H}})=\sigma (a_{i}+\sum _{j}h_{j}w_{ij})}</annotation>
+  </semantics>
+</math></span><img src="ref12_files/a76e5f4402bbafafea479f1592d2465a16bc20be.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -3.338ex; margin-left: -0.089ex; width:33.524ex; height:5.843ex;" alt="p(v_{i}=1\mid {\textbf {H}})=\sigma (a_{i}+\sum _{j}h_{j}w_{ij})"></span>. <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle a_{i}}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <msub>
+          <mi>a</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle a_{i}}</annotation>
+  </semantics>
+</math></span><img src="ref12_files/0bc77764b2e74e64a63341054fa90f3e07db275f.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width:2.029ex; height:2.009ex;" alt="a_{i}"></span> is the bias of <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle v_{i}}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle v_{i}}</annotation>
+  </semantics>
+</math></span><img src="ref12_files/7dffe5726650f6daac54829972a94f38eb8ec127.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width:1.927ex; height:2.009ex;" alt="v_{i}"></span>. This is called the "reconstruction" step.</li>
+<li>Re-update the hidden units in parallel given the reconstructed visible units using the same equation as in step 2.</li>
+<li>Perform the weight update: <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle \Delta w_{ij}\propto \langle v_{i}h_{j}\rangle _{\text{data}}-\langle v_{i}h_{j}\rangle _{\text{reconstruction}}}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <mi mathvariant="normal">Δ<!-- Δ --></mi>
+        <msub>
+          <mi>w</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo>∝<!-- ∝ --></mo>
+        <mo fence="false" stretchy="false">⟨<!-- ⟨ --></mo>
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mi>h</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mo fence="false" stretchy="false">⟩<!-- ⟩ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mtext>data</mtext>
+          </mrow>
+        </msub>
+        <mo>−<!-- − --></mo>
+        <mo fence="false" stretchy="false">⟨<!-- ⟨ --></mo>
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mi>h</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mo fence="false" stretchy="false">⟩<!-- ⟩ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mtext>reconstruction</mtext>
+          </mrow>
+        </msub>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \Delta w_{ij}\propto \langle v_{i}h_{j}\rangle _{\text{data}}-\langle v_{i}h_{j}\rangle _{\text{reconstruction}}}</annotation>
+  </semantics>
+</math></span><img src="ref12_files/621b785f740108f75f6a039e20b411946d5d7e1b.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.005ex; width:36.898ex; height:3.009ex;" alt="\Delta w_{ij}\propto \langle v_{i}h_{j}\rangle _{\text{data}}-\langle v_{i}h_{j}\rangle _{\text{reconstruction}}"></span>.</li></ol>
+<p>Once an RBM is trained, another RBM is "stacked" atop it, taking its 
+input from the final trained layer. The new visible layer is initialized
+ to a training vector, and values for the units in the already-trained 
+layers are assigned using the current weights and biases. The new RBM is
+ then trained with the procedure above. This whole process is repeated 
+until the desired stopping criterion is met.<sup id="cite_ref-BENGIODEEP_12-0" class="reference"><a href="#cite_note-BENGIODEEP-12">[12]</a></sup>
+</p><p>Although the approximation of CD to maximum likelihood is crude 
+(does not follow the gradient of any function), it is empirically 
+effective.<sup id="cite_ref-RBMTRAIN2_10-2" class="reference"><a href="#cite_note-RBMTRAIN2-10">[10]</a></sup>
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Deep_belief_network&amp;action=edit&amp;section=2" title="Edit section: See also">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul><li><a href="https://en.wikipedia.org/wiki/Bayesian_network" title="Bayesian network">Bayesian network</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Deep_learning" title="Deep learning">Deep learning</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Convolutional_deep_belief_network" title="Convolutional deep belief network">Convolutional deep belief network</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Energy_based_model" title="Energy based model">Energy based model</a></li></ul>
+<h2><span class="mw-headline" id="References">References</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Deep_belief_network&amp;action=edit&amp;section=3" title="Edit section: References">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<style data-mw-deduplicate="TemplateStyles:r1011085734">.mw-parser-output .reflist{font-size:90%;margin-bottom:0.5em;list-style-type:decimal}.mw-parser-output .reflist .references{font-size:100%;margin-bottom:0;list-style-type:inherit}.mw-parser-output .reflist-columns-2{column-width:30em}.mw-parser-output .reflist-columns-3{column-width:25em}.mw-parser-output .reflist-columns{margin-top:0.3em}.mw-parser-output .reflist-columns ol{margin-top:0}.mw-parser-output .reflist-columns li{page-break-inside:avoid;break-inside:avoid-column}.mw-parser-output .reflist-upper-alpha{list-style-type:upper-alpha}.mw-parser-output .reflist-upper-roman{list-style-type:upper-roman}.mw-parser-output .reflist-lower-alpha{list-style-type:lower-alpha}.mw-parser-output .reflist-lower-greek{list-style-type:lower-greek}.mw-parser-output .reflist-lower-roman{list-style-type:lower-roman}</style><div class="reflist">
+<div class="mw-references-wrap mw-references-columns"><ol class="references">
+<li id="cite_note-scholar-1"><span class="mw-cite-backlink">^ <a href="#cite_ref-scholar_1-0"><span class="cite-accessibility-label">Jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-scholar_1-1"><sup><i><b>b</b></i></sup></a> <a href="#cite_ref-scholar_1-2"><sup><i><b>c</b></i></sup></a></span> <span class="reference-text"><style data-mw-deduplicate="TemplateStyles:r999302996">.mw-parser-output cite.citation{font-style:inherit}.mw-parser-output .citation q{quotes:"\"""\"""'""'"}.mw-parser-output .id-lock-free a,.mw-parser-output .citation .cs1-lock-free a{background:linear-gradient(transparent,transparent),url("//upload.wikimedia.org/wikipedia/commons/6/65/Lock-green.svg")right 0.1em center/9px no-repeat}.mw-parser-output .id-lock-limited a,.mw-parser-output .id-lock-registration a,.mw-parser-output .citation .cs1-lock-limited a,.mw-parser-output .citation .cs1-lock-registration a{background:linear-gradient(transparent,transparent),url("//upload.wikimedia.org/wikipedia/commons/d/d6/Lock-gray-alt-2.svg")right 0.1em center/9px no-repeat}.mw-parser-output .id-lock-subscription a,.mw-parser-output .citation .cs1-lock-subscription a{background:linear-gradient(transparent,transparent),url("//upload.wikimedia.org/wikipedia/commons/a/aa/Lock-red-alt-2.svg")right 0.1em center/9px no-repeat}.mw-parser-output .cs1-subscription,.mw-parser-output .cs1-registration{color:#555}.mw-parser-output .cs1-subscription span,.mw-parser-output .cs1-registration span{border-bottom:1px dotted;cursor:help}.mw-parser-output .cs1-ws-icon a{background:linear-gradient(transparent,transparent),url("//upload.wikimedia.org/wikipedia/commons/4/4c/Wikisource-logo.svg")right 0.1em center/12px no-repeat}.mw-parser-output code.cs1-code{color:inherit;background:inherit;border:none;padding:inherit}.mw-parser-output .cs1-hidden-error{display:none;font-size:100%}.mw-parser-output .cs1-visible-error{font-size:100%}.mw-parser-output .cs1-maint{display:none;color:#33aa33;margin-left:0.3em}.mw-parser-output .cs1-format{font-size:95%}.mw-parser-output .cs1-kern-left,.mw-parser-output .cs1-kern-wl-left{padding-left:0.2em}.mw-parser-output .cs1-kern-right,.mw-parser-output .cs1-kern-wl-right{padding-right:0.2em}.mw-parser-output .citation .mw-selflink{font-weight:inherit}</style><cite id="CITEREFHinton2009" class="citation journal cs1">Hinton G (2009). <a rel="nofollow" class="external text" href="https://doi.org/10.4249%2Fscholarpedia.5947">"Deep belief networks"</a>. <i>Scholarpedia</i>. <b>4</b> (5): 5947. <a href="https://en.wikipedia.org/wiki/Bibcode_(identifier)" class="mw-redirect" title="Bibcode (identifier)">Bibcode</a>:<a rel="nofollow" class="external text" href="https://ui.adsabs.harvard.edu/abs/2009SchpJ...4.5947H">2009SchpJ...4.5947H</a>. <a href="https://en.wikipedia.org/wiki/Doi_(identifier)" class="mw-redirect" title="Doi (identifier)">doi</a>:<span class="cs1-lock-free" title="Freely accessible"><a rel="nofollow" class="external text" href="https://doi.org/10.4249%2Fscholarpedia.5947">10.4249/scholarpedia.5947</a></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=Scholarpedia&amp;rft.atitle=Deep+belief+networks&amp;rft.volume=4&amp;rft.issue=5&amp;rft.pages=5947&amp;rft.date=2009&amp;rft_id=info%3Adoi%2F10.4249%2Fscholarpedia.5947&amp;rft_id=info%3Abibcode%2F2009SchpJ...4.5947H&amp;rft.aulast=Hinton&amp;rft.aufirst=G&amp;rft_id=%2F%2Fdoi.org%2F10.4249%252Fscholarpedia.5947&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADeep+belief+network" class="Z3988"></span></span>
+</li>
+<li id="cite_note-hinton06-2"><span class="mw-cite-backlink">^ <a href="#cite_ref-hinton06_2-0"><span class="cite-accessibility-label">Jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-hinton06_2-1"><sup><i><b>b</b></i></sup></a></span> <span class="reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r999302996"><cite id="CITEREFHintonOsinderoTeh2006" class="citation journal cs1"><a href="https://en.wikipedia.org/wiki/Geoff_Hinton" class="mw-redirect" title="Geoff Hinton">Hinton GE</a>, Osindero S, Teh YW (July 2006). <a rel="nofollow" class="external text" href="http://www.cs.toronto.edu/~hinton/absps/fastnc.pdf">"A fast learning algorithm for deep belief nets"</a> <span class="cs1-format">(PDF)</span>. <i>Neural Computation</i>. <b>18</b> (7): 1527–54. <a href="https://en.wikipedia.org/wiki/CiteSeerX_(identifier)" class="mw-redirect" title="CiteSeerX (identifier)">CiteSeerX</a>&nbsp;<span class="cs1-lock-free" title="Freely accessible"><a rel="nofollow" class="external text" href="https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.76.1541">10.1.1.76.1541</a></span>. <a href="https://en.wikipedia.org/wiki/Doi_(identifier)" class="mw-redirect" title="Doi (identifier)">doi</a>:<a rel="nofollow" class="external text" href="https://doi.org/10.1162%2Fneco.2006.18.7.1527">10.1162/neco.2006.18.7.1527</a>. <a href="https://en.wikipedia.org/wiki/PMID_(identifier)" class="mw-redirect" title="PMID (identifier)">PMID</a>&nbsp;<a rel="nofollow" class="external text" href="https://pubmed.ncbi.nlm.nih.gov/16764513">16764513</a>. <a href="https://en.wikipedia.org/wiki/S2CID_(identifier)" class="mw-redirect" title="S2CID (identifier)">S2CID</a>&nbsp;<a rel="nofollow" class="external text" href="https://api.semanticscholar.org/CorpusID:2309950">2309950</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=Neural+Computation&amp;rft.atitle=A+fast+learning+algorithm+for+deep+belief+nets&amp;rft.volume=18&amp;rft.issue=7&amp;rft.pages=1527-54&amp;rft.date=2006-07&amp;rft_id=%2F%2Fciteseerx.ist.psu.edu%2Fviewdoc%2Fsummary%3Fdoi%3D10.1.1.76.1541%23id-name%3DCiteSeerX&amp;rft_id=https%3A%2F%2Fapi.semanticscholar.org%2FCorpusID%3A2309950%23id-name%3DS2CID&amp;rft_id=info%3Apmid%2F16764513&amp;rft_id=info%3Adoi%2F10.1162%2Fneco.2006.18.7.1527&amp;rft.aulast=Hinton&amp;rft.aufirst=GE&amp;rft.au=Osindero%2C+S&amp;rft.au=Teh%2C+YW&amp;rft_id=http%3A%2F%2Fwww.cs.toronto.edu%2F~hinton%2Fabsps%2Ffastnc.pdf&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADeep+belief+network" class="Z3988"></span></span>
+</li>
+<li id="cite_note-3"><span class="mw-cite-backlink"><b><a href="#cite_ref-3" aria-label="Jump up" title="Jump up">^</a></b></span> <span class="reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r999302996"><cite id="CITEREFBengioLamblinPopoviciLarochelle2007" class="citation conference cs1">Bengio Y, Lamblin P, Popovici D, Larochelle H (2007). <a rel="nofollow" class="external text" href="http://papers.nips.cc/paper/3048-greedy-layer-wise-training-of-deep-networks.pdf"><i>Greedy Layer-Wise Training of Deep Networks</i></a> <span class="cs1-format">(PDF)</span>. <a href="https://en.wikipedia.org/wiki/Conference_on_Neural_Information_Processing_Systems" title="Conference on Neural Information Processing Systems">NIPS</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=conference&amp;rft.btitle=Greedy+Layer-Wise+Training+of+Deep+Networks&amp;rft.date=2007&amp;rft.aulast=Bengio&amp;rft.aufirst=Yoshua&amp;rft.au=Lamblin%2C+Pascal&amp;rft.au=Popovici%2C+Dan&amp;rft.au=Larochelle%2C+Hugh&amp;rft_id=http%3A%2F%2Fpapers.nips.cc%2Fpaper%2F3048-greedy-layer-wise-training-of-deep-networks.pdf&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADeep+belief+network" class="Z3988"></span></span>
+</li>
+<li id="cite_note-4"><span class="mw-cite-backlink"><b><a href="#cite_ref-4" aria-label="Jump up" title="Jump up">^</a></b></span> <span class="reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r999302996"><cite id="CITEREFBengio2009" class="citation journal cs1">Bengio, Y. (2009). <a rel="nofollow" class="external text" href="http://www.iro.umontreal.ca/~lisa/pointeurs/TR1312.pdf">"Learning Deep Architectures for AI"</a> <span class="cs1-format">(PDF)</span>. <i>Foundations and Trends in Machine Learning</i>. <b>2</b>: 1–127. <a href="https://en.wikipedia.org/wiki/CiteSeerX_(identifier)" class="mw-redirect" title="CiteSeerX (identifier)">CiteSeerX</a>&nbsp;<span class="cs1-lock-free" title="Freely accessible"><a rel="nofollow" class="external text" href="https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.701.9550">10.1.1.701.9550</a></span>. <a href="https://en.wikipedia.org/wiki/Doi_(identifier)" class="mw-redirect" title="Doi (identifier)">doi</a>:<a rel="nofollow" class="external text" href="https://doi.org/10.1561%2F2200000006">10.1561/2200000006</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=Foundations+and+Trends+in+Machine+Learning&amp;rft.atitle=Learning+Deep+Architectures+for+AI&amp;rft.volume=2&amp;rft.pages=1-127&amp;rft.date=2009&amp;rft_id=%2F%2Fciteseerx.ist.psu.edu%2Fviewdoc%2Fsummary%3Fdoi%3D10.1.1.701.9550%23id-name%3DCiteSeerX&amp;rft_id=info%3Adoi%2F10.1561%2F2200000006&amp;rft.aulast=Bengio&amp;rft.aufirst=Y.&amp;rft_id=http%3A%2F%2Fwww.iro.umontreal.ca%2F~lisa%2Fpointeurs%2FTR1312.pdf&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADeep+belief+network" class="Z3988"></span></span>
+</li>
+<li id="cite_note-5"><span class="mw-cite-backlink"><b><a href="#cite_ref-5" aria-label="Jump up" title="Jump up">^</a></b></span> <span class="reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r999302996"><cite id="CITEREFMovahediCoyleSejdic2018" class="citation journal cs1">Movahedi F, Coyle JL, Sejdic E (May 2018). <a rel="nofollow" class="external text" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5967386">"Deep Belief Networks for Electroencephalography: A Review of Recent Contributions and Future Outlooks"</a>. <i>IEEE Journal of Biomedical and Health Informatics</i>. <b>22</b> (3): 642–652. <a href="https://en.wikipedia.org/wiki/Doi_(identifier)" class="mw-redirect" title="Doi (identifier)">doi</a>:<a rel="nofollow" class="external text" href="https://doi.org/10.1109%2Fjbhi.2017.2727218">10.1109/jbhi.2017.2727218</a>. <a href="https://en.wikipedia.org/wiki/PMC_(identifier)" class="mw-redirect" title="PMC (identifier)">PMC</a>&nbsp;<span class="cs1-lock-free" title="Freely accessible"><a rel="nofollow" class="external text" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5967386">5967386</a></span>. <a href="https://en.wikipedia.org/wiki/PMID_(identifier)" class="mw-redirect" title="PMID (identifier)">PMID</a>&nbsp;<a rel="nofollow" class="external text" href="https://pubmed.ncbi.nlm.nih.gov/28715343">28715343</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=IEEE+Journal+of+Biomedical+and+Health+Informatics&amp;rft.atitle=Deep+Belief+Networks+for+Electroencephalography%3A+A+Review+of+Recent+Contributions+and+Future+Outlooks&amp;rft.volume=22&amp;rft.issue=3&amp;rft.pages=642-652&amp;rft.date=2018-05&amp;rft_id=%2F%2Fwww.ncbi.nlm.nih.gov%2Fpmc%2Farticles%2FPMC5967386%23id-name%3DPMC&amp;rft_id=info%3Apmid%2F28715343&amp;rft_id=info%3Adoi%2F10.1109%2Fjbhi.2017.2727218&amp;rft.aulast=Movahedi&amp;rft.aufirst=F&amp;rft.au=Coyle%2C+JL&amp;rft.au=Sejdic%2C+E&amp;rft_id=%2F%2Fwww.ncbi.nlm.nih.gov%2Fpmc%2Farticles%2FPMC5967386&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADeep+belief+network" class="Z3988"></span></span>
+</li>
+<li id="cite_note-6"><span class="mw-cite-backlink"><b><a href="#cite_ref-6" aria-label="Jump up" title="Jump up">^</a></b></span> <span class="reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r999302996"><cite id="CITEREFGhasemiMehri2018" class="citation journal cs1">Ghasemi,
+ Pérez-Sánchez; Mehri, Pérez-Garrido (2018). "Neural network and 
+deep-learning algorithms used in QSAR studies: merits and drawbacks". <i>Drug Discovery Today</i>. <b>23</b> (10): 1784–1790. <a href="https://en.wikipedia.org/wiki/Doi_(identifier)" class="mw-redirect" title="Doi (identifier)">doi</a>:<a rel="nofollow" class="external text" href="https://doi.org/10.1016%2Fj.drudis.2018.06.016">10.1016/j.drudis.2018.06.016</a>. <a href="https://en.wikipedia.org/wiki/PMID_(identifier)" class="mw-redirect" title="PMID (identifier)">PMID</a>&nbsp;<a rel="nofollow" class="external text" href="https://pubmed.ncbi.nlm.nih.gov/29936244">29936244</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=Drug+Discovery+Today&amp;rft.atitle=Neural+network+and+deep-learning+algorithms+used+in+QSAR+studies%3A+merits+and+drawbacks&amp;rft.volume=23&amp;rft.issue=10&amp;rft.pages=1784-1790&amp;rft.date=2018&amp;rft_id=info%3Adoi%2F10.1016%2Fj.drudis.2018.06.016&amp;rft_id=info%3Apmid%2F29936244&amp;rft.aulast=Ghasemi&amp;rft.aufirst=P%C3%A9rez-S%C3%A1nchez&amp;rft.au=Mehri%2C+P%C3%A9rez-Garrido&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADeep+belief+network" class="Z3988"></span></span>
+</li>
+<li id="cite_note-7"><span class="mw-cite-backlink"><b><a href="#cite_ref-7" aria-label="Jump up" title="Jump up">^</a></b></span> <span class="reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r999302996"><cite id="CITEREFGhasemiMehri2016" class="citation journal cs1">Ghasemi,
+ Pérez-Sánchez; Mehri, fassihi (2016). "The Role of Different Sampling 
+Methods in Improving Biological Activity Prediction Using Deep Belief 
+Network". <i>Journal of Computational Chemistry</i>. <b>38</b> (10): 1–8. <a href="https://en.wikipedia.org/wiki/Doi_(identifier)" class="mw-redirect" title="Doi (identifier)">doi</a>:<a rel="nofollow" class="external text" href="https://doi.org/10.1002%2Fjcc.24671">10.1002/jcc.24671</a>. <a href="https://en.wikipedia.org/wiki/PMID_(identifier)" class="mw-redirect" title="PMID (identifier)">PMID</a>&nbsp;<a rel="nofollow" class="external text" href="https://pubmed.ncbi.nlm.nih.gov/27862046">27862046</a>. <a href="https://en.wikipedia.org/wiki/S2CID_(identifier)" class="mw-redirect" title="S2CID (identifier)">S2CID</a>&nbsp;<a rel="nofollow" class="external text" href="https://api.semanticscholar.org/CorpusID:12077015">12077015</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=Journal+of+Computational+Chemistry&amp;rft.atitle=The+Role+of+Different+Sampling+Methods+in+Improving+Biological+Activity+Prediction+Using+Deep+Belief+Network&amp;rft.volume=38&amp;rft.issue=10&amp;rft.pages=1-8&amp;rft.date=2016&amp;rft_id=https%3A%2F%2Fapi.semanticscholar.org%2FCorpusID%3A12077015%23id-name%3DS2CID&amp;rft_id=info%3Apmid%2F27862046&amp;rft_id=info%3Adoi%2F10.1002%2Fjcc.24671&amp;rft.aulast=Ghasemi&amp;rft.aufirst=P%C3%A9rez-S%C3%A1nchez&amp;rft.au=Mehri%2C+fassihi&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADeep+belief+network" class="Z3988"></span></span>
+</li>
+<li id="cite_note-8"><span class="mw-cite-backlink"><b><a href="#cite_ref-8" aria-label="Jump up" title="Jump up">^</a></b></span> <span class="reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r999302996"><cite id="CITEREFGawehnHissSchneider2016" class="citation journal cs1">Gawehn E, Hiss JA, Schneider G (January 2016). "Deep Learning in Drug Discovery". <i>Molecular Informatics</i>. <b>35</b> (1): 3–14. <a href="https://en.wikipedia.org/wiki/Doi_(identifier)" class="mw-redirect" title="Doi (identifier)">doi</a>:<a rel="nofollow" class="external text" href="https://doi.org/10.1002%2Fminf.201501008">10.1002/minf.201501008</a>. <a href="https://en.wikipedia.org/wiki/PMID_(identifier)" class="mw-redirect" title="PMID (identifier)">PMID</a>&nbsp;<a rel="nofollow" class="external text" href="https://pubmed.ncbi.nlm.nih.gov/27491648">27491648</a>. <a href="https://en.wikipedia.org/wiki/S2CID_(identifier)" class="mw-redirect" title="S2CID (identifier)">S2CID</a>&nbsp;<a rel="nofollow" class="external text" href="https://api.semanticscholar.org/CorpusID:10574953">10574953</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=Molecular+Informatics&amp;rft.atitle=Deep+Learning+in+Drug+Discovery&amp;rft.volume=35&amp;rft.issue=1&amp;rft.pages=3-14&amp;rft.date=2016-01&amp;rft_id=https%3A%2F%2Fapi.semanticscholar.org%2FCorpusID%3A10574953%23id-name%3DS2CID&amp;rft_id=info%3Apmid%2F27491648&amp;rft_id=info%3Adoi%2F10.1002%2Fminf.201501008&amp;rft.aulast=Gawehn&amp;rft.aufirst=E&amp;rft.au=Hiss%2C+JA&amp;rft.au=Schneider%2C+G&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADeep+belief+network" class="Z3988"></span></span>
+</li>
+<li id="cite_note-POE-9"><span class="mw-cite-backlink"><b><a href="#cite_ref-POE_9-0" aria-label="Jump up" title="Jump up">^</a></b></span> <span class="reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r999302996"><cite id="CITEREFHinton2002" class="citation journal cs1">Hinton GE (2002). <a rel="nofollow" class="external text" href="http://www.cs.toronto.edu/~fritz/absps/nccd.pdf">"Training Product of Experts by Minimizing Contrastive Divergence"</a> <span class="cs1-format">(PDF)</span>. <i>Neural Computation</i>. <b>14</b> (8): 1771–1800. <a href="https://en.wikipedia.org/wiki/CiteSeerX_(identifier)" class="mw-redirect" title="CiteSeerX (identifier)">CiteSeerX</a>&nbsp;<span class="cs1-lock-free" title="Freely accessible"><a rel="nofollow" class="external text" href="https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.35.8613">10.1.1.35.8613</a></span>. <a href="https://en.wikipedia.org/wiki/Doi_(identifier)" class="mw-redirect" title="Doi (identifier)">doi</a>:<a rel="nofollow" class="external text" href="https://doi.org/10.1162%2F089976602760128018">10.1162/089976602760128018</a>. <a href="https://en.wikipedia.org/wiki/PMID_(identifier)" class="mw-redirect" title="PMID (identifier)">PMID</a>&nbsp;<a rel="nofollow" class="external text" href="https://pubmed.ncbi.nlm.nih.gov/12180402">12180402</a>. <a href="https://en.wikipedia.org/wiki/S2CID_(identifier)" class="mw-redirect" title="S2CID (identifier)">S2CID</a>&nbsp;<a rel="nofollow" class="external text" href="https://api.semanticscholar.org/CorpusID:207596505">207596505</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=Neural+Computation&amp;rft.atitle=Training+Product+of+Experts+by+Minimizing+Contrastive+Divergence&amp;rft.volume=14&amp;rft.issue=8&amp;rft.pages=1771-1800&amp;rft.date=2002&amp;rft_id=%2F%2Fciteseerx.ist.psu.edu%2Fviewdoc%2Fsummary%3Fdoi%3D10.1.1.35.8613%23id-name%3DCiteSeerX&amp;rft_id=https%3A%2F%2Fapi.semanticscholar.org%2FCorpusID%3A207596505%23id-name%3DS2CID&amp;rft_id=info%3Apmid%2F12180402&amp;rft_id=info%3Adoi%2F10.1162%2F089976602760128018&amp;rft.aulast=Hinton&amp;rft.aufirst=GE&amp;rft_id=http%3A%2F%2Fwww.cs.toronto.edu%2F~fritz%2Fabsps%2Fnccd.pdf&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADeep+belief+network" class="Z3988"></span></span>
+</li>
+<li id="cite_note-RBMTRAIN2-10"><span class="mw-cite-backlink">^ <a href="#cite_ref-RBMTRAIN2_10-0"><span class="cite-accessibility-label">Jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-RBMTRAIN2_10-1"><sup><i><b>b</b></i></sup></a> <a href="#cite_ref-RBMTRAIN2_10-2"><sup><i><b>c</b></i></sup></a></span> <span class="reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r999302996"><cite id="CITEREFHinton2010" class="citation journal cs1">Hinton GE (2010). <a rel="nofollow" class="external text" href="https://www.researchgate.net/publication/221166159">"A Practical Guide to Training Restricted Boltzmann Machines"</a>. <i>Tech. Rep. UTML TR 2010-003</i>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=Tech.+Rep.+UTML+TR+2010-003&amp;rft.atitle=A+Practical+Guide+to+Training+Restricted+Boltzmann+Machines&amp;rft.date=2010&amp;rft.aulast=Hinton&amp;rft.aufirst=GE&amp;rft_id=https%3A%2F%2Fwww.researchgate.net%2Fpublication%2F221166159&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADeep+belief+network" class="Z3988"></span></span>
+</li>
+<li id="cite_note-RBMTutorial-11"><span class="mw-cite-backlink"><b><a href="#cite_ref-RBMTutorial_11-0" aria-label="Jump up" title="Jump up">^</a></b></span> <span class="reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r999302996"><cite id="CITEREFFischerIgel2014" class="citation journal cs1">Fischer A, Igel C (2014). <a rel="nofollow" class="external text" href="https://web.archive.org/web/20150610230447/http://image.diku.dk/igel/paper/TRBMAI.pdf">"Training Restricted Boltzmann Machines: An Introduction"</a> <span class="cs1-format">(PDF)</span>. <i>Pattern Recognition</i>. <b>47</b>: 25–39. <a href="https://en.wikipedia.org/wiki/CiteSeerX_(identifier)" class="mw-redirect" title="CiteSeerX (identifier)">CiteSeerX</a>&nbsp;<span class="cs1-lock-free" title="Freely accessible"><a rel="nofollow" class="external text" href="https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.716.8647">10.1.1.716.8647</a></span>. <a href="https://en.wikipedia.org/wiki/Doi_(identifier)" class="mw-redirect" title="Doi (identifier)">doi</a>:<a rel="nofollow" class="external text" href="https://doi.org/10.1016%2Fj.patcog.2013.05.025">10.1016/j.patcog.2013.05.025</a>. Archived from <a rel="nofollow" class="external text" href="http://image.diku.dk/igel/paper/TRBMAI.pdf">the original</a> <span class="cs1-format">(PDF)</span> on 2015-06-10<span class="reference-accessdate">. Retrieved <span class="nowrap">2017-07-02</span></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=Pattern+Recognition&amp;rft.atitle=Training+Restricted+Boltzmann+Machines%3A+An+Introduction&amp;rft.volume=47&amp;rft.pages=25-39&amp;rft.date=2014&amp;rft_id=%2F%2Fciteseerx.ist.psu.edu%2Fviewdoc%2Fsummary%3Fdoi%3D10.1.1.716.8647%23id-name%3DCiteSeerX&amp;rft_id=info%3Adoi%2F10.1016%2Fj.patcog.2013.05.025&amp;rft.aulast=Fischer&amp;rft.aufirst=A&amp;rft.au=Igel%2C+C&amp;rft_id=http%3A%2F%2Fimage.diku.dk%2Figel%2Fpaper%2FTRBMAI.pdf&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADeep+belief+network" class="Z3988"></span></span>
+</li>
+<li id="cite_note-BENGIODEEP-12"><span class="mw-cite-backlink"><b><a href="#cite_ref-BENGIODEEP_12-0" aria-label="Jump up" title="Jump up">^</a></b></span> <span class="reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r999302996"><cite id="CITEREFBengio2009" class="citation journal cs1">Bengio Y (2009). <a rel="nofollow" class="external text" href="https://web.archive.org/web/20160304084250/http://sanghv.com/download/soft/machine%20learning,%20artificial%20intelligence,%20mathematics%20ebooks/ML/learning%20deep%20architectures%20for%20AI%20(2009).pdf">"Learning Deep Architectures for AI"</a> <span class="cs1-format">(PDF)</span>. <i>Foundations and Trends in Machine Learning</i>. <b>2</b> (1): 1–127. <a href="https://en.wikipedia.org/wiki/CiteSeerX_(identifier)" class="mw-redirect" title="CiteSeerX (identifier)">CiteSeerX</a>&nbsp;<span class="cs1-lock-free" title="Freely accessible"><a rel="nofollow" class="external text" href="https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.701.9550">10.1.1.701.9550</a></span>. <a href="https://en.wikipedia.org/wiki/Doi_(identifier)" class="mw-redirect" title="Doi (identifier)">doi</a>:<a rel="nofollow" class="external text" href="https://doi.org/10.1561%2F2200000006">10.1561/2200000006</a>. Archived from <a rel="nofollow" class="external text" href="http://sanghv.com/download/soft/machine%20learning,%20artificial%20intelligence,%20mathematics%20ebooks/ML/learning%20deep%20architectures%20for%20AI%20%282009%29.pdf">the original</a> <span class="cs1-format">(PDF)</span> on 2016-03-04<span class="reference-accessdate">. Retrieved <span class="nowrap">2017-07-02</span></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=Foundations+and+Trends+in+Machine+Learning&amp;rft.atitle=Learning+Deep+Architectures+for+AI&amp;rft.volume=2&amp;rft.issue=1&amp;rft.pages=1-127&amp;rft.date=2009&amp;rft_id=%2F%2Fciteseerx.ist.psu.edu%2Fviewdoc%2Fsummary%3Fdoi%3D10.1.1.701.9550%23id-name%3DCiteSeerX&amp;rft_id=info%3Adoi%2F10.1561%2F2200000006&amp;rft.aulast=Bengio&amp;rft.aufirst=Yoshua&amp;rft_id=http%3A%2F%2Fsanghv.com%2Fdownload%2Fsoft%2Fmachine%2520learning%2C%2520artificial%2520intelligence%2C%2520mathematics%2520ebooks%2FML%2Flearning%2520deep%2520architectures%2520for%2520AI%2520%25282009%2529.pdf&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADeep+belief+network" class="Z3988"></span></span>
+</li>
+</ol></div></div>
+<h2><span class="mw-headline" id="External_links">External links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Deep_belief_network&amp;action=edit&amp;section=4" title="Edit section: External links">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul><li><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r999302996"><cite class="citation web cs1"><a rel="nofollow" class="external text" href="http://deeplearning.net/tutorial/DBN.html">"Deep Belief Networks"</a>. <i>Deep Learning Tutorials</i>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=unknown&amp;rft.jtitle=Deep+Learning+Tutorials&amp;rft.atitle=Deep+Belief+Networks&amp;rft_id=http%3A%2F%2Fdeeplearning.net%2Ftutorial%2FDBN.html&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADeep+belief+network" class="Z3988"></span></li>
+<li><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r999302996"><cite class="citation web cs1"><a rel="nofollow" class="external text" href="https://web.archive.org/web/20161003210144/http://deeplearning4j.org/deepbeliefnetwork.html">"Deep Belief Network Example"</a>. <i>Deeplearning4j Tutorials</i>. Archived from <a rel="nofollow" class="external text" href="http://deeplearning4j.org/deepbeliefnetwork.html">the original</a> on 2016-10-03<span class="reference-accessdate">. Retrieved <span class="nowrap">2015-02-22</span></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=unknown&amp;rft.jtitle=Deeplearning4j+Tutorials&amp;rft.atitle=Deep+Belief+Network+Example&amp;rft_id=http%3A%2F%2Fdeeplearning4j.org%2Fdeepbeliefnetwork.html&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADeep+belief+network" class="Z3988"></span></li></ul>
+<!-- 
+NewPP limit report
+Parsed by mw2339
+Cached time: 20210802232320
+Cache expiry: 1814400
+Reduced expiry: false
+Complications: [vary‐revision‐sha1]
+CPU time usage: 0.381 seconds
+Real time usage: 0.584 seconds
+Preprocessor visited node count: 1155/1000000
+Post‐expand include size: 56732/2097152 bytes
+Template argument size: 1065/2097152 bytes
+Highest expansion depth: 13/40
+Expensive parser function count: 0/500
+Unstrip recursion depth: 1/20
+Unstrip post‐expand size: 53932/5000000 bytes
+Lua time usage: 0.195/10.000 seconds
+Lua memory usage: 4813354/52428800 bytes
+Number of Wikibase entities loaded: 0/400
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  365.650      1 -total
+ 49.32%  180.342      1 Template:Reflist
+ 39.98%  146.198     11 Template:Cite_journal
+ 25.48%   93.156      1 Template:Machine_learning_bar
+ 22.20%   81.191      1 Template:Sidebar_with_collapsible_lists
+ 15.89%   58.090      1 Template:Short_description
+  7.58%   27.705      1 Template:Pagetype
+  5.22%   19.101      3 Template:Main_other
+  4.69%   17.158      1 Template:Longitem
+  4.22%   15.415      1 Template:SDcat
+-->
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:41416740-0!canonical!math=5 and timestamp 20210802232319 and revision id 1012688873. Serialized with JSON.
+ -->
+</div><noscript><img src="//en.wikipedia.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /></noscript>
+<div class="printfooter">Retrieved from "<a dir="ltr" href="https://en.wikipedia.org/w/index.php?title=Deep_belief_network&amp;oldid=1012688873">https://en.wikipedia.org/w/index.php?title=Deep_belief_network&amp;oldid=1012688873</a>"</div></div>
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://en.wikipedia.org/wiki/Help:Category" title="Help:Category">Categories</a>: <ul><li><a href="https://en.wikipedia.org/wiki/Category:Artificial_neural_networks" title="Category:Artificial neural networks">Artificial neural networks</a></li><li><a href="https://en.wikipedia.org/wiki/Category:Probabilistic_models" title="Category:Probabilistic models">Probabilistic models</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul><li><a href="https://en.wikipedia.org/wiki/Category:Articles_with_short_description" title="Category:Articles with short description">Articles with short description</a></li><li><a href="https://en.wikipedia.org/wiki/Category:Short_description_matches_Wikidata" title="Category:Short description matches Wikidata">Short description matches Wikidata</a></li></ul></div></div>
+	</div>
+</div>
+<div id="mw-data-after-content">
+	<div class="read-more-container"></div>
+</div>
+
+<div id="mw-navigation">
+	<h2>Navigation menu</h2>
+	<div id="mw-head">
+		<nav id="p-personal" class="mw-portlet mw-portlet-personal vector-user-menu-legacy vector-menu" aria-labelledby="p-personal-label" role="navigation">
+	<h3 id="p-personal-label" class="vector-menu-heading"><span>Personal tools</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="pt-anonuserpage">Not logged in</li><li id="pt-anontalk"><a href="https://en.wikipedia.org/wiki/Special:MyTalk" title="Discussion about edits from this IP address [Alt+Shift+n]" accesskey="n">Talk</a></li><li id="pt-anoncontribs"><a href="https://en.wikipedia.org/wiki/Special:MyContributions" title="A list of edits made from this IP address [Alt+Shift+y]" accesskey="y">Contributions</a></li><li id="pt-createaccount"><a href="https://en.wikipedia.org/w/index.php?title=Special:CreateAccount&amp;returnto=Deep+belief+network" title="You are encouraged to create an account and log in; however, it is not mandatory">Create account</a></li><li id="pt-login"><a href="https://en.wikipedia.org/w/index.php?title=Special:UserLogin&amp;returnto=Deep+belief+network" title="You're encouraged to log in; however, it's not mandatory. [Alt+Shift+o]" accesskey="o">Log in</a></li></ul>
+		
+	</div>
+</nav>
+
+		<div id="left-navigation">
+			<nav id="p-namespaces" class="mw-portlet mw-portlet-namespaces vector-menu vector-menu-tabs" aria-labelledby="p-namespaces-label" role="navigation">
+	<h3 id="p-namespaces-label" class="vector-menu-heading"><span>Namespaces</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="ca-nstab-main" class="selected"><a href="https://en.wikipedia.org/wiki/Deep_belief_network" title="View the content page [Alt+Shift+c]" accesskey="c">Article</a></li><li id="ca-talk"><a href="https://en.wikipedia.org/wiki/Talk:Deep_belief_network" rel="discussion" title="Discuss improvements to the content page [Alt+Shift+t]" accesskey="t">Talk</a></li></ul>
+		
+	</div>
+</nav>
+
+			<nav id="p-variants" class="mw-portlet mw-portlet-variants emptyPortlet vector-menu vector-menu-dropdown" aria-labelledby="p-variants-label" role="navigation">
+	<input type="checkbox" data-event-name="ui.dropdown-p-variants" class="vector-menu-checkbox" aria-labelledby="p-variants-label">
+	<h3 id="p-variants-label" class="vector-menu-heading"><span>Variants</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"></ul>
+		
+	</div>
+</nav>
+
+		</div>
+		<div id="right-navigation">
+			<nav id="p-views" class="mw-portlet mw-portlet-views vector-menu vector-menu-tabs" aria-labelledby="p-views-label" role="navigation">
+	<h3 id="p-views-label" class="vector-menu-heading"><span>Views</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="ca-view" class="selected collapsible"><a href="https://en.wikipedia.org/wiki/Deep_belief_network">Read</a></li><li id="ca-edit" class="collapsible"><a href="https://en.wikipedia.org/w/index.php?title=Deep_belief_network&amp;action=edit" title="Edit this page [Alt+Shift+e]" accesskey="e">Edit</a></li><li id="ca-history" class="collapsible"><a href="https://en.wikipedia.org/w/index.php?title=Deep_belief_network&amp;action=history" title="Past revisions of this page [Alt+Shift+h]" accesskey="h">View history</a></li></ul>
+		
+	</div>
+</nav>
+
+			<nav id="p-cactions" class="mw-portlet mw-portlet-cactions emptyPortlet vector-menu vector-menu-dropdown" aria-labelledby="p-cactions-label" role="navigation">
+	<input type="checkbox" data-event-name="ui.dropdown-p-cactions" class="vector-menu-checkbox" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label" class="vector-menu-heading"><span>More</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"></ul>
+		
+	</div>
+</nav>
+
+			<div id="p-search" role="search" class="vector-search-box">
+	<div>
+		<h3>
+			<label for="searchInput">Search</label>
+		</h3>
+		<form action="/w/index.php" id="searchform">
+			<div id="simpleSearch" data-search-loc="header-navigation">
+				<input type="search" name="search" placeholder="Search Wikipedia" autocapitalize="sentences" title="Search Wikipedia [Alt+Shift+f]" accesskey="f" id="searchInput">
+				<input type="hidden" name="title" value="Special:Search">
+				<input type="submit" name="fulltext" value="Search" title="Search Wikipedia for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton">
+				<input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton">
+			</div>
+		</form>
+	</div>
+</div>
+
+		</div>
+	</div>
+	
+<div id="mw-panel">
+	<div id="p-logo" role="banner">
+		<a class="mw-wiki-logo" href="https://en.wikipedia.org/wiki/Main_Page" title="Visit the main page"></a>
+	</div>
+	<nav id="p-navigation" class="mw-portlet mw-portlet-navigation vector-menu vector-menu-portal portal" aria-labelledby="p-navigation-label" role="navigation">
+	<h3 id="p-navigation-label" class="vector-menu-heading"><span>Navigation</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="n-mainpage-description"><a href="https://en.wikipedia.org/wiki/Main_Page" title="Visit the main page [Alt+Shift+z]" accesskey="z">Main page</a></li><li id="n-contents"><a href="https://en.wikipedia.org/wiki/Wikipedia:Contents" title="Guides to browsing Wikipedia">Contents</a></li><li id="n-currentevents"><a href="https://en.wikipedia.org/wiki/Portal:Current_events" title="Articles related to current events">Current events</a></li><li id="n-randompage"><a href="https://en.wikipedia.org/wiki/Special:Random" title="Visit a randomly selected article [Alt+Shift+x]" accesskey="x">Random article</a></li><li id="n-aboutsite"><a href="https://en.wikipedia.org/wiki/Wikipedia:About" title="Learn about Wikipedia and how it works">About Wikipedia</a></li><li id="n-contactpage"><a href="https://en.wikipedia.org/wiki/Wikipedia:Contact_us" title="How to contact Wikipedia">Contact us</a></li><li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C13_en.wikipedia.org&amp;uselang=en" title="Support us by donating to the Wikimedia Foundation">Donate</a></li></ul>
+		
+	</div>
+</nav>
+
+	<nav id="p-interaction" class="mw-portlet mw-portlet-interaction vector-menu vector-menu-portal portal" aria-labelledby="p-interaction-label" role="navigation">
+	<h3 id="p-interaction-label" class="vector-menu-heading"><span>Contribute</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="n-help"><a href="https://en.wikipedia.org/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li><li id="n-introduction"><a href="https://en.wikipedia.org/wiki/Help:Introduction" title="Learn how to edit Wikipedia">Learn to edit</a></li><li id="n-portal"><a href="https://en.wikipedia.org/wiki/Wikipedia:Community_portal" title="The hub for editors">Community portal</a></li><li id="n-recentchanges"><a href="https://en.wikipedia.org/wiki/Special:RecentChanges" title="A list of recent changes to Wikipedia [Alt+Shift+r]" accesskey="r">Recent changes</a></li><li id="n-upload"><a href="https://en.wikipedia.org/wiki/Wikipedia:File_Upload_Wizard" title="Add images or other media for use on Wikipedia">Upload file</a></li></ul>
+		
+	</div>
+</nav>
+<nav id="p-tb" class="mw-portlet mw-portlet-tb vector-menu vector-menu-portal portal" aria-labelledby="p-tb-label" role="navigation">
+	<h3 id="p-tb-label" class="vector-menu-heading"><span>Tools</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="t-whatlinkshere"><a href="https://en.wikipedia.org/wiki/Special:WhatLinksHere/Deep_belief_network" title="List of all English Wikipedia pages containing links to this page [Alt+Shift+j]" accesskey="j">What links here</a></li><li id="t-recentchangeslinked"><a href="https://en.wikipedia.org/wiki/Special:RecentChangesLinked/Deep_belief_network" rel="nofollow" title="Recent changes in pages linked from this page [Alt+Shift+k]" accesskey="k">Related changes</a></li><li id="t-upload"><a href="https://en.wikipedia.org/wiki/Wikipedia:File_Upload_Wizard" title="Upload files [Alt+Shift+u]" accesskey="u">Upload file</a></li><li id="t-specialpages"><a href="https://en.wikipedia.org/wiki/Special:SpecialPages" title="A list of all special pages [Alt+Shift+q]" accesskey="q">Special pages</a></li><li id="t-permalink"><a href="https://en.wikipedia.org/w/index.php?title=Deep_belief_network&amp;oldid=1012688873" title="Permanent link to this revision of this page">Permanent link</a></li><li id="t-info"><a href="https://en.wikipedia.org/w/index.php?title=Deep_belief_network&amp;action=info" title="More information about this page">Page information</a></li><li id="t-cite"><a href="https://en.wikipedia.org/w/index.php?title=Special:CiteThisPage&amp;page=Deep_belief_network&amp;id=1012688873&amp;wpFormIdentifier=titleform" title="Information on how to cite this page">Cite this page</a></li><li id="t-wikibase"><a href="https://www.wikidata.org/wiki/Special:EntityPage/Q16954980" title="Structured data on this page hosted by Wikidata [Alt+Shift+g]" accesskey="g">Wikidata item</a></li></ul>
+		
+	</div>
+</nav>
+<nav id="p-coll-print_export" class="mw-portlet mw-portlet-coll-print_export vector-menu vector-menu-portal portal" aria-labelledby="p-coll-print_export-label" role="navigation">
+	<h3 id="p-coll-print_export-label" class="vector-menu-heading"><span>Print/export</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="coll-download-as-rl"><a href="https://en.wikipedia.org/w/index.php?title=Special:DownloadAsPdf&amp;page=Deep_belief_network&amp;action=show-download-screen" title="Download this page as a PDF file">Download as PDF</a></li><li id="t-print"><a href="https://en.wikipedia.org/w/index.php?title=Deep_belief_network&amp;printable=yes" title="Printable version of this page [Alt+Shift+p]" accesskey="p">Printable version</a></li></ul>
+		
+	</div>
+</nav>
+
+	<nav id="p-lang" class="mw-portlet mw-portlet-lang vector-menu vector-menu-portal portal" aria-labelledby="p-lang-label" role="navigation"><button class="uls-settings-trigger" title="Language settings"></button>
+	<h3 id="p-lang-label" class="vector-menu-heading"><span>Languages</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li class="interlanguage-link interwiki-ca"><a href="https://ca.wikipedia.org/wiki/Xarxa_de_creen%C3%A7a_profunda" title="Xarxa de creença profunda – Catalan" hreflang="ca" class="interlanguage-link-target" lang="ca">Català</a></li><li class="interlanguage-link interwiki-es"><a href="https://es.wikipedia.org/wiki/Red_de_creencia_profunda" title="Red de creencia profunda – Spanish" hreflang="es" class="interlanguage-link-target" lang="es">Español</a></li><li class="interlanguage-link interwiki-ru"><a href="https://ru.wikipedia.org/wiki/%D0%93%D0%BB%D1%83%D0%B1%D0%BE%D0%BA%D0%B0%D1%8F_%D1%81%D0%B5%D1%82%D1%8C_%D0%B4%D0%BE%D0%B2%D0%B5%D1%80%D0%B8%D1%8F" title="Глубокая сеть доверия – Russian" hreflang="ru" class="interlanguage-link-target" lang="ru">Русский</a></li><li class="interlanguage-link interwiki-uk"><a href="https://uk.wikipedia.org/wiki/%D0%93%D0%BB%D0%B8%D0%B1%D0%B8%D0%BD%D0%BD%D0%B0_%D0%BC%D0%B5%D1%80%D0%B5%D0%B6%D0%B0_%D0%BF%D0%B5%D1%80%D0%B5%D0%BA%D0%BE%D0%BD%D0%B0%D0%BD%D1%8C" title="Глибинна мережа переконань – Ukrainian" hreflang="uk" class="interlanguage-link-target" lang="uk">Українська</a></li><li class="interlanguage-link interwiki-zh-yue"><a href="https://zh-yue.wikipedia.org/wiki/%E6%B7%B1%E5%BA%A6%E4%BF%A1%E5%BF%B5%E7%B6%B2%E7%B5%A1" title="深度信念網絡 – Cantonese" hreflang="yue" class="interlanguage-link-target" lang="yue">粵語</a></li></ul>
+		<div class="after-portlet after-portlet-lang"><span class="wb-langlinks-edit wb-langlinks-link"><a href="https://www.wikidata.org/wiki/Special:EntityPage/Q16954980#sitelinks-wikipedia" title="Edit interlanguage links" class="wbc-editpage">Edit links</a></span></div>
+	</div>
+</nav>
+
+</div>
+
+</div>
+<footer id="footer" class="mw-footer" role="contentinfo">
+	<ul id="footer-info">
+	<li id="footer-info-lastmod"> This page was last edited on 17 March 2021, at 19:28<span class="anonymous-show">&nbsp;(UTC)</span>.</li>
+	<li id="footer-info-copyright">Text is available under the <a rel="license" href="https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>;
+additional terms may apply.  By using this site, you agree to the <a href="https://foundation.wikimedia.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="https://foundation.wikimedia.org/wiki/Privacy_policy">Privacy Policy</a>. Wikipedia® is a registered trademark of the <a href="https://www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.</li>
+</ul>
+
+	<ul id="footer-places">
+	<li id="footer-places-privacy"><a href="https://foundation.wikimedia.org/wiki/Privacy_policy" class="extiw" title="wmf:Privacy policy">Privacy policy</a></li>
+	<li id="footer-places-about"><a href="https://en.wikipedia.org/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+	<li id="footer-places-disclaimer"><a href="https://en.wikipedia.org/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+	<li id="footer-places-contact"><a href="https://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact Wikipedia</a></li>
+	<li id="footer-places-mobileview"><a href="https://en.m.wikipedia.org/w/index.php?title=Deep_belief_network&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+	<li id="footer-places-developers"><a href="https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute">Developers</a></li>
+	<li id="footer-places-statslink"><a href="https://stats.wikimedia.org/#/en.wikipedia.org">Statistics</a></li>
+	<li id="footer-places-cookiestatement"><a href="https://foundation.wikimedia.org/wiki/Cookie_statement">Cookie statement</a></li>
+<li style="display: none;"><a href="#">Edit preview settings</a></li></ul>
+
+	<ul id="footer-icons" class="noprint">
+	<li id="footer-copyrightico"><a href="https://wikimediafoundation.org/"><img src="ref12_files/wikimedia-button.png" srcset="ref12_files/wikimedia-button-1.png 1.5x, ref12_files/wikimedia-button-2x.png 2x" alt="Wikimedia Foundation" loading="lazy" width="88" height="31"></a></li>
+	<li id="footer-poweredbyico"><a href="https://www.mediawiki.org/"><img src="ref12_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="ref12_files/poweredby_mediawiki_132x47.png 1.5x, ref12_files/poweredby_mediawiki_176x62.png 2x" loading="lazy" width="88" height="31"></a></li>
+</ul>
+
+</footer>
+
+
+<script>(RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.381","walltime":"0.584","ppvisitednodes":{"value":1155,"limit":1000000},"postexpandincludesize":{"value":56732,"limit":2097152},"templateargumentsize":{"value":1065,"limit":2097152},"expansiondepth":{"value":13,"limit":40},"expensivefunctioncount":{"value":0,"limit":500},"unstrip-depth":{"value":1,"limit":20},"unstrip-size":{"value":53932,"limit":5000000},"entityaccesscount":{"value":0,"limit":400},"timingprofile":["100.00%  365.650      1 -total"," 49.32%  180.342      1 Template:Reflist"," 39.98%  146.198     11 Template:Cite_journal"," 25.48%   93.156      1 Template:Machine_learning_bar"," 22.20%   81.191      1 Template:Sidebar_with_collapsible_lists"," 15.89%   58.090      1 Template:Short_description","  7.58%   27.705      1 Template:Pagetype","  5.22%   19.101      3 Template:Main_other","  4.69%   17.158      1 Template:Longitem","  4.22%   15.415      1 Template:SDcat"]},"scribunto":{"limitreport-timeusage":{"value":"0.195","limit":"10.000"},"limitreport-memusage":{"value":4813354,"limit":52428800}},"cachereport":{"origin":"mw2339","timestamp":"20210802232320","ttl":1814400,"transientcontent":false}}});});</script>
+<script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"Article","name":"Deep belief network","url":"https:\/\/en.wikipedia.org\/wiki\/Deep_belief_network","sameAs":"http:\/\/www.wikidata.org\/entity\/Q16954980","mainEntity":"http:\/\/www.wikidata.org\/entity\/Q16954980","author":{"@type":"Organization","name":"Contributors to Wikimedia projects"},"publisher":{"@type":"Organization","name":"Wikimedia Foundation, Inc.","logo":{"@type":"ImageObject","url":"https:\/\/www.wikimedia.org\/static\/images\/wmf-hor-googpub.png"}},"datePublished":"2013-12-20T13:58:16Z","dateModified":"2021-03-17T19:28:41Z","image":"https:\/\/upload.wikimedia.org\/wikipedia\/commons\/f\/fa\/Deep_belief_net.svg","headline":"type of artificial neural network"}</script>
+<script>(RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":120,"wgHostname":"mw2392"});});</script>
+<a accesskey="v" href="https://en.wikipedia.org/wiki/Deep_belief_network?action=edit" class="oo-ui-element-hidden"></a></body></html>

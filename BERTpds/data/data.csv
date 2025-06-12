@@ -1,0 +1,715 @@
+1,"
+One of the ways of creating intelligent machines is machine learning which use
+learning algorithms to extract information from the data while is deep learning which
+creates intelligent machines using specific algorithm called neural networks ","1] Crawford, C. (2016, November). https://blog.algorithmia.com/introduction-to-deep-learning/.",0.32549999999999996," Machine Learning, which is a specific subset of Artificial 
+Machine Learning is one way of doing that, by using algorithms to glean insights from data (see our gentle introduction here)
+To understand what deep learning is, we first need to understand the relationship deep learning has with machine learning, neural networks, and artificial intelligence.
+Deep Learning is one way of doing that, using a specific algorithm called a Neural Network
+Deep Learning on Algorithmia
+Artificial Intelligence is the broad mandate of creating machines that can think intelligently
+ Learning is just a type of algorithm that seems to work really well for
+useful accuracy on tasks that matter. Machine Learning has been used for
+Deep learning is a specific subset of
+ predicting things. Deep Learning and Neural Nets, for most purposes, ","0.241
+0.266
+0.286
+0.288
+0.325
+0.35
+0.368
+0.368
+0.381
+0.382"
+2," The
+key difference between machine learning and deep learning is how the features are
+extracted from the input using algorithms ","2] Alom, Md. Z., et al. (2019). A state-of-the-art survey on deep learning theory and architectures."
+2," Machine learning use algorithms first to
+extract the features from the given input and then apply learning while deep learning
+automatically extract the features and represent them hierarchically in multiple levels
+","2] Alom, Md. Z., et al. (2019). A state-of-the-art survey on deep learning theory and architectures."
+3," In today’s scenario, the problemswhich is used to take large time in processing are
+nowbeing solved with less time using deep learning concepts ","3] Dixit, M., Tiwari, A., Pathak, H., Astya, R. (2018). An overview of deep learning architectures,",0.4447,"application of ANN for such problems where learning tasks
+Now the LSTM model will learn the long-term dependencies
+of a computer system, deep learning is getting applied in many
+back. The challenges with the deep neural network are overfitting and computation time. Various regularization methods
+learning refers to the depth of the network whereas the ANN
+learning model can be trained, learned on complex data
+and also along with more data, computation power it becomes
+learning is a subarea of machine learning that deals with
+connecting the previous information to current tasks when the
+the performance increase with deep learning in comparison to","0.402
+0.408
+0.41
+0.441
+0.447
+0.459
+0.463
+0.465
+0.475
+0.477"
+4," Deep learning provide hierarchical
+representation of data and classify as well as predict the patterns through
+multiple layers of information processing modules in hierarchical architectures ","4] Zhao, R., Yan, R., et al. (2018). ‘Deep learning and its applications to machine health",0.2808,"to model high level representations behind data and classify(predict) patterns via stacking multiple layers of information processing modules in hierarchical architectures. Recently,
+data by building deep neural networks with multiple layers of
+Considering the capability of deep learning to address largescale data and learn high-level representation, deep learning can be a powerful and effective solution for machine
+form a deep network and learn high-level representations by
+structure of multiple layers can enable MHMS to learn complex concepts out of simpler concepts that can be constructed
+layer-wise training of deep networks,” Advances in neural information
+[9] R. Collobert and J. Weston, “A unified architecture for natural language processing: Deep neural networks with multitask learning,” in
+branch of machine learning which is featured by multiple nonlinear processing layers. Deep learning aims to learn hierarchy
+complexity increase behind deep learning and improve
+deep learning algorithms significantly. For example, as","0.132
+0.206
+0.267
+0.28
+0.304
+0.307
+0.319
+0.322
+0.332
+0.339"
+5," Resemblance to human processing mechanism require deep architectures
+for extracting information from rich sensory inputs ","5] Deng, L.,&Yu,D. (2013).Deep learning: Methods and applications. Foundations and Trends®",0.3739,"about learning with deep architectures for signal and information processing. It is not about deep understanding of the signal or information, although in many cases they may be related. It should also
+[85] L. Deng and J. Chen. Sequence classiﬁcation using the high-level features extracted from deep neural networks. In Proceedings of International Conference on Acoustics Speech and Signal Processing (ICASSP).
+[261] N. Morgan. Deep and wide: Multiple layers in automatic speech recognition. IEEE Transactions on Audio, Speech, & Language Processing,
+T. Mikolov. Devise: A deep visual-semantic embedding model. In Proceedings of Neural Information Processing Systems (NIPS). 2013.
+Learnednorm pooling for deep feedforward and recurrent neural networks.
+information retrieval, and multimodal information processing empowered by multi-task deep learning.
+in detail deep autoencoders as a prominent example of the unsupervised deep learning networks. No class labels are used in the learning,
+according to the nature of the multi-modal data as inputs to the deep
+[383] G. Wang and K. Sim. Context-dependent modelling of deep neural
+[332] M. Siniscalchi, D. Yu, L. Deng, and C.-H. Lee. Exploiting deep neural networks for detection-based speech recognition. Neurocomputing,","0.313
+0.333
+0.346
+0.37
+0.385
+0.386
+0.392
+0.399
+0.407
+0.408"
+5," The state-of-the-art in
+processing natural signals can be advanced by using efficient and effective deep
+learning algorithms ","5] Deng, L.,&Yu,D. (2013).Deep learning: Methods and applications. Foundations and Trends®",0.3216,"[7] I. Arel, C. Rose, and T. Karnowski. Deep machine learning — a new
+research. These advances have enabled the deep learning methods
+to deep learning and its applications to various signal and information
+successes of deep learning in diverse applications of computer vision,
+about learning with deep architectures for signal and information processing. It is not about deep understanding of the signal or information, although in many cases they may be related. It should also
+learning is part of a broader family of machine learning methods
+Deep architectures and automatic feature learning in music informatics. In Proceedings of International Symposium on Music Information
+advances in machine learning and signal/information processing
+[412] D. Yu and L. Deng. Deep learning and its applications to signal and
+Deep Learning: Methods and Applications","0.292
+0.295
+0.307
+0.311
+0.313
+0.321
+0.339
+0.344
+0.346
+0.348"
+3," Deep learning is a subfield of machine learning that uses
+algorithms which have similar structure and functioning of ANN ","3] Dixit, M., Tiwari, A., Pathak, H., Astya, R. (2018). An overview of deep learning architectures,",0.30890000000000006,"learning is a subarea of machine learning that deals with
+of a computer system, deep learning is getting applied in many
+[10]. Deep learning is used in various application areas as
+algorithms which have an inspiration by structure and function
+In the field of deep learning, there are many deep architectures
+and algorithms which are used widely for extraction of the
+This helps in the creation of deep neural network model
+research areas to build/develop the model as deep learning
+the image. In traditional machine learning algorithm, the
+various application areas where deep learning is active.","0.243
+0.267
+0.272
+0.282
+0.315
+0.335
+0.34
+0.341
+0.345
+0.349"
+6," Deep
+learning methods employ neural network architectures for inculcating learning therefore
+deep learning models are often referred as deep neural networks ",6] What is deep learning? Mathworks documentation. https://in.mathworks.com/discovery/deeplearning.,0.283,"Most deep learning methods use neural network architectures, which is why deep learning models are often referred to as deep neural networks.
+images, text, or sound. Deep learning models can achieve 
+and neural network architectures that learn features directly from the 
+Introduction to Deep Learning: What Are Convolutional Neural Networks? (4:44)
+deep learning performs “end-to-end learning” – where a network is given 
+Pretrained deep neural network models can be used to quickly apply 
+Deep learning models are trained by using large sets of labeled data 
+One of the most popular types of deep neural networks is known as convolutional neural networks (CNN or ConvNet).  A CNN convolves learned features with input data, and uses 2D  convolutional layers, making this architecture well suited to processing  2D data, such as images.
+Models are trained by using a large set of labeled data and neural 
+A slightly less common, more specialized approach to deep learning is to use the network as a feature extractor.  Since all the layers are tasked with learning certain features from  images, we can pull these features out of the network at any time during  the training process. These features can then be used as input to  a machine learning model such as support vector machines (SVM).","0.11
+0.259
+0.268
+0.287
+0.295
+0.304
+0.315
+0.316
+0.332
+0.344"
+6," The efficiency
+of the algorithm improves with increasing size of the data while in shallow learning
+it converges at specific level ",6] What is deep learning? Mathworks documentation. https://in.mathworks.com/discovery/deeplearning.,0.3915,"whereas shallow learning converges. Shallow learning refers to machine 
+A key advantage of deep learning networks is that they often continue to improve as the size of your data increases.
+Another key difference is deep learning algorithms scale with data, 
+like driverless cars. Recent advances in deep learning have improved to 
+A slightly less common, more specialized approach to deep learning is to use the network as a feature extractor.  Since all the layers are tasked with learning certain features from  images, we can pull these features out of the network at any time during  the training process. These features can then be used as input to  a machine learning model such as support vector machines (SVM).
+approach because with the large amount of data and rate of learning, 
+deep learning performs “end-to-end learning” – where a network is given 
+Choosing Between Machine Learning and Deep Learning
+hundreds of hidden layers. Every hidden layer increases the complexity 
+categorizes the objects in the image. With a deep learning workflow, ","0.267
+0.324
+0.325
+0.369
+0.425
+0.427
+0.431
+0.436
+0.453
+0.458"
+7,"
+3 Machine Learning Architecture
+A machine Learning Architecture is a structure where the combination of components
+collectively performs the transformation of raw data into trained data sets
+using specific algorithm ",7],0.3315,"As machine learning is based on available data for the system to make  a decision hence the first step defined in the architecture is data  acquisition. This involves data collection, preparing and segregating  the case scenarios based on certain features involved with the decision  making cycle and forwarding the data to the processing unit for carrying  out further categorization. This stage is sometimes called the data  preprocessing stage. The data model expects reliable, fast and elastic  data which may be discrete or continuous in nature. The data is then  passed into stream processing systems (for continuous data) and stored  in batch data warehouses (for discrete data) before being passed on to data modeling or processing stages.
+The Machine Learning Architecture can be categorized on the basis of the algorithm used in training.
+technology. The machine learning architecture defines the various layers
+The received data in the data acquisition layer is then sent forward  to the data processing layer where it is subjected to advanced  integration and processing and involves normalization of the data, data  cleaning, transformation, and encoding. The data processing  is also dependent on the type of learning being used. For e.g., if  supervised learning is being used the data shall be needed to be  segregated into multiple steps of sample data required for training of  the system and the data thus created is called training sample data or  simply training data. Also, the data processing is dependent upon the  kind of processing required and may involve choices ranging from action  upon continuous data which will involve the use of specific  function-based architecture, for example, lambda architecture, Also it  might involve action upon discrete data which may require memory-bound  processing. The data processing layer defines if the memory processing  shall be done to data in transit or in rest.
+along with types of Machine Learning Architecture. You can also go 
+Types of Machine Learning Architecture
+Machine Learning architecture is defined as the subject that has 
+involved in this architecture are Data Aquisition, Data Processing, 
+In supervised learning,  the training data used for is a mathematical model that consists of  both inputs and desired outputs. Each corresponding input has an  assigned output which is also known as a supervisory signal. Through the  available training matrix, the system is able to determine the  relationship between the input and output and employ the same in  subsequent inputs post-training to determine the corresponding output.  The supervised learning can further be broadened into classification and  regression analysis  based on the output criteria. Classification analysis is presented when  the outputs are restricted in nature and limited to a set of values.  However, regression analysis defines a numerical range of values for the  output. Examples of supervised learning are seen in face detection,  speaker verification systems.
+Machine Learning Datasets","0.29
+0.305
+0.314
+0.32
+0.333
+0.335
+0.343
+0.355
+0.358
+0.362"
+9,"1 Unsupervised Pre-Trained (Trained Before) Networks
+The machines are trained before starting any particular task, the concept is also
+known as transfer learning as once the model is trained for a particular task in
+one domain, it can be applied for obtaining the solution in another domain also
+",9] https://www.quora.com/What-is-pretraining-in-deep-learning-how-does-it-work. Accessed on,0.43249999999999994,"The concept of transfer learning/pre-training came into being when some researchers found  that a deep neural network, after training on a particular recognition  task (eg. Object Recognition ), can be applied on another domain (eg.  Bird Subcategorization) giving state-of-the-art results. This idea has powerful implications, as a model can be pre-trained and then applied on the required problem.
+As a feature extractor; Train model on a bigger data (possibly on a similar domain), use on on the required problem as on ""off-the-shelf"" model.
+Training parts of a neural network algorithms at different times is what pretraining refers to.
+ want to train a neural network to perform a task, take-classification 
+pre training in Deep learning is nothing but, training the machines, before they start doing a particular tasks.
+you save the weights of your network, so that the trained neural network
+Is it better to stay with machine learning or move to deep learning?
+Unsupervised embeddings are pretrained and are are used as inputs to NLP algorithms.
+You can use a pre-trained model in two ways:
+ can perform the similar task next time with a good optimis","0.368
+0.372
+0.394
+0.4
+0.408
+0.439
+0.444
+0.49
+0.501
+0.509"
+10," It is a data compression algorithm, lossy, and learned automatically
+from examples ","10] Jayawardana, V., https://towardsdatascience.com/autoencoders-bits-and-bytes-of-deep-lea",0.3972,"In more terms, autoencoding is a data compression algorithm where the compression and decompression functions are,
+learning of efficient codings. In the modern era, autoencoders have 
+compression and decompression functions are implemented with neural 
+Autoencoders — Bits and Bytes of Deep Learning
+learning by experience. That subset is known to be machine learning. 
+Learned automatically from examples: If you have appropriate training data, it  is easy to train specialized instances of the algorithm that will  perform well on a specific type of input. It doesn’t require any new  engineering.
+Data-specific:  Autoencoders are only able to compress data similar to what they have  been trained on. An autoencoder which has been trained on human faces  would not be performing well with images of modern buildings. This  improvises the difference between autoencoders and MP3 kind of  compression algorithms which only hold assumptions about sound in  general, but not about specific types of sounds.
+With the convolution autoencoder, we will get the following input and reconstructed output.
+With this code snippet, we will get the following output.
+autoencoder to map noisy digits images to clean digits images.","0.32
+0.335
+0.351
+0.376
+0.407
+0.425
+0.426
+0.436
+0.443
+0.453"
+12," The layers
+extract features which are used in training to perform classification ","12] https://en.wikipedia.org/wiki/Deep_belief_network. Accessed on September 12, 2019.",0.49440000000000006,"When trained on a set of examples without supervision, a DBN can learn to probabilistically reconstruct its inputs. The layers then act as feature detectors.[1] After this learning step, a DBN can be further trained with supervision to perform classification.[2]
+DBNs can be viewed as a composition of simple, unsupervised networks such as restricted Boltzmann machines (RBMs)[1] or autoencoders,[3] where each sub-network's hidden layer serves as the visible layer for the next. An RBM is an undirected,  generative energy-based model with a ""visible"" input layer and a hidden  layer and connections between but not within layers. This composition  leads to a fast, layer-by-layer unsupervised training procedure, where contrastive divergence is applied to each sub-network in turn, starting from the ""lowest"" pair of layers (the lowest visible layer is a training set).
+Initialize the visible units to a training vector.
+^ Bengio Y, Lamblin P, Popovici D, Larochelle H (2007). Greedy Layer-Wise Training of Deep Networks (PDF). NIPS.
+The observation[2] that DBNs can be trained greedily, one layer at a time, led to one of the first effective deep learning algorithms.[4]:6 Overall, there are many attractive implementations and uses of DBNs in real-life applications and scenarios (e.g., electroencephalography,[5] drug discovery[6][7][8]).
+Once an RBM is trained, another RBM is ""stacked"" atop it, taking its  input from the final trained layer. The new visible layer is initialized  to a training vector, and values for the units in the already-trained  layers are assigned using the current weights and biases. The new RBM is  then trained with the procedure above. This whole process is repeated  until the desired stopping criterion is met.[12]
+""Deep Belief Networks"". Deep Learning Tutorials.
+In machine learning, a deep belief network (DBN) is a generative graphical model, or alternatively a class of deep neural network, composed of multiple layers of latent variables (""hidden units""), with connections between the layers but not between units within each layer.[1]
+^ Bengio, Y. (2009). ""Learning Deep Architectures for AI"" (PDF). Foundations and Trends in Machine Learning. 2: 1–127. CiteSeerX 10.1.1.701.9550. doi:10.1561/2200000006.
+^ Bengio Y (2009). ""Learning Deep Architectures for AI"" (PDF). Foundations and Trends in Machine Learning. 2 (1): 1–127. CiteSeerX 10.1.1.701.9550. doi:10.1561/2200000006. Archived from the original (PDF) on 2016-03-04. Retrieved 2017-07-02.","0.319
+0.422
+0.44
+0.511
+0.511
+0.526
+0.533
+0.555
+0.56
+0.567"
+8," They are
+consist of layers of Restricted Boltzmann Machines for pre-training phase of the
+algorithm and feed forward networks for tuning the system ",8] namely:,0.5696,"As we previously covered in Chapter 3, autoencoders fundamental structures in deep networks because they’re often used ...
+(Recurrent Networks) for sequence modeling.
+use the smaller networks to build them. Earlier in the book, we 
+In this chapter, we take a look in more detail at each of these architectures. In Chapter 2,  we gave you a deeper understanding of the algorithms and math that  underlie neural networks in general. In this chapter, we focus more on  the higher-level architecture of different deep networks so as to build  an understanding appropriate for applying these networks in practice.
+Unsupervised Pretrained Networks
+ for image modeling and Long Short-Term Memory (LSTM) Networks 
+take a look at the four major architectures of deep networks and how we 
+Now that we’ve seen some of the components of deep networks, let’s 
+4. Major Architectures of Deep Networks
+Chapter 4. Major Architectures of Deep Networks","0.513
+0.515
+0.544
+0.56
+0.571
+0.58
+0.586
+0.597
+0.611
+0.619"
+13," These machines
+have neuron-like units which are connected systematically for stochastic decisions
+regarding on and off of the system ","13] Hinton, G. (2014). Boltzmann machines’ encyclopedia of machine | learning and data mining.",0.40549999999999997,"A Boltzmann machine is a network of symmetrically connected, neuron-like units that make
+After learning one hidden layer, the activity vectors of the hidden units, when they are being driven
+Markov random fields have simple, local interaction weights which are designed by hand rather
+deterministic and a Boltzmann machine turns into a Hopfield network.
+Learning in Boltzmann Machines Without Hidden Units
+If the units are updated sequentially in any order that does not depend on their total inputs, the
+hidden variables (Jordan 1998). When restricted Boltzmann machines are composed to learn a
+the neurons.
+stochastic dynamics of a Boltzmann machine then allow it to sample binary state vectors that have
+Boltzmann machines are a type of Markov random field (see  Graphical Models), but most","0.266
+0.325
+0.417
+0.419
+0.434
+0.435
+0.436
+0.44
+0.44
+0.443"
+8," The higher layer of RBM is provided with learned features
+from the lower layer progressively to attain the better results ",8] namely:,0.6628000000000001,"In this chapter, we take a look in more detail at each of these architectures. In Chapter 2,  we gave you a deeper understanding of the algorithms and math that  underlie neural networks in general. In this chapter, we focus more on  the higher-level architecture of different deep networks so as to build  an understanding appropriate for applying these networks in practice.
+As we previously covered in Chapter 3, autoencoders fundamental structures in deep networks because they’re often used ...
+Now that we’ve seen some of the components of deep networks, let’s 
+take a look at the four major architectures of deep networks and how we 
+Unsupervised Pretrained Networks
+Recurrent Neural Networks
+use the smaller networks to build them. Earlier in the book, we 
+5. Building Deep Networks
+Data Sci & Eng
+Recursive Neural Networks","0.543
+0.559
+0.63
+0.647
+0.679
+0.695
+0.702
+0.721
+0.726
+0.726"
+8,"3 Generative Adversary Networks
+Generative Adversary Networks use two networks using unsupervised learning
+approach for training ",8] namely:,0.5351,"Generative Adversarial Networks (GANs)
+Recursive Neural Networks
+take a look at the four major architectures of deep networks and how we 
+4. Major Architectures of Deep Networks
+Chapter 4. Major Architectures of Deep Networks
+In this chapter, we take a look in more detail at each of these architectures. In Chapter 2,  we gave you a deeper understanding of the algorithms and math that  underlie neural networks in general. In this chapter, we focus more on  the higher-level architecture of different deep networks so as to build  an understanding appropriate for applying these networks in practice.
+Unsupervised Pretrained Networks
+As we previously covered in Chapter 3, autoencoders fundamental structures in deep networks because they’re often used ...
+(Recurrent Networks) for sequence modeling.
+introduced four major network architectures:","0.496
+0.51
+0.512
+0.52
+0.52
+0.541
+0.559
+0.56
+0.562
+0.571"
+14," It two deep networks are generator and discriminator
+respectively ",14],0.40269999999999995,"GAN composes of two deep networks, the generator, and the discriminator. We will first look into how a generator creates images before learning how to train it.
+We train the discriminator just like a deep network classifier. If the input is real, we want D(x)=1. If  it is generated, it should be zero. Through this process, the  discriminator identifies features that contribute to real images.
+Generator and discriminator
+the generator creates images that the discriminator cannot tell the 
+competition to improve themselves. Eventually, the discriminator 
+However,  we encounter a gradient diminishing problem for the generator. The  discriminator usually wins early against the generator. It is always  easier to distinguish the generated images from real images in early  training. That makes V approaches 0. i.e. - log(1 -D(G(z))) → 0.  The gradient for the generator will also vanish which makes the  gradient descent optimization very slow. To improve that, the GAN  provides an alternative function to backpropagate the gradient to the  generator.
+ discriminator concept can be applied to many existing deep learning 
+discriminator and train the generator for another single iteration. We 
+GAN — What is Generative Adversarial Networks GAN?
+So what is this magic generator G?  The following is the DCGAN which is one of the most popular designs for  the generator network. It performs multiple transposed convolutions to  upsample z to generate the image x. We can view it as the deep learning classifier in the reverse direction.","0.21
+0.29
+0.301
+0.418
+0.424
+0.447
+0.457
+0.47
+0.498
+0.512"
+14, 4 ,14],0.5696999999999999,"V
+By
+G
+This
+ As always, simplicity works. Here, we cover the concept. But the 
+We
+discriminator and train the generator for another single iteration. We 
+In
+Data Science
+But","0.511
+0.535
+0.561
+0.568
+0.583
+0.583
+0.583
+0.584
+0.592
+0.597"
+8," The generate network have a deconvolution layer to generate the output
+which is fed to the discriminator, a standard convolution neural network ",8] namely:,0.48999999999999994,"Convolutional Neural Networks (CNNs)
+ for image modeling and Long Short-Term Memory (LSTM) Networks 
+Recursive Neural Networks
+Recurrent Neural Networks
+(Recurrent Networks) for sequence modeling.
+As we previously covered in Chapter 3, autoencoders fundamental structures in deep networks because they’re often used ...
+Unsupervised Pretrained Networks (UPNs)
+Unsupervised Pretrained Networks
+Generative Adversarial Networks (GANs)
+4. Major Architectures of Deep Networks","0.384
+0.417
+0.424
+0.486
+0.511
+0.53
+0.532
+0.534
+0.535
+0.547"
+8,"2 Convolution Neural Network
+Convolution Neural Networks transform the input data by passing it through the
+series of connected layer to produce an specific class score as output ",8] namely:,0.5498999999999999,"Convolutional Neural Networks (CNNs)
+ for image modeling and Long Short-Term Memory (LSTM) Networks 
+(Recurrent Networks) for sequence modeling.
+As we previously covered in Chapter 3, autoencoders fundamental structures in deep networks because they’re often used ...
+use the smaller networks to build them. Earlier in the book, we 
+In this chapter, we take a look in more detail at each of these architectures. In Chapter 2,  we gave you a deeper understanding of the algorithms and math that  underlie neural networks in general. In this chapter, we focus more on  the higher-level architecture of different deep networks so as to build  an understanding appropriate for applying these networks in practice.
+Recursive Neural Networks
+Recurrent Neural Networks
+Unsupervised Pretrained Networks
+take a look at the four major architectures of deep networks and how we ","0.513
+0.514
+0.526
+0.533
+0.557
+0.56
+0.567
+0.568
+0.577
+0.584"
+8, 5 Architecture of convolution neural network ,8] namely:,0.4789,"Recursive Neural Networks
+Convolutional Neural Networks (CNNs)
+Recurrent Neural Networks
+take a look at the four major architectures of deep networks and how we 
+4. Major Architectures of Deep Networks
+Chapter 4. Major Architectures of Deep Networks
+5. Building Deep Networks
+(Recurrent Networks) for sequence modeling.
+ for image modeling and Long Short-Term Memory (LSTM) Networks 
+As we previously covered in Chapter 3, autoencoders fundamental structures in deep networks because they’re often used ...","0.384
+0.403
+0.416
+0.486
+0.493
+0.493
+0.498
+0.521
+0.543
+0.552"
+17," Figure 6 shows the architecture
+of fully Recurrent Neural Network ",17],0.23430000000000004,"architecture showed that recurrent neural network is
+Fully Recurrent Neural Network
+Recurrent Neural Network and its Various
+RECURRENT NEURAL NETWORK
+Fully recurrent neural network (FRNN) developed in the
+neural network with focus on techniques of learning the
+Abstract----Recurrent neural network are network with dynamic
+are the basic units of nervous system. Neural Network is the
+Recurrent neural network are network can deep learn the input
+slow speed, respectively. A hierarchical neural network used","0.134
+0.178
+0.212
+0.225
+0.24
+0.256
+0.266
+0.267
+0.276
+0.289"
+18," One network forms a directed acyclic
+graph while another form a directed cyclic graph while connecting the nodes to
+explain their temporal dynamic behavior ","18] https://en.wikipedia.org/wiki/Recurrent_neural_network. Accessed on September 12, 2019.",0.35419999999999996,"The term “recurrent neural network” is used indiscriminately to  refer to two broad classes of networks with a similar general structure,  where one is finite impulse and the other is infinite impulse. Both classes of networks exhibit temporal dynamic behavior.[7] A finite impulse recurrent network is a directed acyclic graph that can be unrolled and replaced with a strictly feedforward neural network, while an infinite impulse recurrent network is a directed cyclic graph that can not be unrolled.
+A recurrent neural network (RNN) is a class of artificial neural networks where connections between nodes form a directed graph along a temporal sequence. This allows it to exhibit temporal dynamic behavior. Derived from feedforward neural networks, RNNs can use their internal state (memory) to process variable length sequences of inputs.[1][2][3] This makes them applicable to tasks such as unsegmented, connected handwriting recognition[4] or speech recognition.[5][6]
+They are in fact recursive neural networks  with a particular structure: that of a linear chain. Whereas recursive  neural networks operate on any hierarchical structure, combining child  representations into parent representations, recurrent neural networks  operate on the linear progression of time, combining the previous time  step and a hidden representation into the representation for the current  time step.
+Both finite impulse and infinite impulse recurrent networks can  have additional stored states, and the storage can be under direct  control by the neural network. The storage can also be replaced by  another network or graph, if that incorporates time delays or has  feedback loops. Such controlled states are referred to as gated state or  gated memory, and are part of long short-term memory networks (LSTMs) and gated recurrent units. This is also called Feedback Neural Network (FNN).
+A recursive neural network[32] is created by applying the same set of weights recursively over a differentiable graph-like structure by traversing the structure in topological order. Such networks are typically also trained by the reverse mode of automatic differentiation.[33][34] They can process distributed representations of structure, such as logical terms.  A special case of recursive neural networks is the RNN whose structure  corresponds to a linear chain. Recursive neural networks have been  applied to natural language processing.[35] The Recursive Neural Tensor Network uses a tensor-based composition function for all nodes in the tree.[36]
+^ Graves,  Alex; Fernández, Santiago; Gomez, Faustino J. (2006). ""Connectionist  temporal classification: Labelling unsegmented sequence data with  recurrent neural networks"". Proceedings of the International Conference on Machine Learning: 369–376. CiteSeerX 10.1.1.75.6306.
+^ Hochreiter, Sepp;  et al. (15 January 2001). ""Gradient flow in recurrent nets: the difficulty of learning long-term dependencies"".  In Kolen, John F.; Kremer, Stefan C. (eds.). A Field Guide to Dynamical Recurrent Networks. John Wiley &amp; Sons. ISBN .
+Main article: Bidirectional recurrent neural networks
+^ Schmidhuber, Jürgen (1989-01-01). ""A Local Learning Algorithm for Dynamic Feedforward and Recurrent Networks"". Connection Science. 1 (4): 403–412. doi:10.1080/09540098908915650. S2CID 18721007.
+^ Campolucci,  Paolo; Uncini, Aurelio; Piazza, Francesco; Rao, Bhaskar D. (1999).  ""On-Line Learning Algorithms for Locally Recurrent Neural Networks"". IEEE Transactions on Neural Networks. 10 (2): 253–271. CiteSeerX 10.1.1.33.7550. doi:10.1109/72.750549. PMID 18252525.","0.235
+0.312
+0.32
+0.326
+0.343
+0.384
+0.398
+0.403
+0.409
+0.412"
+17," The network has feedback connection
+to itself which allows to learn the sequences and maintain the information ",17],0.35019999999999996,"feedback connections amongst its nodes. Recurrent MultiLayer Perceptron (RMLP) is used in identification and control
+This continue to feedback to input sequences and finding
+allows activations to flow back in a loop, learn sequences and
+output neurons weights can be learned so that the network can
+with loops, which allows information to persist in network.
+This network work in generating response for a network
+weight w=1 [4]. At each time input unit applied with learning
+""Learning Precise Timing with LSTM Recurrent Networks
+sequences and activations, to another set of output sequences.
+Recurrent neural network are network can deep learn the input","0.285
+0.291
+0.303
+0.345
+0.347
+0.349
+0.393
+0.393
+0.394
+0.402"
+8," The neurons
+learn by themselves to translate input stream into sequence of useful outputs ",8] namely:,0.5881000000000001,"As we previously covered in Chapter 3, autoencoders fundamental structures in deep networks because they’re often used ...
+Recursive Neural Networks
+In this chapter, we take a look in more detail at each of these architectures. In Chapter 2,  we gave you a deeper understanding of the algorithms and math that  underlie neural networks in general. In this chapter, we focus more on  the higher-level architecture of different deep networks so as to build  an understanding appropriate for applying these networks in practice.
+Recurrent Neural Networks
+ for image modeling and Long Short-Term Memory (LSTM) Networks 
+Convolutional Neural Networks (CNNs)
+Unsupervised Pretrained Networks
+(Recurrent Networks) for sequence modeling.
+Autoencoders
+Unsupervised Pretrained Networks (UPNs)","0.521
+0.543
+0.56
+0.572
+0.573
+0.582
+0.584
+0.605
+0.665
+0.676"
+8,"
+Recurrent Neural Networks are considered as Turing complete and also considered
+standard for modeling time dimensions ",8] namely:,0.4572,"(Recurrent Networks) for sequence modeling.
+Recurrent Neural Networks
+In this chapter, we take a look in more detail at each of these architectures. In Chapter 2,  we gave you a deeper understanding of the algorithms and math that  underlie neural networks in general. In this chapter, we focus more on  the higher-level architecture of different deep networks so as to build  an understanding appropriate for applying these networks in practice.
+Recursive Neural Networks
+As we previously covered in Chapter 3, autoencoders fundamental structures in deep networks because they’re often used ...
+ for image modeling and Long Short-Term Memory (LSTM) Networks 
+Convolutional Neural Networks (CNNs)
+4. Major Architectures of Deep Networks
+Chapter 4. Major Architectures of Deep Networks
+take a look at the four major architectures of deep networks and how we ","0.352
+0.39
+0.404
+0.418
+0.419
+0.483
+0.493
+0.531
+0.531
+0.551"
+17," The various type of Recurrent Neural Networks are: Fully
+Recurrent Neural Network, Recursive Neural Network, Hopfield Network, Elamn
+Networks And Jordan Networks or Simple Recurrent Networks (SRN), Echo State
+Networks, Neural History Compressor, Long Short Term Memory (LSTM), Gated
+Recurrent Unit, Continuous-Time Recurrent Neural Network (CTRNN), Hierarchical
+Recurrent Neural Network, Recurrent Multilayer Perceptron Model, Neural
+Turing Machines (NTM), and Neural Network Pushdown Automata (NNPDA) ",17],0.3303,"Fully recurrent neural network (FRNN) developed in the
+architecture showed that recurrent neural network is
+Abstract----Recurrent neural network are network with dynamic
+Keywords----Recurrent neural Network, RNN, LSTM,
+The Recurrent Neural Network (RNN) is the network
+Recurrent neural network are network can deep learn the input
+Recurrent Neural Network and its Various
+Variation of recursive neural network is Recursive Neural
+16. Neural Network Push Down Automata (NNPDA)
+Fully Recurrent Neural Network","0.305
+0.306
+0.307
+0.317
+0.319
+0.334
+0.34
+0.349
+0.355
+0.371"
+8,"4 Recursive Neural Network
+Recursive Neural Network uses shared-weight matrix and a binary tree structure
+which help the network in learning about varying sequences of the words or parts of
+an image ",8] namely:,0.5631,"Recursive Neural Networks
+As we previously covered in Chapter 3, autoencoders fundamental structures in deep networks because they’re often used ...
+ for image modeling and Long Short-Term Memory (LSTM) Networks 
+In this chapter, we take a look in more detail at each of these architectures. In Chapter 2,  we gave you a deeper understanding of the algorithms and math that  underlie neural networks in general. In this chapter, we focus more on  the higher-level architecture of different deep networks so as to build  an understanding appropriate for applying these networks in practice.
+(Recurrent Networks) for sequence modeling.
+Recurrent Neural Networks
+take a look at the four major architectures of deep networks and how we 
+Convolutional Neural Networks (CNNs)
+introduced four major network architectures:
+Generative Adversarial Networks (GANs)","0.43
+0.51
+0.517
+0.56
+0.566
+0.568
+0.575
+0.591
+0.652
+0.662"
+19,"
+The sentence can further be classified by sentiment or any other matrix ","19] Nicholson, C., https://skymind.ai/wiki/recursive-neural-tensor-network. Accessed on",0.47020000000000006,"sentiment and other metrics.
+the subphrases are combined into a sentence that can be classified by 
+Recursive neural tensor networks require external components like Word2vec,  which is described below. To analyze text with neural nets, words can  be represented as continuous vectors of parameters. Those word vectors  contain information not only about the word in question, but about  surrounding words; i.e. the word’s context, usage and other semantic  information. Although Deeplearning4j implements Word2Vec we currently do  not implement recursive neural tensor networks.
+sentences, tokenize them, and tag the tokens as parts of speech.
+which are negative. The same applies to sentences as a whole.
+converts a corpus of words into vectors, which can then be thrown into a
+that will supply word vectors once you are processing sentences.
+Recursive Deep Models for Semantic Compositionality over a Sentiment Treebank; Richard Socher, Alex Perelygin, Jean Y. Wu, Jason Chuang, Christopher D. Manning, Andrew Y. Ng and Christopher Potts; 2013; Stanford University.
+Word vectors are used as features and serve as the basis of 
+Finally, word vectors can be taken from Word2vec and substituted for ","0.346
+0.426
+0.454
+0.462
+0.482
+0.485
+0.496
+0.506
+0.512
+0.533"
+19," Many more linguistic observations can be marked for
+the words and phrases ","19] Nicholson, C., https://skymind.ai/wiki/recursive-neural-tensor-network. Accessed on",0.49450000000000005," observations to be made about those words and phrases. By parsing the 
+the subphrases are combined into a sentence that can be classified by 
+sentences, tokenize them, and tag the tokens as parts of speech.
+which are negative. The same applies to sentences as a whole.
+Recursive neural tensor networks require external components like Word2vec,  which is described below. To analyze text with neural nets, words can  be represented as continuous vectors of parameters. Those word vectors  contain information not only about the word in question, but about  surrounding words; i.e. the word’s context, usage and other semantic  information. Although Deeplearning4j implements Word2Vec we currently do  not implement recursive neural tensor networks.
+that will supply word vectors once you are processing sentences.
+[NLP pipeline + Word2Vec pipeline] Do task (e.g. classify the sentence’s sentiment)
+Finally, word vectors can be taken from Word2vec and substituted for 
+the words in your tree. Next, we’ll tackle how to combine those word 
+process relies on machine learning, and allows for additional linguistic","0.381
+0.395
+0.461
+0.47
+0.508
+0.52
+0.541
+0.549
+0.555
+0.565"
+16," Backpropagation is a learning algorithm to compute gradient (partial
+derivatives) of a function through chain rule ",16]).,0.5221,"comparison to a single traditional machine learning algorithm. This is 
+Deep Learning algorithms consists of such a diverse set of models in 
+This is a bit different from usual sequential networks, where you see 
+ then runs a recognition algorithm in parallel for all of these boxes to
+perform a set of functions on the input, or it can skip this step 
+Machine Learning
+Machine Learning
+starting point for applying deep neural networks for all the tasks, 
+This nuance helps the model converge faster, as there is a joint 
+This is done along with a reasonable initialization function which keeps","0.465
+0.492
+0.502
+0.508
+0.52
+0.525
+0.525
+0.556
+0.563
+0.565"
+23," Dropout is machine learning algorithm for training neural network
+by randomly dropping units to prevent overfitting while combining different neural
+network architectures ","23] Shrivastav, N. (2014). Dropout: A simple way to prevent neural network from overfitting."
+22," Batch Normalization
+improves the sensitivity of the neural networkswith respect to theweights and
+accelerate the learning ",22] https://medium.com/cracking-the-data-science-interview/the-10-deep-learning-methods-aipractitioners-,0.4027,"Learning rate problem:  Generally, learning rates are kept small, such that only a small  portion of gradients corrects the weights, the reason is that the  gradients for outlier activations should not affect learned activations.  By batch normalization, these outlier activations are reduced and hence  higher learning rates can be used to accelerate the learning process.
+weight initialization and learning parameters. Batch normalization helps
+Neural networks are  one type of model for machine learning; they have been around for at  least 50 years. The fundamental unit of a neural network is a node,  which is loosely based on the biological neuron in the mammalian brain.  The connections between neurons are also modeled on biological brains,  as is the way these connections develop over time (with “training”).
+Adapting  the learning rate for your stochastic gradient descent optimization  procedure can increase performance and reduce training time. Sometimes  this is called learning rate annealing or adaptive learning rates.  The simplest and perhaps most used adaptation of learning rate during  training are techniques that reduce the learning rate over time. These  have the benefit of making large changes at the beginning of the  training procedure when larger learning rate values are used, and  decreasing the learning rate such that a smaller rate and therefore  smaller training updates are made to weights later in the training  procedure. This has the effect of quickly learning good weights early  and fine tuning them later.
+ learning then can be defined as neural networks with a large number of 
+the context words to a neural network and predict the word in the center
+In this post, I am mainly interested in the latter 3 architectures. A Convolutional Neural Network  is basically a standard neural network that has been extended across  space using shared weights. CNN is designed to recognize images by  having convolutions inside, which see the edges of an object recognized  on the image. A Recurrent Neural Network  is basically a standard neural network that has been extended across  time by having edges which feed into the next time step instead of into  the next layer in the same time step. RNN is designed to recognize  sequences, for example, a speech signal or a text. It has cycles inside  that implies the presence of short memory in the net. A Recursive Neural Network  is more like a hierarchical network where there is really no time  aspect to the input sequence but the input has to be processed  hierarchically in a tree fashion. The 10 methods below can be applied to  all of these architectures.
+continuous bag of words model, the goal is to be able to use the context
+6 — Batch Normalization
+ normalization regularizes these gradient from distraction to outliers ","0.257
+0.358
+0.396
+0.398
+0.425
+0.429
+0.431
+0.44
+0.445
+0.448"
+22," Skip gram is an unsupervised learning algorithm used
+to find the context of the given word ",22] https://medium.com/cracking-the-data-science-interview/the-10-deep-learning-methods-aipractitioners-,0.4433000000000001," corresponding words. Skip-gram is a model for learning word embedding 
+The main idea behind the skip-gram model (and many other word embedding models) is as follows: Two vocabulary terms are similar, if they share similar context.
+containing k consecutive terms. Then you should skip one of these words 
+In this post, I am mainly interested in the latter 3 architectures. A Convolutional Neural Network  is basically a standard neural network that has been extended across  space using shared weights. CNN is designed to recognize images by  having convolutions inside, which see the edges of an object recognized  on the image. A Recurrent Neural Network  is basically a standard neural network that has been extended across  time by having edges which feed into the next time step instead of into  the next layer in the same time step. RNN is designed to recognize  sequences, for example, a speech signal or a text. It has cycles inside  that implies the presence of short memory in the net. A Recursive Neural Network  is more like a hierarchical network where there is really no time  aspect to the input sequence but the input has to be processed  hierarchically in a tree fashion. The 10 methods below can be applied to  all of these architectures.
+large neural nets at test time. Dropout is a technique for addressing 
+skipped and predicts the skipped term. Therefore, if two words 
+To get myself into the craze, I took Udacity’s “Deep Learning” course,  which is a great introduction to the motivation of deep learning and  the design of intelligent systems that learn from complex and/or  large-scale datasets in TensorFlow. For  the class projects, I used and developed neural networks for image  recognition with convolutions, natural language processing with  embeddings and character based text generation with Recurrent Neural  Network / Long Short-Term Memory. All the code in Jupiter Notebook can  be found on this GitHub repository.
+algorithms.
+It has control on deciding when to remember what was computed in the previous time step.
+could force the river to get trapped and stagnate. In Machine Learning ","0.2
+0.404
+0.433
+0.462
+0.462
+0.474
+0.491
+0.499
+0.503
+0.505"
+24," A framework should
+automatically compute gradients, easy to code and understand and support parallel
+processing to reduce computation for optimized performance ",24],0.3744,"Parallelize the processes to reduce computations
+A deep learning framework is an interface, library or a tool which allows us to build deep learning models more easily and quickly, without getting into the details of underlying algorithms. They provide a clear and concise way for defining models using a collection of pre-built and optimized components.
+The flexible architecture of TensorFlow enables us to deploy our deep learning models on one or more CPUs (as well as GPUs). Below are a few popular use cases of TensorFlow:
+Automatically compute gradients
+TensorFlow: Useful for rapid deployment of new algorithms/experiments
+Keras is written in Python and can run on top of TensorFlow (as well as CNTK and Theano). The TensorFlow interface can be a bit challenging as it is a low-level library and new users might find it difficult to understand certain implementations.
+Like I mentioned before, Deeplearning4j is a paradise for Java programmers. It offers massive support for different neural networks like CNNs, RNNs and LSTMs. It can process a huge amount of data without sacrificing speed. Sounds like too good an opportunity to pass up!
+Deeplearning4j treats the task of loading data and training algorithms as separate processes. This separation of functions provides a whole lot of flexibility. And who wouldn’t like that, especially in deep learning?!
+Here’s the good news – we now have easy-to-use, open source deep learning frameworks that aim to simplify the implementation of complex and large-scale deep learning models. Using these amazing frameworks, we can implement complex models like convolutional neural networks in no time.
+The kind of deep learning models you can build using Deeplearning4j are:","0.307
+0.332
+0.338
+0.365
+0.371
+0.39
+0.406
+0.41
+0.412
+0.413"

@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)https://dzone.com/articles/introduction-to-word-vectors -->
+<html lang="en"><head><script async="" src="ref_10_files/imsync"></script><script async="" src="ref_10_files/imsync_003"></script><script async="" src="ref_10_files/imsync_002"></script><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" async="" src="ref_10_files/tag.js"></script><script type="text/javascript" async="" src="ref_10_files/js.js"></script><script async="" src="ref_10_files/gtm.js"></script><script type="text/javascript" async="" src="ref_10_files/analytics.download"></script><script src="ref_10_files/osd.download"></script>
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Learn what word vectors are, learn where word vectors come from, and look at a simplified representation of word vectors in this introduction to word vectors.">
+  <meta name="keywords" content="ai, word vectors, tutorial, deep learning, neural networks">
+
+  <meta property="og:description" content="Learn what word vectors are, learn where word vectors come from, and look at a simplified representation of word vectors in this introduction to word vectors.">
+  <meta property="og:site_name" content="dzone.com">
+  <meta property="og:title" content="Introduction to Word Vectors - DZone AI">
+  <meta property="og:url" content="https://dzone.com/articles/introduction-to-word-vectors">
+  <meta property="og:image" content="https://dz2cdn2.dzone.com/storage/article-thumb/8468113-thumb.jpg">
+  <meta property="og:type" content="article">
+
+  <meta name="twitter:site" content="@DZoneInc">
+  <meta name="twitter:image" content="https://dz2cdn2.dzone.com/storage/article-thumb/8468113-thumb.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:description" content="Learn what word vectors are, learn where word vectors come from, and look at a simplified representation of word vectors in this introduction to word vectors.">
+  <meta name="twitter:title" content="Introduction to Word Vectors - DZone AI">
+
+  <meta name="referrer" content="origin-when-cross-origin">
+  <meta name="google-site-verification" content="kndbhxcupfEqWmZclhCpB6vlgOs7QSmx2UHAGGnP2mA">
+  <meta name="df-verify" content="df0d76632b4543">
+
+  <link rel="icon" type="image/x-icon" href="https://dz2cdn3.dzone.com/themes/dz20/images/favicon.png">
+  <link rel="image_src" href="https://dz2cdn2.dzone.com/storage/article-thumb/8468113-thumb.jpg">
+  <link rel="canonical" href="ref_10_files/introduction-to-word-vectors.html">
+
+  <title>Introduction to Word Vectors - DZone AI</title>
+
+  <link rel="preload" href="https://fonts.dzone.com/themes/dz20/font/fontello.woff?11773374" as="font" type="font/woff" crossorigin="anonymous">
+
+  <link rel="stylesheet" media="all" href="ref_10_files/icons.css">
+  <link rel="stylesheet" media="all" href="ref_10_files/bootstrap.css">
+  <link rel="stylesheet" media="all" href="ref_10_files/global.css">
+  <link rel="stylesheet" media="all" href="ref_10_files/styles.css">
+<meta http-equiv="origin-trial" content="A+b/H0b8RPXNaJgaNFpO0YOFuGK6myDQXlwnJB3SwzvNMfcndat4DZYMrP4ClJIzYWo3/yP2S+8FTZ/lpqbPAAEAAABueyJvcmlnaW4iOiJodHRwczovL2ltYXNkay5nb29nbGVhcGlzLmNvbTo0NDMiLCJmZWF0dXJlIjoiVHJ1c3RUb2tlbnMiLCJleHBpcnkiOjE2MjYyMjA3OTksImlzVGhpcmRQYXJ0eSI6dHJ1ZX0="><meta http-equiv="origin-trial" content="A9ZgbRtm4pU3oZiuNzOsKcC8ppFSZdcjP2qYcdQrFKVzkmiWH1kdYY1Mi9x7G8+PS8HV9Ha9Cz0gaMdKsiVZIgMAAAB7eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiVHJ1c3RUb2tlbnMiLCJleHBpcnkiOjE2MjYyMjA3OTksImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="AxL6oBxcpn5rQDPKSAs+d0oxNyJYq2/4esBUh3Yx5z8QfcLu+AU8iFCXYRcr/CEEfDnkxxLTsvXPJFQBxHfvkgMAAACBeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiVHJ1c3RUb2tlbnMiLCJleHBpcnkiOjE2MjYyMjA3OTksImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A9KPtG5kl3oLTk21xqynDPGQ5t18bSOpwt0w6kGa6dEWbuwjpffmdUpR3W+faZDubGT+KIk2do0BX2ca16x8qAcAAACBeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiVHJ1c3RUb2tlbnMiLCJleHBpcnkiOjE2MjYyMjA3OTksImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A3HucHUo1oW9s+9kIKz8mLkbcmdaj5lxt3eiIMp1Nh49dkkBlg1Fhg4Fd/r0vL69mRRA36YutI9P/lJUfL8csQoAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiQ29udmVyc2lvbk1lYXN1cmVtZW50IiwiZXhwaXJ5IjoxNjI2MjIwNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A0OysezhLoCRYomumeYlubLurZTCmsjTb087OvtCy95jNM65cfEsbajrJnhaGwiTxhz38ZZbm+UhUwQuXfVPTg0AAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiQ29udmVyc2lvbk1lYXN1cmVtZW50IiwiZXhwaXJ5IjoxNjI2MjIwNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="AxoOxdZQmIoA1WeAPDixRAeWDdgs7ZtVFfH2y19ziTgD1iaHE5ZGz2UdSjubkWvob9C5PrjUfkWi4ZSLgWk3Xg8AAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiQ29udmVyc2lvbk1lYXN1cmVtZW50IiwiZXhwaXJ5IjoxNjI2MjIwNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A7+rMYR5onPnACrz+niKSeFdH3xw1IyHo2AZSHmxrofRk9w4HcQPMYcpBUKu6OQ6zsdxf4m/vqa6tG6Na4OLpAQAAAB4eyJvcmlnaW4iOiJodHRwczovL2ltYXNkay5nb29nbGVhcGlzLmNvbTo0NDMiLCJmZWF0dXJlIjoiQ29udmVyc2lvbk1lYXN1cmVtZW50IiwiZXhwaXJ5IjoxNjI2MjIwNzk5LCJpc1RoaXJkUGFydHkiOnRydWV9"><script type="text/javascript" async="" src="ref_10_files/js"></script><script type="text/javascript" async="" src="ref_10_files/tag.aspx"></script><script type="text/javascript" async="" src="ref_10_files/js1"></script><script src="ref_10_files/pubads_impl_2021041301.download" async=""></script><link rel="preload" href="ref_10_files/f.txt" as="script"><script type="text/javascript" src="ref_10_files/f.txt"></script><link rel="preload" href="ref_10_files/f1.txt" as="script"><script type="text/javascript" src="ref_10_files/f1.txt"></script><link rel="prefetch" href="https://8d3f4b9048891846b4a07121fca515cb.safeframe.googlesyndication.com/safeframe/1-0-38/html/container.html"><link rel="prefetch" href="https://tpc.googlesyndication.com/safeframe/1-0-38/html/container.html"><link rel="stylesheet" href="ref_10_files/codemirror.css"><link rel="stylesheet" href="ref_10_files/styles1.css"><link rel="stylesheet" href="ref_10_files/froala_editor.css"><link rel="stylesheet" href="ref_10_files/gray.css"><link rel="stylesheet" href="ref_10_files/mini-profile.css"><script src="ref_10_files/auth-status.download"></script><script id="omapi-script" src="ref_10_files/api.download" async=""></script><script src="ref_10_files/lazysizes.download"></script><script src="ref_10_files/codeblocks.download"></script><script src="ref_10_files/activity-bar.download"></script><script src="ref_10_files/froala_editor.download"></script><script src="ref_10_files/content.download"></script><script src="ref_10_files/content_002.download"></script><script src="ref_10_files/content_003.download"></script><script src="ref_10_files/codemirror.download"></script><script src="ref_10_files/meta.download"></script><script src="ref_10_files/python.download"></script><link rel="stylesheet" href="ref_10_files/codemirror_002.css"><link rel="stylesheet" href="ref_10_files/styles_002.css"><link rel="stylesheet" href="ref_10_files/froala_editor_002.css"><link rel="stylesheet" href="ref_10_files/gray_002.css"><link rel="stylesheet" href="ref_10_files/mini-profile_002.css"><script src="ref_10_files/auth-status.js"></script><script src="ref_10_files/lazysizes.js"></script><script src="ref_10_files/codeblocks.js"></script><script src="ref_10_files/activity-bar.js"></script><script src="ref_10_files/froala_editor.js"></script><script src="ref_10_files/content.js"></script><script src="ref_10_files/content_002.js"></script><script src="ref_10_files/content_003.js"></script></head>
+<body>
+<div id="ftl-header">
+  <div class="container-fluid header">
+    <div class="row">
+      <div class="col-md-12" style="padding: 0;">
+        <div class="header-top">
+          <div class="header-container">
+            <div class="pull-left logo-container">
+              <div class="logo">
+                <a class="inner" href="https://dzone.com/">
+                  <picture>
+                    <source srcset="ref_10_files/dz_cropped.webp 1x" type="image/webp">
+                    <source srcset="ref_10_files/dz_cropped_002.png 1x" type="image/png">
+                    <img src="ref_10_files/dz_cropped.png" alt="DZone">
+                  </picture>
+                </a>
+              </div>
+
+                <div class="active-portal"><a href="https://dzone.com/artificial-intelligence-tutorials-tools-news">AI Zone</a></div>
+            </div>
+
+            <div class="pull-right login-and-search">
+              <div id="authenticated-block" class="logged-in">
+                <div class="welcome-back">Thanks for visiting DZone today,</div>
+                <div id="user-header" class="user-info">
+                  <button class="user-avatar">
+                    <span id="header-username" class="username"></span>
+                    <img id="header-avatar" src="ref_10_files/introduction-to-word-vectors.html" alt="user avatar">
+                  </button>
+                  <div id="user-dropdown" class="browse-user-menu">
+                    <div class="user-content">
+                      <a id="header-user-plug" href="https://dzone.com/articles/introduction-to-word-vectors#" class="user-description"></a>
+                      <a id="header-user-edit" href="https://dzone.com/articles/introduction-to-word-vectors#" class="edit-profile">Edit Profile</a>
+                    </div>
+                    <ul class="user-actions">
+                      <li id="first-user-action"><a id="header-dropdown-manage-email" href="https://dzone.com/articles/introduction-to-word-vectors#">Manage Email Subscriptions</a></li>
+                      <li>
+                        <a href="https://dzone.com/articles/how-to-submit-a-post-to-dzone?utm_source=DZone&amp;utm_medium=user_dropdown&amp;utm_campaign=how_to_post">
+                          How to Post to DZone
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="bottom">
+                      <a href="https://dzone.com/users/logout.html" class="sign-out">Sign Out</a>
+                      <a id="dropdown-view-profile" href="https://dzone.com/articles/introduction-to-word-vectors#" class="view-profile">View Profile</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="post-content">
+                  <a class="post-content--button" href="https://dzone.com/content/article/post.html">
+                    <span class="post-class">Post</span>
+                    <i class="icon-plus"></i>
+                  </a>
+                </div>
+              </div>
+
+              <div id="unauthenticated-block" class="shown">
+                <div class="dz-intro">Over 2 million developers have joined DZone.</div>
+                <div class="mobile-invisible sign-in-join">
+                  <a href="https://dzone.com/users/login.html">Log In</a>
+                  <span class="dz-intro-span">/</span>
+                  <a href="https://dzone.com/static/registration.html">Join</a>
+                </div>
+                <a class="join-icon" href="https://dzone.com/users/login.html"><i class="icon-user"></i></a>
+              </div>
+              <div class="headerSearch">
+                <a class="icon-search dropdown-toggle" href="https://dzone.com/search"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="header-bottom">
+
+
+          <ul class="portals header-container scrollable-ul">
+            <li>
+              <a href="https://dzone.com/refcardz" id="header-refcardz">
+                <em>Refcardz</em>
+              </a>
+            </li>
+            <li>
+              <a href="https://dzone.com/research" id="header-research">
+                <em>Research</em>
+              </a>
+            </li>
+            <li>
+              <a href="https://dzone.com/webinars" id="header-webinars">
+                <em>Webinars</em>
+              </a>
+            </li>
+            <li class="last-portal-link">
+              <a href="https://dzone.com/articles/introduction-to-word-vectors#" id="header-portals">
+                <em>
+                  Zones
+                  <span id="zone-arrow" class="collapsible-toggle">
+                    <i class="icon-angle-down"></i>
+                    <i class="icon-angle-up"></i>
+                  </span>
+                </em>
+              </a>
+            </li>
+
+            <li class="separator" aria-hidden="true" style="color: #d9dcdd;">|</li>
+            <li id="portal-list" class="portal-topics">
+              <ul>
+                  <li>
+                    <a href="https://dzone.com/agile-methodology-training-tools-news" id="header-2">Agile</a>
+                  </li>
+                  <li>
+                    <a href="https://dzone.com/artificial-intelligence-tutorials-tools-news" id="header-4001">AI</a>
+                  </li>
+                  <li>
+                    <a href="https://dzone.com/big-data-analytics-tutorials-tools-news" id="header-3">Big Data</a>
+                  </li>
+                  <li>
+                    <a href="https://dzone.com/cloud-computing-tutorials-tools-news" id="header-4">Cloud</a>
+                  </li>
+                  <li>
+                    <a href="https://dzone.com/database-sql-nosql-tutorials-tools-news" id="header-5">Database</a>
+                  </li>
+                  <li>
+                    <a href="https://dzone.com/devops-tutorials-tools-news" id="header-6">DevOps</a>
+                  </li>
+                  <li>
+                    <a href="https://dzone.com/enterprise-integration-training-tools-news" id="header-7">Integration</a>
+                  </li>
+                  <li>
+                    <a href="https://dzone.com/iot-developer-tutorials-tools-news-reviews" id="header-8">IoT</a>
+                  </li>
+                  <li>
+                    <a href="https://dzone.com/java-jdk-development-tutorials-tools-news" id="header-1">Java</a>
+                  </li>
+                  <li>
+                    <a href="https://dzone.com/microservices-news-tutorials-tools" id="header-6001">Microservices</a>
+                  </li>
+                  <li>
+                    <a href="https://dzone.com/open-source-news-tutorials-tools" id="header-7001">Open Source</a>
+                  </li>
+                  <li>
+                    <a href="https://dzone.com/apm-tools-performance-monitoring-optimization" id="header-10">Performance</a>
+                  </li>
+                  <li>
+                    <a href="https://dzone.com/application-web-network-security" id="header-2001">Security</a>
+                  </li>
+                  <li>
+                    <a href="https://dzone.com/web-development-programming-tutorials-tools-news" id="header-11">Web Dev</a>
+                  </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" async="" src="ref_10_files/linkid.download"></script><script async="" src="ref_10_files/gtm.download"></script><script async="" src="ref_10_files/bundle.download"></script><link rel="stylesheet" media="all" href="ref_10_files/styles2.css">
+
+<div id="ftl-article">
+  <div class="container-fluid body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="articles-wrap">
+          <div class="ad-container" style="height: 90px;">
+            <div id="div-gpt-ad-1435246566686-0" class="ads-billboard-article ad-hidden" data-gpt-slot="top" data-google-query-id="CJfvzaK9hfACFZIdcgodFCIBqg" style="top: 100px;"><div id="google_ads_iframe_/2916070/dz2_article_billboard_new_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/2916070/dz2_article_billboard_new_0" title="3rd party ad content" name="google_ads_iframe_/2916070/dz2_article_billboard_new_0" scrolling="no" marginwidth="0" marginheight="0" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="conversion-measurement 'src'" style="border: 0px; vertical-align: bottom;" data-google-container-id="1" data-load-complete="true" src="./ref-10_files/saved_resource.html" width="970" height="90" frameborder="0"></iframe></div></div>
+          </div>
+
+          <div class="article-stream widget-top-border">
+            <div class="content-right-images affix-top" style="margin-top: 0px; top: 0px; right: 0px;">
+              <div id="div-gpt-ad-1435246566686-2" class="sidebar-ad" data-gpt-desktop="true" data-gpt-slot="sidebar1" data-google-query-id="CLHBzaK9hfACFVkTKwodVI8Afg" style="display: none;"><div id="google_ads_iframe_/2916070/dz2_article_halfpage_new_0__container__" style="border: 0pt none; width: 300px; height: 250px;"></div></div>
+            </div>
+
+                <script type="application/ld+json">
+                  {
+                    "@context": "http://schema.org",
+                    "@type": "Article",
+                    "headline": "Introduction to Word Vectors",
+                    "author": {
+                      "@type": "Person",
+                      "name": "Jayesh Bapu Ahire"
+                    },
+                    "audience": "software developers",
+                    "keywords": "ai,word vectors,tutorial,deep learning,neural networks",
+                    "timeRequired": "PT8M",
+                    "commentCount": 1,
+                    "wordCount": "1837",
+                    "accessMode": "textual, visual",
+                    "dateCreated": "2018-03-14T18:01:42Z",
+                    "datePublished": "2018-03-14T00:00:00Z",
+                    "dateModified": "2019-05-25T07:58:45Z",
+                    "articleSection": "artificial-intelligence-tutorials-tools-news",
+                    "publisher": {
+                      "@type": "Organization",
+                      "name": "DZone",
+                      "url": "https://dzone.com",
+                      "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://dzone.com/themes/dz20/images/dz_cropped.png"
+                      }
+                    },
+                    "articleBody": "Word Vectors Word vectors represent a significant leap forward in advancing our ability to analyze relationships across words, sentences, and documents. In doing so, they advance technology by providing machines with much more information about words than has previously been possible using traditional representations of words. It is word vectors that make technologies such as speech recognition and machine translation possible. There are many excellent explanations of word vectors, but in this one, I want to make the concept accessible to data and research people who aren't very familiar with natural language processing (NLP). What Are Word Vectors? Word vectors are simply vectors of numbers that represent the meaning of a word. For now, that's not very clear, but we'll come back to it in a bit. It is useful, first of all, to consider why word vectors are considered such a leap forward from traditional representations of words. Traditional approaches to NLP, such as one-hot encoding and bag-of-words models (i.e. using dummy variables to represent the presence or absence of a word in an observation, i.e. a sentence), while useful for some machine learning (ML) tasks, do not capture information about a word's meaning or context. This means that potential relationships, such as contextual closeness, are not captured across collections of words. For example, a one-hot encoding cannot capture simple relationships, such as determining that the words \"dog\" and \"cat\" both refer to animals that are often discussed in the context of household pets. Such encodings often provide sufficient baselines for simple NLP tasks (for example, email spam classifiers), but lack the sophistication for more complex tasks such as translation and speech recognition. In essence, traditional approaches to NLP such as one-hot encodings do not capture syntactic (structure) and semantic (meaning) relationships across collections of words and, therefore, represent language in a very naive way. In contrast, word vectors represent words as multidimensional continuous floating point numbers where semantically similar words are mapped to proximate points in geometric space. In simpler terms, a word vector is a row of real-valued numbers (as opposed to dummy numbers) where each point captures a dimension of the word's meaning and where semantically similar words have similar vectors. This means that words such as wheel and engine should have similar word vectors to the word car (because of the similarity of their meanings), whereas the word banana should be quite distant. Put differently, words that are used in a similar context will be mapped to a proximate vector space (we will get to how these word vectors are created below). The beauty of representing words as vectors is that they lend themselves to mathematical operators. For example, we can add and subtract vectors — the canonical example here is showing that by using word vectors we can determine that: king - man + woman = queen In other words, we can subtract one meaning from the word vector for king (i.e. maleness), add another meaning (femaleness), and show that this new word vector (king - man + woman) maps most closely to the word vector for queen. The numbers in the word vector represent the word's distributed weight across dimensions. In a simplified sense, each dimension represents a meaning and the word's numerical weight on that dimension captures the closeness of its association with and to that meaning. Thus, the semantics of the word are embedded across the dimensions of the vector. A Simplified Representation of Word Vectors In the figure, we are imagining that each dimension captures a clearly defined meaning. For example, if you imagine that the first dimension represents the meaning or concept of \"animal,\" then each word's weight on that dimension represents how closely it relates to that concept. This is quite a large simplification of word vectors as the dimensions do not hold such clearly defined meanings, but it is a useful and intuitive way to wrap your head around the concept of word vector dimensions. We create a list of words, apply spaCy's parser, extract the vector for each word, stack them together, and then extract two-principal components for visualization purposes. import numpy as np import spacy from sklearn.decomposition import PCA nlp = spacy.load(\"en\") animals = \"dog cat hamster lion tiger elephant cheetah monkey gorilla antelope rabbit mouse rat zoo home pet fluffy wild domesticated\" animal_tokens = nlp(animals) animal_vectors = np.vstack([word.vector for word in animal_tokens if word.has_vector]) pca = PCA(n_components=2) animal_vecs_transformed = pca.fit_transform(animal_vectors) animal_vecs_transformed = np.c_[animals.split(), animal_vecs_transformed] Here, we simply extract vectors for different animals and words that might be used to describe some of them. As mentioned in the beginning, word vectors are amazingly powerful because they allow us (and machines) to identify similarities across different words by representing them in a continuous vector space. You can see here how the vectors for animals like \"lion,\" \"tiger,\" \"cheetah,\" and \"elephant\" are very close together. This is likely because they are often discussed in similar contexts; for example, these animals are big, wild and, potentially dangerous — indeed, the descriptive word \"wild\" maps quite closely to this group of animals. Similar words are mapped together in the vector space. Notice how close \"cat\" and \"dog\" are to \"pet,\" how clustered \"elephant,\" \"lion,\" and \"tiger\" are, and how descriptive words also cluster together. What is also interesting here is how closely the words \"wild,\" \"zoo,\" and \"domesticated\" map to one another. It makes sense given that they are words that are frequently used to describe animals, but highlights the amazing power of word vectors! Where Do Word Vectors Come From? An excellent question at this point is, Where do these dimensions and weights come from?! There are two common ways through which word vectors are generated: Counts of word/context co-occurrences Predictions of context given word (skip-gram neural network models, i.e. word2vec) Note: Below, I describe a high-level word2vec approach to generating word vectors, but a good overview of the count/co-occurence approach can be found here. Both approaches to generating word vectors build on Firth's (1957) distributional hypothesis which states: \"You shall know a word by the company it keeps.\" Put differently, words that share similar contexts tend to have similar meanings. The context of a word in a practical sense refers to its surrounding word(s) and word vectors are (typically) generated by predicting the probability of a context given a word. Put differently, the weights that comprise a word vector are learned by making predictions on the probability that other words are contextually close to a given word. This is akin to attempting to fill in the blanks around some given input word. For example, given the input sequence, \"The fluffy dog barked as it chased a cat,\" the two-window (two-words preceding and proceeding the focal word) context for the words \"dog\" and \"barked\" would look like: I don't wish to delve into the mathematical details how neural networks learn word embeddings too much, as people much more qualified to do so have explicated this already. In particular, these posts have been helpful to me when trying to understand how word vectors are learned: Deep Learning, NLP, and Representations The Amazing Power of Word Vectors Word2Vec Tutorial: The Skip-Gram Model It is useful, however, to touch on the workings of the word2vec model given its popularity and usefulness. A word2vec model is simply a neural network with a single hidden layer that is designed to reconstruct the context of words by estimating the probability that a word is \"close\" to another word given as input. The model is trained on word, context pairings for every word in the corpus, i.e.: (DOG, THE)(DOG), FLUFFY(DOG, BARKED)(DOG, AS) Note that this is technically a supervised learning process, but you do not need labeled data — the labels (the targets/dependent variables) are generated from the words that form the context of a focal word. Thus, using the window function the model learns the context in which words are used. In this simple example, the model will learn that \"fluffy\" and \"barked\" are used in the context (as defined by the window length) of the word \"dog.\" One of the fascinating things about word vectors created by word2vec models is that they are the side effects of a predictive task, not its output. In other words, a word vector is not predicted, (it is context probabilities that are predicted), the word vector is a learned representation of the input that is used on the predictive task — i.e. predicting a word given a context. The word vector is the model's attempt to learn a good numerical representation of the word in order to minimize the loss (error) of its predictions. As the model iterates, it adjusts its neurons' weights in an attempt to minimize the error of its predictions and in doing so, it gradually refines its representation of the word. In doing so, the word's \"meaning\" becomes embedded in the weight learned by each neuron in the hidden layer of the network. A word2vec model, therefore, accepts as input a single word (represented as a one-hot encoding amongst all words in the corpus) and the model attempts to predict the probability that a randomly chosen word in the corpus is at a nearby position to the input word. This means that for every input word there are n output probabilities, where n is equal to the total size of the corpus. The magic here is that the training process includes only the word's context, not all words in the corpus. This means in our simple example above, given the word \"dog\" as input, \"barked\" will have a higher probability estimate than \"cat\" because it is closer in context, i.e. it is learned in the training process. Put differently, the model attempts to predict the probability that other words in the corpus belong to the context of the input word. Therefore, given the sentence above (\"The fluffy dog barked as it chased a cat\") as input a run of the model would look like this: Note: This conceptual NN is a close friend of the diagram in Chris McCormick's blog post linked to above. The value of going through this process is to extract the weights that have been learned by the neurons of the model's hidden layer. It is these weights that form the word vector, i.e. if you have a 300-neuron hidden layer, you will create a 300-dimension word vector for each word in the corpus. The output of this process, therefore, is a word-vector mapping of size n-input words * n-hidden layer neurons. Next Up Word vectors are an amazingly powerful concept and a technology that will enable significant breakthroughs in NLP applications and research. They also highlight the beauty of neural network deep learning and, particularly, the power of learned representations of input data in hidden layers. In my next post, I will be using word vectors in a convolutional neural network for a classification task. This will highlight word vectors in practice, as well as how to bring pre-trained word vectors into a Keras model.",
+                    "mainEntityOfPage": {
+                      "@type": "WebPage",
+                      "@id": "https://dzone.com/articles/introduction-to-word-vectors"
+                    },
+                    "image": {
+                      "@type": "ImageObject",
+                      "url": "https://dzone.com//dz2cdn2.dzone.com/storage/article-thumb/8468113-thumb.jpg"
+                    }
+                  }
+                </script>
+
+                  <script type="application/ld+json">
+                    {
+                      "@context": "https://schema.org",
+                      "@type": "BreadcrumbList",
+                      "itemListElement": [{
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "DZone",
+                        "item": "https://dzone.com"
+                      }, {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "AI Zone",
+                        "item": "https://dzone.com/artificial-intelligence-tutorials-tools-news"
+                      }, {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "name": "Introduction to Word Vectors",
+                        "item": "https://dzone.com/articles/introduction-to-word-vectors"
+                      }]
+                    }
+                  </script>
+
+            <article>
+              <div class="content">
+                <div class="header">
+                  <div class="col-xs-12 breadcrumb-padding">
+                    <a href="https://dzone.com/">DZone</a>
+                    &gt;
+                      <a href="https://dzone.com/artificial-intelligence-tutorials-tools-news">AI Zone</a>
+                      &gt;
+                      <a href="https://dzone.com/articles/introduction-to-word-vectors#">Introduction to Word Vectors</a>
+                  </div>
+                  <div class="header-title">
+                    <div class="title">
+                      <h1 class="article-title">Introduction to Word Vectors</h1>
+                    </div>
+
+                    <div class="subhead">
+                      <h3>Word vectors will enable breakthroughs in NLP 
+applications and research. They highlight the beauty of neural network 
+DL and the power of learned representations of input data in hidden 
+layers.</h3>
+                    </div>
+
+                    <div class="publish-meta">
+                        <div class="article-author-meta">
+                          <a href="https://dzone.com/users/3143298/jbahire.html">
+                            <img src="ref_10_files/thumbnail" class="avatar" alt="Jayesh Bapu Ahire user avatar" width="40">
+                          </a> by
+
+                          <div class="author-info">
+                            <span class="author-name">
+                              <a href="https://dzone.com/users/3143298/jbahire.html">Jayesh Bapu Ahire</a>
+                            </span>
+                          </div>
+
+
+                            <div class="mvb-award">
+                              <i title="Most Valuable Blogger" class="icon-mvb-1"></i>
+                            </div>
+
+
+                          ·
+                        </div>
+                      <span class="author-date">
+                        Mar. 14, 18
+                      </span>
+                      ·
+                        <a href="https://dzone.com/artificial-intelligence-tutorials-tools-news" id="portal-name">
+                          <span class="portal-name">AI Zone</span>
+                        </a>
+                      ·
+                      <span>Tutorial</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="author-n-useraction">
+                  <div class="like action">
+                    <div id="activity-like-icon" class="dz-like icon-thumbs-up">
+                      <span class="action-label">
+                        <span id="activity-like-text">Like</span>
+                      </span>
+                      <a href="https://dzone.com/articles/introduction-to-word-vectors#">
+                        <span id="activity-like-counter">(6)</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="action">
+
+                    <button class="comment">
+                      <i class="icon-comment"></i>
+                      Comment
+                      <span id="activity-comment-counter" class="comment-count">(1)</span>
+                    </button>
+                  </div>
+
+                  <div class="save action">
+                    <div id="activity-save-icon" class="save icon-star-empty">
+                      <span id="activity-save-text" class="action-label">Save</span>
+                    </div>
+                  </div>
+
+                  <div class="tweet action">
+                    <a id="tweet-link" href="https://dzone.com/articles/introduction-to-word-vectors" class="title" target="_blank">
+                      <span><i class="icon-twitter"></i></span>
+                      <span class="action-label">Tweet</span>
+                    </a>
+                  </div>
+
+                  <div class="pull-right">
+                    <div id="activity-view-container" class="article-views action">
+                      <i class="icon-eye"></i> 19.04K
+                      <span class="action-label">Views</span>
+                    </div>
+                  </div>
+                </div>
+                  <div class="signin-prompt">
+                    <p>Join the DZone community and get the full member experience.</p>
+                    <a id="article-signin-prompt" href="https://dzone.com/static/registration.html">Join For Free</a>
+                  </div>
+                  <div class="arrow-down"></div>
+
+                <div id="top-bumper-container"><div id="div-gpt-ad-1435246566686-3" class="article-bumper article-bumper-top" data-gpt-desktop="true" data-gpt-slot="topBumper" data-google-query-id="CLOV0qK9hfACFdJGKwodKhAE_Q"><div id="google_ads_iframe_/2916070/dz2_bumper_text_ad_0__container__" style="border: 0pt none; display: inline-block; width: 100%; height: auto;"><iframe src="./ref-10_files/container.html" id="google_ads_iframe_/2916070/dz2_bumper_text_ad_0" title="3rd party ad content" name="" scrolling="no" marginwidth="0" marginheight="0" data-is-safeframe="true" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="conversion-measurement 'src'" data-google-container-id="3" style="border: 0px; vertical-align: bottom; min-width: 100%;" data-load-complete="true" width="0" height="133" frameborder="0"></iframe></div></div></div>
+
+                <div>
+                  <div class="content-html"><h2>Word Vectors</h2>
+<p pid="1">Word vectors represent a significant leap forward in 
+advancing our ability to analyze relationships across words, sentences, 
+and documents. In doing so, they advance technology by providing 
+machines with much more information about words than has previously been
+ possible using traditional representations of words. It is word vectors
+ that make technologies such as speech recognition and machine 
+translation possible. There are many excellent explanations of word 
+vectors, but in this one, I want to make the concept accessible to data 
+and research people who aren't very familiar with natural language 
+processing (NLP).</p>
+<h2>What Are Word Vectors?</h2>
+<p pid="2">Word vectors are simply vectors of numbers that represent the
+ meaning of a word. For now, that's not very clear, but we'll come back 
+to it in a bit. It is useful, first of all, to consider why word vectors
+ are considered such a leap forward from traditional representations of 
+words.</p>
+<p pid="3">Traditional approaches to NLP, such as one-hot encoding and 
+bag-of-words models (i.e. using dummy variables to represent the 
+presence or absence of a word in an observation, i.e. a sentence), while
+ useful for some machine learning (ML) tasks, do not capture information
+ about a word's meaning or context. This means that potential 
+relationships, such as contextual closeness, are not captured across 
+collections of words. For example, a one-hot encoding cannot capture 
+simple relationships, such as determining that the words "dog" and "cat"
+ both refer to animals that are often discussed in the context of 
+household pets. Such encodings often provide sufficient baselines for 
+simple NLP tasks (for example, email spam classifiers), but lack the 
+sophistication for more complex tasks such as translation and speech 
+recognition. In essence, traditional approaches to NLP such as one-hot 
+encodings do not capture syntactic (structure) and semantic (meaning) 
+relationships across collections of words and, therefore, represent 
+language in a very naive way.</p>
+<p pid="4">In contrast, word vectors represent words as multidimensional
+ continuous floating point numbers where semantically similar words are 
+mapped to proximate points in geometric space. In simpler terms, a word 
+vector is a row of real-valued numbers (as opposed to dummy numbers) 
+where each point captures a dimension of the word's meaning and where 
+semantically similar words have similar vectors. This means that words 
+such as <em>wheel</em> and <em>engine</em> should have similar word vectors to the word <em>car </em>(because of the similarity of their meanings), whereas the word <em>banana</em>
+ should be quite distant. Put differently, words that are used in a 
+similar context will be mapped to a proximate vector space (we will get 
+to how these word vectors are created below). The beauty of representing
+ words as vectors is that they lend themselves to mathematical 
+operators. For example, we can add and subtract vectors — the canonical 
+example here is showing that by using word vectors we can determine 
+that:</p>
+<ul>
+ <li><p pid="5"><strong>king - man + woman = queen</strong></p></li>
+</ul>
+<p pid="6">In other words, we can subtract one meaning from the word 
+vector for king (i.e. maleness), add another meaning (femaleness), and 
+show that this new word vector (king - man + woman) maps most closely to
+ the word vector for queen.</p>
+<p pid="7">The numbers in the word vector represent the <em>word's distributed weight across dimensions</em>.
+ In a simplified sense, each dimension represents a meaning and the 
+word's numerical weight on that dimension captures the closeness of its 
+association with and to that meaning. Thus, the semantics of the word 
+are embedded across the dimensions of the vector.</p>
+<h3>A Simplified Representation of Word Vectors</h3>
+<figure>
+ <img src="ref_10_files/0_mRGKYujQkI7PcMDE_" class="fr-fin fr-dib">
+</figure>
+<p pid="8" style="text-align: center;"><em>In the figure, we are 
+imagining that each dimension captures a clearly defined meaning. For 
+example, if you imagine that the first dimension represents the meaning 
+or concept of "animal," then each word's weight on that dimension 
+represents how closely it relates to that concept.</em></p>
+<p pid="9">This is quite a large simplification of word vectors as the 
+dimensions do not hold such clearly defined meanings, but it is a useful
+ and intuitive way to wrap your head around the concept of word vector 
+dimensions.</p>
+<p pid="10">We create a list of words, apply spaCy's parser, extract the
+ vector for each word, stack them together, and then extract 
+two-principal components for visualization purposes.</p>
+<div><div class="CodeMirror cm-s-default"><div class="CodeMirror-vscrollbar" cm-not-content="true" style="width: 18px; pointer-events: none;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true" style="display: block; right: 0px; left: 31px; height: 18px; pointer-events: none;"><div style="height: 100%; min-height: 1px; width: 964.797px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 31px; margin-bottom: 0px; border-right-width: 30px; min-height: 188px; min-width: 964.797px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"></div><div class="CodeMirror-code" role="presentation" autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" style="" contenteditable="false"><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -31px;" contenteditable="false"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">import</span> <span class="cm-variable">numpy</span> <span class="cm-keyword">as</span> <span class="cm-variable">np</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -31px;" contenteditable="false"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">import</span> <span class="cm-variable">spacy</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -31px;" contenteditable="false"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">from</span> <span class="cm-variable">sklearn</span>.<span class="cm-property">decomposition</span> <span class="cm-keyword">import</span> <span class="cm-variable">PCA</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -31px;" contenteditable="false"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">nlp</span> = <span class="cm-variable">spacy</span>.<span class="cm-property">load</span>(<span class="cm-string">"en"</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -31px;" contenteditable="false"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">animals</span> = <span class="cm-string">"dog cat hamster lion tiger elephant cheetah monkey gorilla antelope rabbit mouse rat zoo home pet fluffy wild domesticated"</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -31px;" contenteditable="false"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">animal_tokens</span> = <span class="cm-variable">nlp</span>(<span class="cm-variable">animals</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -31px;" contenteditable="false"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">7</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">animal_vectors</span> = <span class="cm-variable">np</span>.<span class="cm-property">vstack</span>([<span class="cm-variable">word</span>.<span class="cm-property">vector</span> <span class="cm-keyword">for</span> <span class="cm-variable">word</span> <span class="cm-keyword">in</span> <span class="cm-variable">animal_tokens</span> <span class="cm-keyword">if</span> <span class="cm-variable">word</span>.<span class="cm-property">has_vector</span>])</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -31px;" contenteditable="false"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">8</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pca</span> = <span class="cm-variable">PCA</span>(<span class="cm-variable">n_components</span>=<span class="cm-number">2</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -31px;" contenteditable="false"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">9</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">animal_vecs_transformed</span> = <span class="cm-variable">pca</span>.<span class="cm-property">fit_transform</span>(<span class="cm-variable">animal_vectors</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -31px;" contenteditable="false"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">10</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">animal_vecs_transformed</span> = <span class="cm-variable">np</span>.<span class="cm-property">c_</span>[<span class="cm-variable">animals</span>.<span class="cm-property">split</span>(), <span class="cm-variable">animal_vecs_transformed</span>]</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; border-bottom: 0px solid transparent; top: 188px;"></div><div class="CodeMirror-gutters" style="height: 218px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 31px;"></div></div></div></div></div>
+<p pid="11">Here, we simply extract vectors for different animals and words that might be used to describe <em>some </em>of
+ them. As mentioned in the beginning, word vectors are amazingly 
+powerful because they allow us (and machines) to identify similarities 
+across different words by representing them in a continuous vector 
+space. You can see here how the vectors for animals like "lion," 
+"tiger," "cheetah," and "elephant" are very close together. This is 
+likely because they are often discussed in similar contexts; for 
+example, these animals are big, wild and, potentially dangerous — 
+indeed, the descriptive word "wild" maps quite closely to this group of 
+animals.</p>
+<figure>
+ <img src="ref_10_files/0_CldH-gf1GuWjqNjt_" class="fr-fin fr-dib">
+</figure>
+<p pid="12" style="text-align: center;"><em>Similar words are mapped 
+together in the vector space. Notice how close "cat" and "dog" are to 
+"pet," how clustered "elephant," "lion," and "tiger" are, and how 
+descriptive words also cluster together.</em></p>
+<p pid="13">What is also interesting here is how closely the words 
+"wild," "zoo," and "domesticated" map to one another. It makes sense 
+given that they are words that are frequently used to describe animals, 
+but highlights the amazing power of word vectors!</p>
+<h2>Where Do Word Vectors Come From?</h2>
+<p pid="14">An excellent question at this point is, <em>Where do these dimensions and weights come from?!</em> There are two common ways through which word vectors are generated:</p>
+<ol>
+ <li>Counts of word/context co-occurrences</li>
+ <li>Predictions of context given word (skip-gram neural network models, i.e. word2vec)</li>
+</ol>
+<p pid="15"><strong>Note</strong>: Below, I describe a high-level 
+word2vec approach to generating word vectors, but a good overview of the
+ count/co-occurence approach can be found <a href="https://medium.com/ai-society/jkljlj-7d6e699895c4" target="_blank">here</a>.</p>
+<p pid="16">Both approaches to generating word vectors build on Firth's (1957) <em>distributional hypothesis </em>which states:</p>
+<blockquote>
+ "You shall know a word by the company it keeps."
+</blockquote>
+<p pid="17">Put differently, <strong>words that share similar contexts tend to have similar meanings</strong>.
+ The context of a word in a practical sense refers to its surrounding 
+word(s) and word vectors are (typically) generated by predicting the 
+probability of a context given a word. Put differently, the weights that
+ comprise a word vector are learned by making predictions on the 
+probability that other words are contextually close to a given word. 
+This is akin to attempting to fill in the blanks around some given input
+ word. For example, given the input sequence, "The fluffy dog barked as 
+it chased a cat," the two-window (two-words preceding and proceeding the
+ focal word) context for the words "dog" and "barked" would look like:</p>
+<figure>
+ <img src="ref_10_files/0_Yl7I7bH52zk8m_8R_" class="fr-fin fr-dib">
+</figure>
+<p pid="18">I don't wish to delve into the mathematical details how 
+neural networks learn word embeddings too much, as people much more 
+qualified to do so have explicated this already. In particular, these 
+posts have been helpful to me when trying to understand how word vectors
+ are learned:</p>
+<ol>
+ <li><a href="http://colah.github.io/posts/2014-07-NLP-RNNs-Representations/" target="_blank">Deep Learning, NLP, and Representations</a></li>
+ <li><a href="https://blog.acolyer.org/2016/04/21/the-amazing-power-of-word-vectors/" target="_blank">The Amazing Power of Word Vectors</a></li>
+ <li><a href="http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/" target="_blank">Word2Vec Tutorial: The Skip-Gram Model</a></li>
+</ol>
+<p pid="19">It is useful, however, to touch on the workings of the 
+word2vec model given its popularity and usefulness. A word2vec model is 
+simply a neural network with a single hidden layer that is designed to 
+reconstruct the context of words by estimating the probability that a 
+word is "close" to another word given as input.</p>
+<p pid="20">The model is trained on word, context pairings for every word in the corpus, i.e.:</p>
+<ul>
+ <li><p pid="21"><strong>(DOG, THE)(DOG), FLUFFY(DOG, BARKED)(DOG, AS)</strong></p></li>
+</ul>
+<p pid="22">Note that this is technically a supervised learning process,
+ but you do not need labeled data — the labels (the targets/dependent 
+variables) are generated from the words that form the context of a focal
+ word. Thus, using the window function the model learns the context in 
+which words are used. In this simple example, the model will learn 
+that&nbsp;"fluffy" and "barked" are used in the context (as defined by 
+the window length) of the word "dog."</p>
+<p pid="23">One of the fascinating things about word vectors created by word2vec models is that they are the <em>side effects </em>of a predictive task, <em>not </em>its
+ output. In other words, a word vector is not predicted, (it is context 
+probabilities that are predicted), the word vector is a learned 
+representation of the input that is used on the predictive task — i.e. 
+predicting a word given a context. The word vector is the model's 
+attempt to learn a good numerical representation of the word in order to
+ minimize the loss (error) of its predictions. As the model iterates, it
+ adjusts its neurons' weights in an attempt to minimize the error of its
+ predictions and in doing so, it gradually refines its representation of
+ the word. In doing so, the word's "meaning" becomes embedded in the 
+weight learned by each neuron in the hidden layer of the network.</p>
+<p pid="24">A word2vec model, therefore, accepts as input a single word 
+(represented as a one-hot encoding amongst all words in the corpus) and 
+the model attempts to predict the probability that a randomly chosen 
+word in the corpus is at a nearby position to the input word. This means
+ that for every input word there are <em>n </em>output probabilities, where<em> n</em>
+ is equal to the total size of the corpus. The magic here is that the 
+training process includes only the word's context, not all words in the 
+corpus. This means in our simple example above, given the word "dog" as 
+input, "barked" will have a higher probability estimate than "cat" 
+because it is closer in context, i.e. it is learned in the training 
+process. Put differently, the model attempts to predict the probability 
+that other words in the corpus belong to the context of the input word. 
+Therefore, given the sentence above ("The fluffy dog barked as it chased
+ a cat")<em> </em>as input a run of the model would look like this:</p>
+<figure>
+ <img src="ref_10_files/0_YOchANwzN9tLv0M5_" class="fr-fin fr-dib">
+</figure>
+<p pid="25" style="text-align: center;"><em>Note: This conceptual NN is a close friend of the diagram in Chris McCormick's blog post linked to above.</em></p>
+<p pid="26">The value of going through this process is to extract the 
+weights that have been learned by the neurons of the model's hidden 
+layer. It is these weights that form the word vector, i.e. if you have a
+ 300-neuron hidden layer, you will create a 300-dimension word vector 
+for each word in the corpus. The output of this process, therefore, is a
+ word-vector mapping of size <em>n-</em>input words * <em>n</em>-hidden layer neurons.</p>
+<h2>Next Up</h2>
+<p pid="27">Word vectors are an amazingly powerful concept and a 
+technology that will enable significant breakthroughs in NLP 
+applications and research. They also highlight the beauty of neural 
+network deep learning and, particularly, the power of learned 
+representations of input data in hidden layers. In my next post, I will 
+be using word vectors in a convolutional neural network for a 
+classification task. This will highlight word vectors in practice, as 
+well as how to bring pre-trained word vectors into a Keras model.</p></div>
+                </div>
+
+                <div id="bottom-bumper-container"><div id="div-gpt-ad-1435246566686-4" class="article-bumper article-bumper-bottom" data-gpt-desktop="true" data-gpt-slot="bottomBumper"><div id="google_ads_iframe_/2916070/dz2_bumper_text_ad_1__container__" style="border: 0pt none; width: 100%; height: 0%;"></div></div></div>
+
+                <div class="article-topics">
+                  <div class="topic-label">Topics:</div>
+                  <div class="topics">
+                      <span class="topics-tag">ai,</span>
+                      <span class="topics-tag">word vectors,</span>
+                      <span class="topics-tag">tutorial,</span>
+                      <span class="topics-tag">deep learning,</span>
+                      <span class="topics-tag">neural networks</span>
+                  </div>
+                </div>
+
+                  <div class="attribution">
+                    <p>Published at DZone with permission of <span>Jayesh Bapu Ahire<span>, DZone MVB</span></span>.
+                      <span>
+                        <a href="https://medium.com/@jayeshbahire/introduction-to-word-vectors-ea1d4e4b84bf" target="_blank">See the original article here.
+                          <i class="icon-link-ext-alt"></i>
+                        </a>
+                      </span>
+                    </p>
+                    <p>Opinions expressed by DZone contributors are their own.</p>
+                  </div>
+
+                  <div class="related">
+                    <h3>Popular on DZone</h3>
+                    <ul>
+                        <li class="relateddiv">
+                          <a href="https://dzone.com/articles/shift-left-with-in-sprint-ui-test-automation?fromrel=true">Shift Left… With In-Sprint UI Test Automation?!</a>
+                        </li>
+                        <li class="relateddiv">
+                          <a href="https://dzone.com/articles/bing-maps-with-angular-in-a-spring-boot-applicatio?fromrel=true">Bing Maps With Angular in a Spring Boot Application</a>
+                        </li>
+                        <li class="relateddiv">
+                          <a href="https://dzone.com/articles/2021-the-year-of-dataops?fromrel=true">2021: The Year of DataOps</a>
+                        </li>
+                        <li class="relateddiv">
+                          <a href="https://dzone.com/articles/eclipse-mat-tidbits?fromrel=true">Eclipse MAT: Tidbits</a>
+                        </li>
+                    </ul>
+                  </div>
+<div class="comments-overlay"></div>
+<div id="comment-box">
+  <div class="comment-box-wrapper">
+    <div id="comment-input-editor"></div>
+  </div>
+  <div class="info hidden"></div>
+  <div class="comments-content">
+    <div class="comment-header">
+      <hr>
+      <span class="icon-comment">
+        <span class="numOfComments"></span> Comments
+      </span>
+    </div>
+    <div class="comments"></div>
+  </div>
+</div>
+            </div></article>
+          </div>
+
+          <div class="layout-card widget-top-border partner-resources-block" style="width:100%;margin-bottom: 1em;">
+            <div class="main-container">
+              <div class="featured-header">
+                <h2>
+                    AI<span> Partner Resources</span>
+                </h2>
+              </div>
+              <div class="partner-resources-container">
+                <div id="div-gpt-ad-1435246566686-5" class="resource-block" data-gpt-slot="partner" data-gpt-position="pr1"><div id="google_ads_iframe_/2916070/dz2_partner_resource_link_0__container__" style="border: 0pt none; width: 100%; height: 0%;"></div></div>
+                <div id="div-gpt-ad-1435246566686-6" class="resource-block" data-gpt-slot="partner" data-gpt-position="pr2"><div id="google_ads_iframe_/2916070/dz2_partner_resource_link_1__container__" style="border: 0pt none; width: 100%; height: 0%;"></div></div>
+                <div id="div-gpt-ad-1435246566686-7" class="resource-block" data-gpt-slot="partner" data-gpt-position="pr3"><div id="google_ads_iframe_/2916070/dz2_partner_resource_link_2__container__" style="border: 0pt none; width: 100%; height: 0%;"></div></div>
+                <div id="div-gpt-ad-1435246566686-8" class="resource-block" data-gpt-slot="partner" data-gpt-position="pr4"><div id="google_ads_iframe_/2916070/dz2_partner_resource_link_3__container__" style="border: 0pt none; width: 100%; height: 0%;"></div></div>
+                <div id="div-gpt-ad-1435246566686-9" class="resource-block" data-gpt-slot="partner" data-gpt-position="pr5"><div id="google_ads_iframe_/2916070/dz2_partner_resource_link_4__container__" style="border: 0pt none; width: 100%; height: 0%;"></div></div>
+                <div id="div-gpt-ad-1435246566686-10" class="resource-block" data-gpt-slot="partner" data-gpt-position="pr6"><div id="google_ads_iframe_/2916070/dz2_partner_resource_link_5__container__" style="border: 0pt none; width: 100%; height: 0%;"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade bd-example-modal-lg" id="modal-message" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header"></div>
+        <div class="modal-body"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script async="">const articleTitle = 'Introduction to Word Vectors'
+const articleUrl = 'https://dzone.com/articles/introduction-to-word-vectors'
+
+const retweetLink = document.querySelector('#tweet-link')
+
+function retweet(event) {
+    event.preventDefault()
+    event.stopPropagation()
+
+    const twitter = 'https://twitter.com/intent/tweet'
+    const params = '?text=' + encodeURIComponent(articleTitle) + '&url=' + articleUrl + '&ref=dzone.com&via=DZoneInc'
+    const win = window.open(twitter + params, '_blank')
+    win.focus()
+}
+
+retweetLink.addEventListener('click', retweet);
+
+function showStatusMessage(options) {
+  var modal = document.getElementById("modal-message");
+
+  if(modal) {
+    modal.classList.add(options.type);
+    var modalBody = modal.querySelector(".modal-content .modal-body");
+    var modalHeader = modal.querySelector(".modal-content .modal-header");
+
+    modalHeader.innerText = options.header ? options.header : "";
+    modalBody.innerText = options.body ? options.body : "" ;
+
+    $(modal).modal("show");
+
+    $(modal).on('hidden.bs.modal', function () {
+      modal.classList.remove(options.type);
+    });
+  }
+}
+
+function showConfirmMessage(options) {
+  var modal = document.getElementById("modal-message");
+
+  if(modal) {
+    modal.classList.add(options.type);
+    var modalBody = modal.querySelector(".modal-content .modal-body");
+    var modalHeader = modal.querySelector(".modal-content .modal-header");
+
+    modalHeader.innerText = options.header ? options.header : "";
+    modalBody.innerText = options.body ? options.body : "" ;
+
+    if (options.textarea) {
+      const textareaDiv = document.createElement('div')
+      const textareaLabel = document.createElement('label')
+      textareaLabel.setAttribute('for', 'modal-textarea')
+      textareaLabel.innerText = options.textarea.label
+
+      const textarea = document.createElement('textarea')
+      textarea.id = 'modal-textarea'
+      textarea.placeholder = (options.textarea.placeholder || '')
+      textarea.setAttribute('rows', (options.textarea.rows || 3))
+      textarea.classList.add('form-control', 'not-resizable')
+
+      if (options.textarea.maxlength) {
+        textarea.maxLength = options.textarea.maxlength
+      }
+
+      textareaDiv.appendChild(textareaLabel)
+      textareaDiv.appendChild(textarea)
+      modalBody.appendChild(textareaDiv)
+    }
+
+    var btnContainer = document.createElement("div");
+    btnContainer.classList.add("btn-container");
+
+    var noBtn = document.createElement("button");
+    noBtn.innerText = options.noBtnText ? options.noBtnText : "No";
+    noBtn.classList.add("no-btn");
+
+    var yesBtn = document.createElement("button");
+    yesBtn.innerText = options.yesBtnText ? options.yesBtnText : "Yes";
+    yesBtn.classList.add("yes-btn");
+
+    btnContainer.appendChild(noBtn);
+    btnContainer.appendChild(yesBtn);
+
+    modalBody.appendChild(btnContainer);
+
+    $(modal).modal("show");
+
+    $(noBtn).one("click", function() {
+      $(modal).modal("hide");
+
+      if(options.noCallback) {
+        $(modal).one('hidden.bs.modal', function () {
+          options.noCallback();
+        });
+      }
+    });
+
+    $(yesBtn).one("click", function() {
+      $(modal).modal("hide");
+
+      if(options.yesCallback) {
+        $(modal).one('hidden.bs.modal', function () {
+          options.yesCallback();
+        });
+      }
+    });
+
+    $(modal).on('hidden.bs.modal', function () {
+      modal.classList.remove(options.type);
+    });
+  }
+}
+</script><link rel="stylesheet" media="all" href="ref_10_files/styles3.css">
+
+<div id="ftl-footer">
+  <div class="container-fluid footerOuter">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="container">
+          <div class="row footer">
+            <div class="col-md-12 footerWidget">
+              <div class="row footerContainer footer">
+                <div class="left col-xs-12 col-sm-7">
+                  <div class="col-xs-12 social-media-icons footer-mobile">
+                    <ul class="icons-only">
+                      <li class="rss-icon" id="rss-footer-1">
+                        <a href="https://dzone.com/pages/feeds" target="_blank" rel="noreferrer noopener">
+                          <i class="icon-rss-1"></i>
+                        </a>
+                      </li>
+                      <li class="twitter-icon">
+                        <a href="https://twitter.com/DZoneInc" target="_blank" rel="noreferrer noopener">
+                          <i class="icon-twitter"></i>
+                        </a>
+                      </li>
+                      <li class="facebook-icon">
+                        <a href="https://www.facebook.com/DZoneInc" target="_blank" rel="noreferrer noopener">
+                          <i class="icon-facebook-1"></i>
+                        </a>
+                      </li>
+                      <li class="google-icon">
+                        <a href="https://plus.google.com/+dzone/posts" target="_blank" rel="noreferrer noopener">
+                          <i class="icon-gplus"></i>
+                        </a>
+                      </li>
+                      <li class="linkedin-icon">
+                        <a href="https://www.linkedin.com/company/devada-team" target="_blank" rel="noreferrer noopener">
+                          <i class="icon-linkedin-1"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="top-section col-xs-12">
+                    <div class="col-xs-12 col-sm-6">
+                      <p class="section-header">ABOUT US</p>
+                      <ul class="link-group">
+                        <li><a href="https://dzone.com/pages/about" rel="noreferrer noopener">About DZone</a></li>
+                        <li><a href="mailto:support@dzone.com" rel="noreferrer noopener">Send feedback</a></li>
+                        <li><a href="https://devada.com/careers/" rel="noreferrer noopener">Careers</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                      <p class="section-header">ADVERTISE</p>
+                      <ul class="link-group">
+                        <li><a href="https://devada.com/blog/developer-marketing" rel="noreferrer noopener">Developer
+                            Marketing Blog</a></li>
+                        <li><a href="https://dzone.com/pages/advertise" rel="noreferrer noopener">Advertise with DZone</a></li>
+                        <li><a href="tel:+19192387100" rel="noreferrer noopener">+1 (919) 238-7100</a></li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="bottom-section col-xs-12">
+                    <div class="col-xs-12 col-sm-6">
+                      <p class="section-header">CONTRIBUTE ON DZONE</p>
+                      <ul class="bottom-top-list link-group">
+                        <li><a href="https://dzone.com/pages/mvb" rel="noreferrer noopener">MVB Program</a></li>
+                        <li><a href="https://dzone.com/pages/contribute" rel="noreferrer noopener">Become a Contributor</a></li>
+                        <li><a href="https://dzone.com/writers-zone" rel="noreferrer noopener">Visit the Writers' Zone</a></li>
+                      </ul>
+
+                      <p class="section-header">LEGAL</p>
+                      <ul class="link-group">
+                        <li><a href="https://dzone.com/pages/tos" rel="noreferrer noopener">Terms of Service</a></li>
+                        <li><a href="https://dzone.com/pages/privacy" rel="noreferrer noopener">Privacy Policy</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                      <p class="section-header">CONTACT US</p>
+                      <ul class="link-group">
+                        <li>600 Park Offices Drive</li>
+                        <li>Suite 150</li>
+                        <li>Research Triangle Park, NC 27709</li>
+                        <li><a href="mailto:support@dzone.com" rel="noreferrer noopener">support@dzone.com</a></li>
+                        <li><a href="tel:+19196780300" rel="noreferrer noopener">+1 (919) 678-0300</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="right col-xs-12 col-sm-5">
+
+                  <p class="connect-text">Let's be friends:</p>
+                  <div class="col-xs-12 social-media-icons footer-wide">
+                    <ul class="icons-only">
+                      <li class="rss-icon" id="rss-footer-1">
+                        <a href="https://dzone.com/pages/feeds" target="_blank" rel="noreferrer noopener">
+                          <i class="icon-rss-1"></i>
+                        </a>
+                      </li>
+                      <li class="twitter-icon">
+                        <a href="https://twitter.com/DZoneInc" target="_blank" rel="noreferrer noopener">
+                          <i class="icon-twitter"></i>
+                        </a>
+                      </li>
+                      <li class="facebook-icon">
+                        <a href="https://www.facebook.com/DZoneInc" target="_blank" rel="noreferrer noopener">
+                          <i class="icon-facebook-1"></i>
+                        </a>
+                      </li>
+                      <li class="linkedin-icon">
+                        <a href="https://www.linkedin.com/company/devada-team" target="_blank" rel="noreferrer noopener">
+                          <i class="icon-linkedin-1"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="col-xs-12 powered-by">
+                    <p>DZone.com is powered by&nbsp;</p>
+                    <a href="https://devada.com/answerhub/" rel="noreferrer noopener">
+                      <img src="ref_10_files/introduction-to-word-vectors.html" data-src="https://dz2cdn3.dzone.com/themes/dz20/images/answerhub_logo_white_footer.png" class="lazyload" alt="AnswerHub logo">
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <script async="" src="ref_10_files/gpt.download"></script>
+
+  <script async="">
+      (function(w, d, s, l, i) {
+          w[l] = w[l] || [];
+          w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+          var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+          j.async = true;
+          j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+          f.parentNode.insertBefore(j,f);
+      })(window, document, 'script', 'dataLayer', 'GTM-K25QL22');
+  </script>
+
+  <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-410289-1', 'auto');
+      ga('require', 'linkid', 'linkid.js');
+      ga('require', 'GTM-TSD9TZP');
+      ga('set', 'siteSpeedSampleRate', 25);
+  </script>
+  <script async="" src="ref_10_files/analytics.download"></script>
+  <script async="">const analytics = {
+    'dimension1': 'ai',
+    'dimension2': 'article/tutorial',
+    'dimension3': '2018-03-14',
+    'dimension4': '0',
+    'dimension5': '',
+    'dimension7': 'ai, word vectors, tutorial, deep learning, neural networks',
+    'dimension8': 'Jbahire',
+    'dimension9': 'undefined',
+    'dimension10': ''
+}
+
+if (window.ga) {
+    Object.keys(analytics).forEach(function(key) {
+        window.ga('set', key, analytics[key])
+    })
+
+    window.ga('send', 'pageview')
+}</script>
+
+  <script>
+      const csrf = '8315020883656483430'
+      const articleId = 2115002
+      const likes = 6
+      const assetDomain = 'https://dz2cdn3.dzone.com'
+      const codemirrorVars = {
+          modeURI: 'https://dz2cdn3.dzone.com/themes/dz20/lib/codemirror/mode/',
+          requiredScripts: [
+              'https://dz2cdn3.dzone.com/themes/dz20/lib/codemirror/lib/codemirror.js',
+              'https://dz2cdn3.dzone.com/themes/dz20/lib/codemirror/mode/meta.js'
+          ]
+      }
+
+      const gptTags = {
+          'zone': 'ai',
+          'topicTag': 'ai,word vectors,tutorial,deep learning,neural networks',
+          'company': '',
+          'siteSection': 'Zones',
+          'articleCategory': 'tutorial',
+          'nodeID': '2115002',
+          'authorID': '3143298',
+          'publishYear': '2018',
+          'publishMonth': '03',
+          'jobRole': '',
+          'companySize': ''
+      }
+
+      const minCommentChar =  10;
+  </script>
+
+  <script src="ref_10_files/jquery.download"></script>
+  <script async="" src="ref_10_files/bootstrap.download"></script>
+  <script async="" src="ref_10_files/ads.download"></script>
+
+      <style>
+#adtoniq-msgr-bar {
+	position: fixed;
+	bottom: -20%;
+	left: 0;
+	width: 100%;
+	min-height: 30px;
+	z-index: 99999;
+	padding: 15px 0;
+	font-family: sans-serif;
+	font-size: 16px;
+	text-align: center;
+	background: #222;
+	color: #fff;
+	-webkit-transition: bottom 500ms ease-in-out;
+	transition: bottom 500ms ease-in-out
+}
+
+#adtoniq-msgr-bar p {
+	margin: 0 0 10px !important
+}
+
+#adtoniq-msgr-bar a {
+	color: #fff !important;
+	text-decoration: underline !important
+}
+
+#adtoniq-msgr-bar a:hover {
+	color: #d3d3d3 !important;
+	text-decoration: underline !important
+}
+
+#adtoniq-msgr-bar.reveal-alert {
+	bottom: 0;
+	-webkit-transition: bottom 500ms ease-in-out;
+	transition: bottom 500ms ease-in-out
+}
+
+#adtoniq-msgr-bar #adtoniq-msg-buttons {
+	display: inline-block;
+}
+
+#adtoniq-msg-buttons button {
+	margin-left: 20px;
+}
+
+
+#adtoniq-msgr-bar .btn-msg-bar {
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+	border: 1px solid transparent;
+	white-space: nowrap;
+	padding: 10px 30px;
+	border-radius: 0;
+	background-color: #395972;
+	color: #fff !important;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none
+}
+
+#adtoniq-msgr-bar .btn-msg-bar:hover {
+	background: #283e50
+}
+
+#adtoniq-msgr-bar .btn-msg-bar+.btn-msg-bar {
+	margin-left: 10px
+}
+
+#adtoniq-msgr-bar #adtoniq-msg {
+	display: inline
+}
+
+#adtoniq-msgr-bar #adtoniq-btns {
+	display: inline
+}
+
+</style>
+<script>
+wafum=function(){var I="";var I="";var O=document.createElement("a");O.href=window.location.href;var Q="dzone.com";var G="ontouchstart" in window||navigator.msMaxTouchPoints;var y="https://p.tinynewsfeed.com";var F="https://p.tinynewsfeed.com/";var ay="https://d2u6dc21frjf6h.cloudfront.net/e/3eJyrVkpVslJQyi8oycxT0lFQygHxElNK8zJLQNxyEDelKj8vVS85PxckkgkSMTS2sFSqBQD7jxAn."+Math.random()+".png";var b="https://d2u6dc21frjf6h.cloudfront.net/e/3eJyrVkpVslJQyi8oycxT0lFQygHxclOLixPTM/PSQSLlIJGUqvy8VL3k/FyQSCZIxNDYwlKpFgA+WxFg."+Math.random()+".png";var N="https://d2u6dc21frjf6h.cloudfront.net/e/3eJyrVkpVslJQyi8oyS8tUdJRUMoBcXNTi4sT0zPz0kEi5SCRlKr8vFS95PxckEgmSMTQ2MJSqRYAXG0R4Q==."+Math.random()+".png";var ag="https://d2u6dc21frjf6h.cloudfront.net/e/3eJyrVkpVslJQKkotTi1R0lFQygHxyhMzixNBvHIQL6UqPy9VLzk/FySSCRIxNLawVKoFAOQKD7A=."+Math.random()+".png";var z="https://p.tinynewsfeed.com/";var s="fc0dfc23-da23-4cd2-9851-02b24e69307d";var j="1389";var k="master-preview";var E="off";var u="6";if(u==""){u="6"}var al=[{width:"300",height:"600",cssSelector:".content-right-images .sidebar-ad:nth-child(1)",stripeId:"118623",autoRotate:"45",name:"InArticle-RightBar",directAd:[{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJx1zjELwjAQBeC/Em6WJhIQ7Rbi4lAcBItTCM1RIk1SDFGp+N/Niavjfbz3uBfM0DLwwY6YubZhtn6MmSunU4mDn7jSRh/Ph725pNL7aTohdkgqN0KYPgUbjWyu8wgrBpbGapBRktUo65C8kP/pPKAFt6SIzZACga+wltvdd9Ddb/VUjv3+Icx+wYpSiGfdg/cHol86RA==",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJwlzz0PgjAQBuC/0tzgZBBDYpSEGETiBAMMxKlpaIM1tIfQih/xv9vq+tzlfe/eMEJM4GLMEK9W8zwHZ7SN7PtaiEIEOHZ7axSd0I6tSBg3qOUtaFEtPCvBpVUJl9PQs+ePWqYGJjudpBnNqjL9I2ojtEkOVXmkp7xM6bmpC5qXNArDxyYMYUmA+UNcO/H1xPWTQni33l1a5PZog4ppGgXXofOzGWLgL9TCn+RBOlhH290vkN/dc5BykqHVrezh8wVB4Uyi",xxgeoLocales:"GB",xxpreviewCode:"ywsm",campaignStartTime:"",campaignEndTime:"",advertiser:"Ad Council",campaign:"You Will See Me"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJxtzj8LwjAQBfCvEm6WJiUg2q3ExSE4CIpTCM0RIvlTLFWp+N3NiaPj/XjvcS8YoWMQkvU4cWXTaIPPE++dKnMeQuS9Mupw2u/MpcznEOMRUSOpXAthtM2mba6jhxUDS1M1xijHapBpJJ/J/zYe0IFbSsZmKIkgVGjlZvudc/dbPXvHfr8QTmHBilKIZ12D9wdx+jh0",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJwlzz0PgjAQBuC/0tzgZBBDYpSEGETiBAMMxKlpaIM1tIfQih/xv9vq+tzlfe/eMEJM4GLMEK9W8zwHZ7SN7PtaiEIEOHZ7axSd0I6tSBg3qOUtaFEtPCvBpVUJl9PQs+ePWqYGJjudpBnNqjL9I2ojtEkOVXmkp7xM6bmpC5qXNArDxyYMYUmA+UNcO/H1xPWTQni33l1a5PZog4ppGgXXofOzGWLgL9TCn+RBOlhH290vkN/dc5BykqHVrezh8wVB4Uyi",xxgeoLocales:"GB",xxpreviewCode:"ywsm",campaignStartTime:"",campaignEndTime:"",advertiser:"Ad Council",campaign:"You Will See Me"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJxtjk2KwkAQha9S9HpIehIUx53oQkGIiPtQkxSxJF0dUh1/8S6exZNNMgqzmWV97/G9upnGTMGww4o0nqNrkCvRONvOcjtKJolNbL4SDoz1jjTEm0vYe8mX2TpPrT2PrY0OTWU+wOAgesWwoCPVvnEkAU4c9jDrghfvfKewa1EUi8B9b9P6glRZKliilAqZwBq/n49B2P0J/9s7makpr14oKrwbAPfgM518/T5THtv+zFosahqA8pV68HaY+w/YwE6p",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJyVkM1qwzAQhF9F7CGn1lbqUJqFUEpyCDTBpi0EejGqJGyXWCskOekPfZc+S5+skikUcstpYXaY+ZhPcIAM2hCsxzxvKCMn5F5nkvrcvoeWzKUI9tY7OV2gUKgUkkXVID4s691ue3/F+azgFY9njqtnMrrg/O2a84mVpPTi1DN5XJ4ZBBcMRKKsRh620ge9J9trE9ixCy27GwIZ6mnw7MkJ44UMXfRVjqT2vjMNWwujPCsN24iXn+8UOPwH1utyU/91Za+2Se8jIKiPyJCGSEIXhWlxMx9h1CGuBuW4FHz9As2eY+Q=",geoLocales:"GB",previewCode:"oracle-python",campaignStartTime:"",campaignEndTime:"",advertiser:"Oracle",campaign:"Python Development with Autonomous Transaction Processing Hands On Lab�"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJyFjb0OgjAYRV+l6YrSCokRNgMjSRMXxqbSL6SG/oQiGIzvbqsMbo735Nx7n9jhEmGlRQ+eVEI7oXrjCbucOS2yIqMZJY1dkspKSGqYYbBOg5mSFq6d8BNpK96AGA0PFo8Wzyl9HClNb67HO4RFPGBmX4MWRqKtV6Lgo+ijn1XEDPp6sXmPzb/7Cy6xXK2BtLM6AhXAIT8Vn3M5jyGyUXQDRODVCgFsG/j1Bl+8TyQ=",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJx9UD1vgzAQ/SvWDUwNmNASOAl1MEsUKiJ1YESufaKpwHaBJFWr/vfaaecud9LT+7h7XzADMnhdV7dgkgw2trNUI8XKTklzrMoyL/JHGt+FnJw8DWavq22+Kx520TKrtEKpUWu0DvWAWH9aQxnnHznnkVNWU9V1T4ct5/cZP3K/SuFnGj2Lf5Rwx0CGq1qzqWmSRrOOXpRcVmSNvTLhfVlNFxqtm8isrDXslxeU56DsRN+QnE3v+X3g93/e8ZsbAusKCDpkhkcDcPJAmhXlLVxffCvQ3pqA7x/zN1fo",geoLocales:"US,CA,GB",xxpreviewCode:"oracle-lcdod",campaignStartTime:"",campaignEndTime:"",advertiser:"Oracle",campaign:"On-Demand Webcast: Low Code Development On Demand"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJyNzd8KgjAUx/FXGbut3FKI9C7sOqECL8fJHWThNnH+KaN3z6kP0OX5wPd3PrSmCaFKQ4mOpaBrUKVxLLueBI/DOOQhZ2llO7m5QKt63OT4KMC1LE/F7GJxccOmRykizl8HzoNnXdItoeDXM7M7owYjyRonZE7JkpIlJffBkhzezned7/57MdCEytEaDAqrPagJ9tExnv/LvpnOrIGiQg9OjTjBukG/P7C+T+Y=",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJx9kMtugzAQRX/F8oJVCw5uUxgJZeFsqj4SKZW8RK5nRKgAu0BIH+q/F5Ouu5mRrs6dx/3mPQfGj+PoB0iSysWuN7ah2Lo2edwXeS4zuaHmXZnWm7rq7rFI13fZbRYNvV0VYBAQwXnACmD75TqSQnyshYi8dUiF1k8PqRA3UuzF3HI11zQ6qH+c/IpxE67adddbak2HTNOrNcMITDXuhOzZjPVE7ED9RMhezo5p8zkE3yn4tCoXrrxw5YUr/8bHb74K6JkDx7A2/BqEehZWMsuX/TjNwfDdEgb/+QUt8Fl7",geoLocales:"US,CA,GB",xxpreviewCode:"oracle-cnstw",campaignStartTime:"",campaignEndTime:"",advertiser:"Oracle",campaign:"On-Demand Webcast: Cloud Native Served Two Ways"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJyNjssOgjAQRX9l0q0PKiRG2CkuXGBI/AEy0qaOgUJaAYPx3y0oC3Yu59yce+fFahYBoxKVtF6MZY2ktPXSyz7joR/63OfeKU0Wh4YKQVotzpSbykrTUu4MF2VTlM2iLOD8ueV8fa8VWwLDYeeEWthVqiHBawSTCDMROnrcIDWYFxLiSrfSKCngiA+8opVDVzN2/T3dsYiJvtJynVflAMiBTbALx79Ea9z53RuApV468Otg7w/slF1C",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJydkE9LwzAYxr9KyGEnbd9utltfKILdQbGjwx12LFkSskiX1KTrRPG721Q9CJ48vfDw8nv+vFNHkdBj33ce41jZyDrGWxlxe4qrbZHnyxu4le1LyU4d08o8iGKeLVdpPvOOJwUygUKg7VAoxKey2e83j3OAFNItQJJkJYwH12/WyAXAawYw67gVsvjzcbYr/4OkV4Sy0OOeGeGva0MqdkByd9at0EaRjebOeukGzaUnF90fST3VJKU1g3RKCrJmPTswLwPrPLHqqvkhNL8Izbdt9Nyp8H6hSEWIE1YLgh6FZLHKp1xiGCemX3704xNH+W6z",geoLocales:"US,CA,GB",xxpreviewCode:"oracle-bmswocd",campaignStartTime:"",campaignEndTime:"",advertiser:"Oracle",campaign:"Hands-On Lab: Building Microservices with Oracle Converged Database"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJyVzkELgjAUwPGvMnatdClEegsvCsKgS8cxtzkWusmmFUbfvU3zA3R8f/i9995wgDmAqqdSuLig/UCV1C7G1wtBWZIlKEHxTTSdkYrtWmN3uKjiEtdki8RHgi1lnSBFZyZOUoReJ4Si+yDhHkAaDpRUc3fAGtS0ycFmgbdgtWCxoNKtpW60ExsnKwKfFv7PwSfMIZ+NFhEzfQjKh2N6zpZv+MP6cfUhODULH3474OcLq/hWNg==",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJydkDFPwzAQhf+K5SETJG4TteSkiMEMVASlgiGj5fpcE5TaxkkAgfjvxClsTCx30tN9d/feJw0UCH0aRz9AlhmXuiBVr1PlTlm9r8qyYPm17l+4PHnZGbvDal1stvk2GYJaVSAREMF5QAPwwEXb3t+tGStytmdzK3mscPPhrM4Ze98wlnjlUFd/DiaP/D8r6QWhMvq4lRaHy8aSWh6AtPrQO9MpcnSBNIsvwns3IdnZY5DDGCY1TkFHfFrwpha/kJghcYbEAomfY+mzN5F4o0AxPhGzikI3C6v8qly+wdc5WHrm6dc3pblq2Q==",geoLocales:"GB",xxpreviewCode:"oracle-wlfoci",campaignStartTime:"",campaignEndTime:"",advertiser:"Oracle",campaign:"Hands-On Lab: Weblogic for Oracle Cloud Infrastructure"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJyrVipQslJQysxNTE8t1ndOzC1IzEzPK9Z3DA+Od81JLC7JTE5MzkiN903MTi0tiDewMDIxMtB3TCnJz8ss1IWocAap0DU2MKgwMzDQK8hLV9JRUEoEGYtkggLEBJBUKUgKjxEgNeVKVkopVfl5qXrJ+bkggUyggKGxhSXY7JSyIiAX6EYQrzizKhXIg2muBQD77j/A",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJx1UEtrwzAM/ivBh56WxllgdIEwQttbyx4dDHYxim0SE8d2Y3sdG/vvs7rBLp0OBul7+JM+yUzqjAwhOF8XBZz8Eib4sGbJ7VRIDT4oDnyQxd0izGPTAYOyKncUa1W9Cv7YbhFZw+RA9aZxwNnTc8taEaxRR9Zr24FmPnb5pLTyklsjFp4zPoAxUifLc/effpPCyMsurMwrml9T1NsYUmLZPAAc2Eb1KiT6HuZRBmV6ZLjYJeEg5+Y+pNeTq4wALr/92zLbwyijQygi9Bsi/6GskZK+pO83lCLnRGoiMB9eCwcqDcpqdXv2Fm/ptqR9OZCvb9pced4=",advertiser:"AWS",campaign:"Elasticache Makeup",geoLocales:"IN, US",xxpreviewCode:"elasti",creative:"Adtoniq-ElastiCache-300x600",campaignStartTime:"",campaignEndTime:""}],preMarkup:"<div style='max-height: 600px; max-width: 300px; min-height: 600px; position: relative; text-align: center; width: 100%;'>",postMarkup:"</div>"},{width:"728",height:"90",cssSelector:".articles-wrap .ads-billboard-article",stripeId:"118623",autoRotate:"45",directAd:[{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJxtjk0KwkAMha8SZi22VsTqTnShIFTEfYltqJFOpjRTf/EunsWT2erCjct87/G93E1lpmDYYkEazNFWyIVokGxnaTiK4iiMwnQl7BnLHakPNld/cJIuk3U6juLLJOwfq8L0wGDn+aawoBOVrrIkHs7sDzBrvBNnXaOwq1EUM89tb1O7jFRZClii5AqJwBr3r2cnbH7CP3NnMzX5zQn1M2c7wC0YDOPJ55f8VLdnUmNWUgeUb9SCr8I83hvETkw=",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJyVkM1qwzAQhF9l0SGn1FaSQuOFUEJyCDTFpi0EejGqJGyXWCskOekPfZc+S5+sknso9NbTwuww8zHvzDEE1oZgPeZ5Qxk5IY86k9Tn9jW0ZC5EsNfeydkKhUKlkCyqBvFuUx8Otzdzzi8XvOLxFLh9JKOv5suXgk+sJKVXfy2T+83/ctgUmEiM1UgDW33SR7K9NgHOXWhhPQQy1NPg4cEJ44UMXfRVjqT2vjMN7IRRHkoDe/H09ZkCh9/Aelfu65+q7Nk26XtmyNRbJEgrJKGLwmyxLEYWdYqTsXKciX18A/YtY4c=",geoLocales:"GB",previewCode:"oracle-python",campaignStartTime:"",campaignEndTime:"",advertiser:"Oracle",campaign:"Python Development with Autonomous Transaction Processing Hands On Lab�"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJyFjTEPgjAQRv9KcysKtQ5SNgMjSRMXxqbSC8HQlgCCwfjfbcXBzfFe3vfuCT1kBFqjGhyTXJletY0dE3E5S8oZZ5TRpHRLlDuNUYEzdq43aKeowmutximpclmiGqz0lgyWPLH0wWl86xvYEVChL+y+QKOsJt9ZRrxOgk5+okRYsnlheQ/Lf/kFMtCrsxjXzgTQenA4pvzzW8+DP8Wg6g4DGNsVPdgS8HoDmzROxw==",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJx1UD1vgzAQ/SuWB6YWDGkBn4QymKUKFZE6MCLXPtFUYDtAkqpV/nvsZO5yJz29j7v3R2cKhH6tq1sgSQYb21mqEWNlp6TZV5znZb7F8Sjk5ORhMG+6yvKifC2iZVZpBVKD1mAd6AGg/rUGi6z84Sxyymqsuu59lzH2smF75hcXfqbRh/hfSJ8IleGm1jzXOEmjSYefSi4rkMZeiPC2pMYzjtZNaFbSGvLgBeUpKDvRNyhn03t+H/j9wzr+dkMgXShQHRLDlwE4eCDdlPyerc++Etrea6DXGzG8V4s=",geoLocales:"US,CA,GB",xxpreviewCode:"oracle-lcdod",campaignStartTime:"",campaignEndTime:"",advertiser:"Oracle",campaign:"On-Demand Webcast: Low Code Development On Demand"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJyNzU0OgjAQhuGrNN2iUOtCys7gWhI1YdmMdEJqKBDKj2K8u5R6AJfzJO83b9rShFBtoEQbpWBa0GVto+xylExwwRlnUVo1gwrO0OsRgxzvBdg+ylO5uvQur9iNqOSBx0/Bwkdb0g2h4MazentCA7UivzYha0l8SXxJblNDcnhZ1w2u++vDRBOq5qbGsGiMA73Abh+L9b0au+XMOigqdGD1jAv4Cfr5AusqT4k=",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJx1kMtugzAQRX/F8oJVAw60jT0S6sLZRH0kUip5iVyPRYkAO0BIH+q/F8M6mxnp6tx53F/aUSD0cxh8D0lSuth12tQ2Nq5JXg65EBnPnmx9lrrxuirbHebp44Y/8KjvzDoHjYAIzgOWANsf19pNyr8Ei7xxaHOlXp9Txu4zdmBTE3KqaXSUt430jlAdbtq3q61tdItE2Q+j+wGIrN0FyZseqtGSo+1Gi+T96ojS333wXYJPyWLmioUrFq5YpscnXwbySoFiWBoeDUI1CeuMi3k9jlMqdD8nQf/+AWoiWR4=",geoLocales:"US,CA,GB",xxpreviewCode:"oracle-cnstw",campaignStartTime:"",campaignEndTime:"",advertiser:"Oracle",campaign:"On-Demand Webcast: Cloud Native Served Two Ways"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJyNjkEOgjAQRa8y6VaFWhcCO8UFCw2JFyAjbeoYaEmraDTe3YJxwc7lvJ/3/7xYxzJg1KJWPs6x7ZC08XF53FQ8FanggsdFuZ9tb9RIMnp2oNpZr1xPdTBCVP2iahJVa5E8Uh5dOs3mwHCYKdBIvygN7PGUwc+DiQd3up6hdFg3CnJreuW0krDDK57Qq6HrNnb9u3xnGZNPa1RU23YAFMBylaTjW7J34fzODcDTUwXwrWDvDwV4XOU=",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJydkE9LwzAYxr9KyKEnbdNq1/aFItgdFDs69LBjyZKQRbokJl0nit/dpsOD4MnTCw8vv+fPJ3YYED6Mo/WQJNLExlE2iJiZY9Ju66oqbsmdGN4aerRUSf3I62xVlHkVecfSGigHzsFY4BLguel3u81TRkhO8i0habpqyHxg/WG0KLLyvSKRZYaL+s+/6KX5BxFfIUxDiwequb/uNGrpHtD9SQ1caYk2ijnjhZsUEx6d1XhA3VISNUZPwknB0ZqOdE+9CKzTwura/ofQ/yL0F9f41crwfcaAeQgTJguCmoX0pqyWWHya98UXO/z1DVRfblY=",geoLocales:"US,CA,GB",xxpreviewCode:"oracle-bmswocd",campaignStartTime:"",campaignEndTime:"",advertiser:"Oracle",campaign:"Hands-On Lab: Building Microservices with Oracle Converged Database"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJyVzkELgyAUwPGvIl7b0rnDqtvoUhAIu+woViaO0tDcRmPffVb0AXZ8f/i99z5whBmAauBSOJTzYeRKaofo7cpwSlKCCUZ3UfdGqibqjI1oXqKCVmyPLERGLW96wfLe+JZdSPJOcfwYJTwAyJf9BdetO1INKl5nYKcgULBRsFJQ6s5yN1nfTN6KhfuV/3HvBTPYzkaLuDHDElQIp3OSrs+0TxvGjS/BqVmEsK2A3x/XSlXZ",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJydkEFPhDAQhf9K0wMnhS4Q2U5CPNSDGzFs9MCx6bbdLhuW1gJqNP53KWRvnrzMJC/zzcx739hjQPg0jm6AJDE2tl7ITsfSXpJqX1Kak+xed29MXJxoTb9TZZrfFVkRDV5uShAKlALrQBmAF8ab5vkpJSTPyJ7MjbJQ4eHL9rpIt5+URE5apcs/56JX9o+N+AZhEVw8il4Nt3WPKnEA1OhDZ00r0dF6VC+uEOvspNCuP3oxjH6S4+R1wKcFryt+hfgM8RXiC8TXW/HZmQB8YMAqvBCCCkI7C5tsS5dn1PucKl5x/PMLuGlqfA==",geoLocales:"GB",xxpreviewCode:"oracle-wlfoci",campaignStartTime:"",campaignEndTime:"",advertiser:"Oracle",campaign:"Hands-On Lab: Weblogic for Oracle Cloud Infrastructure"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJyrVipQslJQysxNTE8t1ndOzC1IzEzPK9Z3DA+Od81JLC7JTE5MzkiN903MTi0tiDewMDIxMtB3TCnJz8ss1IWocAap0DU3sqiwNNAryEtX0lFQSgSZimSAAsQAkFQpSAq3CSAl5UpWSilV+Xmpesn5uSCBTKCAobGFJdjolLIiIBfoQhCvOLMqFciD6q0FAFt+P2M=",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJx1UEtrwzAM/ivBh56WxllgdIEwQttbyx4dDHYxim0SE8d2Y3sdG/vvs7rBLp0OBul7+JM+yUzqjAwhOF8XBZz8Eib4sGbJ7VRIDT4oDnyQxd0izGPTAYOyKncUa1W9Cv7YbhFZw+RA9aZxwNnTc8taEaxRR9Zr24FmPnb5pLTyklsjFp4zPoAxUifLc/effpPCyMsurMwrml9T1NsYUmLZPAAc2Eb1KiT6HuZRBmV6ZLjYJeEg5+Y+pNeTq4wALr/92zLbwyijQygi9Bsi/6GskZK+pO83lCLnRGoiMB9eCwcqDcpqdXv2Fm/ptqR9OZCvb9pced4=",advertiser:"AWS",campaign:"Elasticache Makeup",geoLocales:"IN,US",xxpreviewCode:"elasti",creative:"Adtoniq-ElastiCache-728x90",campaignStartTime:"",campaignEndTime:""}],preMarkup:"<div style='min-height: 90px; position: relative; display: inline-block;padding: 1em 0;text-align: center;clear: both;'>",postMarkup:"</div>"},{width:"728",height:"90",cssSelector:".advertPancake5 .ng-isolate-scope",stripeId:"118623",autoRotate:"45",directAd:[{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJxtjk0KwkAMha8SZi22VsTqTnShIFTEfYltqJFOpjRTf/EunsWT2erCjct87/G93E1lpmDYYkEazNFWyIVokGxnaTiK4iiMwnQl7BnLHakPNld/cJIuk3U6juLLJOwfq8L0wGDn+aawoBOVrrIkHs7sDzBrvBNnXaOwq1EUM89tb1O7jFRZClii5AqJwBr3r2cnbH7CP3NnMzX5zQn1M2c7wC0YDOPJ55f8VLdnUmNWUgeUb9SCr8I83hvETkw=",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJyVkM1qwzAQhF9l0SGn1FaSQuOFUEJyCDTFpi0EejGqJGyXWCskOekPfZc+S5+sknso9NbTwuww8zHvzDEE1oZgPeZ5Qxk5IY86k9Tn9jW0ZC5EsNfeydkKhUKlkCyqBvFuUx8Otzdzzi8XvOLxFLh9JKOv5suXgk+sJKVXfy2T+83/ctgUmEiM1UgDW33SR7K9NgHOXWhhPQQy1NPg4cEJ44UMXfRVjqT2vjMN7IRRHkoDe/H09ZkCh9/Aelfu65+q7Nk26XtmyNRbJEgrJKGLwmyxLEYWdYqTsXKciX18A/YtY4c=",geoLocales:"GB",previewCode:"oracle-python",campaignStartTime:"",campaignEndTime:"",advertiser:"Oracle",campaign:"Python Development with Autonomous Transaction Processing Hands On Lab�"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJyFjTEPgjAQRv9KcysKtQ5SNgMjSRMXxqbSC8HQlgCCwfjfbcXBzfFe3vfuCT1kBFqjGhyTXJletY0dE3E5S8oZZ5TRpHRLlDuNUYEzdq43aKeowmutximpclmiGqz0lgyWPLH0wWl86xvYEVChL+y+QKOsJt9ZRrxOgk5+okRYsnlheQ/Lf/kFMtCrsxjXzgTQenA4pvzzW8+DP8Wg6g4DGNsVPdgS8HoDmzROxw==",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJx1UD1vgzAQ/SuWB6YWDGkBn4QymKUKFZE6MCLXPtFUYDtAkqpV/nvsZO5yJz29j7v3R2cKhH6tq1sgSQYb21mqEWNlp6TZV5znZb7F8Sjk5ORhMG+6yvKifC2iZVZpBVKD1mAd6AGg/rUGi6z84Sxyymqsuu59lzH2smF75hcXfqbRh/hfSJ8IleGm1jzXOEmjSYefSi4rkMZeiPC2pMYzjtZNaFbSGvLgBeUpKDvRNyhn03t+H/j9wzr+dkMgXShQHRLDlwE4eCDdlPyerc++Etrea6DXGzG8V4s=",geoLocales:"US,CA,GB",xxpreviewCode:"oracle-lcdod",campaignStartTime:"",campaignEndTime:"",advertiser:"Oracle",campaign:"On-Demand Webcast: Low Code Development On Demand"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJyNzU0OgjAQhuGrNN2iUOtCys7gWhI1YdmMdEJqKBDKj2K8u5R6AJfzJO83b9rShFBtoEQbpWBa0GVto+xylExwwRlnUVo1gwrO0OsRgxzvBdg+ylO5uvQur9iNqOSBx0/Bwkdb0g2h4MazentCA7UivzYha0l8SXxJblNDcnhZ1w2u++vDRBOq5qbGsGiMA73Abh+L9b0au+XMOigqdGD1jAv4Cfr5AusqT4k=",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJx1kMtugzAQRX/F8oJVAw60jT0S6sLZRH0kUip5iVyPRYkAO0BIH+q/F8M6mxnp6tx53F/aUSD0cxh8D0lSuth12tQ2Nq5JXg65EBnPnmx9lrrxuirbHebp44Y/8KjvzDoHjYAIzgOWANsf19pNyr8Ei7xxaHOlXp9Txu4zdmBTE3KqaXSUt430jlAdbtq3q61tdItE2Q+j+wGIrN0FyZseqtGSo+1Gi+T96ojS333wXYJPyWLmioUrFq5YpscnXwbySoFiWBoeDUI1CeuMi3k9jlMqdD8nQf/+AWoiWR4=",geoLocales:"US,CA,GB",xxpreviewCode:"oracle-cnstw",campaignStartTime:"",campaignEndTime:"",advertiser:"Oracle",campaign:"On-Demand Webcast: Cloud Native Served Two Ways"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJyNjkEOgjAQRa8y6VaFWhcCO8UFCw2JFyAjbeoYaEmraDTe3YJxwc7lvJ/3/7xYxzJg1KJWPs6x7ZC08XF53FQ8FanggsdFuZ9tb9RIMnp2oNpZr1xPdTBCVP2iahJVa5E8Uh5dOs3mwHCYKdBIvygN7PGUwc+DiQd3up6hdFg3CnJreuW0krDDK57Qq6HrNnb9u3xnGZNPa1RU23YAFMBylaTjW7J34fzODcDTUwXwrWDvDwV4XOU=",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJydkE9LwzAYxr9KyKEnbdNq1/aFItgdFDs69LBjyZKQRbokJl0nit/dpsOD4MnTCw8vv+fPJ3YYED6Mo/WQJNLExlE2iJiZY9Ju66oqbsmdGN4aerRUSf3I62xVlHkVecfSGigHzsFY4BLguel3u81TRkhO8i0habpqyHxg/WG0KLLyvSKRZYaL+s+/6KX5BxFfIUxDiwequb/uNGrpHtD9SQ1caYk2ijnjhZsUEx6d1XhA3VISNUZPwknB0ZqOdE+9CKzTwura/ofQ/yL0F9f41crwfcaAeQgTJguCmoX0pqyWWHya98UXO/z1DVRfblY=",geoLocales:"US,CA,GB",xxpreviewCode:"oracle-bmswocd",campaignStartTime:"",campaignEndTime:"",advertiser:"Oracle",campaign:"Hands-On Lab: Building Microservices with Oracle Converged Database"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJyVzkELgyAUwPGvIl7b0rnDqtvoUhAIu+woViaO0tDcRmPffVb0AXZ8f/i99z5whBmAauBSOJTzYeRKaofo7cpwSlKCCUZ3UfdGqibqjI1oXqKCVmyPLERGLW96wfLe+JZdSPJOcfwYJTwAyJf9BdetO1INKl5nYKcgULBRsFJQ6s5yN1nfTN6KhfuV/3HvBTPYzkaLuDHDElQIp3OSrs+0TxvGjS/BqVmEsK2A3x/XSlXZ",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJydkEFPhDAQhf9K0wMnhS4Q2U5CPNSDGzFs9MCx6bbdLhuW1gJqNP53KWRvnrzMJC/zzcx739hjQPg0jm6AJDE2tl7ITsfSXpJqX1Kak+xed29MXJxoTb9TZZrfFVkRDV5uShAKlALrQBmAF8ab5vkpJSTPyJ7MjbJQ4eHL9rpIt5+URE5apcs/56JX9o+N+AZhEVw8il4Nt3WPKnEA1OhDZ00r0dF6VC+uEOvspNCuP3oxjH6S4+R1wKcFryt+hfgM8RXiC8TXW/HZmQB8YMAqvBCCCkI7C5tsS5dn1PucKl5x/PMLuGlqfA==",geoLocales:"GB",xxpreviewCode:"oracle-wlfoci",campaignStartTime:"",campaignEndTime:"",advertiser:"Oracle",campaign:"Hands-On Lab: Weblogic for Oracle Cloud Infrastructure"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJyrVipQslJQysxNTE8t1ndOzC1IzEzPK9Z3DA+Od81JLC7JTE5MzkiN903MTi0tiDewMDIxMtB3TCnJz8ss1IWocAap0DU3sqiwNNAryEtX0lFQSgSZimSAAsQAkFQpSAq3CSAl5UpWSilV+Xmpesn5uSCBTKCAobGFJdjolLIiIBfoQhCvOLMqFciD6q0FAFt+P2M=",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJx1UEtrwzAM/ivBh56WxllgdIEwQttbyx4dDHYxim0SE8d2Y3sdG/vvs7rBLp0OBul7+JM+yUzqjAwhOF8XBZz8Eib4sGbJ7VRIDT4oDnyQxd0izGPTAYOyKncUa1W9Cv7YbhFZw+RA9aZxwNnTc8taEaxRR9Zr24FmPnb5pLTyklsjFp4zPoAxUifLc/effpPCyMsurMwrml9T1NsYUmLZPAAc2Eb1KiT6HuZRBmV6ZLjYJeEg5+Y+pNeTq4wALr/92zLbwyijQygi9Bsi/6GskZK+pO83lCLnRGoiMB9eCwcqDcpqdXv2Fm/ptqR9OZCvb9pced4=",advertiser:"AWS",campaign:"Elasticache Makeup",geoLocales:"IN, US",xxpreviewCode:"elasti",creative:"Adtoniq-ElastiCache-728x90",campaignStartTime:"",campaignEndTime:""}],preMarkup:"<div style='min-height: 90px; position: relative; display: inline-block;padding: 1em 0;text-align: center;clear: both;'>",postMarkup:"</div>"},{width:"728",height:"90",platform:"desktop",cssSelector:".article-bumper.article-bumper-bottom",stripeId:"118623",autoRotate:"45",directAd:[{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJxtjk0KwkAMha8SZi22VsTqTnShIFTEfYltqJFOpjRTf/EunsWT2erCjct87/G93E1lpmDYYkEazNFWyIVokGxnaTiK4iiMwnQl7BnLHakPNld/cJIuk3U6juLLJOwfq8L0wGDn+aawoBOVrrIkHs7sDzBrvBNnXaOwq1EUM89tb1O7jFRZClii5AqJwBr3r2cnbH7CP3NnMzX5zQn1M2c7wC0YDOPJ55f8VLdnUmNWUgeUb9SCr8I83hvETkw=",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJyVkM1qwzAQhF9l0SGn1FaSQuOFUEJyCDTFpi0EejGqJGyXWCskOekPfZc+S5+sknso9NbTwuww8zHvzDEE1oZgPeZ5Qxk5IY86k9Tn9jW0ZC5EsNfeydkKhUKlkCyqBvFuUx8Otzdzzi8XvOLxFLh9JKOv5suXgk+sJKVXfy2T+83/ctgUmEiM1UgDW33SR7K9NgHOXWhhPQQy1NPg4cEJ44UMXfRVjqT2vjMN7IRRHkoDe/H09ZkCh9/Aelfu65+q7Nk26XtmyNRbJEgrJKGLwmyxLEYWdYqTsXKciX18A/YtY4c=",geoLocales:"GB",previewCode:"oracle-python",campaignStartTime:"",campaignEndTime:"",advertiser:"Oracle",campaign:"Python Development with Autonomous Transaction Processing Hands On Lab�"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJyFjTEPgjAQRv9KcysKtQ5SNgMjSRMXxqbSC8HQlgCCwfjfbcXBzfFe3vfuCT1kBFqjGhyTXJletY0dE3E5S8oZZ5TRpHRLlDuNUYEzdq43aKeowmutximpclmiGqz0lgyWPLH0wWl86xvYEVChL+y+QKOsJt9ZRrxOgk5+okRYsnlheQ/Lf/kFMtCrsxjXzgTQenA4pvzzW8+DP8Wg6g4DGNsVPdgS8HoDmzROxw==",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJx1UD1vgzAQ/SuWB6YWDGkBn4QymKUKFZE6MCLXPtFUYDtAkqpV/nvsZO5yJz29j7v3R2cKhH6tq1sgSQYb21mqEWNlp6TZV5znZb7F8Sjk5ORhMG+6yvKifC2iZVZpBVKD1mAd6AGg/rUGi6z84Sxyymqsuu59lzH2smF75hcXfqbRh/hfSJ8IleGm1jzXOEmjSYefSi4rkMZeiPC2pMYzjtZNaFbSGvLgBeUpKDvRNyhn03t+H/j9wzr+dkMgXShQHRLDlwE4eCDdlPyerc++Etrea6DXGzG8V4s=",geoLocales:"US,CA,GB",xxpreviewCode:"oracle-lcdod",campaignStartTime:"",campaignEndTime:"",advertiser:"Oracle",campaign:"On-Demand Webcast: Low Code Development On Demand"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJyNzU0OgjAQhuGrNN2iUOtCys7gWhI1YdmMdEJqKBDKj2K8u5R6AJfzJO83b9rShFBtoEQbpWBa0GVto+xylExwwRlnUVo1gwrO0OsRgxzvBdg+ylO5uvQur9iNqOSBx0/Bwkdb0g2h4MazentCA7UivzYha0l8SXxJblNDcnhZ1w2u++vDRBOq5qbGsGiMA73Abh+L9b0au+XMOigqdGD1jAv4Cfr5AusqT4k=",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJx1kMtugzAQRX/F8oJVAw60jT0S6sLZRH0kUip5iVyPRYkAO0BIH+q/F8M6mxnp6tx53F/aUSD0cxh8D0lSuth12tQ2Nq5JXg65EBnPnmx9lrrxuirbHebp44Y/8KjvzDoHjYAIzgOWANsf19pNyr8Ei7xxaHOlXp9Txu4zdmBTE3KqaXSUt430jlAdbtq3q61tdItE2Q+j+wGIrN0FyZseqtGSo+1Gi+T96ojS333wXYJPyWLmioUrFq5YpscnXwbySoFiWBoeDUI1CeuMi3k9jlMqdD8nQf/+AWoiWR4=",geoLocales:"US,CA,GB",xxpreviewCode:"oracle-cnstw",campaignStartTime:"",campaignEndTime:"",advertiser:"Oracle",campaign:"On-Demand Webcast: Cloud Native Served Two Ways"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJyNjkEOgjAQRa8y6VaFWhcCO8UFCw2JFyAjbeoYaEmraDTe3YJxwc7lvJ/3/7xYxzJg1KJWPs6x7ZC08XF53FQ8FanggsdFuZ9tb9RIMnp2oNpZr1xPdTBCVP2iahJVa5E8Uh5dOs3mwHCYKdBIvygN7PGUwc+DiQd3up6hdFg3CnJreuW0krDDK57Qq6HrNnb9u3xnGZNPa1RU23YAFMBylaTjW7J34fzODcDTUwXwrWDvDwV4XOU=",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJydkE9LwzAYxr9KyKEnbdNq1/aFItgdFDs69LBjyZKQRbokJl0nit/dpsOD4MnTCw8vv+fPJ3YYED6Mo/WQJNLExlE2iJiZY9Ju66oqbsmdGN4aerRUSf3I62xVlHkVecfSGigHzsFY4BLguel3u81TRkhO8i0habpqyHxg/WG0KLLyvSKRZYaL+s+/6KX5BxFfIUxDiwequb/uNGrpHtD9SQ1caYk2ijnjhZsUEx6d1XhA3VISNUZPwknB0ZqOdE+9CKzTwura/ofQ/yL0F9f41crwfcaAeQgTJguCmoX0pqyWWHya98UXO/z1DVRfblY=",geoLocales:"US,CA,GB",xxpreviewCode:"oracle-bmswocd",campaignStartTime:"",campaignEndTime:"",advertiser:"Oracle",campaign:"Hands-On Lab: Building Microservices with Oracle Converged Database"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJyVzkELgyAUwPGvIl7b0rnDqtvoUhAIu+woViaO0tDcRmPffVb0AXZ8f/i99z5whBmAauBSOJTzYeRKaofo7cpwSlKCCUZ3UfdGqibqjI1oXqKCVmyPLERGLW96wfLe+JZdSPJOcfwYJTwAyJf9BdetO1INKl5nYKcgULBRsFJQ6s5yN1nfTN6KhfuV/3HvBTPYzkaLuDHDElQIp3OSrs+0TxvGjS/BqVmEsK2A3x/XSlXZ",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJydkEFPhDAQhf9K0wMnhS4Q2U5CPNSDGzFs9MCx6bbdLhuW1gJqNP53KWRvnrzMJC/zzcx739hjQPg0jm6AJDE2tl7ITsfSXpJqX1Kak+xed29MXJxoTb9TZZrfFVkRDV5uShAKlALrQBmAF8ab5vkpJSTPyJ7MjbJQ4eHL9rpIt5+URE5apcs/56JX9o+N+AZhEVw8il4Nt3WPKnEA1OhDZ00r0dF6VC+uEOvspNCuP3oxjH6S4+R1wKcFryt+hfgM8RXiC8TXW/HZmQB8YMAqvBCCCkI7C5tsS5dn1PucKl5x/PMLuGlqfA==",geoLocales:"GB",xxpreviewCode:"oracle-wlfoci",campaignStartTime:"",campaignEndTime:"",advertiser:"Oracle",campaign:"Hands-On Lab: Weblogic for Oracle Cloud Infrastructure"},{imageUrl:"https://d2u6dc21frjf6h.cloudfront.net/i/3eJyrVipQslJQysxNTE8t1ndOzC1IzEzPK9Z3DA+Od81JLC7JTE5MzkiN903MTi0tiDewMDIxMtB3TCnJz8ss1IWocAap0DU3sqiwNNAryEtX0lFQSgSZimSAAsQAkFQpSAq3CSAl5UpWSilV+Xmpesn5uSCBTKCAobGFJdjolLIiIBfoQhCvOLMqFciD6q0FAFt+P2M=",clickThroughUrl:"https://d2u6dc21frjf6h.cloudfront.net/d/3eJx1UEtrwzAM/ivBh56WxllgdIEwQttbyx4dDHYxim0SE8d2Y3sdG/vvs7rBLp0OBul7+JM+yUzqjAwhOF8XBZz8Eib4sGbJ7VRIDT4oDnyQxd0izGPTAYOyKncUa1W9Cv7YbhFZw+RA9aZxwNnTc8taEaxRR9Zr24FmPnb5pLTyklsjFp4zPoAxUifLc/effpPCyMsurMwrml9T1NsYUmLZPAAc2Eb1KiT6HuZRBmV6ZLjYJeEg5+Y+pNeTq4wALr/92zLbwyijQygi9Bsi/6GskZK+pO83lCLnRGoiMB9eCwcqDcpqdXv2Fm/ptqR9OZCvb9pced4=",advertiser:"AWS",campaign:"Elasticache Makeup",geoLocales:"IN, US",xxpreviewCode:"elasti",creative:"Adtoniq-ElastiCache-728x90",campaignStartTime:"",campaignEndTime:""}],preMarkup:"<div style='min-height: 90px; position: relative; display: inline-block;padding: 1em 0;text-align: center;clear: both;margin: 25px 0 0 0; padding: 10px 0 10px 0; border-top: 1px solid #d9dcdd; border-bottom: 1px solid #d9dcdd;'>",postMarkup:"</div>"}];var p="";var V="${waisaDisable}";var g="PGRpdiBjbGFzcz0icGlfJXN0cmlwZWlkJSI+CiAgICA8IS0tIGRvbWFpbjogc3RyaXBlLnJzLXN0cmlwZS5jb20gLS0+CiAgICA8c3R5bGUgdHlwZT0idGV4dC9jc3MiPgogICAgICAgIC5waV8lc3RyaXBlaWQlIGRpdiwgLnBpXyVzdHJpcGVpZCUgYSwgLnBpXyVzdHJpcGVpZCUgaW1nLCAucGlfJXN0cmlwZWlkJSB1bCwgLnBpXyVzdHJpcGVpZCUgbGkgeyBtYXJnaW46IDA7IHBhZGRpbmc6IDA7IGxpbmUtaGVpZ2h0OiAwOyBsaXN0LXN0eWxlOiBub25lOyBib3JkZXI6IDA7IHZlcnRpY2FsLWFsaWduOiBiYXNlbGluZTsgfSAucGlfJXN0cmlwZWlkJSB7IHBvc2l0aW9uOiByZWxhdGl2ZTsgbWF4LXdpZHRoOiAlc3RyaXBlX3dpZHRoJXB4OyBtYXJnaW46IDAgYXV0bzsgb3ZlcmZsb3c6IGhpZGRlbjsgfSAucGlfJXN0cmlwZWlkJSBhIHsgZGlzcGxheTogYmxvY2s7IGJvcmRlcjogMDsgYm9yZGVyLXN0eWxlOiBub25lOyBvdXRsaW5lOiBub25lOyB0ZXh0LWRlY29yYXRpb246IG5vbmU7IH0gLnBpXyVzdHJpcGVpZCUgaW1nIHsgZGlzcGxheTogYmxvY2s7IG1heC13aWR0aDogMTAwJTsgYm9yZGVyOiAwOyBvdXRsaW5lOiBub25lOyB0ZXh0LWRlY29yYXRpb246IG5vbmU7IH0gLnBpXyVzdHJpcGVpZCUgLnBpX2JyYW5kIGltZyB7IG1heC13aWR0aDogODRweDsgfSAucGlfJXN0cmlwZWlkJSAucGlfYnJhbmQgeyBwb3NpdGlvbjogYWJzb2x1dGU7IGRpc3BsYXk6IGJsb2NrOyB3aWR0aDogMTVweDsgaGVpZ2h0OiAxNXB4OyBvdmVyZmxvdzogaGlkZGVuOyByaWdodDogMDsgdG9wOiAwOyBjdXJzb3I6IHBvaW50ZXI7IHotaW5kZXg6IDEwMDA7IHRyYW5zaXRpb246IHdpZHRoIC4zczsgbGluZS1oZWlnaHQ6IDA7IH0gLnBpXyVzdHJpcGVpZCUgLnBpX2JyYW5kOmhvdmVyIHsgd2lkdGg6IDg0cHg7IH0gLnBpXyVzdHJpcGVpZCUgLnBpX2F1IGltZyB7IGhlaWdodDogYXV0bzsgd2lkdGg6IDEwMCU7IG1heC13aWR0aDogJXN0cmlwZV93aWR0aCVweDsgfQogICAgPC9zdHlsZT4KICAgIDxkaXYgY2xhc3M9InBpX2JyYW5kIj4KICAgICAgICA8YSBocmVmPSJodHRwczovL3N0cmlwZS5ycy1zdHJpcGUuY29tL2JyYW5kaW5nLz91dG1fc291cmNlPWNvbnRlbnRzdHJpcGUmdXRtX21lZGl1bT13ZWImdXRtX2NhbXBhaWduPXJzXyVzdHJpcGVpZCUmdXRtX2NvbnRlbnQ9bG9nbyZyc190eXBlPXdlYiIgdGFyZ2V0PSJfYmxhbmsiIHJlbD0ibm9mb2xsb3cgbm9vcGVuZXIiPgogICAgICAgICAgICA8aW1nIHNyYz0iaHR0cHM6Ly9wLnRpbnluZXdzZmVlZC5jb20vci9iIiBoZWlnaHQ9IjE1IiBhbHQ9IkxlYXJuIG1vcmUgYWJvdXQgUmV2ZW51ZVN0cmlwZS4uLiI+CiAgICAgICAgPC9hPgogICAgPC9kaXY+CiAgICA8ZGl2IGNsYXNzPSJwaV9hdSI+CiAgICAgICAgPGEgaHJlZj0iaHR0cHM6Ly9zdHJpcGUucnMtc3RyaXBlLmNvbS9zdHJpcGUvcmVkaXJlY3Q/Y3NfZW1haWw9e3tHVUlEfX0mY3Nfc3RyaXBlaWQ9JXN0cmlwZWlkJSZjc19vZmZzZXQ9MCZjc19jb250YWluZXJ0eXBlPXdlYiZjc19lc3A9cG93ZXJpbmJveF93ZWIiIHRhcmdldD0iX2JsYW5rIiByZWw9Im5vZm9sbG93IG5vb3BlbmVyIj48aW1nIGFsdD0iIiBzcmM9Imh0dHBzOi8vcC50aW55bmV3c2ZlZWQuY29tL3IvYT9zPSVzdHJpcGVpZCUiPjwvYT4KICAgIDwvZGl2Pgo8L2Rpdj4K";var n={};var ai='<div id="aopt-holdme" style="position:relative; max-width: 300px; display: block; font-weight: 500;"><div id="story_rhs_ml_signup"><h4>SUPPORT DZONE</h4>We respect your decision to block adverts and trackers while browsing the internet. You can hit \'Support\' to view a small number of ads, and you can leave your ad(blocker) on. Thanks!<br><br><span aria-hidden="true" class="subscribe_newsletter_button adtoniq-optin" style="cursor:pointer; text-decoration: underline;n margin-top: 30px;">SUPPORT</span></div></div>';var ad=".content-right-images .sidebar-ad:nth-child(1)";var at="off";var m="";var J="w57192";var av=null;var A=null;var ac=false;var ar=false;var ao=false;var aa=false;var h=false;var aw=false;var af=false;var c=false;var r="";var L=0;var w=false;var M=0;var T=Math.floor(Math.random()*10000000);var a="ALL";var d={ALL:[[0,1],[],[],[]],IN:[[0,1,7],[5],[5],[5]],GB:[[0,1,2,3,4,5,6],[0,1,2,3,4],[0,1,2,3,4],[0,1,2,3,4]],US:[[0,1,3,4,5,7],[1,2,3,5],[1,2,3,5],[1,2,3,5]],CA:[[0,1,3,4,5],[1,2,3],[1,2,3],[1,2,3]]," US":[[0,1,7],[],[5],[5]]};var o=0;var X=[];var e=[];var aj=[];var aq=[];var ab=[];var H=[];var K=[];var U=null;var W=x("adtoniq_choice");var D=null;var ah=false;if(W=="track"){am("adtoniq_choice","opted-in",365)}else{if(W=="do-not-track"){am("adtoniq_choice","opted-out",365)}}W=x("adtoniq_choice");function ap(){return/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)}function t(aD){if(document.getElementsByClassName){return document.getElementsByClassName(aD)}var l=[];var aC=new RegExp("(^| )"+aD+"( |$)");var aB=document.getElementsByTagName("*");for(var aA=0,az=aB.length;aA<az;aA++){if(aC.test(aB[aA].className)){l.push(aB[aA])}}return l}function q(l){ax(l,"")}function ax(aA,az){var aB=t(aA);if(aB){for(var l=0;l<aB.length;l++){aB[l].style.display=az}}}function au(){ax("adtoniq_adblocked","none");ax("adtoniq_acceptable","none");ax("adtoniq_blocked_analytics","none");q("adtoniq_nonblocked");q("adtoniq_protect")}function Z(l){if(document.readyState==="loading"){window.addEventListener("DOMContentLoaded",function(){l()})}else{l()}}function P(){var az=e.length;for(var l=0;l<az;l++){e[l]()}q("adtoniq_nonblocked");q("adtoniq_protect")}function f(){q("adtoniq_adblocked");if(aa){q("adtoniq_acceptable")}else{q("adtoniq_adblocked_no_acceptable")}}var S=false,B=false;var R=false;function Y(){if(!R&&(ao||ar)){if(W=="opted-in"){Z(f)}function l(){R=true;if(av&&!av()){return}var aC=aq.length;for(var aB=0;aB<aC;aB++){aq[aB](W,z)}}if(document.readyState==="loading"){window.addEventListener("DOMContentLoaded",function(){l()})}else{l()}}if(S&&B){if(ao||ar){if(ap()){document.body.className+=" adtoniq-mobile"}}else{Z(P)}var aA=X.length;for(var az=0;az<aA;az++){X[az](ao,ar,aa,af)}}}function x(l){var az="; "+document.cookie;var aA=az.split("; "+l+"=");if(aA.length==2){return aA.pop().split(";").shift()}}function am(aA,aB,aC){var l="";if(aC){var az=new Date();az.setTime(az.getTime()+(aC*24*60*60*1000));l="; expires="+az.toUTCString()}document.cookie=aA+"="+aB+l+"; path=/"}function v(){S=true;Y()}function ak(){B=true;Y()}function ae(az,l){if(!l){l=window.location.href}az=az.replace(/[\[\]]/g,"\\$&");var aB=new RegExp("[?&]"+az+"(=([^&#]*)|&|#|$)"),aA=aB.exec(l);if(!aA){return null}if(!aA[2]){return""}return decodeURIComponent(aA[2].replace(/\+/g," "))}function C(az,l){l.parentNode.insertBefore(az,l.nextSibling)}function an(){if(ai!=="${msgAdUnitMsg}"&&ai.length>0&&ad!=="${msgAdUnitMsgSelector}"&&ad.length>0){var aA=document.querySelectorAll(ad);for(i=0;i<aA.length;i++){var l=aA[i];var az=document.createElement("div");az.insertAdjacentHTML("beforeend",ai);var aB=az.getElementsByClassName("adtoniq-optin");if(aB&&aB.length==1){aB[0].onclick=function(){function aD(){am("adtoniq_choice","opted-in",365);location.reload()}const aC=document.createElement("img");aC.src=ay;aC.style.width="1px";aC.style.height="1px";document.body.appendChild(aC);if(aC.complete){aD()}else{aC.addEventListener("load",aD);aC.addEventListener("error",aD)}}}C(az,l);l.parentNode.removeChild(l)}}}return{setup:function(){isSetPreviewCookie=ae("atdoniq-preview");if(isSetPreviewCookie=="1"){am("adt_mc",1,0)}if(k=="master-preview"){var az=x("adt_mc");ah=(az!="1")}if(at=="on"){var l=document.querySelector("meta[name='adtoniq-exclude']");if(l){ah=true}}if(m!==""){if(new RegExp(m).test(location.href)){ah=true}}if(!ah){wafum.setup2()}},addBobber:function(l){X.push(l)},addAdBlockerCallback:function(l){X.push(l)},setAdUnitLocator:function(l){U=l},onBlocked:function(l){if(R){if(ao||ar){if(W!="opted-in"){f();l(W,true)}}}else{aq.push(l)}},onMessaging:function(l){aj.push(l)},messagingEvent:function(l){var aA=aj.length;for(var az=0;az<aA;az++){aj[az](l)}},onAnalyticsBlocked:function(l){ab.push(l)},setGA:function(az,aA,l){r=az;L=aA;w=l},setIntegration:function(az,l){y=az},setProxy:function(l){z=l},getProxy:function(){return z},setCollector:function(l){F=l},setId:function(l){j=l},optOut:function(aA){function aB(){am("adtoniq_choice","opted-out",365)}const l=document.createElement("img");l.src=N;l.style.width="1px";l.style.height="1px";document.body.appendChild(l);if(l.complete){aB()}else{l.addEventListener("load",aB);l.addEventListener("error",aB)}for(var az=0;az<K.length;az++){K[az]()}},optIn:function(aA){function aB(){am("adtoniq_choice","opted-in",365)}const l=document.createElement("img");l.src=b;l.style.width="1px";l.style.height="1px";document.body.appendChild(l);if(l.complete){aB()}else{l.addEventListener("load",aB);l.addEventListener("error",aB)}for(var az=0;az<H.length;az++){H[az]()}},onOptIn:function(l){H.push(l)},onOptOut:function(l){K.push(l)},setEnableAdtoniq:function(l){av=l},setShouldShowAds:function(l){A=l},addNoAdBlockerCallback:function(l){e.push(l)},laybait:function(){function az(aA,aC){var aB=new XMLHttpRequest();aB.open("get",aA);aB.responseType="blob";aB.onload=function(){var aD=new FileReader();aD.onload=function(){aC(this.result)};aD.onerror=function(){aC("")};aD.readAsDataURL(aB.response)};aB.onerror=function(){aC("")};aB.send()}function l(){var aA=new Image();aA.onload=function(){var aC=document.createElement("canvas");aC.width=aA.width;aC.height=aA.height;var aB=aC.getContext("2d");aB.drawImage(aA,0,0);ao=false;try{valid="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjEuNBNAaMQAAAANSURBVBhXY6jsml4GAAUrAhELGIKgAAAAAElFTkSuQmCC";var aE=aC.toDataURL("image/png");if(valid!==aE){ao=true}else{ao=false}}catch(aD){if(aD.message.match("Tainted canvases may not be exported")||aD.message==="The operation is insecure."||aD.message==="SecurityError"){ao=false}else{ao=true}}ak()};aA.onerror=function(aB){ao=true;ak()};aA.src="https://static-42andpark-com.s3-us-west-2.amazonaws.com/ads/ad-300x250.png"}l();document.addEventListener("DOMContentLoaded",function(aA){var aE=document.createElement("iframe");aE.src="https://d2u6dc21frjf6h.cloudfront.net/f/3eJyrVspUslJQMjS2sFTSUVAqB3FSqvLzUvWS83NBIiUgkTQQCygYn5kH5BrWAgBt/A3m==/1389.html?o="+(typeof(W)!="undefined"?(W=="opted-in"?"t":"d"):"u")+"&r="+document.referrer+"&l="+document.location;aE.setAttribute("style","position:absolute;left:-10px;width:1px;height:1px;");document.body.appendChild(aE);var aI=null;function aF(){var aK="pub_300x250 pub_300x250m pub_728x90 text-ad textAd text_ad text_ads text-ads text-ad-links";var aJ="width: 1px !important; height: 1px !important; position: absolute !important; left: -10000px !important; top: -1000px !important;";aI=document.createElement("div");aI.id="zippity";aI.setAttribute("class",aK);aI.setAttribute("style",aJ);document.body.appendChild(aI)}function aB(){var aK=window.document.body.getAttribute("abp")!==null||aI.offsetParent===null||aI.offsetHeight==0||aI.offsetWidth==0||aI.offsetLeft==0||aI.offsetTop==0||aI.clientHeight==0||aI.clientWidth==0;if(window.getComputedStyle!==undefined&&!aK){var aJ=window.getComputedStyle(aI,null);aK=aJ.getPropertyValue("display")=="none"||aJ.getPropertyValue("visibility")=="hidden"}if(aK){ar=true}return aK}var aG=ae("forceAdtoniq");if(aG==="1"){ao=true;ak()}else{aF();var aC=new Date();var aD=null;var aH=setInterval(function(){if(aB()){if(aD){clearTimeout(aD)}try{document.body.removeChild(aI)}catch(aJ){}clearInterval(aH);v()}},100);aD=setTimeout(function(){clearInterval(aH);try{document.body.removeChild(aI)}catch(aJ){}v()},1*1000)}})},setup2:function(){if(typeof Q==="undefined"){return}if(W=="opted-in"){q("adtoniq_nonblocked")}wafum.onBlocked(function(az,aA){function l(){wafum.inflateAdUnit()}if(az=="opted-out"){an()}else{if(az!="opted-in"){wafum.onOptIn(l)}else{l()}}});wafum.laybait()},waisaChoice:function(aC){var l=!!window.adtoniqAlertData?window.adtoniqAlertData:null;var az=document.getElementById("adtoniq-msgr-bar");if(!az){var az=document.createElement("div");az.id="adtoniq-msgr-bar"}az.classList.add("adtoniq-waisa");az.innerHTML=l.waisaContent;var aD=document.createElement("div");aD.id="adtoniq-msg-buttons";aD.classList.add("adtoniq-waisa");var aB=document.createElement("button");aB.innerHTML="Clear my choice";aD.appendChild(aB);aB.onclick=function(aF){function aG(){document.cookie="adtoniq_choice=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";location.reload()}const aE=document.createElement("img");aE.src=ag;aE.style.width="1px";aE.style.height="1px";document.body.appendChild(aE);if(aE.complete){aG()}else{aE.addEventListener("load",aG);aE.addEventListener("error",aG)}};var aA=document.createElement("button");aA.innerHTML="Close";aD.appendChild(aA);aA.onclick=function(aE){document.body.classList.remove("adtoniq-body");wafum.messagingEvent("hide");az.parentNode.removeChild(az)};az.appendChild(aD);document.body.appendChild(az);az.classList.add("reveal-alert");document.body.classList.add("adtoniq-body");wafum.messagingEvent("show");aC.preventDefault();return false},inflateAdUnit:function(){if(k=="master-preview"){var aA=x("adt_mc");if(aA!="1"){return}}if(!(isSetPreviewCookie=="1")&&p!=="${stripeSplit}"&&p.length>0){if(Math.floor(Math.random()*parseInt(p))!=0){return}}function az(aL){if(V!=="on"){var aJ=document.createElement("img");aJ.src="data:image/gif;base64,R0lGODlhDwAPAPMAAAAAAHgSE3gQFHkRFHgSFHkSFBM9RhI8RxI9RxM9RxI8SBM8SBM9SAAAAAAAAAAAACH5BAEAAAAAIf8LSW1hZ2VNYWdpY2sNZ2FtbWE9MC40NTQ1NQAsAAAAAA8ADwAABDQQyEmrvdgshunanaRtS0guRocwCPC110ql1zfZFkFMGmsVhZ3LxakACwCarBIIWEqhaDQCADs=";aJ.style.setProperty("float","right");var aK=document.createElement("span");aK.innerText="Why am I seeing this ad?";aK.style.display="none";aK.style.fontSize="10px";aK.style.paddingRight="10px";aK.style.verticalAlign="top";aK.style.right="-20px";aK.style.top="-20px";aK.style.position="absolute";aK.style.width="160px";aK.style.color="rgb(0, 0, 0)";var aI=document.createElement("a");aI.href="#"+Math.floor(Math.random()*100000);aI.appendChild(aJ);aI.appendChild(aK);aI.style.position="relative";aI.style.display="block";aI.style.zIndex="9";aI.style.setProperty("float","right");aI.style.height="20px";aI.style.boxShadow="none";aI.onmouseenter=function(){aK.style.display=""};aI.onmouseleave=function(){aK.style.display="none"};aI.onclick=wafum.waisaChoice;aL.appendChild(aI);if(E=="on"){aL.style.border="2px solid  red"}}}function l(aJ,aI){if(!aI.count||typeof aI.count==="undefined"){aI.count=1}else{aI.count++}if(aI.html){aJ.insertAdjacentHTML("beforeend",aI.html)}else{aJ.insertAdjacentHTML("beforeend","<a href='"+aI.clickThroughUrl+"?n="+aI.count+"' target='_blank'><img src = '"+aI.imageUrl+"?n="+aI.count+"'></a>")}}function aB(aI){var aJ=ae("adtoniq-preview-code");var aK=0;while(aK<aI.length){if(typeof aI[aK].previewCode!=="undefined"){if(aJ===aI[aK].previewCode){return aI[aK]}else{aI.splice(aK,1)}}else{aK++}}return null}var aE=-1;var aH=[];function aF(aP,aT,aJ,aR){if(aP instanceof Array){var aK=aB(aP);if(aK){return aK}var aN=aP;aN.directAds=aP;aN.ad=aT;aN.num=aR;aE++;aN.count=0;var aI=aD(aN.directAds,-1);aP=aI>=0?aN.directAds[aI]:null;aH.push(aI);if(aN.directAds.length>1&&aJ!=null){var aS=Math.max(30,aJ);var aQ=new Date();function aM(){aQ=new Date()}document.addEventListener("mousemove",aM,false);var aO=setInterval(function(aU,aV,aX,aW){if(document.hidden){return}if(new Date().getTime()-aQ.getTime()>1000*60*5){return}var aY=aD(aX.directAds,aH[aW]);aH[aW]=aY;aP=aX[aY];aV.innerHTML="";l(aV,aP)},aS*1000,aR,aN.ad,aN,aE);function aL(aU){if(aO&&aU.data==="cancelAdRotation"){clearInterval(aO);aO=null}}window.addEventListener("message",aL,false)}}return aP}function aD(aJ,aI){if(aJ.length==0){return -1}if(aJ.length==1){return 0}var aK=0;do{aK=Math.floor(Math.random()*aJ.length)}while(aK==aI);return aK}function aC(){if("off"==="on"&&x("adt_mc")!=="1"){return}for(var aS=0;aS<al.length;aS++){var a7=al[aS];var aY=a7.width;var aW=a7.height;var aM=a7.cssSelector;var aJ=a7.stripeId;var aO=a7.url;var aI=a7.preMarkup;var aU=a7.postMarkup;var a1=a7.format;var a5=a7.autoRotate;var a2=a7.directAd;var aN=a7.wrapperStyle;var aX=a7.preview;var a8=a7.platform;if(a8==="desktop"&&ap()){continue}else{if(a8==="mobile"&&!ap()){continue}}if(aO!=null&&!location.pathname.match(aO)){continue}if(aX==="on"&&x("adt_mc")!=="1"){continue}if(a2 instanceof Array){adsToShow=d[a];adsToShow=adsToShow[aS];var aT=[];for(var a0=0;a0<adsToShow.length;a0++){aT.push(a2[adsToShow[a0]])}a2=aT}var a4=U?U():document.querySelectorAll(aM);var aL=Math.min(a4.length,u,6);var a6;if(a1){a6=n[a1]}else{a6=g}for(var aV=0;aV<aL;aV++){var aR=a4[aV];if(aR){var aP=document.createElement("div");aP.classList=J;C(aP,aR);if(typeof aN!=="undefined"){aP.style=aN}aR.parentNode.removeChild(aR);az(aP);var a3=document.createElement("div");if(a2!=null){var aK=aF(a2,a3,a5,aS);if(aK!=null){l(a3,aK)}}else{a3.classList.add("pi_"+aJ);var aZ=document.createAttribute("powerinbox");a3.setAttributeNode(aZ);a3.innerHTML=atob(a6).split("%stripeid%").join(aJ).split("%stripe_width%").join(aY)}if(aI){var aQ=document.createElement("div");aQ.insertAdjacentHTML("beforeend",aI+aU);aQ=aQ.firstChild;aQ.appendChild(a3);aP.appendChild(aQ)}else{aP.appendChild(a3)}}}}}if(Object.keys(d).length>1||!d.ALL){var aG=new XMLHttpRequest();aG.responseType="json";aG.open("GET","//d2ka3h6seeb1rc.cloudfront.net/");aG.onload=function(){if(aG.status===200){a=aG.response.country||"ALL";a=d[a]?a:"ALL"}else{}aC()};aG.send()}else{a="ALL";aC()}},setFilter:function(l){am("adtoniq-filter",l,365)},setJson:function(l){al=l}}}();(function(){var c={targetedUsers:"adsonly",greetingMsg:'<span style="max-width: 800px;padding-top: 3px;"> <h2 style=" color: #ffffff!important; margin-bottom: 10px; margin-top: 0; font-family: Helvetica Neue,Helvetica,sans-serif; margin-bottom: 10px; line-height: 1.2; font-weight: 600; font-size: 1.5em; margin-top: 0;">You can leave your ad blocker on and still support us.</h2> <div id=""> <p class="targetadt" style="color: #ffffff; font-family: Helvetica Neue,Helvetica,sans-serif; font-size: 14px; line-height: 1.3; max-width: 680px; margin: 0!important;">We respect your decision to block adverts and trackers while browsing the Internet. If you would like to support our content, though, you can choose to view a small number of premium adverts on our site by hitting the \'Support\' button. These heavily vetted ads will not track you, and will fund our work. </p><p class="targetadt" style="color: #ffffff; font-family: Helvetica Neue,Helvetica,sans-serif; font-size: 14px; line-height: 1.3; max-width: 680px; margin: 0!important;">Thank you for your support!</p></div></span>',confirmMsg:"",protectionUrl:"",rejectMsg:"",customBtnClass:"",waisaContent:"<p>We respect your decision to block adverts and trackers while browsing the internet. You're currently supporting The DZone's content by seeing a small number of premium adverts. These heavily vetted ads will not track you, and will fund our work.<br><br>If you changed your mind you can click opt out. Thanks for being a part of DZone.</p>",rejectBtnText:"No Thanks",protectionCss:"",protectionStatus:"none",confirmBtnText:"Support"};var l={};window.adtoniqAlertData=c;var t=!!window.adtoniqAlertData?window.adtoniqAlertData:null;var q=n();var h=null;var g=true;var v=r("adtoniq_choice");var j=function(x){var w=document.createElement("a");w.href=x;return w};function e(){var w=f();return t.protectionStatus!="none"&&w&&j(w).pathname==location.pathname}window.addEventListener("DOMContentLoaded",function(){if(!window.wafum){console.error("Cannot run messenger bar module -- adtoniq global is not found");return false}if(!t){console.error("Cannot run messenger bar module -- no data found");return false}if((t.targetedUsers==="all"&&!v)||e()){u()}else{if(t.targetedUsers==="adsplus"){wafum.onAnalyticsBlocked(d)}if(t.targetedUsers==="adsonly"){wafum.onBlocked(a)}}},false);function f(){var w=t.protectionUrl;if(w.length==0){return""}if(w.substr(0,1)!="/"){w="/"+w}if(w.substr(w.length-1,1)!="/"){w=w+"/"}return w}function o(y){var x=false,w=f();if(w.length>0){switch(t.protectionStatus){case"none":break;case"allButHome":x=location.pathname!="/"&&location.pathname!=w;if(x&&(!y||y!="track")){location.href=w}else{document.body.style.display="block !important"}break;case"all":x=location.pathname!=w;if(x&&(!y||y!="track")){location.href=w}else{document.body.style.display="block !important"}break;case"css":break}}return x}function d(w,x){if(w&&!x){u()}}function a(w){if(!w){u()}}function u(){o(v);document.body.appendChild(q);h=setTimeout(function(){q.classList.add("reveal-alert");q.addEventListener("click",m,false);document.body.classList.add("adtoniq-body");wafum.messagingEvent("show")},50)}function m(w){if(w.target.id==="adtoniq-msg-track-btn"||w.target.id==="adtoniq-msg-no-track-btn"){if(typeof wafum.optIn==="function"){if(w.target.name=="track"){wafum.optIn()}else{wafum.optOut()}p(w.target.name);q.removeEventListener("click",m,false);clearTimeout(h)}}}function n(){var w=document.createElement("div");w.id="adtoniq-msgr-bar";w.innerHTML=b();return w}function b(z){var w=t.confirmBtnText.length>0?'<button id="adtoniq-msg-track-btn" name="track" class="btn-msg-bar '+t.customBtnClass+'">'+t.confirmBtnText+"</button>":"";var x=t.rejectBtnText.length>0?'<button id="adtoniq-msg-no-track-btn" name="do-not-track" class="btn-msg-bar '+t.customBtnClass+'">'+t.rejectBtnText+"</button>":"";var y='<button id="adtoniq-msg-close-btn" name="close" class="btn-msg-bar">Close</button>';var B=!z?t.greetingMsg:z==="confirm"?t.confirmMsg:t.rejectMsg;B='<div id="adtoniq-msg">'+B+"</div>";var A=!z?w+x:y;B+='<div id="adtoniq-btns">'+A+"</div>";return B}function p(w){if(c.confirmMsg.length==0){k()}else{q.innerHTML=b(w==="track"?"confirm":"reject");q.addEventListener("click",k,false)}}function k(){q.classList.remove("reveal-alert");q.addEventListener("click",k,false);q.addEventListener("transitionend",s,false);document.body.classList.remove("adtoniq-body");wafum.messagingEvent("hide")}function s(){document.body.removeChild(q);q.removeEventListener("transitionend",s,false)}function r(w){var x="; "+document.cookie;var y=x.split("; "+w+"=");if(y.length===2){return y.pop().split(";").shift()}return null}}());
+</script>
+<script>wafum.setup();</script>
+<style>#adtoniq-msgr-bar #adtoniq-msg {display: inline-block;}
+#adtoniq-msg {width: 75%;float: left;text-align: left;}
+#adtoniq-msgr-bar #adtoniq-btns {display: inline-block;}
+#adtoniq-btns { width: 25%!important; float: right!important; margin-right: 0px!important; max-width: 150px;}
+button#adtoniq-msg-track-btn { width: 100%; display: block;}
+button#adtoniq-msg-no-track-btn { background-color: transparent!important; width: 100%; margin: 0!important; margin-top: 11px!important; color: #000000!important; font-weight: 600; font-size: 12px; border: 0; border: none;}
+
+#adtoniq-msgr-bar #adtoniq-msg-no-track-btn.btn-msg-bar {color: #ffffff!important;}
+
+#adtoniq-msgr-bar, #adtoniq-msgr-bar.reveal-alert {background-color: #222635; opacity: 1; width: 100%; max-width: 1300px; margin: 0 auto; left: 0; right: 0; padding: 20px; border-top:2px solid #29a8ff;z-index: 999999999;} #adtoniq-msg-track-btn, #adtoniq-msg-close-btn, .adtoniq-waisa button {color: #ffffff!important;background-color: #29a8ff!important;margin-top: 0px;font-size: 13px;line-height: 24px;border-radius: 2px!important;font-weight: 500;padding: 10px 18px!important;letter-spacing: 1px;text-transform: uppercase; border: 0; border: none;} #adtoniq-msg {width: 70%;float: left;text-align: left;}#adtoniq-btns {width: 30%;float: none;text-align: right; margin-right:40px;} #adtoniq-msgr-bar.adtoniq-waisa p { font-size: 14px !important; line-height: 1.2; display: block; width: 100%; margin: 0 auto !important; text-align: center; max-width: 80%;} #adtoniq-msg-buttons.adtoniq-waisa { width: 100%; margin-top: 20px; } button#adtoniq-msg-track-btn {float: right;} p.a_deets {color: #ffffff;} #adtoniq-msgr-bar.adtoniq-waisa p { color: #ffffff; min-height: 120px; }
+
+
+#a_hider .a_deets { display: inline-block; margin-bottom: 0!important;}
+#a_hider.a_showme .a_deets, #a_hider.a_showme .arrow { display: none; }
+#a_hider .targetadt { display: none; }
+#a_hider.a_showme .targetadt { display: block; }
+
+#a_hider { cursor: pointer; }
+
+#a_hider:hover { cursor: pointer; }
+#a_hider:hover .a_deets { text-decoration: underline; }
+
+.arrow { height: 7px; width: 7px; border: 1px solid #000000; border-width: 2px 2px 0 0; -webkit-transform: rotate(45deg); -ms-transform: rotate(45deg); transform: rotate(45deg); display: inline-block; -webkit-transform: rotate(135deg); -ms-transform: rotate(135deg); transform: rotate(135deg); margin-left: 10px; padding-bottom: 2px; padding-left: 2px; }
+
+@media screen and (max-width:1015px){ 
+#adtoniq-msgr-bar .p.targetadt{max-width: 100%!important;margin: 0 auto!important;}
+
+button#adtoniq-msg-track-btn, #adtoniq-msgr-bar #adtoniq-msg-no-track-btn.btn-msg-bar { width: auto; float: right; }
+div#adtoniq-msg h2 { font-size: 20px!important; }
+
+p.a_deets { font-size: 14px!important; }
+#adtoniq-msg { width: 60%; }
+#a_hider.a_showme p.targetadt { font-size: 12px!important;}
+#adtoniq-msgr-bar, #adtoniq-msgr-bar.reveal-alert {width: auto!important; padding: 15px;}
+#adtoniq-msgr-bar #adtoniq-msg-no-track-btn.btn-msg-bar { padding: 10px 0;}
+} 
+
+@media screen and (max-width:640px){ 
+#adtoniq-msgr-bar .p.targetadt{max-width: 100%!important;margin: 0 auto!important;}
+
+div#adtoniq-msg h2 { font-size: 18px!important; }
+p.a_deets { font-size: 11px!important; }
+#adtoniq-msg { width: 60%; }
+#a_hider.a_showme p.targetadt { font-size: 12px!important;}
+} 
+
+@media screen and (max-width:565px){ 
+#adtoniq-msg { width: 170px; padding-right: 30px; width: 65%; padding-right: 25px; }
+
+#adtoniq-msgr-bar, #adtoniq-msgr-bar.reveal-alert { padding: 10px; width: auto!important; max-width: none; }
+#adtoniq-msg-track-btn, #adtoniq-msg-close-btn, .adtoniq-waisa button, #adtoniq-msgr-bar #adtoniq-msg-no-track-btn.btn-msg-bar { font-size: 11px; line-height: 17px; padding: 8px 14px!important;}
+}
+
+
+@media screen and (max-width:339px){ 
+    #adtoniq-msg { width: 99%; padding-bottom: 7px; }
+	#adtoniq-btns {width: 100%!important; float: none!important; margin-top: 20px;text-align: center;display: block!important;}
+	#adtoniq-msgr-bar #adtoniq-btns { display: inline!important; }
+	#adtoniq-msg-track-btn, #adtoniq-msg-no-track-btn { display: inline-block!important; }
+	button#adtoniq-msg-track-btn, #adtoniq-msgr-bar #adtoniq-msg-no-track-btn.btn-msg-bar { float: left; }
+	button#adtoniq-msg-no-track-btn { margin-top: 0!important; }
+}
+
+
+#adtoniq-msgr-bar.adtoniq-waisa.reveal-alert { z-index: 999; }
+.adtoniq-waisa.reveal-alert #adtoniq-msg-buttons { text-align: center; }
+.adtoniq-waisa.reveal-alert #adtoniq-msg-buttons button { margin: 10px; }
+
+@media (max-width: 768px)
+.adtoniq-mobile .articles-wrap.ng-scope .ad-container.ng-scope .ng-isolate-scope {
+    display: none;
+}
+
+div#story_rhs_ml_signup {
+    background: -webkit-linear-gradient(left, #0073e3, #37dcd2);
+    background: -o-linear-gradient(right, #0073e3, #37dcd2);
+    background: -moz-linear-gradient(right, #0073e3, #37dcd2);
+    background: linear-gradient(to right, #0073e3, #37dcd2);
+    text-align: center;
+    color: white;
+    font-size: 1.1em;
+    line-height: 1.25;
+    padding: 20px;
+    text-align: left;
+}</style>
+<style>#adtoniq-msgr-bar #adtoniq-msg {display: inline-block;}
+#adtoniq-msg {width: 75%;float: left;text-align: left;}
+#adtoniq-msgr-bar #adtoniq-btns {display: inline-block;}
+#adtoniq-btns { width: 25%!important; float: right!important; margin-right: 0px!important; max-width: 150px;}
+button#adtoniq-msg-track-btn { width: 100%; display: block;}
+button#adtoniq-msg-no-track-btn { background-color: transparent!important; width: 100%; margin: 0!important; margin-top: 11px!important; color: #000000!important; font-weight: 600; font-size: 12px; border: 0; border: none;}
+
+#adtoniq-msgr-bar #adtoniq-msg-no-track-btn.btn-msg-bar {color: #ffffff!important;}
+
+#adtoniq-msgr-bar, #adtoniq-msgr-bar.reveal-alert {background-color: #222635; opacity: 1; width: 100%; max-width: 1300px; margin: 0 auto; left: 0; right: 0; padding: 20px; border-top:2px solid #29a8ff;z-index: 999999999;} #adtoniq-msg-track-btn, #adtoniq-msg-close-btn, .adtoniq-waisa button {color: #ffffff!important;background-color: #29a8ff!important;margin-top: 0px;font-size: 13px;line-height: 24px;border-radius: 2px!important;font-weight: 500;padding: 10px 18px!important;letter-spacing: 1px;text-transform: uppercase; border: 0; border: none;} #adtoniq-msg {width: 70%;float: left;text-align: left;}#adtoniq-btns {width: 30%;float: none;text-align: right; margin-right:40px;} #adtoniq-msgr-bar.adtoniq-waisa p { font-size: 14px !important; line-height: 1.2; display: block; width: 100%; margin: 0 auto !important; text-align: center; max-width: 80%;} #adtoniq-msg-buttons.adtoniq-waisa { width: 100%; margin-top: 20px; } button#adtoniq-msg-track-btn {float: right;} p.a_deets {color: #ffffff;} #adtoniq-msgr-bar.adtoniq-waisa p { color: #ffffff; min-height: 120px; }
+
+
+#a_hider .a_deets { display: inline-block; margin-bottom: 0!important;}
+#a_hider.a_showme .a_deets, #a_hider.a_showme .arrow { display: none; }
+#a_hider .targetadt { display: none; }
+#a_hider.a_showme .targetadt { display: block; }
+
+#a_hider { cursor: pointer; }
+
+#a_hider:hover { cursor: pointer; }
+#a_hider:hover .a_deets { text-decoration: underline; }
+
+.arrow { height: 7px; width: 7px; border: 1px solid #000000; border-width: 2px 2px 0 0; -webkit-transform: rotate(45deg); -ms-transform: rotate(45deg); transform: rotate(45deg); display: inline-block; -webkit-transform: rotate(135deg); -ms-transform: rotate(135deg); transform: rotate(135deg); margin-left: 10px; padding-bottom: 2px; padding-left: 2px; }
+
+@media screen and (max-width:1015px){ 
+#adtoniq-msgr-bar .p.targetadt{max-width: 100%!important;margin: 0 auto!important;}
+
+button#adtoniq-msg-track-btn, #adtoniq-msgr-bar #adtoniq-msg-no-track-btn.btn-msg-bar { width: auto; float: right; }
+div#adtoniq-msg h2 { font-size: 20px!important; }
+
+p.a_deets { font-size: 14px!important; }
+#adtoniq-msg { width: 60%; }
+#a_hider.a_showme p.targetadt { font-size: 12px!important;}
+#adtoniq-msgr-bar, #adtoniq-msgr-bar.reveal-alert {width: auto!important; padding: 15px;}
+#adtoniq-msgr-bar #adtoniq-msg-no-track-btn.btn-msg-bar { padding: 10px 0;}
+} 
+
+@media screen and (max-width:640px){ 
+#adtoniq-msgr-bar .p.targetadt{max-width: 100%!important;margin: 0 auto!important;}
+
+div#adtoniq-msg h2 { font-size: 18px!important; }
+p.a_deets { font-size: 11px!important; }
+#adtoniq-msg { width: 60%; }
+#a_hider.a_showme p.targetadt { font-size: 12px!important;}
+} 
+
+@media screen and (max-width:565px){ 
+#adtoniq-msg { width: 170px; padding-right: 30px; width: 65%; padding-right: 25px; }
+
+#adtoniq-msgr-bar, #adtoniq-msgr-bar.reveal-alert { padding: 10px; width: auto!important; max-width: none; }
+#adtoniq-msg-track-btn, #adtoniq-msg-close-btn, .adtoniq-waisa button, #adtoniq-msgr-bar #adtoniq-msg-no-track-btn.btn-msg-bar { font-size: 11px; line-height: 17px; padding: 8px 14px!important;}
+}
+
+
+@media screen and (max-width:339px){ 
+    #adtoniq-msg { width: 99%; padding-bottom: 7px; }
+	#adtoniq-btns {width: 100%!important; float: none!important; margin-top: 20px;text-align: center;display: block!important;}
+	#adtoniq-msgr-bar #adtoniq-btns { display: inline!important; }
+	#adtoniq-msg-track-btn, #adtoniq-msg-no-track-btn { display: inline-block!important; }
+	button#adtoniq-msg-track-btn, #adtoniq-msgr-bar #adtoniq-msg-no-track-btn.btn-msg-bar { float: left; }
+	button#adtoniq-msg-no-track-btn { margin-top: 0!important; }
+}
+
+
+#adtoniq-msgr-bar.adtoniq-waisa.reveal-alert { z-index: 999; }
+.adtoniq-waisa.reveal-alert #adtoniq-msg-buttons { text-align: center; }
+.adtoniq-waisa.reveal-alert #adtoniq-msg-buttons button { margin: 10px; }
+
+@media (max-width: 768px)
+.adtoniq-mobile .articles-wrap.ng-scope .ad-container.ng-scope .ng-isolate-scope {
+    display: none;
+}
+
+div#story_rhs_ml_signup {
+    background: -webkit-linear-gradient(left, #0073e3, #37dcd2);
+    background: -o-linear-gradient(right, #0073e3, #37dcd2);
+    background: -moz-linear-gradient(right, #0073e3, #37dcd2);
+    background: linear-gradient(to right, #0073e3, #37dcd2);
+    text-align: center;
+    color: white;
+    font-size: 1.1em;
+    line-height: 1.25;
+    padding: 20px;
+    text-align: left;
+}</style>
+
+  <script>
+      function loadScript(src) {
+          return new Promise(function (resolve, reject) {
+              const s = document.createElement('script')
+              s.src = src
+              s.onload = resolve
+              s.onerror = reject
+              document.head.appendChild(s)
+          })
+      }
+
+      function loadStyle(href) {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = href
+          document.head.appendChild(link)
+      }
+
+      function loadScriptsSync(deferred) {
+          var p = Promise.resolve()
+          for (var i = 0; i < deferred.length; i++) {
+              let script = deferred[i]
+              p = p.then(function() {
+                  return loadScript(script)
+              })
+          }
+          return p
+      }
+
+      function loadStyles() {
+          const deferred = [
+              'https://dz2cdn3.dzone.com/themes/dz20/lib/codemirror/lib/codemirror.css',
+              'https://dz2cdn3.dzone.com/themes/dz20/ftl/comments/styles.css',
+              'https://dz2cdn3.dzone.com/themes/dz20/lib/froala3/css/froala_editor.pkgd.min.css',
+              'https://dz2cdn3.dzone.com/themes/dz20/lib/froala3/css/themes/gray.min.css',
+              'https://dz2cdn3.dzone.com/themes/dz20/ftl/article/mini-profile.css'
+          ]
+
+          for (var i = 0; i < deferred.length; i++) {
+              loadStyle(deferred[i])
+          }
+      }
+
+      window.addEventListener('load', function(event) {
+          loadStyles()
+          loadScriptsSync([
+              'https://dz2cdn3.dzone.com/themes/dz20/ftl/header/auth-status.js',
+              'https://dz2cdn3.dzone.com/themes/dz20/lib/lazysizes.min.js',
+              'https://dz2cdn3.dzone.com/themes/dz20/ftl/article/codeblocks.js',
+              'https://dz2cdn3.dzone.com/themes/dz20/ftl/article/activity-bar.js',
+              'https://dz2cdn3.dzone.com/themes/dz20/lib/froala3/js/froala_editor.pkgd.min.js',
+              'https://dz2cdn3.dzone.com/themes/dz20/ftl/froala/content.js',
+              'https://dz2cdn3.dzone.com/themes/dz20/ftl/comments/content.js',
+              'https://dz2cdn3.dzone.com/themes/dz20/ftl/article/content.js'
+          ])
+      })
+  </script>
+
+
+<script type="text/javascript" id="">(function(b,a,c){var e=decodeURIComponent;var d="||";var g=";;",f="split",h="length",m="indexOf",k="localStorage",l="_ccmdt";b[c]=b[c]||{};b[c].us={};a=b[k]?b[k][l]||"":(a=a.cookie.match(l+"\x3d([^;]*)"))&&a[1]||"";e=e(a)[f](d);a=e[h];if(0<a)for(;a--;)d=e[a][f]("\x3d"),1<d[h]&&(-1<d[1][m](g)?(b[c].us[d[0]]=d[1][f](g),b[c].us[d[0]].pop()):b[c].us[d[0]]=d[1])})(window,document,"_ml");
+(function(){_ml=window._ml||{};_ml.eid="65559";_ml.cid=google_tag_manager["GTM-K25QL22"].macro(3);_ml.fp=google_tag_manager["GTM-K25QL22"].macro(6);_ml.ef=["*email","*username"];_ml.informer={callback:function(a,b){"undefined"==typeof dataLayer||_ml.isEmptyObj(_ml.us)||dataLayer.push({event:"Bombora_Informer",Bombora_Topic:_ml.us.tp&&0<_ml.us.tp.length?_ml.us.tp[0]:"",Bombora_Industry:_ml.us.ind,Bombora_Company_Revenue:_ml.us.cr,Bombora_Company_Size:_ml.us.cs,Bombora_Domain:_ml.us.dm,Bombora_Seniority:_ml.us.sn,Bombora_Predictive_Category:_ml.us.pc&&
+0<_ml.us.pc.length?_ml.us.pc[0]:"",Bombora_Decision_Maker:_ml.us.dcm,Bombora_Functional_Area:_ml.us.fa&&0<_ml.us.fa.length?_ml.us.fa[0]:"",Bombora_Install_Data:_ml.us.ins&&0<_ml.us.ins.length?_ml.us.ins[0]:"",Bombora_Professional_Group:_ml.us.pg&&0<_ml.us.pg.length?_ml.us.pg[0]:"",Bombora_Education:_ml.us.edu})},enable:!0};var b=document.getElementsByTagName("script")[0],a=new Date,c=document.createElement("script");c.type="text/javascript";c.async=!0;c.src="https://ml314.com/tag.aspx?"+a.getDate()+
+a.getMonth()+a.getFullYear();b.parentNode.insertBefore(c,b)})();</script>
+<iframe id="google_osd_static_frame_9698230507875" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./ref-10_files/saved_resource(1).html"></iframe><script type="text/javascript" id="">var om56eecfe19c9dc,om56eecfe19c9dc_poll=function(){var b=0;return function(d,c){clearInterval(b);b=setInterval(d,c)}}();
+!function(b,d,c){if(b.getElementById(c))om56eecfe19c9dc_poll(function(){if(window.om_loaded&&!om56eecfe19c9dc)return om56eecfe19c9dc=new OptinMonsterApp,om56eecfe19c9dc.init({s:"16961.56eecfe19c9dc",staging:0,dev:0,beta:0})},25);else{var e=!1,a=b.createElement(d);a.id=c;a.src="//a.optnmstr.com/app/js/api.min.js";a.async=!0;a.onload=a.onreadystatechange=function(){if(!(e||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{e=om_loaded=!0,om56eecfe19c9dc=new OptinMonsterApp,
+om56eecfe19c9dc.init({s:"16961.56eecfe19c9dc",staging:0,dev:0,beta:0}),a.onload=a.onreadystatechange=null}catch(f){}};(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(a)}}(document,"script","omapi-script");</script>
+
+
+<script type="text/javascript" id="">(function(b,a,c){var e=decodeURIComponent;var d="||";var g=";;",f="split",h="length",m="indexOf",k="localStorage",l="_ccmdt";b[c]=b[c]||{};b[c].us={};a=b[k]?b[k][l]||"":(a=a.cookie.match(l+"\x3d([^;]*)"))&&a[1]||"";e=e(a)[f](d);a=e[h];if(0<a)for(;a--;)d=e[a][f]("\x3d"),1<d[h]&&(-1<d[1][m](g)?(b[c].us[d[0]]=d[1][f](g),b[c].us[d[0]].pop()):b[c].us[d[0]]=d[1])})(window,document,"_ml");
+(function(){_ml=window._ml||{};_ml.eid="65559";_ml.cid=google_tag_manager["GTM-K25QL22"].macro(3);_ml.fp=google_tag_manager["GTM-K25QL22"].macro(6);_ml.ef=["*email","*username"];_ml.informer={callback:function(a,b){"undefined"==typeof dataLayer||_ml.isEmptyObj(_ml.us)||dataLayer.push({event:"Bombora_Informer",Bombora_Topic:_ml.us.tp&&0<_ml.us.tp.length?_ml.us.tp[0]:"",Bombora_Industry:_ml.us.ind,Bombora_Company_Revenue:_ml.us.cr,Bombora_Company_Size:_ml.us.cs,Bombora_Domain:_ml.us.dm,Bombora_Seniority:_ml.us.sn,Bombora_Predictive_Category:_ml.us.pc&&
+0<_ml.us.pc.length?_ml.us.pc[0]:"",Bombora_Decision_Maker:_ml.us.dcm,Bombora_Functional_Area:_ml.us.fa&&0<_ml.us.fa.length?_ml.us.fa[0]:"",Bombora_Install_Data:_ml.us.ins&&0<_ml.us.ins.length?_ml.us.ins[0]:"",Bombora_Professional_Group:_ml.us.pg&&0<_ml.us.pg.length?_ml.us.pg[0]:"",Bombora_Education:_ml.us.edu})},enable:!0};var b=document.getElementsByTagName("script")[0],a=new Date,c=document.createElement("script");c.type="text/javascript";c.async=!0;c.src="https://ml314.com/tag.aspx?"+a.getDate()+
+a.getMonth()+a.getFullYear();b.parentNode.insertBefore(c,b)})();</script>
+</body></html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html class="" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><style>
+header.row .navbar {
+    background: #2B2D2F !important;
+    opacity: 0.95;
+    -webkit-box-shadow: 0 2px 25px #2B2D2F;
+    box-shadow: 0 2px 25px #2B2D2F;
+}
+</style>
+
+
+<style>.async-hide { opacity: 0 !important} </style>
+<script src="ref19_files/11.js" type="text/javascript" async=""></script><script type="text/javascript" async="" src="ref19_files/js.js"></script><script type="text/javascript" async="" src="ref19_files/insight.js"></script><script type="text/javascript" async="" src="ref19_files/analytics.js"></script><script type="text/javascript" async="" id="inspsync" src="ref19_files/inspectlet.js"></script><script src="ref19_files/sdk.js" async="" crossorigin="anonymous"></script><script id="twitter-wjs" src="ref19_files/widgets.js"></script><script async="" src="ref19_files/gtm.js"></script><script async="" src="ref19_files/analytics.js"></script><script type="text/javascript">(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+(a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+})(window,document.documentElement,'async-hide','dataLayer',4000,
+{'GTM-T2DSBKT':true});</script>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>
+      
+        Recursive Neural Tensor Network | Pathmind
+      
+    </title>
+<meta content="Pathmind" property="og:site_name">
+<meta content="Recursive Neural Tensor Network" property="og:title">
+<meta content="article" property="og:type">
+<meta content="RNTNs are neural networks useful for natural language processing." property="og:description">
+<meta name="description" content="RNTNs are neural networks useful for natural language processing.">
+<meta content="http://wiki.pathmind.com/recursive-neural-tensor-network" property="og:url">
+
+<link href="ref19_files/css.css" rel="stylesheet" type="text/css">
+
+<link href="ref19_files/bootstrap.css" rel="stylesheet">
+<link href="ref19_files/font-awesome.css" rel="stylesheet">
+<link href="ref19_files/lineicons.css" rel="stylesheet">
+<link href="ref19_files/magnific-popup.css" rel="stylesheet">
+<link href="ref19_files/jquery.css" rel="stylesheet">
+<link href="ref19_files/bootstrap-select.css" rel="stylesheet">
+<link href="ref19_files/owl.css" rel="stylesheet">
+<link href="ref19_files/animate.css" rel="stylesheet">
+
+<link href="ref19_files/style.css" rel="stylesheet">
+<link rel="shortcut icon" type="image/x-icon" href="https://wiki.pathmind.com/images/pathmind/logo/favicon.png">
+<link rel="apple-touch-icon" href="https://wiki.pathmind.com/images/pathmind/logo/webclip.png">
+
+<!--[if lt IE 9]>
+    <script src="js/lib/html5shiv.min.js"></script>
+    <script src="js/lib/respond.min.js"></script>
+    <![endif]-->
+<script src="ref19_files/jquery-3.js" type="text/javascript"></script>
+
+<script async="" type="text/javascript" id="hs-script-loader" defer="defer" src="ref19_files/5485555.json"></script>
+
+
+<script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-48811288-8', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+
+<script type="text/javascript">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KKRMDR9');</script>
+
+
+<script async="async" type="text/javascript" src="ref19_files/8420.js"></script>
+
+
+<meta name="p:domain_verify" content="9989fccb461f02b550a63f51a4da2fd8">
+
+<style type="text/css" data-fbcssmodules="css:fb.css.base css:fb.css.dialog css:fb.css.iframewidget css:fb.css.customer_chat_plugin_iframe">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_dialog_advanced{border-radius:8px;padding:10px}.fb_dialog_content{background:#fff;color:#373737}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{left:5px;right:auto;top:5px}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{height:100%;left:0;margin:0;overflow:visible;position:absolute;top:-10000px;transform:none;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{background:none;height:auto;min-height:initial;min-width:initial;width:auto}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{clear:both;color:#fff;display:block;font-size:18px;padding-top:20px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .4);bottom:0;left:0;min-height:100%;position:absolute;right:0;top:0;width:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_mobile .fb_dialog_iframe{position:sticky;top:0}.fb_dialog_content .dialog_header{background:linear-gradient(from(#738aba), to(#2c4987));border-bottom:1px solid;border-color:#043b87;box-shadow:white 0 1px 1px -1px inset;color:#fff;font:bold 14px Helvetica, sans-serif;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:linear-gradient(from(#4267B2), to(#2a4887));background-clip:padding-box;border:1px solid #29487d;border-radius:3px;display:inline-block;line-height:18px;margin-top:3px;max-width:85px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{background:none;border:none;color:#fff;font:bold 12px Helvetica, sans-serif;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #4a4a4a;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f5f6f7;border:1px solid #4a4a4a;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-position:50% 50%;background-repeat:no-repeat;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}
+.fb_mpn_mobile_landing_page_slide_out{animation-duration:200ms;animation-name:fb_mpn_landing_page_slide_out;transition-timing-function:ease-in}.fb_mpn_mobile_landing_page_slide_out_from_left{animation-duration:200ms;animation-name:fb_mpn_landing_page_slide_out_from_left;transition-timing-function:ease-in}.fb_mpn_mobile_landing_page_slide_up{animation-duration:500ms;animation-name:fb_mpn_landing_page_slide_up;transition-timing-function:ease-in}.fb_mpn_mobile_bounce_in{animation-duration:300ms;animation-name:fb_mpn_bounce_in;transition-timing-function:ease-in}.fb_mpn_mobile_bounce_out{animation-duration:300ms;animation-name:fb_mpn_bounce_out;transition-timing-function:ease-in}.fb_mpn_mobile_bounce_out_v2{animation-duration:300ms;animation-name:fb_mpn_fade_out;transition-timing-function:ease-in}.fb_customer_chat_bounce_in_v2{animation-duration:300ms;animation-name:fb_bounce_in_v2;transition-timing-function:ease-in}.fb_customer_chat_bounce_in_from_left{animation-duration:300ms;animation-name:fb_bounce_in_from_left;transition-timing-function:ease-in}.fb_customer_chat_bounce_out_v2{animation-duration:300ms;animation-name:fb_bounce_out_v2;transition-timing-function:ease-in}.fb_customer_chat_bounce_out_from_left{animation-duration:300ms;animation-name:fb_bounce_out_from_left;transition-timing-function:ease-in}.fb_customer_chat_bubble_animated_no_badge{box-shadow:0 3px 12px rgba(0, 0, 0, .15);transition:box-shadow 150ms linear}.fb_customer_chat_bubble_animated_no_badge:hover{box-shadow:0 5px 24px rgba(0, 0, 0, .3)}.fb_customer_chat_bubble_animated_with_badge{box-shadow:-5px 4px 14px rgba(0, 0, 0, .15);transition:box-shadow 150ms linear}.fb_customer_chat_bubble_animated_with_badge:hover{box-shadow:-5px 8px 24px rgba(0, 0, 0, .2)}.fb_invisible_flow{display:inherit;height:0;overflow-x:hidden;width:0}.fb_new_ui_mobile_overlay_active{overflow:hidden}@keyframes fb_mpn_landing_page_slide_in{0%{border-radius:50%;margin:0 24px;width:60px}40%{border-radius:18px}100%{margin:0 12px;width:100% - 24px}}@keyframes fb_mpn_landing_page_slide_in_from_left{0%{border-radius:50%;left:12px;margin:0 24px;width:60px}40%{border-radius:18px}100%{left:12px;margin:0 12px;width:100% - 24px}}@keyframes fb_mpn_landing_page_slide_out{0%{margin:0 12px;width:100% - 24px}60%{border-radius:18px}100%{border-radius:50%;margin:0 24px;width:60px}}@keyframes fb_mpn_landing_page_slide_out_from_left{0%{left:12px;width:100% - 24px}60%{border-radius:18px}100%{border-radius:50%;left:12px;width:60px}}@keyframes fb_mpn_landing_page_slide_up{0%{bottom:0;opacity:0}100%{bottom:24px;opacity:1}}@keyframes fb_mpn_bounce_in{0%{opacity:.5;top:100%}100%{opacity:1;top:0}}@keyframes fb_mpn_fade_out{0%{bottom:30px;opacity:1}100%{bottom:0;opacity:0}}@keyframes fb_mpn_bounce_out{0%{opacity:1;top:0}100%{opacity:.5;top:100%}}@keyframes fb_bounce_in_v2{0%{opacity:0;transform:scale(0, 0);transform-origin:bottom right}50%{transform:scale(1.03, 1.03);transform-origin:bottom right}100%{opacity:1;transform:scale(1, 1);transform-origin:bottom right}}@keyframes fb_bounce_in_from_left{0%{opacity:0;transform:scale(0, 0);transform-origin:bottom left}50%{transform:scale(1.03, 1.03);transform-origin:bottom left}100%{opacity:1;transform:scale(1, 1);transform-origin:bottom left}}@keyframes fb_bounce_out_v2{0%{opacity:1;transform:scale(1, 1);transform-origin:bottom right}100%{opacity:0;transform:scale(0, 0);transform-origin:bottom right}}@keyframes fb_bounce_out_from_left{0%{opacity:1;transform:scale(1, 1);transform-origin:bottom left}100%{opacity:0;transform:scale(0, 0);transform-origin:bottom left}}@keyframes fb_bounce_out_v2_mobile_chat_started{0%{opacity:1;top:0}100%{opacity:0;top:20px}}@keyframes fb_customer_chat_bubble_bounce_in_animation{0%{bottom:6pt;opacity:0;transform:scale(0, 0);transform-origin:center}70%{bottom:18pt;opacity:1;transform:scale(1.2, 1.2)}100%{transform:scale(1, 1)}}@keyframes slideInFromBottom{0%{opacity:.1;transform:translateY(100%)}100%{opacity:1;transform:translateY(0)}}@keyframes slideInFromBottomDelay{0%{opacity:0;transform:translateY(100%)}97%{opacity:0;transform:translateY(100%)}100%{opacity:1;transform:translateY(0)}}</style><script charset="utf-8" src="ref19_files/button.js"></script></head>
+<body class="blog-page" data-scroll-animation="false">
+
+<header class="row" id="header">
+<nav class="navbar navbar-default navbar-fixed-top">
+<div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="https://pathmind.com/"><img src="ref19_files/pathmind_white.webp" alt=""></a>
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar" aria-expanded="false">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+</div>
+<div class="collapse navbar-collapse" id="main-navbar">
+<a href="https://wiki.pathmind.com/" class="btn btn-warning pull-right hidden-sm hidden-xs">AI Wiki</a>
+<ul class="nav navbar-nav navbar-right">
+
+</ul>
+</div>
+</div>
+</nav>
+</header>
+
+<section class="row page-header">
+<div class="container">
+<div class="row">
+<h2>A.I. Wiki</h2>
+<h4>A Beginner’s Guide to Important Topics in AI, Machine Learning, and Deep Learning.</h4>
+</div>
+</div>
+</section>
+
+<div class="section-cta">
+<div class="container">
+<div class="col-md-7 text-center" style="margin-top: -7px;">
+<h3 style="color:#fff;">Subscribe to Our Bi-Weekly AI Newsletter</h3>
+</div>
+<div class="col-md-5" style="margin-top: 2px">
+<div class="form">
+<iframe src="ref19_files/jsv68v.html" type="text/html" allowtransparency="true" style="border: 0" width="100%" height="40px" frameborder="0"></iframe>
+</div>
+</div>
+</div>
+</div>
+
+<section class="row blog-section">
+<div class="container">
+<div class="row">
+<div class="col-sm-4 sidebar">
+<div class="row m0 widget widget-search wow fadeInUp">
+
+<input type="checkbox" id="wiki-toggle">
+<label for="wiki-toggle">
+<i class="fa fa-search"></i> Search
+</label>
+<div class="collapseable">
+<div class="input-group">
+<input id="wiki-search-input" type="search" class="form-control" placeholder="Search articles..." onkeyup="if (!window.__cfRLUnblockHandlers) return false; wikiSearchFn()">
+<span class="input-group-addon"><i class="fa fa-search"></i></span>
+</div>
+<div class="wiki-links">
+<ul id="wiki-links-ul">
+<li><a href="https://wiki.pathmind.com/accuracy-precision-recall-f1">Accuracy, Precision, Recall, and F1</a></li>
+<li><a href="https://wiki.pathmind.com/ai-infrastructure-machine-learning-operations-mlops">AI Infrastructure</a></li>
+<li><a href="https://wiki.pathmind.com/ai-regulation"></a></li>
+<li><a href="https://wiki.pathmind.com/ai-vs-machine-learning-vs-deep-learning">AI vs. ML vs. DL</a></li>
+<li><a href="https://wiki.pathmind.com/ai-winter">AI Winter</a></li>
+<li><a href="https://wiki.pathmind.com/attention-mechanism-memory-network">Attention, Memory Networks &amp; Transformers</a></li>
+<li><a href="https://wiki.pathmind.com/automl-automated-machine-learning-ai">Automated Machine Learning &amp; AI</a></li>
+<li><a href="https://wiki.pathmind.com/backpropagation">Backpropagation</a></li>
+<li><a href="https://wiki.pathmind.com/bagofwords-tf-idf">Bag of Words &amp; TF-IDF</a></li>
+<li><a href="https://wiki.pathmind.com/bayes-theorem-naive-bayes">Bayes' Theorem &amp; Naive Bayes Classifiers</a></li>
+<li><a href="https://wiki.pathmind.com/climate-change-ai-carbon-emissions-impact">Climate Change &amp; AI's Impact</a></li>
+<li><a href="https://wiki.pathmind.com/comparison-frameworks-dl4j-tensorflow-pytorch">Comparison of AI Frameworks</a></li>
+<li><a href="https://wiki.pathmind.com/convolutional-network">Convolutional Neural Network (CNN)</a></li>
+<li><a href="https://wiki.pathmind.com/data-for-deep-learning">Data for Deep Learning</a></li>
+<li><a href="https://wiki.pathmind.com/datasets-ml">Datasets and Machine Learning</a></li>
+<li><a href="https://wiki.pathmind.com/decision-intelligence-ai-machine-learning">Decision Intelligence and Machine Learning</a></li>
+<li><a href="https://wiki.pathmind.com/decision-tree">Decision Tree</a></li>
+<li><a href="https://wiki.pathmind.com/deep-autoencoder">Deep Autoencoders</a></li>
+<li><a href="https://wiki.pathmind.com/deep-belief-network">Deep-Belief Networks</a></li>
+<li><a href="https://wiki.pathmind.com/deep-reinforcement-learning">Deep Reinforcement Learning</a></li>
+<li><a href="https://wiki.pathmind.com/deeplearning-research-papers">Deep Learning Resources</a></li>
+<li><a href="https://wiki.pathmind.com/define-artificial-intelligence-ai">Define Artificial Intelligence (AI)</a></li>
+<li><a href="https://wiki.pathmind.com/denoising-autoencoder">Denoising Autoencoders</a></li>
+<li><a href="https://wiki.pathmind.com/differentiableprogramming">Differentiable Programming</a></li>
+<li><a href="https://wiki.pathmind.com/digital-twin-ai"></a></li>
+<li><a href="https://wiki.pathmind.com/eigenvector">Eigenvectors, Eigenvalues, PCA, Covariance and Entropy</a></li>
+<li><a href="https://wiki.pathmind.com/evolutionary-genetic-algorithm">Evolutionary &amp; Genetic Algorithms</a></li>
+<li><a href="https://wiki.pathmind.com/fraud-detection">Fraud and Anomaly Detection</a></li>
+<li><a href="https://wiki.pathmind.com/gaussian-processes">Gaussian Processes &amp; Machine Learning</a></li>
+<li><a href="https://wiki.pathmind.com/generative-adversarial-network-gan">Generative Adversarial Network (GAN)</a></li>
+<li><a href="https://wiki.pathmind.com/glossary">AI and Machine Learning Glossary</a></li>
+<li><a href="https://wiki.pathmind.com/graph-analysis">Graph Analytics</a></li>
+<li><a href="https://wiki.pathmind.com/hopfieldnetworks">Hopfield Networks</a></li>
+<li><a href="https://wiki.pathmind.com/industrial-operations-ai-machine-learning">Industrial Operations and AI</a></li>
+<li><a href="https://wiki.pathmind.com/java-ai">Java Tooling for AI</a></li>
+<li><a href="https://wiki.pathmind.com/java-data-science">Java for Data Science</a></li>
+<li><a href="https://wiki.pathmind.com/logistic-regression">Logistic Regression</a></li>
+<li><a href="https://wiki.pathmind.com/lstm">LSTMs &amp; RNNs</a></li>
+<li><a href="https://wiki.pathmind.com/machine-learning-algorithms">Machine Learning Algorithms</a></li>
+<li><a href="https://wiki.pathmind.com/machine-learning-demos">Machine Learning Demos</a></li>
+<li><a href="https://wiki.pathmind.com/machine-learning-research-groups-labs">Machine Learning Research Groups &amp; Labs</a></li>
+<li><a href="https://wiki.pathmind.com/machine-learning-workflow">Machine Learning Workflows</a></li>
+<li><a href="https://wiki.pathmind.com/machine-learning">Machine Learning definition</a></li>
+<li><a href="https://wiki.pathmind.com/markov-chain-monte-carlo">Markov Chain Monte Carlo</a></li>
+<li><a href="https://wiki.pathmind.com/mnist">MNIST database</a></li>
+<li><a href="https://wiki.pathmind.com/multilayer-perceptron">Multilayer Perceptron</a></li>
+<li><a href="https://wiki.pathmind.com/natural-language-processing-nlp">Natural Language Processing (NLP)</a></li>
+<li><a href="https://wiki.pathmind.com/neural-network-tuning">Neural Network Tuning</a></li>
+<li><a href="https://wiki.pathmind.com/neural-network">Neural Networks &amp; Deep Learning</a></li>
+<li><a href="https://wiki.pathmind.com/open-datasets">Open Datasets</a></li>
+<li><a href="https://wiki.pathmind.com/operations-research-optimization">Operations Research Optimization</a></li>
+<li><a href="https://wiki.pathmind.com/python-ai">Python Tooling for AI</a></li>
+<li><a href="https://wiki.pathmind.com/questions-when-applying-deep-learning">Questions When Applying Deep Learning</a></li>
+<li><a href="https://wiki.pathmind.com/radial-basis-function-network-rbf">Radial Basis Function Networks</a></li>
+<li><a href="https://wiki.pathmind.com/random-forest">Random Forest</a></li>
+<li><a href="https://wiki.pathmind.com/recurrent-network-rnn">Recurrent Network (RNN)</a></li>
+<li><a href="https://wiki.pathmind.com/recursive-neural-tensor-network">Recursive Neural Tensor Network</a></li>
+<li><a href="https://wiki.pathmind.com/reinforcement-learning-business-use-cases">Reinforcement Learning for Business Use Cases</a></li>
+<li><a href="https://wiki.pathmind.com/reinforcement-learning-definitions">Reinforcement Learning Definitions</a></li>
+ <li><a href="https://wiki.pathmind.com/restricted-boltzmann-machine">Restricted Boltzmann Machine (RBM)</a></li>
+<li><a href="https://wiki.pathmind.com/robotic-process-automation-rpa"></a></li>
+<li><a href="https://wiki.pathmind.com/scala-ai">Scala Tooling for AI</a></li>
+<li><a href="https://wiki.pathmind.com/simulation-optimization-ai">Simulation, AI and Optimization</a></li>
+<li><a href="https://wiki.pathmind.com/spiking-neural-network-snn">Spiking Neural Networks</a></li>
+<li><a href="https://wiki.pathmind.com/strong-ai-general-ai">Strong AI vs. Weak AI</a></li>
+<li><a href="https://wiki.pathmind.com/supervised-learning">Supervised Learning</a></li>
+<li><a href="https://wiki.pathmind.com/supply-chain-ai-machine-learning">Supply Chains, AI and Machine Learning</a></li>
+<li><a href="https://wiki.pathmind.com/symbolic-reasoning">Symbolic Reasoning</a></li>
+<li><a href="https://wiki.pathmind.com/thought-vectors">Thought Vectors</a></li>
+<li><a href="https://wiki.pathmind.com/unsupervised-learning">Unsupervised Learning</a></li>
+<li><a href="https://wiki.pathmind.com/use-cases">Deep Learning Use Cases</a></li>
+<li><a href="https://wiki.pathmind.com/variational-autoencoder">Variational Autoencoder (VAE)</a></li>
+<li><a href="https://wiki.pathmind.com/what-is-deep-learning"></a></li>
+<li><a href="https://wiki.pathmind.com/word2vec">Word2Vec, Doc2Vec and Neural Word Embeddings</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="col-sm-8">
+<div class="row blog single-blog wow fadeInUp">
+<h1>Recursive Neural Tensor Network</h1>
+<p>Recursive neural tensor networks (RNTNs) are neural nets useful for 
+natural-language processing. They have a tree structure with a neural 
+net at each node. You can use recursive neural tensor networks for 
+boundary segmentation, to determine which word groups are positive and 
+which are negative. The same applies to sentences as a whole.</p>
+<p>Word vectors are used as features and serve as the basis of 
+sequential classification. They are then grouped into subphrases, and 
+the subphrases are combined into a sentence that can be classified by 
+sentiment and other metrics.</p>
+<p>Recursive neural tensor networks require external components like <a href="https://wiki.pathmind.com/word2vec">Word2vec</a>,
+ which is described below. To analyze text with neural nets, words can 
+be represented as continuous vectors of parameters. Those word vectors 
+contain information not only about the word in question, but about 
+surrounding words; i.e. the word’s context, usage and other semantic 
+information. Although Deeplearning4j implements Word2Vec we currently do
+ not implement recursive neural tensor networks.</p>
+<h3 id="word2vec">Word2Vec</h3>
+<p>The first step toward building a working RNTN is word vectorization, 
+which can be accomplished with an algorithm known as Word2vec. Word2Vec 
+converts a corpus of words into vectors, which can then be thrown into a
+ vector space to measure the cosine distance between them; i.e. their 
+similarity or lack of.</p>
+<p>Word2vec is a separate pipeline from NLP. It creates a lookup table 
+that will supply word vectors once you are processing sentences.</p>
+<h3 id="nlp">NLP</h3>
+<p>Meanwhile, your natural-language-processing pipeline will ingest 
+sentences, tokenize them, and tag the tokens as parts of speech.</p>
+<p>To organize sentences, recursive neural tensor networks use 
+constituency parsing, which groups words into larger subphrases within 
+the sentence; e.g. the noun phrase (NP) and the verb phrase (VP). This 
+process relies on machine learning, and allows for additional linguistic
+ observations to be made about those words and phrases. By parsing the 
+sentences, you are structuring them as trees.</p>
+<p>The trees are later binarized, which makes the math more convenient. 
+Binarizing a tree means making sure each parent node has two child 
+leaves (see below).</p>
+<p>Sentence trees have their a root at the top and leaves at the bottom, a top-down structure that looks like this:</p>
+<p><img src="ref19_files/constituency_tree.jpg" alt="constituency tree"></p>
+<p>The entire sentence is at the root of the tree (at the top); each individual word is a leaf (at the bottom).</p>
+<p>Finally, word vectors can be taken from Word2vec and substituted for 
+the words in your tree. Next, we’ll tackle how to combine those word 
+vectors with neural nets, with code snippets.</p>
+<h3 id="summary">Summary</h3>
+<ol>
+<li>[<a href="https://wiki.pathmind.com/word2vec">Word2vec</a> pipeline] Vectorize a corpus of words</li>
+<li>[NLP pipeline] Tokenize sentences</li>
+<li>[NLP pipeline] Tag tokens as parts of speech</li>
+<li>[NLP pipeline] Parse sentences into their constituent subphrases</li>
+<li>[NLP pipeline] Binarize the tree</li>
+<li>[NLP pipeline + Word2Vec pipeline] Combine word vectors with neural net.</li>
+<li>[NLP pipeline + Word2Vec pipeline] Do task (e.g. classify the sentence’s sentiment)</li>
+</ol>
+<h3 id="further-reading">Further reading</h3>
+<p><a href="http://nlp.stanford.edu/~socherr/EMNLP2013_RNTN.pdf" target="_blank">Recursive Deep Models for Semantic Compositionality over a Sentiment Treebank</a>; Richard Socher, Alex Perelygin, Jean Y. Wu, Jason Chuang,
+Christopher D. Manning, Andrew Y. Ng and Christopher Potts; 2013; Stanford University.</p>
+</div>
+<div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; width: 0px; height: 0px;"><div></div></div></div>
+<script async="" defer="defer" crossorigin="anonymous" src="ref19_files/sdk_002.js" type="text/javascript"></script>
+<script type="text/javascript">window.twttr = (function(d, s, id) {
+                      var js, fjs = d.getElementsByTagName(s)[0],
+                        t = window.twttr || {};
+                      if (d.getElementById(id)) return t;
+                      js = d.createElement(s);
+                      js.id = id;
+                      js.src = "https://platform.twitter.com/widgets.js";
+                      fjs.parentNode.insertBefore(js, fjs);
+
+                      t._e = [];
+                      t.ready = function(f) {
+                        t._e.push(f);
+                      };
+
+                      return t;
+                    }(document, "script", "twitter-wjs"));</script>
+<div class="row m0 social-share">
+<div class="fb-share-button fb_iframe_widget" data-href="http://wiki.pathmind.com/recursive-neural-tensor-network" data-layout="button" data-size="large" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=&amp;container_width=42&amp;href=http%3A%2F%2Fwiki.pathmind.com%2Frecursive-neural-tensor-network&amp;layout=button&amp;locale=en_US&amp;sdk=joey&amp;size=large"><span style="vertical-align: bottom; width: 77px; height: 28px;"><iframe name="f1529a8cc4da9da" data-testid="fb:share_button Facebook Social Plugin" title="fb:share_button Facebook Social Plugin" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" style="border: medium none; visibility: visible; width: 77px; height: 28px;" src="ref19_files/share_button.html" class="" width="1000px" height="1000px" frameborder="0"></iframe></span></div>
+<iframe id="twitter-widget-0" scrolling="no" allowtransparency="true" allowfullscreen="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" style="position: static; visibility: visible; width: 76px; height: 28px;" title="Twitter Tweet Button" src="ref19_files/tweet_button.html" frameborder="0"></iframe>
+</div>
+<style>
+                      .fb-share-button span {
+                        height: 33px !important;
+                        margin-right: 5px !important;
+                      }
+                    </style>
+<div class="media author-about">
+<div class="media-left">
+ <a href="#"><img src="ref19_files/chrisnicholson.webp" alt=""></a>
+</div>
+<div class="media-body">
+<h3>Chris Nicholson</h3>
+<p>Chris Nicholson is the CEO of Pathmind. He previously led 
+communications and recruiting at the Sequoia-backed robo-advisor, 
+FutureAdvisor, which was acquired by BlackRock. In a prior life, Chris 
+spent a decade reporting on tech and finance for The New York Times, 
+Businessweek and Bloomberg, among others. </p>
+<ul class="nav">
+<li><a href="https://twitter.com/chrisvnicholson"><i class="fa fa-twitter"></i></a></li>
+<li><a href="https://www.linkedin.com/in/chrisvnicholson"><i class="fa fa-linkedin"></i></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="row newsletter">
+<div class="container">
+<hr>
+<div class="row section-header wow fadeInUp">
+<h2>Newsletter</h2>
+<p>A bi-weekly digest of AI use cases in the news.</p>
+</div>
+<form action="#" id="subscribeform2" class="row newsletter-form" novalidate="novalidate">
+<div class="input-group form-group2">
+<input type="email" class="form-control" name="email" placeholder="Enter Your Email To Subscribe">
+<span class="input-group-addon">
+<button type="submit" id="js-subscribe-btn2"><img src="ref19_files/right-angle-white.webp" alt=""></button>
+</span>
+</div>
+<div id="js-subscribe-result2" class="text-center">
+<p>
+&nbsp;
+</p>
+</div>
+</form>
+</div>
+</section>
+
+
+<footer class="row">
+<div class="container">
+
+<div class="row m0 menu-rights">
+<p>Copyright © 2020. <a href="https://pathmind.com/" target="_blank">Pathmind Inc.</a>.<br class="small-divide"> All rights reserved</p>
+</div>
+</div>
+</footer>
+
+
+<script src="ref19_files/jquery-2.js" type="text/javascript"></script>
+
+<script src="ref19_files/bootstrap.js" type="text/javascript"></script>
+
+<script src="ref19_files/owl.js" type="text/javascript"></script>
+<script src="ref19_files/jquery.js" type="text/javascript"></script>
+<script src="ref19_files/jquery_002.js" type="text/javascript"></script>
+<script src="ref19_files/bootstrap-select.js" type="text/javascript"></script>
+<script src="ref19_files/wow.js" type="text/javascript"></script>
+<script src="ref19_files/validate.js" type="text/javascript"></script>
+
+<script src="ref19_files/subscribe.js" type="text/javascript"></script>
+
+<script src="ref19_files/main.js" type="text/javascript"></script>
+
+<script async="" type="text/javascript" src="ref19_files/pa3uuzhvll.js"></script>
+<script async="" type="text/javascript" src="ref19_files/E-v1.js"></script>
+
+<script type="text/javascript">
+(function() {
+window.__insp = window.__insp || [];
+__insp.push(['wid', 955416755]);
+var ldinsp = function(){
+if(typeof window.__inspld != "undefined") return; window.__inspld = 1; var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js?wid=955416755&r=' + Math.floor(new Date().getTime()/3600000); var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); };
+setTimeout(ldinsp, 0);
+})();
+</script>
+
+<script type="text/javascript">window.lazyLoadOptions={elements_selector:"img[data-lazy-src],.rocket-lazyload,iframe[data-lazy-src]",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}};window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){return}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){return}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)</script>
+<script async="" src="ref19_files/lazyload.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();    
+"use strict";var _createClass=function(){function i(e,t){for(var r=0;r<t.length;r++){var i=t[r];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,r){return t&&i(e.prototype,t),r&&i(e,r),e}}();function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var RocketLazyLoadScripts=function(){function r(e,t){_classCallCheck(this,r),this.attrName="data-rocketlazyloadscript",this.browser=t,this.options=this.browser.options,this.triggerEvents=e,this.userEventListener=this.triggerListener.bind(this)}return _createClass(r,[{key:"init",value:function(){this._addEventListener(this)}},{key:"reset",value:function(){this._removeEventListener(this)}},{key:"_addEventListener",value:function(t){this.triggerEvents.forEach(function(e){return window.addEventListener(e,t.userEventListener,t.options)})}},{key:"_removeEventListener",value:function(t){this.triggerEvents.forEach(function(e){return window.removeEventListener(e,t.userEventListener,t.options)})}},{key:"_loadScriptSrc",value:function(){var r=this;document.querySelectorAll("script["+this.attrName+"]").forEach(function(e){var t=e.getAttribute(r.attrName);e.setAttribute("src",t),e.removeAttribute(r.attrName)}),this.reset()}},{key:"triggerListener",value:function(){this._loadScriptSrc(),this._removeEventListener(this)}}],[{key:"run",value:function(){if(RocketBrowserCompatibilityChecker){new r(["keydown","mouseover","touchmove","touchstart"],new RocketBrowserCompatibilityChecker({passive:!0})).init()}}}]),r}();RocketLazyLoadScripts.run();
+</script>
+
+<script type="text/javascript">
+      function wikiSearchFn() {
+        // Declare variables
+        var input, filter, ul, li, a, i;
+        input = document.getElementById('wiki-search-input');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("wiki-links-ul");
+        li = ul.getElementsByTagName('li');
+
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+      }
+    </script>
+
+<script type="text/javascript">
+      // When the user scrolls the page, execute myFunction
+      window.onscroll = function() {myFunction()};
+
+      // Get the header
+      var header = document.querySelector(".section-cta");
+      var content = document.querySelector(".blog-section");
+
+      // Get the offset position of the navbar
+      var sticky = header.offsetTop;
+
+      // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+      function myFunction() {
+        if (window.pageYOffset > sticky) {
+          header.classList.add("sticky");
+          content.style.paddingTop = "72px";
+        } else {
+          header.classList.remove("sticky");
+          content.style.paddingTop = "";
+          }
+        }
+    </script>
+
+
+<iframe scrolling="no" allowtransparency="true" src="ref19_files/widget_iframe.html" title="Twitter settings iframe" style="display: none;" frameborder="0"></iframe><iframe id="rufous-sandbox" scrolling="no" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: medium none;" title="Twitter analytics iframe" frameborder="0"></iframe><style id="wistia_22_style" type="text/css" class="wistia_injected_style">
+@font-face {
+font-family: 'WistiaPlayerInterNumbersSemiBold';
+font-feature-settings: 'tnum' 1;
+src: url(data:application/x-font-woff;charset=utf-8;base64,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);
+}
+</style></body><iframe id="ce_proto_iframe" title="CrazyEgg Tracking iframe" style="display: none;"></iframe></html>

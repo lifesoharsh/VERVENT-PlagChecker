@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<!-- saved from url=(0076)https://aylien.com/blog/overview-word-embeddings-history-word2vec-cbow-glove -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Google Tag Manager -->
+    <script type="text/javascript" async="" src="./ref-5_files/avndlx2d"></script><script src="./ref-5_files/1942801.js.download" type="text/javascript" id="hs-analytics"></script><script src="./ref-5_files/1942801.js(1).download" type="text/javascript" id="cookieBanner-1942801" data-cookieconsent="ignore" data-loader="hs-scriptloader" data-hsjs-portal="1942801" data-hsjs-env="prod" data-hsjs-hublet="na1"></script><script src="./ref-5_files/leadflows.js.download" type="text/javascript" id="LeadFlows-1942801" crossorigin="anonymous" data-leadin-portal-id="1942801" data-leadin-env="prod" data-loader="hs-scriptloader" data-hsjs-portal="1942801" data-hsjs-env="prod" data-hsjs-hublet="na1"></script><script src="./ref-5_files/fb.js.download" type="text/javascript" id="hs-ads-pixel-1942801" data-ads-portal-id="1942801" data-ads-env="prod" data-loader="hs-scriptloader" data-hsjs-portal="1942801" data-hsjs-env="prod" data-hsjs-hublet="na1"></script><script type="text/javascript" async="" src="./ref-5_files/js"></script><script type="text/javascript" async="" src="./ref-5_files/insight.min.js.download"></script><script type="text/javascript" async="" src="./ref-5_files/hotjar-1708613.js.download"></script><script type="text/javascript" async="" src="./ref-5_files/analytics.js.download"></script><script type="text/javascript" async="" src="./ref-5_files/analytics.js.download"></script><script async="" src="./ref-5_files/gtm.js.download"></script><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-K8DGH5');</script>
+    <!-- End Google Tag Manager -->
+
+ 	
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>An overview of word embeddings and their connection to distributional semantic models - AYLIEN News API</title>
+<meta name="description" content="In this overview we aim to give an in-depth understanding of word embeddings and their effectiveness.">
+<meta name="keywords" content="">
+<meta name="author" content="">
+<meta name="robots" content="INDEX, FOLLOW">
+
+
+
+
+    
+    <link rel="stylesheet" href="./ref-5_files/main.css">
+
+    <!-- Typekit Fonts-->
+    <link rel="stylesheet" href="./ref-5_files/lzr2pvc.css">
+
+    <script>
+        // Picture element HTML5 shiv
+        document.createElement("picture");
+    </script>
+    <script src="./ref-5_files/picturefill.min.js.download" integrity="sha256-iT+n/otuaeKCgxnASny7bxKeqCDbaV1M7VdX1ZRQtqg=" crossorigin="anonymous" async=""></script>
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://aylien.com/favicon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://aylien.com/favicon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://aylien.com/favicon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://aylien.com/favicon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="https://aylien.com/favicon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://aylien.com/favicon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="https://aylien.com/favicon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://aylien.com/favicon/apple-touch-icon-152x152.png">
+    <link rel="icon" type="image/png" href="https://aylien.com/favicon/favicon-196x196.png" sizes="196x196">
+    <link rel="icon" type="image/png" href="https://aylien.com/favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="https://aylien.com/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://aylien.com/favicon/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="https://aylien.com/favicon/favicon-128.png" sizes="128x128">
+    <meta name="application-name" content=" ">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="https://aylien.com/favicon/mstile-144x144.png">
+    <meta name="msapplication-square70x70logo" content="https://aylien.com/favicon/mstile-70x70.png">
+    <meta name="msapplication-square150x150logo" content="https://aylien.com/favicon/mstile-150x150.png">
+    <meta name="msapplication-wide310x150logo" content="https://aylien.com/favicon/mstile-310x150.png">
+    <meta name="msapplication-square310x310logo" content="https://aylien.com/favicon/mstile-310x310.png">
+
+    <link rel="canonical" href="https://aylien.com/blog/overview-word-embeddings-history-word2vec-cbow-glove">
+<style type="text/css" id="hs-form-styled6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595">.fn-date-picker.pika-single{z-index:9999;display:block;position:relative;color:#333;background:#fff;border:1px solid #ccc;border-bottom-color:#bbb;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;*zoom:1}.fn-date-picker.pika-single.is-hidden{display:none}.fn-date-picker.pika-single.is-bound{position:absolute;box-shadow:0 5px 15px -5px rgba(0,0,0,.5)}.fn-date-picker.pika-single:after,.fn-date-picker.pika-single:before{content:" ";display:table}.fn-date-picker.pika-single:after{clear:both}.fn-date-picker .pika-lendar{float:left;width:240px;margin:8px}.fn-date-picker .pika-title{position:relative;text-align:center}.fn-date-picker .pika-title select{cursor:pointer;position:absolute;z-index:9998;margin:0;left:0;top:5px;filter:alpha(opacity=0);opacity:0}.fn-date-picker .pika-label{display:inline-block;*display:inline;position:relative;z-index:9999;overflow:hidden;margin:0;padding:5px 3px;font-size:14px;line-height:20px;font-weight:700;background-color:#fff}.fn-date-picker .pika-next,.fn-date-picker .pika-prev{display:block;cursor:pointer;position:relative;outline:none;border:0;padding:0;width:20px;height:30px;text-indent:20px;white-space:nowrap;overflow:hidden;background-color:transparent;background-position:50%;background-repeat:no-repeat;background-size:75% 75%;opacity:.5;*position:absolute;*top:0}.fn-date-picker .pika-next:hover,.fn-date-picker .pika-prev:hover{opacity:1}.fn-date-picker .pika-next.is-disabled,.fn-date-picker .pika-prev.is-disabled{cursor:default;opacity:.2}.fn-date-picker .is-rtl .pika-next,.fn-date-picker .pika-prev{float:left;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAYAAAAsEj5rAAAAUklEQVR42u3VMQoAIBADQf8Pgj+OD9hG2CtONJB2ymQkKe0HbwAP0xucDiQWARITIDEBEnMgMQ8S8+AqBIl6kKgHiXqQqAeJepBo/z38J/U0uAHlaBkBl9I4GwAAAABJRU5ErkJggg==);*left:0}.fn-date-picker .is-rtl .pika-prev,.fn-date-picker .pika-next{float:right;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAYAAAAsEj5rAAAAU0lEQVR42u3VOwoAMAgE0dwfAnNjU26bYkBCFGwfiL9VVWoO+BJ4Gf3gtsEKKoFBNTCoCAYVwaAiGNQGMUHMkjGbgjk2mIONuXo0nC8XnCf1JXgArVIZAQh5TKYAAAAASUVORK5CYII=);*right:0}.fn-date-picker .pika-select{display:inline-block;*display:inline}.fn-date-picker .pika-table{width:100%;border-collapse:collapse;border-spacing:0;border:0}.fn-date-picker .pika-table td,.fn-date-picker .pika-table th{width:14.285714285714286%;padding:0}.fn-date-picker .pika-table th{color:#999;font-size:12px;line-height:25px;font-weight:700;text-align:center}.fn-date-picker .pika-table abbr{border-bottom:none;cursor:help}.fn-date-picker .pika-button{cursor:pointer;display:block;-moz-box-sizing:border-box;box-sizing:border-box;outline:none;border:0;margin:0;width:100%;padding:5px;color:#666;font-size:12px;line-height:15px;text-align:right;background:#f5f5f5}.fn-date-picker .pika-button:hover{color:#fff!important;background:#ff8000!important;box-shadow:none!important;border-radius:3px!important}.fn-date-picker .is-today .pika-button{color:#3af;font-weight:700}.fn-date-picker .is-selected .pika-button{color:#fff;font-weight:700;background:#3af;box-shadow:inset 0 1px 3px #178fe5;border-radius:3px}.fn-date-picker .is-disabled .pika-button{pointer-events:none;cursor:default;color:#999;opacity:.3}.fn-date-picker .pika-week{font-size:11px;color:#999}
+
+.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595 .inputs-list.inline-list li{vertical-align:top;display:inline-block;word-wrap:break-word;padding-right:16px}.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595 .inputs-list.inline-list li:after{clear:both}.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595 .inputs-list.inline-list li input{float:left}.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595 .inputs-list.inline-list.inline-list-2 li{width:50%}.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595 .inputs-list.inline-list.inline-list-2 li:nth-child(2n){padding-right:0}.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595 .inputs-list.inline-list.inline-list-3 li{width:33%}.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595 .inputs-list.inline-list.inline-list-3 li:nth-child(3n){width:34%;padding-right:0}.hs-fieldtype-intl-phone.hs-input{padding:0;background:none;border:none;height:auto}.hs-fieldtype-intl-phone.hs-input:after{clear:both;content:" ";display:table}.hs-fieldtype-intl-phone.hs-input .hs-input{margin-bottom:0}.hs-fieldtype-intl-phone.hs-input input{width:68%!important;float:right}.hs-fieldtype-intl-phone.hs-input select{float:left;width:30%!important}@media (max-device-width:480px) and (min-device-width:320px),(max-width:400px){.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595>.hs-phone>.input>.hs-fieldtype-intl-phone.hs-input>input.hs-input{width:68%!important}.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595>.hs-phone>.input>.hs-fieldtype-intl-phone.hs-input>select.hs-input{width:30%!important}}.hs-input-range-container{width:95%}.hs-input-range-container div{display:inline-block;line-height:50px}.hs-input-range-container .hs-input-range{width:90%;height:40px}.hs-input-range-container .hs-input-range>*{vertical-align:middle}.hs-input-range-container .hs-input-range input{margin:0 5px;width:85%}.hs-input-range-container .hs-input-range-value-container{width:10%}.hs-input-range-container .hs-input{width:100%!important;margin-right:1px;background-color:#fff;text-align:center}.hs-input-range__slider{appearance:none;margin:0;height:30px;overflow:hidden;cursor:pointer}.hs-input-range__slider:focus{outline:none}.hs-input-range__slider::-webkit-slider-runnable-track{width:100%;height:30px;background:linear-gradient(180deg,#0199ff,#0199ff) 100% 50%/100% 3px no-repeat transparent}.hs-input-range__slider::-webkit-slider-thumb{position:relative;appearance:none;height:13px;width:13px;background:#0199ff;border-radius:100%;border:0;top:50%;margin-top:-7.5px;box-shadow:1px 0 0 -5px #cfcfcf,2px 0 0 -5px #cfcfcf,3px 0 0 -5px #cfcfcf,4px 0 0 -5px #cfcfcf,5px 0 0 -5px #cfcfcf,6px 0 0 -5px #cfcfcf,7px 0 0 -5px #cfcfcf,8px 0 0 -5px #cfcfcf,9px 0 0 -5px #cfcfcf,10px 0 0 -5px #cfcfcf,11px 0 0 -5px #cfcfcf,12px 0 0 -5px #cfcfcf,13px 0 0 -5px #cfcfcf,14px 0 0 -5px #cfcfcf,15px 0 0 -5px #cfcfcf,16px 0 0 -5px #cfcfcf,17px 0 0 -5px #cfcfcf,18px 0 0 -5px #cfcfcf,19px 0 0 -5px #cfcfcf,20px 0 0 -5px #cfcfcf,21px 0 0 -5px #cfcfcf,22px 0 0 -5px #cfcfcf,23px 0 0 -5px #cfcfcf,24px 0 0 -5px #cfcfcf,25px 0 0 -5px #cfcfcf,26px 0 0 -5px #cfcfcf,27px 0 0 -5px #cfcfcf,28px 0 0 -5px #cfcfcf,29px 0 0 -5px #cfcfcf,30px 0 0 -5px #cfcfcf,31px 0 0 -5px #cfcfcf,32px 0 0 -5px #cfcfcf,33px 0 0 -5px #cfcfcf,34px 0 0 -5px #cfcfcf,35px 0 0 -5px #cfcfcf,36px 0 0 -5px #cfcfcf,37px 0 0 -5px #cfcfcf,38px 0 0 -5px #cfcfcf,39px 0 0 -5px #cfcfcf,40px 0 0 -5px #cfcfcf,41px 0 0 -5px #cfcfcf,42px 0 0 -5px #cfcfcf,43px 0 0 -5px #cfcfcf,44px 0 0 -5px #cfcfcf,45px 0 0 -5px #cfcfcf,46px 0 0 -5px #cfcfcf,47px 0 0 -5px #cfcfcf,48px 0 0 -5px #cfcfcf,49px 0 0 -5px #cfcfcf,50px 0 0 -5px #cfcfcf,51px 0 0 -5px #cfcfcf,52px 0 0 -5px #cfcfcf,53px 0 0 -5px #cfcfcf,54px 0 0 -5px #cfcfcf,55px 0 0 -5px #cfcfcf,56px 0 0 -5px #cfcfcf,57px 0 0 -5px #cfcfcf,58px 0 0 -5px #cfcfcf,59px 0 0 -5px #cfcfcf,60px 0 0 -5px #cfcfcf,61px 0 0 -5px #cfcfcf,62px 0 0 -5px #cfcfcf,63px 0 0 -5px #cfcfcf,64px 0 0 -5px #cfcfcf,65px 0 0 -5px #cfcfcf,66px 0 0 -5px #cfcfcf,67px 0 0 -5px #cfcfcf,68px 0 0 -5px #cfcfcf,69px 0 0 -5px #cfcfcf,70px 0 0 -5px #cfcfcf,71px 0 0 -5px #cfcfcf,72px 0 0 -5px #cfcfcf,73px 0 0 -5px #cfcfcf,74px 0 0 -5px #cfcfcf,75px 0 0 -5px #cfcfcf,76px 0 0 -5px #cfcfcf,77px 0 0 -5px #cfcfcf,78px 0 0 -5px #cfcfcf,79px 0 0 -5px #cfcfcf,80px 0 0 -5px #cfcfcf,81px 0 0 -5px #cfcfcf,82px 0 0 -5px #cfcfcf,83px 0 0 -5px #cfcfcf,84px 0 0 -5px #cfcfcf,85px 0 0 -5px #cfcfcf,86px 0 0 -5px #cfcfcf,87px 0 0 -5px #cfcfcf,88px 0 0 -5px #cfcfcf,89px 0 0 -5px #cfcfcf,90px 0 0 -5px #cfcfcf,91px 0 0 -5px #cfcfcf,92px 0 0 -5px #cfcfcf,93px 0 0 -5px #cfcfcf,94px 0 0 -5px #cfcfcf,95px 0 0 -5px #cfcfcf,96px 0 0 -5px #cfcfcf,97px 0 0 -5px #cfcfcf,98px 0 0 -5px #cfcfcf,99px 0 0 -5px #cfcfcf,100px 0 0 -5px #cfcfcf,101px 0 0 -5px #cfcfcf,102px 0 0 -5px #cfcfcf,103px 0 0 -5px #cfcfcf,104px 0 0 -5px #cfcfcf,105px 0 0 -5px #cfcfcf,106px 0 0 -5px #cfcfcf,107px 0 0 -5px #cfcfcf,108px 0 0 -5px #cfcfcf,109px 0 0 -5px #cfcfcf,110px 0 0 -5px #cfcfcf,111px 0 0 -5px #cfcfcf,112px 0 0 -5px #cfcfcf,113px 0 0 -5px #cfcfcf,114px 0 0 -5px #cfcfcf,115px 0 0 -5px #cfcfcf,116px 0 0 -5px #cfcfcf,117px 0 0 -5px #cfcfcf,118px 0 0 -5px #cfcfcf,119px 0 0 -5px #cfcfcf,120px 0 0 -5px #cfcfcf,121px 0 0 -5px #cfcfcf,122px 0 0 -5px #cfcfcf,123px 0 0 -5px #cfcfcf,124px 0 0 -5px #cfcfcf,125px 0 0 -5px #cfcfcf,126px 0 0 -5px #cfcfcf,127px 0 0 -5px #cfcfcf,128px 0 0 -5px #cfcfcf,129px 0 0 -5px #cfcfcf,130px 0 0 -5px #cfcfcf,131px 0 0 -5px #cfcfcf,132px 0 0 -5px #cfcfcf,133px 0 0 -5px #cfcfcf,134px 0 0 -5px #cfcfcf,135px 0 0 -5px #cfcfcf,136px 0 0 -5px #cfcfcf,137px 0 0 -5px #cfcfcf,138px 0 0 -5px #cfcfcf,139px 0 0 -5px #cfcfcf,140px 0 0 -5px #cfcfcf,141px 0 0 -5px #cfcfcf,142px 0 0 -5px #cfcfcf,143px 0 0 -5px #cfcfcf,144px 0 0 -5px #cfcfcf,145px 0 0 -5px #cfcfcf,146px 0 0 -5px #cfcfcf,147px 0 0 -5px #cfcfcf,148px 0 0 -5px #cfcfcf,149px 0 0 -5px #cfcfcf,150px 0 0 -5px #cfcfcf,151px 0 0 -5px #cfcfcf,152px 0 0 -5px #cfcfcf,153px 0 0 -5px #cfcfcf,154px 0 0 -5px #cfcfcf,155px 0 0 -5px #cfcfcf,156px 0 0 -5px #cfcfcf,157px 0 0 -5px #cfcfcf,158px 0 0 -5px #cfcfcf,159px 0 0 -5px #cfcfcf,160px 0 0 -5px #cfcfcf,161px 0 0 -5px #cfcfcf,162px 0 0 -5px #cfcfcf,163px 0 0 -5px #cfcfcf,164px 0 0 -5px #cfcfcf,165px 0 0 -5px #cfcfcf,166px 0 0 -5px #cfcfcf,167px 0 0 -5px #cfcfcf,168px 0 0 -5px #cfcfcf,169px 0 0 -5px #cfcfcf,170px 0 0 -5px #cfcfcf,171px 0 0 -5px #cfcfcf,172px 0 0 -5px #cfcfcf,173px 0 0 -5px #cfcfcf,174px 0 0 -5px #cfcfcf,175px 0 0 -5px #cfcfcf,176px 0 0 -5px #cfcfcf,177px 0 0 -5px #cfcfcf,178px 0 0 -5px #cfcfcf,179px 0 0 -5px #cfcfcf,180px 0 0 -5px #cfcfcf,181px 0 0 -5px #cfcfcf,182px 0 0 -5px #cfcfcf,183px 0 0 -5px #cfcfcf,184px 0 0 -5px #cfcfcf,185px 0 0 -5px #cfcfcf,186px 0 0 -5px #cfcfcf,187px 0 0 -5px #cfcfcf,188px 0 0 -5px #cfcfcf,189px 0 0 -5px #cfcfcf,190px 0 0 -5px #cfcfcf,191px 0 0 -5px #cfcfcf,192px 0 0 -5px #cfcfcf,193px 0 0 -5px #cfcfcf,194px 0 0 -5px #cfcfcf,195px 0 0 -5px #cfcfcf,196px 0 0 -5px #cfcfcf,197px 0 0 -5px #cfcfcf,198px 0 0 -5px #cfcfcf,199px 0 0 -5px #cfcfcf,200px 0 0 -5px #cfcfcf,201px 0 0 -5px #cfcfcf,202px 0 0 -5px #cfcfcf,203px 0 0 -5px #cfcfcf,204px 0 0 -5px #cfcfcf,205px 0 0 -5px #cfcfcf,206px 0 0 -5px #cfcfcf,207px 0 0 -5px #cfcfcf,208px 0 0 -5px #cfcfcf,209px 0 0 -5px #cfcfcf,210px 0 0 -5px #cfcfcf,211px 0 0 -5px #cfcfcf,212px 0 0 -5px #cfcfcf,213px 0 0 -5px #cfcfcf,214px 0 0 -5px #cfcfcf,215px 0 0 -5px #cfcfcf,216px 0 0 -5px #cfcfcf,217px 0 0 -5px #cfcfcf,218px 0 0 -5px #cfcfcf,219px 0 0 -5px #cfcfcf,220px 0 0 -5px #cfcfcf,221px 0 0 -5px #cfcfcf,222px 0 0 -5px #cfcfcf,223px 0 0 -5px #cfcfcf,224px 0 0 -5px #cfcfcf,225px 0 0 -5px #cfcfcf,226px 0 0 -5px #cfcfcf,227px 0 0 -5px #cfcfcf,228px 0 0 -5px #cfcfcf,229px 0 0 -5px #cfcfcf,230px 0 0 -5px #cfcfcf,231px 0 0 -5px #cfcfcf,232px 0 0 -5px #cfcfcf,233px 0 0 -5px #cfcfcf,234px 0 0 -5px #cfcfcf,235px 0 0 -5px #cfcfcf,236px 0 0 -5px #cfcfcf,237px 0 0 -5px #cfcfcf,238px 0 0 -5px #cfcfcf,239px 0 0 -5px #cfcfcf,240px 0 0 -5px #cfcfcf,241px 0 0 -5px #cfcfcf,242px 0 0 -5px #cfcfcf,243px 0 0 -5px #cfcfcf,244px 0 0 -5px #cfcfcf,245px 0 0 -5px #cfcfcf,246px 0 0 -5px #cfcfcf,247px 0 0 -5px #cfcfcf,248px 0 0 -5px #cfcfcf,249px 0 0 -5px #cfcfcf,250px 0 0 -5px #cfcfcf,251px 0 0 -5px #cfcfcf,252px 0 0 -5px #cfcfcf,253px 0 0 -5px #cfcfcf,254px 0 0 -5px #cfcfcf,255px 0 0 -5px #cfcfcf,256px 0 0 -5px #cfcfcf,257px 0 0 -5px #cfcfcf,258px 0 0 -5px #cfcfcf,259px 0 0 -5px #cfcfcf,260px 0 0 -5px #cfcfcf,261px 0 0 -5px #cfcfcf,262px 0 0 -5px #cfcfcf,263px 0 0 -5px #cfcfcf,264px 0 0 -5px #cfcfcf,265px 0 0 -5px #cfcfcf,266px 0 0 -5px #cfcfcf,267px 0 0 -5px #cfcfcf,268px 0 0 -5px #cfcfcf,269px 0 0 -5px #cfcfcf,270px 0 0 -5px #cfcfcf,271px 0 0 -5px #cfcfcf,272px 0 0 -5px #cfcfcf,273px 0 0 -5px #cfcfcf,274px 0 0 -5px #cfcfcf,275px 0 0 -5px #cfcfcf,276px 0 0 -5px #cfcfcf,277px 0 0 -5px #cfcfcf,278px 0 0 -5px #cfcfcf,279px 0 0 -5px #cfcfcf,280px 0 0 -5px #cfcfcf,281px 0 0 -5px #cfcfcf,282px 0 0 -5px #cfcfcf,283px 0 0 -5px #cfcfcf,284px 0 0 -5px #cfcfcf,285px 0 0 -5px #cfcfcf,286px 0 0 -5px #cfcfcf,287px 0 0 -5px #cfcfcf,288px 0 0 -5px #cfcfcf,289px 0 0 -5px #cfcfcf,290px 0 0 -5px #cfcfcf,291px 0 0 -5px #cfcfcf,292px 0 0 -5px #cfcfcf,293px 0 0 -5px #cfcfcf,294px 0 0 -5px #cfcfcf,295px 0 0 -5px #cfcfcf,296px 0 0 -5px #cfcfcf,297px 0 0 -5px #cfcfcf,298px 0 0 -5px #cfcfcf,299px 0 0 -5px #cfcfcf,300px 0 0 -5px #cfcfcf,301px 0 0 -5px #cfcfcf,302px 0 0 -5px #cfcfcf,303px 0 0 -5px #cfcfcf,304px 0 0 -5px #cfcfcf,305px 0 0 -5px #cfcfcf,306px 0 0 -5px #cfcfcf,307px 0 0 -5px #cfcfcf,308px 0 0 -5px #cfcfcf,309px 0 0 -5px #cfcfcf,310px 0 0 -5px #cfcfcf,311px 0 0 -5px #cfcfcf,312px 0 0 -5px #cfcfcf,313px 0 0 -5px #cfcfcf,314px 0 0 -5px #cfcfcf,315px 0 0 -5px #cfcfcf,316px 0 0 -5px #cfcfcf,317px 0 0 -5px #cfcfcf,318px 0 0 -5px #cfcfcf,319px 0 0 -5px #cfcfcf,320px 0 0 -5px #cfcfcf,321px 0 0 -5px #cfcfcf,322px 0 0 -5px #cfcfcf,323px 0 0 -5px #cfcfcf,324px 0 0 -5px #cfcfcf,325px 0 0 -5px #cfcfcf,326px 0 0 -5px #cfcfcf,327px 0 0 -5px #cfcfcf,328px 0 0 -5px #cfcfcf,329px 0 0 -5px #cfcfcf,330px 0 0 -5px #cfcfcf,331px 0 0 -5px #cfcfcf,332px 0 0 -5px #cfcfcf,333px 0 0 -5px #cfcfcf,334px 0 0 -5px #cfcfcf,335px 0 0 -5px #cfcfcf,336px 0 0 -5px #cfcfcf,337px 0 0 -5px #cfcfcf,338px 0 0 -5px #cfcfcf,339px 0 0 -5px #cfcfcf,340px 0 0 -5px #cfcfcf,341px 0 0 -5px #cfcfcf,342px 0 0 -5px #cfcfcf,343px 0 0 -5px #cfcfcf,344px 0 0 -5px #cfcfcf,345px 0 0 -5px #cfcfcf,346px 0 0 -5px #cfcfcf,347px 0 0 -5px #cfcfcf,348px 0 0 -5px #cfcfcf,349px 0 0 -5px #cfcfcf,350px 0 0 -5px #cfcfcf,351px 0 0 -5px #cfcfcf,352px 0 0 -5px #cfcfcf,353px 0 0 -5px #cfcfcf,354px 0 0 -5px #cfcfcf,355px 0 0 -5px #cfcfcf,356px 0 0 -5px #cfcfcf,357px 0 0 -5px #cfcfcf,358px 0 0 -5px #cfcfcf,359px 0 0 -5px #cfcfcf,360px 0 0 -5px #cfcfcf,361px 0 0 -5px #cfcfcf,362px 0 0 -5px #cfcfcf,363px 0 0 -5px #cfcfcf,364px 0 0 -5px #cfcfcf,365px 0 0 -5px #cfcfcf,366px 0 0 -5px #cfcfcf,367px 0 0 -5px #cfcfcf,368px 0 0 -5px #cfcfcf,369px 0 0 -5px #cfcfcf,370px 0 0 -5px #cfcfcf,371px 0 0 -5px #cfcfcf,372px 0 0 -5px #cfcfcf,373px 0 0 -5px #cfcfcf,374px 0 0 -5px #cfcfcf,375px 0 0 -5px #cfcfcf,376px 0 0 -5px #cfcfcf,377px 0 0 -5px #cfcfcf,378px 0 0 -5px #cfcfcf,379px 0 0 -5px #cfcfcf,380px 0 0 -5px #cfcfcf,381px 0 0 -5px #cfcfcf,382px 0 0 -5px #cfcfcf,383px 0 0 -5px #cfcfcf,384px 0 0 -5px #cfcfcf,385px 0 0 -5px #cfcfcf,386px 0 0 -5px #cfcfcf,387px 0 0 -5px #cfcfcf,388px 0 0 -5px #cfcfcf,389px 0 0 -5px #cfcfcf,390px 0 0 -5px #cfcfcf,391px 0 0 -5px #cfcfcf,392px 0 0 -5px #cfcfcf,393px 0 0 -5px #cfcfcf,394px 0 0 -5px #cfcfcf,395px 0 0 -5px #cfcfcf,396px 0 0 -5px #cfcfcf,397px 0 0 -5px #cfcfcf,398px 0 0 -5px #cfcfcf,399px 0 0 -5px #cfcfcf,400px 0 0 -5px #cfcfcf,401px 0 0 -5px #cfcfcf,402px 0 0 -5px #cfcfcf,403px 0 0 -5px #cfcfcf,404px 0 0 -5px #cfcfcf,405px 0 0 -5px #cfcfcf,406px 0 0 -5px #cfcfcf,407px 0 0 -5px #cfcfcf,408px 0 0 -5px #cfcfcf,409px 0 0 -5px #cfcfcf,410px 0 0 -5px #cfcfcf,411px 0 0 -5px #cfcfcf,412px 0 0 -5px #cfcfcf,413px 0 0 -5px #cfcfcf,414px 0 0 -5px #cfcfcf,415px 0 0 -5px #cfcfcf,416px 0 0 -5px #cfcfcf,417px 0 0 -5px #cfcfcf,418px 0 0 -5px #cfcfcf,419px 0 0 -5px #cfcfcf,420px 0 0 -5px #cfcfcf,421px 0 0 -5px #cfcfcf,422px 0 0 -5px #cfcfcf,423px 0 0 -5px #cfcfcf,424px 0 0 -5px #cfcfcf,425px 0 0 -5px #cfcfcf,426px 0 0 -5px #cfcfcf,427px 0 0 -5px #cfcfcf,428px 0 0 -5px #cfcfcf,429px 0 0 -5px #cfcfcf,430px 0 0 -5px #cfcfcf,431px 0 0 -5px #cfcfcf,432px 0 0 -5px #cfcfcf,433px 0 0 -5px #cfcfcf,434px 0 0 -5px #cfcfcf,435px 0 0 -5px #cfcfcf,436px 0 0 -5px #cfcfcf,437px 0 0 -5px #cfcfcf,438px 0 0 -5px #cfcfcf,439px 0 0 -5px #cfcfcf,440px 0 0 -5px #cfcfcf,441px 0 0 -5px #cfcfcf,442px 0 0 -5px #cfcfcf,443px 0 0 -5px #cfcfcf,444px 0 0 -5px #cfcfcf,445px 0 0 -5px #cfcfcf,446px 0 0 -5px #cfcfcf,447px 0 0 -5px #cfcfcf,448px 0 0 -5px #cfcfcf,449px 0 0 -5px #cfcfcf,450px 0 0 -5px #cfcfcf,451px 0 0 -5px #cfcfcf,452px 0 0 -5px #cfcfcf,453px 0 0 -5px #cfcfcf,454px 0 0 -5px #cfcfcf,455px 0 0 -5px #cfcfcf,456px 0 0 -5px #cfcfcf,457px 0 0 -5px #cfcfcf,458px 0 0 -5px #cfcfcf,459px 0 0 -5px #cfcfcf,460px 0 0 -5px #cfcfcf,461px 0 0 -5px #cfcfcf,462px 0 0 -5px #cfcfcf,463px 0 0 -5px #cfcfcf,464px 0 0 -5px #cfcfcf,465px 0 0 -5px #cfcfcf,466px 0 0 -5px #cfcfcf,467px 0 0 -5px #cfcfcf,468px 0 0 -5px #cfcfcf,469px 0 0 -5px #cfcfcf,470px 0 0 -5px #cfcfcf,471px 0 0 -5px #cfcfcf,472px 0 0 -5px #cfcfcf,473px 0 0 -5px #cfcfcf,474px 0 0 -5px #cfcfcf,475px 0 0 -5px #cfcfcf,476px 0 0 -5px #cfcfcf,477px 0 0 -5px #cfcfcf,478px 0 0 -5px #cfcfcf,479px 0 0 -5px #cfcfcf,480px 0 0 -5px #cfcfcf,481px 0 0 -5px #cfcfcf,482px 0 0 -5px #cfcfcf,483px 0 0 -5px #cfcfcf,484px 0 0 -5px #cfcfcf,485px 0 0 -5px #cfcfcf,486px 0 0 -5px #cfcfcf,487px 0 0 -5px #cfcfcf,488px 0 0 -5px #cfcfcf,489px 0 0 -5px #cfcfcf,490px 0 0 -5px #cfcfcf,491px 0 0 -5px #cfcfcf,492px 0 0 -5px #cfcfcf,493px 0 0 -5px #cfcfcf,494px 0 0 -5px #cfcfcf,495px 0 0 -5px #cfcfcf,496px 0 0 -5px #cfcfcf,497px 0 0 -5px #cfcfcf,498px 0 0 -5px #cfcfcf,499px 0 0 -5px #cfcfcf,500px 0 0 -5px #cfcfcf,501px 0 0 -5px #cfcfcf,502px 0 0 -5px #cfcfcf,503px 0 0 -5px #cfcfcf,504px 0 0 -5px #cfcfcf,505px 0 0 -5px #cfcfcf,506px 0 0 -5px #cfcfcf,507px 0 0 -5px #cfcfcf,508px 0 0 -5px #cfcfcf,509px 0 0 -5px #cfcfcf,510px 0 0 -5px #cfcfcf,511px 0 0 -5px #cfcfcf,512px 0 0 -5px #cfcfcf,513px 0 0 -5px #cfcfcf,514px 0 0 -5px #cfcfcf,515px 0 0 -5px #cfcfcf,516px 0 0 -5px #cfcfcf,517px 0 0 -5px #cfcfcf,518px 0 0 -5px #cfcfcf,519px 0 0 -5px #cfcfcf,520px 0 0 -5px #cfcfcf,521px 0 0 -5px #cfcfcf,522px 0 0 -5px #cfcfcf,523px 0 0 -5px #cfcfcf,524px 0 0 -5px #cfcfcf,525px 0 0 -5px #cfcfcf,526px 0 0 -5px #cfcfcf,527px 0 0 -5px #cfcfcf,528px 0 0 -5px #cfcfcf,529px 0 0 -5px #cfcfcf,530px 0 0 -5px #cfcfcf,531px 0 0 -5px #cfcfcf,532px 0 0 -5px #cfcfcf,533px 0 0 -5px #cfcfcf,534px 0 0 -5px #cfcfcf,535px 0 0 -5px #cfcfcf,536px 0 0 -5px #cfcfcf,537px 0 0 -5px #cfcfcf,538px 0 0 -5px #cfcfcf,539px 0 0 -5px #cfcfcf,540px 0 0 -5px #cfcfcf,541px 0 0 -5px #cfcfcf,542px 0 0 -5px #cfcfcf,543px 0 0 -5px #cfcfcf,544px 0 0 -5px #cfcfcf,545px 0 0 -5px #cfcfcf,546px 0 0 -5px #cfcfcf,547px 0 0 -5px #cfcfcf,548px 0 0 -5px #cfcfcf,549px 0 0 -5px #cfcfcf,550px 0 0 -5px #cfcfcf,551px 0 0 -5px #cfcfcf,552px 0 0 -5px #cfcfcf,553px 0 0 -5px #cfcfcf,554px 0 0 -5px #cfcfcf,555px 0 0 -5px #cfcfcf,556px 0 0 -5px #cfcfcf,557px 0 0 -5px #cfcfcf,558px 0 0 -5px #cfcfcf,559px 0 0 -5px #cfcfcf,560px 0 0 -5px #cfcfcf,561px 0 0 -5px #cfcfcf,562px 0 0 -5px #cfcfcf,563px 0 0 -5px #cfcfcf,564px 0 0 -5px #cfcfcf,565px 0 0 -5px #cfcfcf,566px 0 0 -5px #cfcfcf,567px 0 0 -5px #cfcfcf,568px 0 0 -5px #cfcfcf,569px 0 0 -5px #cfcfcf,570px 0 0 -5px #cfcfcf,571px 0 0 -5px #cfcfcf,572px 0 0 -5px #cfcfcf,573px 0 0 -5px #cfcfcf,574px 0 0 -5px #cfcfcf,575px 0 0 -5px #cfcfcf,576px 0 0 -5px #cfcfcf,577px 0 0 -5px #cfcfcf,578px 0 0 -5px #cfcfcf,579px 0 0 -5px #cfcfcf,580px 0 0 -5px #cfcfcf,581px 0 0 -5px #cfcfcf,582px 0 0 -5px #cfcfcf,583px 0 0 -5px #cfcfcf,584px 0 0 -5px #cfcfcf,585px 0 0 -5px #cfcfcf,586px 0 0 -5px #cfcfcf,587px 0 0 -5px #cfcfcf,588px 0 0 -5px #cfcfcf,589px 0 0 -5px #cfcfcf,590px 0 0 -5px #cfcfcf,591px 0 0 -5px #cfcfcf,592px 0 0 -5px #cfcfcf,593px 0 0 -5px #cfcfcf,594px 0 0 -5px #cfcfcf,595px 0 0 -5px #cfcfcf,596px 0 0 -5px #cfcfcf,597px 0 0 -5px #cfcfcf,598px 0 0 -5px #cfcfcf,599px 0 0 -5px #cfcfcf,600px 0 0 -5px #cfcfcf,601px 0 0 -5px #cfcfcf,602px 0 0 -5px #cfcfcf,603px 0 0 -5px #cfcfcf,604px 0 0 -5px #cfcfcf,605px 0 0 -5px #cfcfcf,606px 0 0 -5px #cfcfcf,607px 0 0 -5px #cfcfcf,608px 0 0 -5px #cfcfcf,609px 0 0 -5px #cfcfcf,610px 0 0 -5px #cfcfcf,611px 0 0 -5px #cfcfcf,612px 0 0 -5px #cfcfcf,613px 0 0 -5px #cfcfcf,614px 0 0 -5px #cfcfcf,615px 0 0 -5px #cfcfcf,616px 0 0 -5px #cfcfcf,617px 0 0 -5px #cfcfcf,618px 0 0 -5px #cfcfcf,619px 0 0 -5px #cfcfcf,620px 0 0 -5px #cfcfcf,621px 0 0 -5px #cfcfcf,622px 0 0 -5px #cfcfcf,623px 0 0 -5px #cfcfcf,624px 0 0 -5px #cfcfcf,625px 0 0 -5px #cfcfcf,626px 0 0 -5px #cfcfcf,627px 0 0 -5px #cfcfcf,628px 0 0 -5px #cfcfcf,629px 0 0 -5px #cfcfcf,630px 0 0 -5px #cfcfcf,631px 0 0 -5px #cfcfcf,632px 0 0 -5px #cfcfcf,633px 0 0 -5px #cfcfcf,634px 0 0 -5px #cfcfcf,635px 0 0 -5px #cfcfcf,636px 0 0 -5px #cfcfcf,637px 0 0 -5px #cfcfcf,638px 0 0 -5px #cfcfcf,639px 0 0 -5px #cfcfcf,640px 0 0 -5px #cfcfcf,641px 0 0 -5px #cfcfcf,642px 0 0 -5px #cfcfcf,643px 0 0 -5px #cfcfcf,644px 0 0 -5px #cfcfcf,645px 0 0 -5px #cfcfcf,646px 0 0 -5px #cfcfcf,647px 0 0 -5px #cfcfcf,648px 0 0 -5px #cfcfcf,649px 0 0 -5px #cfcfcf,650px 0 0 -5px #cfcfcf,651px 0 0 -5px #cfcfcf,652px 0 0 -5px #cfcfcf,653px 0 0 -5px #cfcfcf,654px 0 0 -5px #cfcfcf,655px 0 0 -5px #cfcfcf,656px 0 0 -5px #cfcfcf,657px 0 0 -5px #cfcfcf,658px 0 0 -5px #cfcfcf,659px 0 0 -5px #cfcfcf,660px 0 0 -5px #cfcfcf,661px 0 0 -5px #cfcfcf,662px 0 0 -5px #cfcfcf,663px 0 0 -5px #cfcfcf,664px 0 0 -5px #cfcfcf,665px 0 0 -5px #cfcfcf,666px 0 0 -5px #cfcfcf,667px 0 0 -5px #cfcfcf,668px 0 0 -5px #cfcfcf,669px 0 0 -5px #cfcfcf,670px 0 0 -5px #cfcfcf,671px 0 0 -5px #cfcfcf,672px 0 0 -5px #cfcfcf,673px 0 0 -5px #cfcfcf,674px 0 0 -5px #cfcfcf,675px 0 0 -5px #cfcfcf,676px 0 0 -5px #cfcfcf,677px 0 0 -5px #cfcfcf,678px 0 0 -5px #cfcfcf,679px 0 0 -5px #cfcfcf,680px 0 0 -5px #cfcfcf,681px 0 0 -5px #cfcfcf,682px 0 0 -5px #cfcfcf,683px 0 0 -5px #cfcfcf,684px 0 0 -5px #cfcfcf,685px 0 0 -5px #cfcfcf,686px 0 0 -5px #cfcfcf,687px 0 0 -5px #cfcfcf,688px 0 0 -5px #cfcfcf,689px 0 0 -5px #cfcfcf,690px 0 0 -5px #cfcfcf,691px 0 0 -5px #cfcfcf,692px 0 0 -5px #cfcfcf,693px 0 0 -5px #cfcfcf,694px 0 0 -5px #cfcfcf,695px 0 0 -5px #cfcfcf,696px 0 0 -5px #cfcfcf,697px 0 0 -5px #cfcfcf,698px 0 0 -5px #cfcfcf,699px 0 0 -5px #cfcfcf,700px 0 0 -5px #cfcfcf,701px 0 0 -5px #cfcfcf,702px 0 0 -5px #cfcfcf,703px 0 0 -5px #cfcfcf,704px 0 0 -5px #cfcfcf,705px 0 0 -5px #cfcfcf,706px 0 0 -5px #cfcfcf,707px 0 0 -5px #cfcfcf,708px 0 0 -5px #cfcfcf,709px 0 0 -5px #cfcfcf,710px 0 0 -5px #cfcfcf,711px 0 0 -5px #cfcfcf,712px 0 0 -5px #cfcfcf,713px 0 0 -5px #cfcfcf,714px 0 0 -5px #cfcfcf,715px 0 0 -5px #cfcfcf,716px 0 0 -5px #cfcfcf,717px 0 0 -5px #cfcfcf,718px 0 0 -5px #cfcfcf,719px 0 0 -5px #cfcfcf,720px 0 0 -5px #cfcfcf,721px 0 0 -5px #cfcfcf,722px 0 0 -5px #cfcfcf,723px 0 0 -5px #cfcfcf,724px 0 0 -5px #cfcfcf,725px 0 0 -5px #cfcfcf,726px 0 0 -5px #cfcfcf,727px 0 0 -5px #cfcfcf,728px 0 0 -5px #cfcfcf,729px 0 0 -5px #cfcfcf,730px 0 0 -5px #cfcfcf,731px 0 0 -5px #cfcfcf,732px 0 0 -5px #cfcfcf,733px 0 0 -5px #cfcfcf,734px 0 0 -5px #cfcfcf,735px 0 0 -5px #cfcfcf,736px 0 0 -5px #cfcfcf,737px 0 0 -5px #cfcfcf,738px 0 0 -5px #cfcfcf,739px 0 0 -5px #cfcfcf,740px 0 0 -5px #cfcfcf,741px 0 0 -5px #cfcfcf,742px 0 0 -5px #cfcfcf,743px 0 0 -5px #cfcfcf,744px 0 0 -5px #cfcfcf,745px 0 0 -5px #cfcfcf,746px 0 0 -5px #cfcfcf,747px 0 0 -5px #cfcfcf,748px 0 0 -5px #cfcfcf,749px 0 0 -5px #cfcfcf,750px 0 0 -5px #cfcfcf,751px 0 0 -5px #cfcfcf,752px 0 0 -5px #cfcfcf,753px 0 0 -5px #cfcfcf,754px 0 0 -5px #cfcfcf,755px 0 0 -5px #cfcfcf,756px 0 0 -5px #cfcfcf,757px 0 0 -5px #cfcfcf,758px 0 0 -5px #cfcfcf,759px 0 0 -5px #cfcfcf,760px 0 0 -5px #cfcfcf,761px 0 0 -5px #cfcfcf,762px 0 0 -5px #cfcfcf,763px 0 0 -5px #cfcfcf,764px 0 0 -5px #cfcfcf,765px 0 0 -5px #cfcfcf,766px 0 0 -5px #cfcfcf,767px 0 0 -5px #cfcfcf,768px 0 0 -5px #cfcfcf,769px 0 0 -5px #cfcfcf,770px 0 0 -5px #cfcfcf,771px 0 0 -5px #cfcfcf,772px 0 0 -5px #cfcfcf,773px 0 0 -5px #cfcfcf,774px 0 0 -5px #cfcfcf,775px 0 0 -5px #cfcfcf,776px 0 0 -5px #cfcfcf,777px 0 0 -5px #cfcfcf,778px 0 0 -5px #cfcfcf,779px 0 0 -5px #cfcfcf,780px 0 0 -5px #cfcfcf,781px 0 0 -5px #cfcfcf,782px 0 0 -5px #cfcfcf,783px 0 0 -5px #cfcfcf,784px 0 0 -5px #cfcfcf,785px 0 0 -5px #cfcfcf,786px 0 0 -5px #cfcfcf,787px 0 0 -5px #cfcfcf,788px 0 0 -5px #cfcfcf,789px 0 0 -5px #cfcfcf,790px 0 0 -5px #cfcfcf,791px 0 0 -5px #cfcfcf,792px 0 0 -5px #cfcfcf,793px 0 0 -5px #cfcfcf,794px 0 0 -5px #cfcfcf,795px 0 0 -5px #cfcfcf,796px 0 0 -5px #cfcfcf,797px 0 0 -5px #cfcfcf,798px 0 0 -5px #cfcfcf,799px 0 0 -5px #cfcfcf,800px 0 0 -5px #cfcfcf,801px 0 0 -5px #cfcfcf,802px 0 0 -5px #cfcfcf,803px 0 0 -5px #cfcfcf,804px 0 0 -5px #cfcfcf,805px 0 0 -5px #cfcfcf,806px 0 0 -5px #cfcfcf,807px 0 0 -5px #cfcfcf,808px 0 0 -5px #cfcfcf,809px 0 0 -5px #cfcfcf,810px 0 0 -5px #cfcfcf,811px 0 0 -5px #cfcfcf,812px 0 0 -5px #cfcfcf,813px 0 0 -5px #cfcfcf,814px 0 0 -5px #cfcfcf,815px 0 0 -5px #cfcfcf,816px 0 0 -5px #cfcfcf,817px 0 0 -5px #cfcfcf,818px 0 0 -5px #cfcfcf,819px 0 0 -5px #cfcfcf,820px 0 0 -5px #cfcfcf,821px 0 0 -5px #cfcfcf,822px 0 0 -5px #cfcfcf,823px 0 0 -5px #cfcfcf,824px 0 0 -5px #cfcfcf,825px 0 0 -5px #cfcfcf,826px 0 0 -5px #cfcfcf,827px 0 0 -5px #cfcfcf,828px 0 0 -5px #cfcfcf,829px 0 0 -5px #cfcfcf,830px 0 0 -5px #cfcfcf,831px 0 0 -5px #cfcfcf,832px 0 0 -5px #cfcfcf,833px 0 0 -5px #cfcfcf,834px 0 0 -5px #cfcfcf,835px 0 0 -5px #cfcfcf,836px 0 0 -5px #cfcfcf,837px 0 0 -5px #cfcfcf,838px 0 0 -5px #cfcfcf,839px 0 0 -5px #cfcfcf,840px 0 0 -5px #cfcfcf,841px 0 0 -5px #cfcfcf,842px 0 0 -5px #cfcfcf,843px 0 0 -5px #cfcfcf,844px 0 0 -5px #cfcfcf,845px 0 0 -5px #cfcfcf,846px 0 0 -5px #cfcfcf,847px 0 0 -5px #cfcfcf,848px 0 0 -5px #cfcfcf,849px 0 0 -5px #cfcfcf,850px 0 0 -5px #cfcfcf,851px 0 0 -5px #cfcfcf,852px 0 0 -5px #cfcfcf,853px 0 0 -5px #cfcfcf,854px 0 0 -5px #cfcfcf,855px 0 0 -5px #cfcfcf,856px 0 0 -5px #cfcfcf,857px 0 0 -5px #cfcfcf,858px 0 0 -5px #cfcfcf,859px 0 0 -5px #cfcfcf,860px 0 0 -5px #cfcfcf,861px 0 0 -5px #cfcfcf,862px 0 0 -5px #cfcfcf,863px 0 0 -5px #cfcfcf,864px 0 0 -5px #cfcfcf,865px 0 0 -5px #cfcfcf,866px 0 0 -5px #cfcfcf,867px 0 0 -5px #cfcfcf,868px 0 0 -5px #cfcfcf,869px 0 0 -5px #cfcfcf,870px 0 0 -5px #cfcfcf,871px 0 0 -5px #cfcfcf,872px 0 0 -5px #cfcfcf,873px 0 0 -5px #cfcfcf,874px 0 0 -5px #cfcfcf,875px 0 0 -5px #cfcfcf,876px 0 0 -5px #cfcfcf,877px 0 0 -5px #cfcfcf,878px 0 0 -5px #cfcfcf,879px 0 0 -5px #cfcfcf,880px 0 0 -5px #cfcfcf,881px 0 0 -5px #cfcfcf,882px 0 0 -5px #cfcfcf,883px 0 0 -5px #cfcfcf,884px 0 0 -5px #cfcfcf,885px 0 0 -5px #cfcfcf,886px 0 0 -5px #cfcfcf,887px 0 0 -5px #cfcfcf,888px 0 0 -5px #cfcfcf,889px 0 0 -5px #cfcfcf,890px 0 0 -5px #cfcfcf,891px 0 0 -5px #cfcfcf,892px 0 0 -5px #cfcfcf,893px 0 0 -5px #cfcfcf,894px 0 0 -5px #cfcfcf,895px 0 0 -5px #cfcfcf,896px 0 0 -5px #cfcfcf,897px 0 0 -5px #cfcfcf,898px 0 0 -5px #cfcfcf,899px 0 0 -5px #cfcfcf,900px 0 0 -5px #cfcfcf,901px 0 0 -5px #cfcfcf,902px 0 0 -5px #cfcfcf,903px 0 0 -5px #cfcfcf,904px 0 0 -5px #cfcfcf,905px 0 0 -5px #cfcfcf,906px 0 0 -5px #cfcfcf,907px 0 0 -5px #cfcfcf,908px 0 0 -5px #cfcfcf,909px 0 0 -5px #cfcfcf,910px 0 0 -5px #cfcfcf,911px 0 0 -5px #cfcfcf,912px 0 0 -5px #cfcfcf,913px 0 0 -5px #cfcfcf,914px 0 0 -5px #cfcfcf,915px 0 0 -5px #cfcfcf,916px 0 0 -5px #cfcfcf,917px 0 0 -5px #cfcfcf,918px 0 0 -5px #cfcfcf,919px 0 0 -5px #cfcfcf,920px 0 0 -5px #cfcfcf,921px 0 0 -5px #cfcfcf,922px 0 0 -5px #cfcfcf,923px 0 0 -5px #cfcfcf,924px 0 0 -5px #cfcfcf,925px 0 0 -5px #cfcfcf,926px 0 0 -5px #cfcfcf,927px 0 0 -5px #cfcfcf,928px 0 0 -5px #cfcfcf,929px 0 0 -5px #cfcfcf,930px 0 0 -5px #cfcfcf,931px 0 0 -5px #cfcfcf,932px 0 0 -5px #cfcfcf,933px 0 0 -5px #cfcfcf,934px 0 0 -5px #cfcfcf,935px 0 0 -5px #cfcfcf,936px 0 0 -5px #cfcfcf,937px 0 0 -5px #cfcfcf,938px 0 0 -5px #cfcfcf,939px 0 0 -5px #cfcfcf,940px 0 0 -5px #cfcfcf,941px 0 0 -5px #cfcfcf,942px 0 0 -5px #cfcfcf,943px 0 0 -5px #cfcfcf,944px 0 0 -5px #cfcfcf,945px 0 0 -5px #cfcfcf,946px 0 0 -5px #cfcfcf,947px 0 0 -5px #cfcfcf,948px 0 0 -5px #cfcfcf,949px 0 0 -5px #cfcfcf,950px 0 0 -5px #cfcfcf,951px 0 0 -5px #cfcfcf,952px 0 0 -5px #cfcfcf,953px 0 0 -5px #cfcfcf,954px 0 0 -5px #cfcfcf,955px 0 0 -5px #cfcfcf,956px 0 0 -5px #cfcfcf,957px 0 0 -5px #cfcfcf,958px 0 0 -5px #cfcfcf,959px 0 0 -5px #cfcfcf,960px 0 0 -5px #cfcfcf,961px 0 0 -5px #cfcfcf,962px 0 0 -5px #cfcfcf,963px 0 0 -5px #cfcfcf,964px 0 0 -5px #cfcfcf,965px 0 0 -5px #cfcfcf,966px 0 0 -5px #cfcfcf,967px 0 0 -5px #cfcfcf,968px 0 0 -5px #cfcfcf,969px 0 0 -5px #cfcfcf,970px 0 0 -5px #cfcfcf,971px 0 0 -5px #cfcfcf,972px 0 0 -5px #cfcfcf,973px 0 0 -5px #cfcfcf,974px 0 0 -5px #cfcfcf,975px 0 0 -5px #cfcfcf,976px 0 0 -5px #cfcfcf,977px 0 0 -5px #cfcfcf,978px 0 0 -5px #cfcfcf,979px 0 0 -5px #cfcfcf,980px 0 0 -5px #cfcfcf,981px 0 0 -5px #cfcfcf,982px 0 0 -5px #cfcfcf,983px 0 0 -5px #cfcfcf,984px 0 0 -5px #cfcfcf,985px 0 0 -5px #cfcfcf,986px 0 0 -5px #cfcfcf,987px 0 0 -5px #cfcfcf,988px 0 0 -5px #cfcfcf,989px 0 0 -5px #cfcfcf,990px 0 0 -5px #cfcfcf,991px 0 0 -5px #cfcfcf,992px 0 0 -5px #cfcfcf,993px 0 0 -5px #cfcfcf,994px 0 0 -5px #cfcfcf,995px 0 0 -5px #cfcfcf,996px 0 0 -5px #cfcfcf,997px 0 0 -5px #cfcfcf,998px 0 0 -5px #cfcfcf,999px 0 0 -5px #cfcfcf,1000px 0 0 -5px #cfcfcf;transition:background-color .15s}.hs-input-range__slider::-moz-range-progress,.hs-input-range__slider::-moz-range-track{width:100%;height:30px;background:linear-gradient(180deg,#cfcfcf,#cfcfcf) 100% 50%/100% 3px no-repeat transparent}.hs-input-range__slider::-moz-range-progress{background:linear-gradient(180deg,#0199ff,#0199ff) 100% 50%/100% 3px no-repeat transparent}.hs-input-range__slider::-moz-range-thumb{appearance:none;margin:0;height:13px;width:13px;background:#0199ff;border-radius:100%;border:0;transition:background-color .15s}.hs-input-range__slider::-ms-track{width:100%;height:30px;border:0;color:transparent;background:transparent}.hs-input-range__slider::-ms-fill-lower{background:linear-gradient(180deg,#0199ff,#0199ff) 100% 50%/100% 3px no-repeat transparent}.hs-input-range__slider::-ms-fill-upper{background:linear-gradient(180deg,#cfcfcf,#cfcfcf) 100% 50%/100% 3px no-repeat transparent}.hs-input-range__slider::-ms-thumb{appearance:none;height:13px;width:13px;background:#0199ff;border-radius:100%;border:0;transition:background-color .15s;top:0;margin:0;box-shadow:none}.hs-input-range__slider:focus::-webkit-slider-thumb,.hs-input-range__slider:hover::-webkit-slider-thumb{background-color:#55c2ff}.hs-input-range__slider:focus::-moz-range-thumb,.hs-input-range__slider:hover::-moz-range-thumb{background-color:#55c2ff}.hs-input-range__slider:focus::-ms-thumb,.hs-input-range__slider:hover::-ms-thumb{background-color:#55c2ff}.hs-input-rating__container{width:95%;margin-bottom:30px;display:table;table-layout:fixed}.hs-input-rating__container section{display:table-row}.hs-input-rating__label{position:relative;display:table-cell;vertical-align:middle;text-align:center}.hs-input-rating__label input,.hs-input-rating__label svg{position:absolute;top:20px;left:0;right:0;margin-left:auto;margin-right:auto;display:block;cursor:pointer}.hs-input-rating__label svg{position:absolute;width:45px;height:45px;fill:#fff;stroke:#ccc;transform:scale(.6);transition:transform .2s ease-in-out}.hs-input-rating__label path{transition:fill .2s ease-in-out,stroke .1s ease-in-out}.hs-input-rating__is-star input{display:none}.hs-input-rating__svg-is-selected{transform:scale(.7)}.hs-input-rating__svg-is-selected path{fill:#f7e31b;stroke:#d7c508}.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595 .hs-button{white-space:pre-wrap}.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595 .hs-richtext{word-break:break-word}.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595.submitted-message{overflow:auto}.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595 fieldset{border:0;padding:0;margin:0;max-width:500px}.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595 fieldset.form-columns-1 .hs-input{width:95%}.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595 fieldset.form-columns-1 .input{margin-right:8px}.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595 fieldset.form-columns-1 input[type=checkbox],.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595 fieldset.form-columns-1 input[type=radio]{width:auto}.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595 fieldset.form-columns-2 .hs-form-field{width:50%;float:left}.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595 fieldset.form-columns-2 .input{margin-right:8px}.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595 fieldset.form-columns-3 .hs-form-field{width:32.7%;float:left}.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595 fieldset.form-columns-3 .input{margin-right:8px}.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595 label.hs-hidden{visibility:hidden}.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595 .hs-field-desc{width:100%}.hs-custom-style .hs-input,.hs-custom-style fieldset{max-width:100%}.hs-custom-style>div.form-columns-3 .hs-form-field,.hs-custom-style fieldset.form-columns-3 .hs-form-field{width:33.3%}.hs-custom-style>div>div:last-of-type .hs-input:not([type=checkbox]):not([type=radio]),.hs-custom-style fieldset>div:last-of-type .hs-input:not([type=checkbox]):not([type=radio]){width:100%;max-width:100%}.hs-custom-style>div input:not([type=image]):not([type=submit]):not([type=button]):not([type=radio]):not([type=checkbox]):not([type=file]),.hs-custom-style fieldset input:not([type=image]):not([type=submit]):not([type=button]):not([type=radio]):not([type=checkbox]):not([type=file]){box-sizing:border-box;padding:0 15px;min-height:27px}.hs-custom-style .hs-dependent-field>div .hs-input:not([type=checkbox]):not([type=radio]){width:100%}@media (max-width:400px),(min-device-width:320px) and (max-device-width:480px){.hs-custom-style .hs-input:not([type=checkbox]):not([type=radio]),.hs-custom-style fieldset{margin-right:0!important;width:100%!important}form.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595:not(.hs-video-form) .form-columns-2 .hs-form-field,form.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595:not(.hs-video-form) .form-columns-3 .hs-form-field{float:none;width:100%}form.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595:not(.hs-video-form) .form-columns-2 .hs-form-field .hs-input,form.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595:not(.hs-video-form) .form-columns-3 .hs-form-field .hs-input{width:95%}form.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595:not(.hs-video-form) .form-columns-2 .hs-form-field input[type=checkbox],form.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595:not(.hs-video-form) .form-columns-2 .hs-form-field input[type=radio],form.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595:not(.hs-video-form) .form-columns-3 .hs-form-field input[type=checkbox],form.hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595:not(.hs-video-form) .form-columns-3 .hs-form-field input[type=radio]{width:auto}}.legal-consent-container .field.hs-form-field{margin-bottom:8px}.legal-consent-container .hs-field-desc.checkbox-desc{margin:-12px 0 0 21px}.legal-consent-container .hs-form-booleancheckbox-display input{float:left}.legal-consent-container .hs-form-booleancheckbox-display>span{display:block;margin-left:20px}.legal-consent-container .hs-form-booleancheckbox-display p{margin:0;display:inline}.legal-consent-container .hs-error-msgs label{color:#f2545b}.legal-consent-container~.hs_recaptcha{margin-top:18px}.cookie-reset-container{font-size:14px;margin-bottom:10px;text-align:right}
+
+
+
+#hs-outer-captcha-target,#hs-outer-captcha-target *{display:none;height:0;width:0}.hubspot-link__container{font-size:14px;padding-bottom:40px;position:relative;color:#9fa0a2;font-family:Helvetica Neue,Helvetica,Arial,sans-serif}.hubspot-link-text{color:#00a4bd;font-weight:400}.hubspot-link__container.sproket{color:#9fa0a2}.hubspot-link{color:#9fa0a2}.hubspot-link,.hubspot-link:hover{text-decoration:none}.hubspot-link:hover .hubspot-link-text{text-decoration:underline}.hubspot-link__icon{margin-bottom:-1px;margin-right:5px}.hubspot-link__container.sproket .hubspot-link__icon{width:30px;margin-right:0;float:left;margin-top:-9px;margin-left:-5px}
+
+</style><script async="" src="./ref-5_files/modules.5e37784fe3302c2578d8.js.download" charset="utf-8"></script><style type="text/css">iframe#_hjRemoteVarsFrame {display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;}</style></head>
+
+<body class=""><style type="text/css">div#hs-eu-cookie-confirmation{background:#fff;height:auto;left:0;position:absolute;top:0;width:100%;z-index:100000000!important;border-bottom:1px solid #cbd6e2;border-top:1px solid #cbd6e2;box-shadow:0 1px 5px #eaf0f6;color:#33475b;font-family:inherit;font-size:inherit;font-weight:400!important;line-height:inherit;text-align:left;text-shadow:none!important;font-size:12px;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;line-height:18px}div#hs-eu-cookie-confirmation.hs-cookie-notification-position-bottom{position:fixed;border-bottom:0;bottom:0;top:auto;box-shadow:0 -1px 3px #eaf0f6}div#hs-eu-cookie-confirmation *{box-sizing:border-box!important}div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner{background:#fff;margin:0 auto;max-width:1000px;padding:20px}div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner a{text-decoration:none!important}div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner a,div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner a:hover{background:none!important;border:none!important;box-shadow:none!important;color:#0091ae;font-family:inherit;font-size:inherit;font-weight:400!important;line-height:inherit;text-align:left;text-shadow:none!important}div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner a:hover{text-decoration:underline!important}div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner div#hs-eu-policy-wording{margin-bottom:12px}div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner div#hs-en-cookie-confirmation-buttons-area{margin:10px 0 0!important;text-align:right!important}div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner a#hs-eu-confirmation-button,div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner a#hs-eu-decline-button{border-radius:3px;display:inline-block;padding:10px 16px!important;text-decoration:none!important}div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner a#hs-eu-confirmation-button{background-color:#8ABE06!important;border:1px solid #8ABE06!important;margin-right:12px!important;color:#fff;font-family:inherit;font-size:inherit;font-weight:400!important;line-height:inherit;text-align:left;text-shadow:none!important}div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner a#hs-eu-decline-button{border:1px solid #8ABE06!important;color:#8ABE06;font-family:inherit;font-size:inherit;font-weight:400!important;line-height:inherit;text-align:left;text-shadow:none!important}div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner a#hs-eu-cookie-settings-button{color:#8ABE06!important;margin-right:12px!important}div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner p{margin:0 0 12px;color:#33475b;font-family:inherit;font-size:inherit;font-weight:400!important;line-height:inherit;text-align:left;text-shadow:none!important}@media print{div#hs-eu-cookie-confirmation{display:none!important}}@media screen and (max-width:480px){div#hs-eu-cookie-confirmation{font-size:12px!important}div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner{padding:8px 14px 14px!important}div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner a,div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner a#hs-eu-confirmation-button{font-size:12px!important}div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner p{font-size:12px!important;margin-bottom:12px!important;line-height:15px!important}}@media only screen and (min-width:960px){div#hs-eu-cookie-confirmation{position:fixed}}</style><div id="hs-eu-cookie-confirmation" class="hs-cookie-notification-position-bottom" data-nosnippet="">
+            <div id="hs-eu-cookie-confirmation-inner">
+              <div id="hs-eu-policy-wording"><p>This website stores cookies on your device. These cookies are used to collect information about how you interact with our website and allow us to remember you. </p><p></p><p>We use this information in order to improve and customize your browsing experience and for analytics and metrics about our visitors both on this website and other media. To find out more about the cookies we use, see our Privacy Policy.</p></div>
+              <p id="hs-eu-cookie-disclaimer">If you decline, your information won’t be tracked when you visit this website. A single cookie will be used in your browser to remember your preference not to be tracked.</p>
+              <div id="hs-en-cookie-confirmation-buttons-area">
+                
+                <a href="javascript:void(0);" id="hs-eu-confirmation-button" role="button">
+    Accept
+  </a>
+                <a href="javascript:void(0);" id="hs-eu-decline-button" role="button">Decline</a>
+              </div>
+            </div>
+          </div>
+    
+    
+<header class="header">
+    <div class="wrapper wrapper--increased header__wrapper">
+        <div class="header__logo">
+            <a href="https://aylien.com/">
+                <img src="./ref-5_files/aylien-logo.svg" alt="Aylien Logo">
+            </a>
+        </div>
+        <div class="header__items">
+            
+            <nav class="header__nav">
+                <ul class="header__nav-list">
+                    <li class="header__nav-item header__nav-item--has-child">
+                        <span class="header__nav-link" tabindex="0">Solutions <i class="icon-chevron header__nav-link-icon"></i></span>
+                        <div class="header__nav-dropdown header__nav-dropdown--desktop">
+                            <div class="header__nav-main">
+                                <ul class="header__nav-dropdown-list">
+                                    
+                                    <li class="header__nav-dropdown-item">
+                                        
+                                        <a href="https://aylien.com/solutions/risk-intelligence" class="header__nav-dropdown-link">
+                                        
+                                            <div class="header__nav-dropdown-icon-container">
+                                                <img src="./ref-5_files/risk-intelligence-grey_1.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--greyscale">
+                                                <img src="./ref-5_files/Risk_Intelligence_1.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--colored">
+                                            </div>
+                                            <div class="header__nav-dropdown-body">
+                                                <span class="header__nav-dropdown-label">Risk Intelligence</span>
+                                                <span class="header__nav-dropdown-text">Augment your risk monitoring processes and models.</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    
+                                    <li class="header__nav-dropdown-item">
+                                        
+                                        <a href="https://aylien.com/solutions/media-intelligence" class="header__nav-dropdown-link">
+                                        
+                                            <div class="header__nav-dropdown-icon-container">
+                                                <img src="./ref-5_files/media_intelligence-grey_1.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--greyscale">
+                                                <img src="./ref-5_files/Media_Intelligence_1.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--colored">
+                                            </div>
+                                            <div class="header__nav-dropdown-body">
+                                                <span class="header__nav-dropdown-label">Media Intelligence</span>
+                                                <span class="header__nav-dropdown-text">Real-time access to enriched, tagged, and structured news feeds.</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    
+                                    
+                                    <li class="header__nav-dropdown-item">
+                                        
+                                        <a href="https://aylien.com/solutions/data-teams" class="header__nav-dropdown-link">
+                                        
+                                            <div class="header__nav-dropdown-icon-container">
+                                                <img src="./ref-5_files/Data-teams-grey_1.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--greyscale">
+                                                <img src="./ref-5_files/Data-teams_1.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--colored">
+                                            </div>
+                                            <div class="header__nav-dropdown-body">
+                                                <span class="header__nav-dropdown-label">Data Science</span>
+                                                <span class="header__nav-dropdown-text">Enhance your models with NLP enriched content.</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    
+                                    <li class="header__nav-dropdown-item">
+                                        
+                                        <a href="https://aylien.com/solutions/product-teams" class="header__nav-dropdown-link">
+                                        
+                                            <div class="header__nav-dropdown-icon-container">
+                                                <img src="./ref-5_files/product-teams-grey_1.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--greyscale">
+                                                <img src="./ref-5_files/product-teams_1.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--colored">
+                                            </div>
+                                            <div class="header__nav-dropdown-body">
+                                                <span class="header__nav-dropdown-label">Product Development</span>
+                                                <span class="header__nav-dropdown-text">Build intelligent news-driven applications and workflows.</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                            
+                            <div class="header__nav-secondary">
+                                <p class="header__nav-secondary-text">Get 14-days access now. No credit card required.</p>
+                                <a href="https://newsapi.aylien.com/signup" class="button button--primary" target="_blank">
+                                    <span class="button__text">Start a Free Trial</span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                    </li>
+                    <li class="header__nav-item header__nav-item--has-child">
+                        <span class="header__nav-link" tabindex="0">Industries <i class="icon-chevron header__nav-link-icon"></i></span>
+                        <div class="header__nav-dropdown header__nav-dropdown--desktop">
+                            <div class="header__nav-main">
+                                <ul class="header__nav-dropdown-list">
+                                    
+                                    <li class="header__nav-dropdown-item">
+                                        
+                                        <a href="https://aylien.com/industries/media-monitoring" class="header__nav-dropdown-link">
+                                        
+                                            <div class="header__nav-dropdown-icon-container">
+                                                <img src="./ref-5_files/Media_Monitoring-grey_1.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--greyscale">
+                                                <img src="./ref-5_files/Media_Monitoring_1.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--colored">
+                                            </div>
+                                            <div class="header__nav-dropdown-body">
+                                                <span class="header__nav-dropdown-label">Media Monitoring</span>
+                                                <span class="header__nav-dropdown-text">Build intelligent aggregation, search, and analysis features.</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    
+                                    <li class="header__nav-dropdown-item">
+                                        
+                                        <a href="https://aylien.com/industries/information-services" class="header__nav-dropdown-link">
+                                        
+                                            <div class="header__nav-dropdown-icon-container">
+                                                <img src="./ref-5_files/Information_Services-grey_1.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--greyscale">
+                                                <img src="./ref-5_files/Information_Services_1.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--colored">
+                                            </div>
+                                            <div class="header__nav-dropdown-body">
+                                                <span class="header__nav-dropdown-label">Information Services</span>
+                                                <span class="header__nav-dropdown-text">Augment discovery and investigation workflows with enriched news content.</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    
+                                    <li class="header__nav-dropdown-item">
+                                        
+                                        <a href="https://aylien.com/industries/financial-services" class="header__nav-dropdown-link">
+                                        
+                                            <div class="header__nav-dropdown-icon-container">
+                                                <img src="./ref-5_files/financial-services-grey_1.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--greyscale">
+                                                <img src="./ref-5_files/Financial_Services.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--colored">
+                                            </div>
+                                            <div class="header__nav-dropdown-body">
+                                                <span class="header__nav-dropdown-label">Financial Services</span>
+                                                <span class="header__nav-dropdown-text">Leverage global news content in risk and investment processes and applications.</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                            
+                            <div class="header__nav-secondary">
+                                <p class="header__nav-secondary-text">Get 14-days access now. No credit card required.</p>
+                                <a href="https://newsapi.aylien.com/signup" class="button button--primary" target="_blank">
+                                    <span class="button__text">Start a 14-day Trial</span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                    </li>
+                    <li class="header__nav-item header__nav-item--has-child">
+                        <span class="header__nav-link">Product <i class="icon-chevron header__nav-link-icon"></i></span>
+                        <div class="header__nav-dropdown header__nav-dropdown--desktop">
+                            <div class="header__nav-main">
+                                <ul class="header__nav-dropdown-list">
+                                    
+                                    <li class="header__nav-dropdown-item">
+                                        
+                                        <a href="https://aylien.com/product/news-api" class="header__nav-dropdown-link">
+                                        
+                                            <div class="header__nav-dropdown-icon-container">
+                                                <img src="./ref-5_files/News-APi-grey_1.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--greyscale">
+                                                <img src="./ref-5_files/News-API_1.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--colored">
+                                            </div>
+                                            <div class="header__nav-dropdown-body">
+                                                <span class="header__nav-dropdown-label">News API</span>
+                                                <span class="header__nav-dropdown-text">Aggregate, understand, and deliver news content at scale.</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    
+                                    <li class="header__nav-dropdown-item">
+                                        
+                                        <a href="https://newsapi.aylien.com/demo" class="header__nav-dropdown-link" target="_blank">
+                                        
+                                            <div class="header__nav-dropdown-icon-container">
+                                                <img src="./ref-5_files/Demo-grey_1.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--greyscale">
+                                                <img src="./ref-5_files/Demo_1.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--colored">
+                                            </div>
+                                            <div class="header__nav-dropdown-body">
+                                                <span class="header__nav-dropdown-label">Demo</span>
+                                                <span class="header__nav-dropdown-text">See our News Intelligence Platform in action in our live demo.</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    
+                                    <li class="header__nav-dropdown-item">
+                                        
+                                        <a href="https://docs.aylien.com/newsapi/#getting-started" class="header__nav-dropdown-link" target="_blank">
+                                        
+                                            <div class="header__nav-dropdown-icon-container">
+                                                <img src="./ref-5_files/Developer-grey_1.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--greyscale">
+                                                <img src="./ref-5_files/Developer_1.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--colored">
+                                            </div>
+                                            <div class="header__nav-dropdown-body">
+                                                <span class="header__nav-dropdown-label">Documentation</span>
+                                                <span class="header__nav-dropdown-text">Start making calls to the API with SDKs and code snippets.</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    
+                                    <li class="header__nav-dropdown-item">
+                                        
+                                        <a href="https://aylien.com/product/plans" class="header__nav-dropdown-link">
+                                        
+                                            <div class="header__nav-dropdown-icon-container">
+                                                <img src="./ref-5_files/product-plans-grey_1.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--greyscale">
+                                                <img src="./ref-5_files/Product_Plans_1.svg" alt="icon" class="header__nav-dropdown-icon header__nav-dropdown-icon--colored">
+                                            </div>
+                                            <div class="header__nav-dropdown-body">
+                                                <span class="header__nav-dropdown-label">Product Plans</span>
+                                                <span class="header__nav-dropdown-text">Read about our flexible subscription plans.</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                            
+                            <div class="header__nav-secondary">
+                                <p class="header__nav-secondary-text">Get 14-days access now. No credit card required.</p>
+                                <a href="https://newsapi.aylien.com/signup" class="button button--primary" target="_blank">
+                                    <span class="button__text">Start a Free Trial</span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                    </li>
+                    <li class="header__separator" aria-label="links separator line"></li>
+                    <li class="header__nav-item header__nav-item--has-child">
+                        <a href="https://aylien.com/resources" class="header__nav-link" tabindex="0">Resources <i class="icon-chevron header__nav-link-icon"></i></a>
+                        <div class="header__nav-dropdown header__nav-dropdown--desktop header__nav-dropdown--desktop-small">
+                            <div class="header__nav-main">
+                                <ul class="header__nav-dropdown-plain-list">
+                                    
+                                    <li class="header__nav-dropdown-plain-item">
+                                        
+                                        <a href="https://aylien.com/resources/product-guides" class="header__nav-dropdown-plain-link">Product Guides</a>
+                                        
+                                    </li>
+                                    
+                                    <li class="header__nav-dropdown-plain-item">
+                                        
+                                        <a href="https://aylien.com/resources/datasets" class="header__nav-dropdown-plain-link">Datasets</a>
+                                        
+                                    </li>
+                                    
+                                    <li class="header__nav-dropdown-plain-item">
+                                        
+                                        <a href="https://aylien.com/resources/downloads" class="header__nav-dropdown-plain-link">Whitepapers</a>
+                                        
+                                    </li>
+                                    
+                                    <li class="header__nav-dropdown-plain-item">
+                                        
+                                        <a href="https://aylien.com/blog" class="header__nav-dropdown-plain-link">Blog</a>
+                                        
+                                    </li>
+                                    
+                                    <li class="header__nav-dropdown-plain-item">
+                                        
+                                        <a href="https://aylien.com/resources/research-papers" class="header__nav-dropdown-plain-link">Research Papers</a>
+                                        
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="header__nav-item header__nav-item--has-child">
+                        <span class="header__nav-link" tabindex="0">Company <i class="icon-chevron header__nav-link-icon"></i></span>
+                        <div class="header__nav-dropdown header__nav-dropdown--desktop header__nav-dropdown--desktop-small">
+                            <div class="header__nav-main">
+                                <ul class="header__nav-dropdown-plain-list">
+                                    
+                                    <li class="header__nav-dropdown-plain-item">
+                                        
+                                        <a href="https://aylien.com/company/about-us" class="header__nav-dropdown-plain-link">About Us</a>
+                                        
+                                    </li>
+                                    
+                                    <li class="header__nav-dropdown-plain-item">
+                                        
+                                        <a href="https://aylien.com/company/research" class="header__nav-dropdown-plain-link">Research</a>
+                                        
+                                    </li>
+                                    
+                                    <li class="header__nav-dropdown-plain-item">
+                                        
+                                        <a href="https://aylien.com/company/careers-at-aylien" class="header__nav-dropdown-plain-link">Careers</a>
+                                        
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="header__ctas">
+                <a href="https://newsapi.aylien.com/login" class="header__cta header__cta--flex" target="_blank">
+                    Login
+                    <!-- 13 x 15 -->
+                    
+                    <img src="./ref-5_files/login-icon.svg" alt="login icon" class="header__cta-icon">
+                    
+                </a>
+                <a href="https://newsapi.aylien.com/signup" class="button button--small button--primary header__cta" target="_blank">
+                    <span class="button__text">
+                        Sign up
+                    </span>
+                </a>
+            </div>
+        </div>
+        <div class="header__burger">
+            <button class="hamburger" type="button">
+              <span class="hamburger__box">
+                  <span class="hamburger__inner"></span>
+              </span>
+            </button>
+        </div>
+    </div>
+</header>
+
+    
+    <main>
+        
+            <!--  Banner Grey with White bottom -->
+            <section class="banner banner--light">
+                <div class="wrapper wrapper--on-top wrapper--tiny">
+                    <div class="banner__content banner__content--medium">
+                        <div class="banner__main-content">
+                            <h1 class="h1 banner__title">
+                                An overview of word embeddings and their connection to distributional semantic models
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+        <div class="sticky-step sticky-step--relative" data-scrollama-index="0">
+            <!-- Sticky Socials -->
+            <ul class="list list--social list--social-sticky">
+                   
+                    <li class="list__item list__item--responsive list__item--animated">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://aylien.com/blog/overview-word-embeddings-history-word2vec-cbow-glove" target="_blank" class="social social--big social--responsive social--dark" aria-label="Facebook link">
+                            <i class="icon-facebook social__icon"></i>
+                        </a>
+                    </li>
+                    <li class="list__item list__item--responsive list__item--animated">
+                        <a href="https://twitter.com/intent/tweet?url=https://aylien.com/blog/overview-word-embeddings-history-word2vec-cbow-glove&amp;text=An%20overview%20of%20word%20embeddings%20and%20their%20connection%20to%20distributional%20semantic%20models" target="_blank" class="social social--big social--responsive social--dark" aria-label="Twitter link">
+                            <i class="icon-twitter social__icon"></i>
+                        </a>
+                    </li>
+                    <li class="list__item list__item--responsive list__item--animated">
+                        <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://aylien.com/blog/overview-word-embeddings-history-word2vec-cbow-glove&amp;title=An%20overview%20of%20word%20embeddings%20and%20their%20connection%20to%20distributional%20semantic%20models" target="_blank" class="social social--big social--responsive social--dark" aria-label="Linkedin link">
+                            <i class="icon-linkedin social__icon"></i>
+                        </a>
+                    </li>
+                    <li class="list__item list__item--responsive list__item--animated">
+                        <a href="https://aylien.com/blog/overview-word-embeddings-history-word2vec-cbow-glove" class="social social--big social--with-content social--responsive social--dark scroll-to" scroll-target="#subscribe">
+                            <span class="social__content">
+                                Subscribe
+                            </span>
+                            <i class="icon-mail social__icon"></i>
+                        </a>
+                    </li>
+                </ul>
+            <!-- Sticky Socials /.end -->
+            <section class="page-strip">
+
+                
+                <div class="wrapper">
+                    <div class="standard-inner">
+                        <div class="standard-inner__content">
+                        <p>Unsupervisedly learned word embeddings have seen tremendous success in numerous NLP tasks in recent years. So much so that in many NLP architectures, they are close to fully replacing more traditional distributional representations such as LSA features and Brown clusters.</p>
+
+<p>You just have to look at last year’s EMNLP and ACL conferences, both of which had a very strong focus on word embeddings, and a recent post in <a href="http://cacm.acm.org/magazines/2016/3/198856-deep-or-shallow-nlp-is-breaking-out/fulltext">Communications of the ACM</a> in which word embeddings is hailed as the catalyst for NLP’s breakout. But are they worthy of the hype?</p>
+
+<p><em>This post is a synopsis of two blogs written by AYLIEN Research Scientist, Sebastian Ruder. You can view Sebastian’s original posts, and more, on Machine Learning, NLP and Deep Learning on his </em><a href="http://sebastianruder.com/"><em>blog</em></a><em>.</em></p>
+
+<p>In this overview we aim to give an in-depth understanding of word embeddings and their effectiveness. We’ll touch on where they originated, we’ll compare popular word embedding models and the challenges associated with them and we’ll and try to answer/debunk some common questions and misconceptions.</p>
+
+<p>We will then look to disillusion word embeddings by relating them to literature in distributional semantics and highlighting the factors that actually account for the success of word embedding models.</p>
+
+<h2>A brief history of word embeddings</h2>
+
+<p>Vector space models have been used in distributional semantics since the 1990s. Since then, we have seen the development of a number models used for estimating continuous representations of words, Latent Dirichlet Allocation (LDA) and Latent Semantic Analysis (LSA) being two such examples.</p>
+
+<p>The term word embeddings was originally coined by Bengio et al. in 2003 who trained them in a neural language model together with the model’s parameters. However, Collobert and Weston were arguably the first to demonstrate the power of pre-trained word embeddings in their 2008 paper <em>A unified architecture for natural language processing</em>, in which they establish word embeddings as a highly effective tool when used in downstream tasks, while also announcing a neural network architecture that many of today’s approaches were built upon. It was Mikolov et al. (2013), however, who really brought word embedding to the fore through the creation of word2vec, a toolkit enabling the training and use of pre-trained embeddings. A year later, Pennington et al. introduced us to GloVe, a competitive set of pre-trained embeddings, suggesting that word embeddings was suddenly among the mainstream.</p>
+
+<p>Word embeddings are considered to be among a small number of successful applications of unsupervised learning at present. The fact that they do not require pricey annotation is probably their main benefit. Rather, they can be derived from already available unannotated corpora.</p>
+
+<h2>Word embedding models</h2>
+
+<p>Naturally, every feed-forward neural network that takes words from a vocabulary as input and embeds them as vectors into a lower dimensional space, which it then fine-tunes through back-propagation, necessarily yields word embeddings as the weights of the first layer, which is usually referred to as <em>Embedding Layer</em>.</p>
+
+<p><img alt="nn_language_model-1" class="aligncenter size-full wp-image-2351" src="./ref-5_files/nn_language_model-1.jpg" style="height:305px; width:563px"></p>
+
+<p>Figure 1: A neural language model (Bengio et al., 2006)</p>
+
+<p>The key difference between a network like this and a method like word2vec is its computational complexity, which explains why it wasn’t until 2013 that word embeddings became so prominent in the NLP space. The recent and rapid expansion and affordability in computational power has certainly aided its emergence.</p>
+
+<p>The training objectives for GloVe and word2vec are another difference, with both geared towards producing word embeddings that encode general semantic relationships and can provide benefit in many downstream tasks. Regular neural networks, in comparison, generally produce task-specific embeddings with limitations in relation to their use elsewhere.</p>
+
+<p>In comparing models, we will assume the following notational standards: We assume a training corpus containing a sequence of (T) training words (w_1, w_2, w_3, cdots, w_T) that belong to a vocabulary (V) whose size is (|V|). Our models generally consider a context of ( n ) words. We associate every word with an input embedding ( v_w ) (the eponymous word embedding in the Embedding Layer) with (d) dimensions and an output embedding ( v'_w ) (another word representation whose role will soon become clearer). We finally optimize an objective function (J_ heta) with regard to our model parameters ( heta) and our model outputs some score (f_ heta(x)) for every input ( x ).</p>
+
+<h3>Classic neural language model</h3>
+
+<p>The classic neural language model proposed by Bengio et al. <a href="https://aylien.com/blog/overview-word-embeddings-history-word2vec-cbow-glove#reference1">[1]</a> in 2003 consists of a one-hidden layer feed-forward neural network that predicts the next word in a sequence as in Figure 2.</p>
+
+<p><img alt="bengio_language_model" class="aligncenter size-full wp-image-2363" src="./ref-5_files/bengio_language_model_(1).png" style="height:500px; width:594px"></p>
+
+<p>Figure 2: Classic neural language model (Bengio et al., 2003)</p>
+
+<p>Their model maximizes what we've described above as the prototypical neural language model objective (For simplicity, the regularization term has been omitted):</p>
+
+<p>(J_ heta = rac{1}{T}sumlimits_{t=1}^T ext{log} space f(w_t , w_{t-1} , cdots , w_{t-n+1})).</p>
+
+<p>( f(w_t , w_{t-1} , cdots , w_{t-n+1}) ) is the output of the model, i.e. the probability ( p(w_t : | : w_{t-1} , cdots , w_{t-n+1}) ) as computed by the softmax, where (n ) is the number of previous words fed into the model.</p>
+
+<p>Bengio et al. were among the first to introduce what has become to be known as a word embedding, a real-valued word feature vector in (mathbb{R}). The foundations of their model can still be found in today’s neural language and word embedding models. They are:</p>
+
+<p><strong>1. Embedding Layer</strong>: This layer generates word embeddings by multiplying an index vector with a word embedding matrix;</p>
+
+<p><strong>2. Intermediate Layer(s)</strong>: One or more layers that produce an intermediate representation of the input, e.g. a fully-connected layer that applies a non-linearity to the concatenation of word embeddings of (n) previous words;</p>
+
+<p><strong>3. Softmax Layer</strong>: The final layer that produces a probability distribution over words in (V).</p>
+
+<p>Bengio et al. also determine two issues with current state-of-the-art-models:</p>
+
+<p>- The first is that Layer <strong>2</strong>. is replaceable with an LSTM, which is used by state-of-the-art neural language models <a href="https://aylien.com/blog/overview-word-embeddings-history-word2vec-cbow-glove#reference6">[6]</a>, <a href="https://aylien.com/blog/overview-word-embeddings-history-word2vec-cbow-glove#reference7">[7]</a>.</p>
+
+<p>- They also identify the final softmax layer (more precisely: the normalization term) as the network's main bottleneck, as the cost of computing the softmax is proportional to the number of words in (V), which is typically on the order of hundreds of thousands or millions.</p>
+
+<p>Discovering methods that alleviate the computational cost related to computing the softmax over a large vocabulary <a href="https://aylien.com/blog/overview-word-embeddings-history-word2vec-cbow-glove#reference9">[9]</a> is therefore one of the main challenges in both neural language and word embedding models.</p>
+
+<h3>C&amp;W model</h3>
+
+<p>After Bengio et al.'s initial efforts in neural language models, research in word embeddings stalled as computational power and algorithms were not yet at a level that enabled the training of a large vocabulary.</p>
+
+<p>In 2008, Collobert and Weston <a href="https://aylien.com/blog/overview-word-embeddings-history-word2vec-cbow-glove#reference4">[4]</a> (thus C&amp;W) demonstrated that word embeddings trained on an adequately large dataset carry syntactic and semantic meaning and improve performance on downstream tasks. In their 2011 paper, they further expand on this <a href="https://aylien.com/blog/overview-word-embeddings-history-word2vec-cbow-glove#reference8">[8]</a>.</p>
+
+<p>In order to avoid computing the expensive softmax, their solution is to employ an alternative objective function: rather than the cross-entropy criterion of Bengio et al., which maximizes the probability of the next word given the previous words, Collobert and Weston train a network to output a higher score (f_ heta) for a correct word sequence (a probable word sequence in Bengio's model) than for an incorrect one. For this purpose, they use a pairwise ranking criterion, which looks like this:</p>
+
+<p>(J_ heta = sumlimits_{x in X} sumlimits_{w in V} ext{max} lbrace 0, 1 - f_ heta(x) + f_ heta(x^{(w)}) brace ).</p>
+
+<p>They sample correct windows (x) containing (n) words from the set of all possible windows (X) in their corpus. For each window (x), they then produce a corrupted, incorrect version (x^{(w)}) by replacing (x)'s centre word with another word (w) from (V). Their objective now maximises the distance between the scores output by the model for the correct and the incorrect window with a margin of (1). Their model architecture, depicted in Figure 3 without the ranking objective, is analogous to Bengio et al.'s model.</p>
+
+<p><img alt="nlp_almost_from_scratch_window_approach" class="aligncenter size-full wp-image-2348" src="./ref-5_files/nlp_almost_from_scratch_window_approach.png" style="height:646px; width:515px"></p>
+
+<p>Figure 3: The C&amp;W model without ranking objective (Collobert et al., 2011)</p>
+
+<p>The resulting language model produces embeddings that already possess many of the relations word embeddings have become known for, e.g. countries are clustered close together and syntactically similar words occupy similar locations in the vector space. While their ranking objective eliminates the complexity of the softmax, they keep the intermediate fully-connected hidden layer (<strong>2.</strong>) of Bengio et al. around (the <strong>HardTanh</strong> layer in Figure 3), which constitutes another source of expensive computation. Partially due to this, their full model trains for seven weeks in total with (|V| = 130000).</p>
+
+<h3>Word2Vec</h3>
+
+<p>Word2Vec is arguably the most popular of the word embedding models. Because word embeddings are a key element of deep learning models for NLP, it is generally assumed to belong to the same group. However, word2vec is not technically not be considered a component of deep learning, with the reasoning being that its architecture is neither deep nor uses non-linearities (in contrast to Bengio's model and the C&amp;W model).</p>
+
+<p>Mikolov et al. <a href="https://aylien.com/blog/overview-word-embeddings-history-word2vec-cbow-glove#reference2">[2]</a> recommend two architectures for learning word embeddings that, when compared with previous models, are computationally less expensive.</p>
+
+<p>Here are two key benefits that these architectures have over Bengio's and the C&amp;W model;</p>
+
+<p>- They forgo the costly hidden layer.</p>
+
+<p>- They allow the language model to take additional context into account.</p>
+
+<p>The success their model can not only be attributed to these differences, it importantly also comes from specific training strategies, both of which we will now look at;</p>
+
+<h4>Continuous bag-of-words (CBOW)</h4>
+
+<p>Unlike a language model that can only base its predictions on past words, as it is assessed based on its ability to predict each next word in the corpus, a model that only aims to produce accurate word embeddings is not subject to such restriction. Mikolov et al. therefore use both the (n) words before and after the target word ( w_t ) to predict it as shown in Figure 4. This is known as a continuous bag of words (CBOW), owing to the fact that it uses continuous representations whose order is of no importance.</p>
+
+<p><img alt="cbow" class="aligncenter wp-image-2350" src="./ref-5_files/cbow.png" style="height:626px; width:558px"></p>
+
+<p>Figure 4: Continuous bag-of-words (Mikolov et al., 2013)</p>
+
+<p>The purpose of CBOW is only marginally different than that of the the language model one:</p>
+
+<p>(J_ heta = rac{1}{T}sumlimits_{t=1}^T ext{log} space p(w_t : | : w_{t-n} , cdots , w_{t-1}, w_{t+1}, cdots , w_{t+n})).</p>
+
+<p>Rather than feeding ( n ) previous words into the model, the model receives a window of ( n ) words around the target word ( w_t ) at each time step ( t ).</p>
+
+<h4>Skip-gram</h4>
+
+<p>While CBOW can be seen as a precognitive language model, skip-gram turns the language model objective on its head: rather than using the surrounding words to predict the centre word as with CBOW, skip-gram uses the centre word to predict the surrounding words as can be seen in Figure 5.</p>
+
+<p><img alt="skip-gram" class="aligncenter wp-image-2349" src="./ref-5_files/skip-gram.png" style="height:626px; width:512px"></p>
+
+<p>Figure 5: Skip-gram (Mikolov et al., 2013)</p>
+
+<p>The skip-gram objective thus sums the log probabilities of the surrounding ( n ) words to the left and to the right of the target word ( w_t ) to produce the following objective:</p>
+
+<p>(J_ heta = rac{1}{T}sumlimits_{t=1}^T sumlimits_{-n leq j leq n , eq 0} ext{log} space p(w_{t+j} : | : w_t)).</p>
+
+<h2>GloVe</h2>
+
+<p>In contrast to word2vec, GloVe <a href="https://aylien.com/blog/overview-word-embeddings-history-word2vec-cbow-glove#reference5">[5]</a> seeks to make explicit what word2vec does implicitly: Encoding meaning as vector offsets in an embedding space -- seemingly only a serendipitous by-product of word2vec -- is the specified goal of GloVe.</p>
+
+<p><img alt="merge_from_ofoct--2-" class="aligncenter size-large wp-image-2364" src="./ref-5_files/merge_from_ofoct-2--1024x398.jpg" style="height:398px; width:1024px">Figure 6: Vector relations captured by GloVe (<a href="http://nlp.stanford.edu/projects/glove/">Stanford</a>)</p>
+
+<p>To be specific, the creators of GloVe illustrate that the ratio of the co-occurrence probabilities of two words (rather than their co-occurrence probabilities themselves) is what contains information and so look to encode this information as vector differences.</p>
+
+<p>For this to be accomplished, they propose a weighted least squares objective (J) that directly aims to reduce the difference between the dot product of the vectors of two words and the logarithm of their number of co-occurrences:</p>
+
+<p>(J = sumlimits_{i, j=1}^V f(X_{ij}) : (w_i^T ilde{w}_j + b_i + ilde{b}_j - ext{log} : X_{ij})^2 )</p>
+
+<p>where (w_i) and (b_i) are the word vector and bias respectively of word (i), ( ilde{w}_j) and (b_j) are the context word vector and bias respectively of word (j), (X_{ij}) is the number of times word (i) occurs in the context of word (j), and (f) is a weighting function that assigns relatively lower weight to rare and frequent co-occurrences.</p>
+
+<p>As co-occurrence counts can be directly encoded in a word-context co-occurrence matrix, GloVe takes such a matrix rather than the entire corpus as input.</p>
+
+<h2>Word embeddings vs. distributional semantics models</h2>
+
+<p>Word embedding models such as word2vec and GloVe gained such popularity as they appeared to regularly and substantially outperform traditional Distributional Semantic Models (DSMs). Many attributed this to the neural architecture of word2vec, or the fact that it predicts words, which seemed to have a natural edge over solely relying on co-occurrence counts.</p>
+
+<p>DSMs can be seen as <em>count</em> models as they "count" co-occurrences among words by operating on co-occurrence matrices. Neural word embedding models, in contrast, can be viewed as <em>predict</em> models, as they try to predict surrounding words.</p>
+
+<p>In 2014, Baroni et al. <a href="https://aylien.com/blog/overview-word-embeddings-history-word2vec-cbow-glove#reference11">[11]</a> demonstrated that, in nearly all tasks, <em>predict</em> models consistently outperform <em>count </em>models, and therefore provided us with a comprehensive verification for the supposed superiority of word embedding models. Is this the end? No.</p>
+
+<p>With GloVe, we have already seen that the differences are not as obvious: While GloVe is considered a predict model by Levy et al. (2015) <a href="https://aylien.com/blog/overview-word-embeddings-history-word2vec-cbow-glove#reference10">[10]</a>, it is clearly factorizing a word-context co-occurrence matrix, which brings it close to traditional methods such as PCA and LSA. Even more, Levy et al. <a href="https://aylien.com/blog/overview-word-embeddings-history-word2vec-cbow-glove#reference12">[12]</a> demonstrate that word2vec implicitly factorizes a word-context PMI matrix.</p>
+
+<p>While on the surface DSMs and word embedding models use varying algorithms to learn word representations - the former count, the latter predict - both types of model fundamentally act on the same underlying statistics of the data, i.e. the co-occurrence counts between words.</p>
+
+<p>And so the question that we will focus on for the remainder of this post still remains:</p>
+
+<p><em>Why do word embedding models still outperform DSM with very similar information?</em></p>
+
+<h2>Comparison models</h2>
+
+<p>To establish the elements that attribute to the success of neural word embedding models, and illustrate how they can be transferred to traditional processes, we will compare the following models;</p>
+
+<p><strong>Positive Pointwise Mutual Information (PPMI)</strong></p>
+
+<p>PMI is a typical measure for the strength of association between two words.It is defined as the log ratio between the joint probability of two words (w) and (c) and the product of their marginal probabilities: (PMI(w,c) = ext{log} : rac{P(w,c)}{P(w):P(c)} ). As ( PMI(w,c) = ext{log} : 0 = - infty ) for pairs ( (w,c) ) that were never observed, PMI is in practice often replaced with <em>positive</em> PMI (PPMI), which replaces negative values with (0), yielding (PPMI(w,c) = ext{max}(PMI(w,c),0)).</p>
+
+<p><strong>Singular Value Decomposition (SVD)</strong></p>
+
+<p>SVD is among the more popular methods for dimensionality reduction and came about in NLP originally via latent semantic analysis (LSA). SVD factorizes the word-context co-occurrence matrix into the product of three matrices (U cdot Sigma imes V^T ) where (U) and (V) are orthonormal matrices (i.e. square matrices whose rows and columns are orthogonal unit vectors) and (Sigma) is a diagonal matrix of eigenvalues in</p>
+
+<p>decreasing order. In practice, SVD is often used to factorize the matrix produced by PPMI. Generally, only the top (d) elements of (Sigma) are kept, yielding (W^{SVD} = U_d cdot Sigma_d) and (C^{SVD} = V_d), which are commonly used as the word and context representations respectively.</p>
+
+<p><strong>Skip-gram with Negative Sampling (SGNS)</strong></p>
+
+<p>Aka word2vec, as shown above.</p>
+
+<p><strong>Global Vectors (GloVe)</strong></p>
+
+<p>As shown earlier in this post.</p>
+
+<h2>Hyperparameters</h2>
+
+<p>We will focus on the following hyper-parameters:</p>
+
+<h3>Pre-processing</h3>
+
+<p>Word2vec suggests three methods of pre-processing a corpus, each of which can be applied to DSMs with ease.</p>
+
+<h4>Dynamic context window</h4>
+
+<p>Normally in DSMs, the context window is unweighted and of a unchanging size. Both SGNS and GloVe, however, use a scheme that assigns more weight to closer words, as closer words are generally considered to be more important to a word's meaning. Additionally, in SGNS, the window size is not fixed, but the actual window size is dynamic and sampled uniformly between (1) and the maximum window size during training.</p>
+
+<h4>Subsampling frequent words</h4>
+
+<p>SGNS dilutes very frequent words by randomly removing words whose frequency (f) is higher than some threshold (t) with a probability (p = 1 - sqrt{rac{t}{f}}). As this subsampling is done <em>before</em> actually creating the windows, the context windows used by SGNS in practice are larger than indicated by the context window size.</p>
+
+<h4>Deleting rare words</h4>
+
+<p>During the pre-processing of SGNS, rare words are also deleted before creating the context windows, which increases the actual size of the context windows further. The actual performance impact of this is insignificant, however, according to Levy et al. (2015)</p>
+
+<h3>Association metric</h3>
+
+<p>In relation to measuring the association between two words, PMI is seen as useful metric. Since Levy and Goldberg (2014) have shown SGNS to implicitly factorize a PMI matrix, two variations stemming from this formulation can be introduced to regular PMI.</p>
+
+<h4>Shifted PMI</h4>
+
+<p>In SGNS, the greater the volume of negative samples (k), the more data is being used and so the estimation of the parameters should therefore improve. (k) affects the shift of the PMI matrix that is implicitly factorized by word2vec, i.e. (k) k shifts the PMI values by log (k).</p>
+
+<p>If we transfer this to regular PMI, we obtain Shifted PPMI (SPPMI): (SPPMI(w,c) = ext{max}(PMI(w,c) - ext{log} : k,0)).</p>
+
+<h4>Context distribution smoothing</h4>
+
+<p>In SGNS, the negative samples are sampled according to a _smoothed_ unigram distribution, i.e. an unigram distribution raised to the power of (lpha), which is empirically set to (rac{3}{4}). This leads to frequent words being sampled relatively less often than their frequency would indicate.</p>
+
+<p>We can transfer this to PMI by equally raising the frequency of the context words (f(c)) to the power of (lpha):</p>
+
+<p>(PMI(w, c) = ext{log} rac{p(w,c)}{p(w)p_lpha(c)}) where (p_lpha(c) = rac{f(c)^lpha}{sum_c f(c)^lpha}) and (f(x)) is the frequency of word (x).</p>
+
+<h3>Post-processing</h3>
+
+<p>Just like in pre-processing, three methods can be used to modify the word vectors produced by an algorithm.</p>
+
+<h4>Adding context vectors</h4>
+
+<p>The authors of GloVe recommend the addition of word vectors and context vectors to create the final output vectors, e.g. (ec{v}_{ ext{cat}} = ec{w}_{ ext{cat}} + ec{c}_{ ext{cat}}). This adds first-order similarity terms, i.e (w cdot v). This method, however, cannot be applied to PMI, as the vectors produced by PMI are too infrequent.</p>
+
+<h4>Eigenvalue weighting</h4>
+
+<p>SVD produces the following matrices: (W^{SVD} = U_d cdot Sigma_d ) and (C^{SVD} = V_d). These matrices, however, have different properties: (C^{SVD}) is orthonormal, while (W^{SVD}) is not.</p>
+
+<p>SGNS is more symmetric in contrast. We can thus weight the eigenvalue matrix (Sigma_d) with an additional parameter (p), which can be tuned, to yield the following:</p>
+
+<p>(W^{SVD} = U_d cdot Sigma_d^p).</p>
+
+<h4>Vector normalisation</h4>
+
+<p>Finally, we can also normalise all vectors to unit length.</p>
+
+<h2>Results</h2>
+
+<p>Levy et al. (2015) train all models on a dump of the English wikipedia and evaluate them on the commonly used word similarity and analogy datasets. You can read more about the experimental setup and training details in their paper. We summarise the most important results and takeaways below.</p>
+
+<h3>Takeaways</h3>
+
+<p>Levy et al. find that SVD -- and not one of the word embedding algorithms -- performs best on similarity tasks, while SGNS performs best on analogy datasets. They furthermore shed light on the importance of hyperparameters compared to other choices:</p>
+
+<ol>
+	<li>Hyperparameters vs. algorithms:<br>
+	Hyperparameter settings are often more important than algorithm choice.<br>
+	No single algorithm consistently outperforms the other methods.</li>
+	<li>Hyperparameters vs. more data:<br>
+	Training on a larger corpus helps for some tasks.<br>
+	In 3 out of 6 cases, tuning hyperparameters is more beneficial.</li>
+</ol>
+
+<h3>Debunking prior claims</h3>
+
+<p>Equipped with these insights, we can now debunk some generally held claims:</p>
+
+<ol>
+	<li>Are embeddings superior to distributional methods?<br>
+	With the right hyperparameters, no approach has a consistent advantage over another.</li>
+	<li>Is GloVe superior to SGNS?<br>
+	SNGS outperforms GloVe on all comparison tasks of Levy et al. This should necessarily be taken with a grain of salt as GloVe might perform better on other tasks.</li>
+	<li>Is CBOW a good word2vec configuration?<br>
+	CBOW does not outperform SGNS on any task.</li>
+</ol>
+
+<h2>Recommendations</h2>
+
+<p>DON'T use shifted PPMI with SVD.</p>
+
+<p>DON'T use SVD "correctly", i.e. without eigenvector weighting (performance drops 15 points compared to with eigenvalue weighting with (p = 0.5)).</p>
+
+<p>DO use PPMI and SVD with short contexts (window size of (2)).</p>
+
+<p>DO use many negative samples with SGNS.</p>
+
+<p>DO always use context distribution smoothing (raise unigram distribution to the power of (lpha = 0.75)) for all methods.</p>
+
+<p>DO use SGNS as a baseline (robust, fast and cheap to train).</p>
+
+<p>DO try adding context vectors in SGNS and GloVe.</p>
+
+<h2>Conclusion</h2>
+
+<p>These results are in contrast to the general consensus that word embeddings are superior to traditional methods. Rather, they indicate that it typically makes no difference whatsoever whether word embeddings or distributional methods are used. What really matters is that your hyperparameters are tuned and that you utilize the appropriate pre-processing and post-processing steps.</p>
+
+<p>Recent studies by Jurafsky's group <a href="https://aylien.com/blog/overview-word-embeddings-history-word2vec-cbow-glove#reference13">[13]</a>, <a href="https://aylien.com/blog/overview-word-embeddings-history-word2vec-cbow-glove#reference14">[14]</a> reflect these findings and illustrate that SVD, rather than SGNS, is commonly the preferred choice accurate word representations is important.</p>
+
+<p>We hope this overview of word embeddings has helped to highlight some fantastic research that sheds light on the relationship between traditional distributional semantic and in-vogue embedding models.</p>
+
+<h2>References</h2>
+
+<p><a name="reference1"></a>[1]: Bengio, Y., Ducharme, R., Vincent, P., &amp; Janvin, C. (2003). A Neural Probabilistic Language Model. The Journal of Machine Learning Research, 3, 1137–1155. http://doi.org/10.1162/153244303322533223</p>
+
+<p><a name="reference2"></a>[2]: Mikolov, T., Corrado, G., Chen, K., &amp; Dean, J. (2013). Efficient Estimation of Word Representations in Vector Space. Proceedings of the International Conference on Learning Representations (ICLR 2013), 1–12.</p>
+
+<p><a name="reference3"></a>[3]: Mikolov, T., Chen, K., Corrado, G., &amp; Dean, J. (2013). Distributed Representations of Words and Phrases and their Compositionality. NIPS, 1–9.</p>
+
+<p><a name="reference4"></a>[4]: Collobert, R., &amp; Weston, J. (2008). A unified architecture for natural language processing. Proceedings of the 25th International Conference on Machine Learning - ICML ’08, 20(1), 160–167. http://doi.org/10.1145/1390156.1390177</p>
+
+<p><a name="reference5"></a>[5]: Pennington, J., Socher, R., &amp; Manning, C. D. (2014). Glove: Global Vectors for Word Representation. Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing, 1532–1543. http://doi.org/10.3115/v1/D14-1162</p>
+
+<p><a name="reference6"></a>[6]: Kim, Y., Jernite, Y., Sontag, D., &amp; Rush, A. M. (2016). Character-Aware Neural Language Models. AAAI. Retrieved from http://arxiv.org/abs/1508.06615</p>
+
+<p><a name="reference7"></a>[7]: Jozefowicz, R., Vinyals, O., Schuster, M., Shazeer, N., &amp; Wu, Y. (2016). Exploring the Limits of Language Modeling. Retrieved from http://arxiv.org/abs/1602.02410</p>
+
+<p><a name="reference8"></a>[8]: Collobert, R., Weston, J., Bottou, L., Karlen, M., Kavukcuoglu, K., &amp; Kuksa, P. (2011). Natural Language Processing (almost) from Scratch. Journal of Machine Learning Research, 12 (Aug), 2493–2537. Retrieved from http://arxiv.org/abs/1103.0398</p>
+
+<p><a name="reference9"></a>[9]: Chen, W., Grangier, D., &amp; Auli, M. (2015). Strategies for Training Large Vocabulary Neural Language Models, 12. Retrieved from http://arxiv.org/abs/1512.04906</p>
+
+<p><a name="reference10"></a>[10]: Levy, O., Goldberg, Y., &amp; Dagan, I. (2015). Improving Distributional Similarity with Lessons Learned from Word Embeddings. Transactions of the Association for Computational Linguistics, 3, 211–225. Retrieved from https://tacl2013.cs.columbia.edu/ojs/index.php/tacl/article/view/570</p>
+
+<p><a name="reference11"></a>[11]: Baroni, M., Dinu, G., &amp; Kruszewski, G. (2014). Don’t count, predict! A systematic comparison of context-counting vs. context-predicting semantic vectors. ACL, 238–247. http://doi.org/10.3115/v1/P14-1023</p>
+
+<p><a name="reference12"></a>[12]: Levy, O., &amp; Goldberg, Y. (2014). Neural Word Embedding as Implicit Matrix Factorization. Advances in Neural Information Processing Systems (NIPS), 2177–2185. Retrieved from http://papers.nips.cc/paper/5477-neural-word-embedding-as-implicit-matrix-factorization</p>
+
+<p><a name="reference13"></a>[13]: Hamilton, W. L., Clark, K., Leskovec, J., &amp; Jurafsky, D. (2016). Inducing Domain-Specific Sentiment Lexicons from Unlabeled Corpora. Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics. Retrieved from http://arxiv.org/abs/1606.02820</p>
+
+<p><a name="reference14"></a>[14]: Hamilton, W. L., Leskovec, J., &amp; Jurafsky, D. (2016). Diachronic Word Embeddings Reveal Statistical Laws of Semantic Change. arXiv Preprint arXiv:1605.09096.</p>
+
+<p><!--HubSpot Call-to-Action Code --></p>
+
+<p>&nbsp;</p>
+
+<p><br>
+<br>
+<!-- [if lte IE 8]>
+
+
+<div id="hs-cta-ie-element"></div>
+
+
+<![endif]--><br>
+<br>
+<br>
+<br>
+&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><!-- end HubSpot Call-to-Action Code --></p>
+<!-- wp:html --><!--HubSpot Call-to-Action Code -->
+
+<p><!--[if lte IE 8]><div id="hs-cta-ie-element"></div><![endif]--><a href="https://cta-redirect.hubspot.com/cta/redirect/1942801/d7b505e1-5c63-4806-a20d-b23b80609d4d" rel="noopener noreferrer" target="_blank"><img alt="Start your Free Trial" class="hs-cta-img" id="hs-cta-img-d7b505e1-5c63-4806-a20d-b23b80609d4d" src="./ref-5_files/d7b505e1-5c63-4806-a20d-b23b80609d4d.png" style="border-width:0px"></a><!-- end HubSpot Call-to-Action Code --> <!-- /wp:html --></p>
+                        </div>
+                    </div>
+                </div>
+                
+
+                
+                
+                
+            </section>
+            <section class="page-strip">
+                <div class="wrapper">
+                    
+                    <div class="page-strip__content page-strip__content--centered page-strip__content--limited-width">
+                        <h3 class="h3 page-strip__title page-strip__title--margin-bottom page-strip__title--decreased">
+                            Related Content
+                        </h3>
+                    </div>
+                    <ul class="list list--boxes">
+                                                <li class="list__item list__item--trio">
+                            <a href="https://aylien.com/blog/how-okapi-leverage-risk-intelligence-insights-through-aylien-news-api" class="box--link box box--small box--with-image ">
+                                
+                                 <div class="box__image-container">
+                                    <!-- 380 x 380 -->
+                                    
+                                                    <img src="./ref-5_files/aylien-okapi_380_380_c1.png" alt="How Okapi leverage Risk Intelligence insights through AYLIEN News API " class="box__image">
+                                     
+                                    
+                                </div>
+                                
+                                
+                                <div class="tag box__tag">
+                                    Case Study
+                                </div>
+                                
+                                <div class="box__body">
+                                    <p class="p box__subheading">
+                                        13 Apr, 2021
+                                    </p>
+                                    <h2 class="h5 box__title">How Okapi leverage Risk Intelligence insights through AYLIEN News API </h2>
+                                    
+                                    <div class="box__info">
+                                        <div class="box__avatar-container">
+                                            <!-- 35 x 35 -->
+                                            <img src="./ref-5_files/box-avatar-2.jpg" alt="Ross Hamer" class="box__avatar">
+                                        </div>
+                                        <div>
+                                            <p class="p box__description">
+                                                Ross Hamer
+                                            </p>
+                                            
+                                            <p class="p box__minitext">
+                                                6 Min Read
+                                            </p>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <button class="box__button" aria-label="Read more">
+                                        <i class="icon-chevron-right box__button-icon">
+                                        </i>
+                                    </button><button>
+                                </button></div>
+                            </a>
+                        </li>                        <li class="list__item list__item--trio">
+                            <a href="https://aylien.com/blog/multi-document-summarisation-and-the-wcep-dataset" class="box--link box box--small box--with-image ">
+                                
+                                 <div class="box__image-container">
+                                    <!-- 380 x 380 -->
+                                    
+                                                    <img src="./ref-5_files/Data_Science_Thumb_02_380_380_c1.png" alt="Adventures in Multi-Document Summarization: The Wikipedia Current Events Portal Dataset" class="box__image">
+                                     
+                                    
+                                </div>
+                                
+                                
+                                <div class="tag box__tag">
+                                    Research
+                                </div>
+                                
+                                <div class="box__body">
+                                    <p class="p box__subheading">
+                                        01 Apr, 2021
+                                    </p>
+                                    <h2 class="h5 box__title">Adventures in Multi-Document Summarization: The Wikipedia Current Events Portal Dataset</h2>
+                                    
+                                    <div class="box__info">
+                                        <div class="box__avatar-container">
+                                            <!-- 35 x 35 -->
+                                            <img src="./ref-5_files/demian.jpg" alt="Demian Gholipour" class="box__avatar">
+                                        </div>
+                                        <div>
+                                            <p class="p box__description">
+                                                Demian Gholipour
+                                            </p>
+                                            
+                                            <p class="p box__minitext">
+                                                13 Min Read
+                                            </p>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <button class="box__button" aria-label="Read more">
+                                        <i class="icon-chevron-right box__button-icon">
+                                        </i>
+                                    </button><button>
+                                </button></div>
+                            </a>
+                        </li>                        <li class="list__item list__item--trio">
+                            <a href="https://aylien.com/blog/5-reasons-to-migrate-from-lexisnexis-metabase-to-aylien-news-api" class="box--link box box--small box--with-image ">
+                                
+                                 <div class="box__image-container">
+                                    <!-- 380 x 380 -->
+                                    
+                                                    <img src="./ref-5_files/Product_Thumb_01_380_380_c1.png" alt="5 reasons to migrate from LexisNexis Metabase to AYLIEN News API" class="box__image">
+                                     
+                                    
+                                </div>
+                                
+                                
+                                <div class="tag box__tag">
+                                    Product
+                                </div>
+                                
+                                <div class="box__body">
+                                    <p class="p box__subheading">
+                                        23 Mar, 2021
+                                    </p>
+                                    <h2 class="h5 box__title">5 reasons to migrate from LexisNexis Metabase to AYLIEN News API</h2>
+                                    
+                                    <div class="box__info">
+                                        <div class="box__avatar-container">
+                                            <!-- 35 x 35 -->
+                                            <img src="./ref-5_files/Mike_new.jpeg" alt="Mike Waldron" class="box__avatar">
+                                        </div>
+                                        <div>
+                                            <p class="p box__description">
+                                                Mike Waldron
+                                            </p>
+                                            
+                                            <p class="p box__minitext">
+                                                8 Min Read
+                                            </p>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <button class="box__button" aria-label="Read more">
+                                        <i class="icon-chevron-right box__button-icon">
+                                        </i>
+                                    </button><button>
+                                </button></div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="page-strip" id="subscribe">
+    <div class="page-strip__shape-container page-strip__shape-container--alt">
+        <img src="./ref-5_files/shape-left.svg" alt="" class="page-strip__shape page-strip__shape--full-height page-strip__shape--left">
+        <img src="./ref-5_files/shape-right.svg" alt="" class="page-strip__shape page-strip__shape--full-height page-strip__shape--right">
+    </div>
+    <div class="wrapper wrapper--medium">
+        <div class="page-strip__content page-strip__content--centered page-strip__content--limited-width page-strip__content--margin-bottom">
+            <h2 class="h1">Stay Informed</h2>
+            <p class="p page-strip__text page-strip__text--increased">From time to time, we would like to contact you about our products and services via email.</p>
+        </div>
+            <div class="hbspt-form-container hbspt-form-container--centered  hbspt-form-container--wide-form">
+            <!--[if lte IE 8]>
+            <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2-legacy.js"></script>
+            <![endif]-->
+            <script charset="utf-8" type="text/javascript" src="./ref-5_files/v2.js.download"></script>
+            <script data-hubspot-rendered="true">
+              hbspt.forms.create({
+            portalId: "1942801",
+            formId: "d6bda047-2b90-499b-a837-2fb41a40afd9"
+            });
+            </script><div class="hbspt-form" id="hbspt-form-1618668749105-1752513569"><form novalidate="" accept-charset="UTF-8" action="https://forms.hsforms.com/submissions/v3/public/submit/formsnext/multipart/1942801/d6bda047-2b90-499b-a837-2fb41a40afd9" enctype="multipart/form-data" id="hsForm_d6bda047-2b90-499b-a837-2fb41a40afd9" method="POST" class="hs-form stacked hs-form-private hsForm_d6bda047-2b90-499b-a837-2fb41a40afd9 hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9 hs-form-d6bda047-2b90-499b-a837-2fb41a40afd9_f7e27395-ffb2-4feb-a786-0595c54c2595" data-form-id="d6bda047-2b90-499b-a837-2fb41a40afd9" data-portal-id="1942801" target="target_iframe_d6bda047-2b90-499b-a837-2fb41a40afd9" data-reactid=".hbspt-forms-0"><div class="hs_email hs-email hs-fieldtype-text field hs-form-field" data-reactid=".hbspt-forms-0.1:$0"><label id="label-email-d6bda047-2b90-499b-a837-2fb41a40afd9" class="" placeholder="Enter your Email" for="email-d6bda047-2b90-499b-a837-2fb41a40afd9" data-reactid=".hbspt-forms-0.1:$0.0"><span data-reactid=".hbspt-forms-0.1:$0.0.0">Email</span><span class="hs-form-required" data-reactid=".hbspt-forms-0.1:$0.0.1">*</span></label><legend class="hs-field-desc" style="display:none;" data-reactid=".hbspt-forms-0.1:$0.1"></legend><div class="input" data-reactid=".hbspt-forms-0.1:$0.$email"><input id="email-d6bda047-2b90-499b-a837-2fb41a40afd9" class="hs-input" type="email" name="email" required="" placeholder="" value="" autocomplete="email" data-reactid=".hbspt-forms-0.1:$0.$email.0" inputmode="email"></div></div><div class="legal-consent-container" data-reactid=".hbspt-forms-0.2"><div class="hs-richtext" data-reactid=".hbspt-forms-0.2.0"><p>From time to time, we would like to contact you about our products and services via email.</p></div><div data-reactid=".hbspt-forms-0.2.1:0"><div class="hs-dependent-field" data-reactid=".hbspt-forms-0.2.1:0.$LEGAL_CONSENT=1subscription_type_1236163"><div class="hs_LEGAL_CONSENT.subscription_type_1236163 hs-LEGAL_CONSENT.subscription_type_1236163 hs-fieldtype-booleancheckbox field hs-form-field" data-reactid=".hbspt-forms-0.2.1:0.$LEGAL_CONSENT=1subscription_type_1236163.$LEGAL_CONSENT=1subscription_type_1236163"><legend class="hs-field-desc" style="display:none;" data-reactid=".hbspt-forms-0.2.1:0.$LEGAL_CONSENT=1subscription_type_1236163.$LEGAL_CONSENT=1subscription_type_1236163.1"></legend><div class="input" data-reactid=".hbspt-forms-0.2.1:0.$LEGAL_CONSENT=1subscription_type_1236163.$LEGAL_CONSENT=1subscription_type_1236163.$LEGAL_CONSENT=1subscription_type_1236163"><ul class="inputs-list" data-reactid=".hbspt-forms-0.2.1:0.$LEGAL_CONSENT=1subscription_type_1236163.$LEGAL_CONSENT=1subscription_type_1236163.$LEGAL_CONSENT=1subscription_type_1236163.0"><li class="hs-form-booleancheckbox" data-reactid=".hbspt-forms-0.2.1:0.$LEGAL_CONSENT=1subscription_type_1236163.$LEGAL_CONSENT=1subscription_type_1236163.$LEGAL_CONSENT=1subscription_type_1236163.0.0"><label for="LEGAL_CONSENT.subscription_type_1236163-d6bda047-2b90-499b-a837-2fb41a40afd9" class="hs-form-booleancheckbox-display" data-reactid=".hbspt-forms-0.2.1:0.$LEGAL_CONSENT=1subscription_type_1236163.$LEGAL_CONSENT=1subscription_type_1236163.$LEGAL_CONSENT=1subscription_type_1236163.0.0.0"><input id="LEGAL_CONSENT.subscription_type_1236163-d6bda047-2b90-499b-a837-2fb41a40afd9" class="hs-input" type="checkbox" name="LEGAL_CONSENT.subscription_type_1236163" value="true" data-reactid=".hbspt-forms-0.2.1:0.$LEGAL_CONSENT=1subscription_type_1236163.$LEGAL_CONSENT=1subscription_type_1236163.$LEGAL_CONSENT=1subscription_type_1236163.0.0.0.0"><span data-reactid=".hbspt-forms-0.2.1:0.$LEGAL_CONSENT=1subscription_type_1236163.$LEGAL_CONSENT=1subscription_type_1236163.$LEGAL_CONSENT=1subscription_type_1236163.0.0.0.1"><p>I agree to receive related communication from AYLIEN.</p></span></label></li></ul></div></div></div><legend class="hs-field-desc checkbox-desc" style="display:none;" data-reactid=".hbspt-forms-0.2.1:0.1"></legend></div><div class="hs-richtext" data-reactid=".hbspt-forms-0.2.2"><p>You may unsubscribe from these communications at any time. </p></div><div class="hs-richtext" data-reactid=".hbspt-forms-0.2.3"><p>By clicking submit below, you consent to allow AYLIEN to store and process the personal information submitted above.</p></div></div><div class="hs_submit hs-submit" data-reactid=".hbspt-forms-0.5"><div class="hs-field-desc" style="display:none;" data-reactid=".hbspt-forms-0.5.0"></div><div class="actions" data-reactid=".hbspt-forms-0.5.1"><input type="submit" value="Subscribe" class="hs-button primary large" data-reactid=".hbspt-forms-0.5.1.0"></div></div><noscript data-reactid=".hbspt-forms-0.6"></noscript><input name="hs_context" type="hidden" value="{&quot;rumScriptExecuteTime&quot;:2390.604999999937,&quot;rumServiceResponseTime&quot;:2910.7950000000073,&quot;rumFormRenderTime&quot;:5.29499999993277,&quot;rumTotalRenderTime&quot;:2919.210000000021,&quot;rumTotalRequestTime&quot;:516.8650000000525,&quot;lang&quot;:&quot;en&quot;,&quot;legalConsentOptions&quot;:&quot;{\&quot;communicationConsentCheckboxes\&quot;:[{\&quot;communicationTypeId\&quot;:1236163,\&quot;label\&quot;:\&quot;&lt;p&gt;I agree to receive related communication from AYLIEN.&lt;/p&gt;\&quot;,\&quot;required\&quot;:false}],\&quot;legitimateInterestLegalBasis\&quot;:\&quot;LEGITIMATE_INTEREST_PQL\&quot;,\&quot;communicationConsentText\&quot;:\&quot;&lt;p&gt;From time to time, we would like to contact you about our products and services via email.&lt;/p&gt;\&quot;,\&quot;processingConsentType\&quot;:\&quot;IMPLICIT\&quot;,\&quot;processingConsentText\&quot;:\&quot;&lt;p&gt;By clicking submit below, you consent to allow AYLIEN to store and process the personal information submitted above.&lt;/p&gt;\&quot;,\&quot;processingConsentCheckboxLabel\&quot;:\&quot;I agree to allow AYLIEN to store and process my personal data.\&quot;,\&quot;privacyPolicyText\&quot;:\&quot;&lt;p&gt;You may unsubscribe from these communications at any time. &lt;/p&gt;\&quot;,\&quot;isLegitimateInterest\&quot;:false}&quot;,&quot;renderRawHtml&quot;:&quot;true&quot;,&quot;embedAtTimestamp&quot;:&quot;1618668752635&quot;,&quot;formDefinitionUpdatedAt&quot;:&quot;1610632903189&quot;,&quot;pageUrl&quot;:&quot;https://aylien.com/blog/overview-word-embeddings-history-word2vec-cbow-glove&quot;,&quot;pageTitle&quot;:&quot;An overview of word embeddings and their connection to distributional semantic models - AYLIEN News API&quot;,&quot;source&quot;:&quot;FormsNext-static&quot;,&quot;timestamp&quot;:1618668752635,&quot;userAgent&quot;:&quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36&quot;,&quot;referrer&quot;:&quot;https://www.google.com/&quot;,&quot;originalEmbedContext&quot;:{&quot;portalId&quot;:&quot;1942801&quot;,&quot;formId&quot;:&quot;d6bda047-2b90-499b-a837-2fb41a40afd9&quot;,&quot;target&quot;:&quot;#hbspt-form-1618668749105-1752513569&quot;},&quot;boolCheckBoxFields&quot;:&quot;LEGAL_CONSENT.subscription_type_1236163&quot;,&quot;formTarget&quot;:&quot;#hbspt-form-1618668749105-1752513569&quot;,&quot;correlationId&quot;:&quot;3eef5bd9-15c8-4711-ba10-f56827194e7b&quot;,&quot;hutk&quot;:&quot;a3f660260c4666b0e4da465e9d7b91db&quot;,&quot;useRecaptchaEnterprise&quot;:true}" data-reactid=".hbspt-forms-0.7"><iframe name="target_iframe_d6bda047-2b90-499b-a837-2fb41a40afd9" style="display:none;" data-reactid=".hbspt-forms-0.8" src="./ref-5_files/saved_resource.html"></iframe></form></div>
+        </div>
+    </div>
+</section>
+
+            
+            
+        </div>
+    </main>
+    
+<footer class="footer">
+    <div class="wrapper">
+        <div class="footer__body">
+            <div class="footer__top">
+                <a href="https://aylien.com/" class="footer__logo">
+                    <img src="./ref-5_files/aylien-logo.svg" alt="Aylien Logo">
+                </a>
+                <ul class="list list--social footer__social">
+                    <li class="list__item">
+                        <a href="https://twitter.com/_aylien" class="social" target="_blank" aria-label="Twitter link">
+                            <i class="icon-twitter social__icon"></i>
+                        </a>
+                    </li>
+                    <li class="list__item">
+                        <a href="https://www.linkedin.com/organization-guest/company/aylien" class="social" target="_blank" aria-label="Linkedin link">
+                            <i class="icon-linkedin social__icon"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="footer__ctas">
+                    <a href="https://newsapi.aylien.com/login" class="footer__cta footer__cta--flex" target="_blank">
+                        Login
+                        <img src="./ref-5_files/login-icon-white.svg" alt="login icon" class="footer__cta-icon">
+                    </a>
+                    <a href="https://newsapi.aylien.com/signup" class="button button--small button--primary footer__cta" target="_blank">
+                        <span class="button__text">
+                            Sign up
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="footer__middle">
+                <div class="accordion accordion--mobile footer__accordion">
+                    <div class="accordion__header">
+                        <span class="accordion__trigger accordion__control" aria-label="Expand mobile menu">
+                            <span class="footer__main-link">
+                                Solutions
+                            </span>
+                            <i class="icon-chevron accordion__icon"></i>
+                        </span>
+                    </div>
+                    <div class="accordion__content">
+                        <div class="accordion__content-inner">
+                            <ul class="footer__list">
+                                <li class="footer__item">
+                                    <a href="https://aylien.com/solutions/risk-intelligence" class="footer__link">
+                                        Risk Intelligence
+                                    </a>
+                                </li>
+                                <li class="footer__item">
+                                    <a href="https://aylien.com/solutions/media-intelligence" class="footer__link">
+                                        Media Intelligence
+                                    </a>
+                                </li>
+                                <li class="footer__item">
+                                    <a href="https://aylien.com/solutions/data-teams" class="footer__link">
+                                        Data Teams
+                                    </a>
+                                </li>
+                                <li class="footer__item">
+                                    <a href="https://aylien.com/solutions/product-teams" class="footer__link">
+                                        Product Teams
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion accordion--mobile footer__accordion">
+                    <div class="accordion__header">
+                        <span class="accordion__trigger accordion__control" aria-label="Expand mobile menu">
+                            <span class="footer__main-link">
+                                Industries
+                            </span>
+                            <i class="icon-chevron accordion__icon"></i>
+                        </span>
+                    </div>
+                    <div class="accordion__content">
+                        <div class="accordion__content-inner">
+                            <ul class="footer__list">
+                                <li class="footer__item">
+                                    <a href="https://aylien.com/industries/media-monitoring" class="footer__link">
+                                        Media Monitoring
+                                    </a>
+                                </li>
+                                <li class="footer__item">
+                                    <a href="https://aylien.com/industries/financial-services" class="footer__link">
+                                        Financial Services
+                                    </a>
+                                </li>
+                                <li class="footer__item">
+                                    <a href="https://aylien.com/industries/information-services" class="footer__link">
+                                        Information Services
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion accordion--mobile footer__accordion">
+                    <div class="accordion__header">
+                        <span class="accordion__trigger accordion__control" aria-label="Expand mobile menu">
+                            <span class="footer__main-link">
+                                Product
+                            </span>
+                            <i class="icon-chevron accordion__icon"></i>
+                        </span>
+                    </div>
+                    <div class="accordion__content">
+                        <div class="accordion__content-inner">
+                            <ul class="footer__list">
+                                <li class="footer__item">
+                                    <a href="https://aylien.com/product/news-api" class="footer__link">
+                                        News API
+                                    </a>
+                                </li>
+                                <li class="footer__item">
+                                    <a href="https://docs.aylien.com/newsapi#getting-started" class="footer__link" target="_blank">
+                                        Getting Started
+                                    </a>
+                                </li>
+                                <li class="footer__item">
+                                    <a href="https://newsapi.aylien.com/demo" class="footer__link" target="_blank">
+                                        News API Demo
+                                    </a>
+                                </li>
+                                <li class="footer__item">
+                                    <a href="https://aylien.com/product/plans" class="footer__link">
+                                        Product Plans
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion accordion--mobile footer__accordion">
+                    <div class="accordion__header">
+                        <span class="accordion__trigger accordion__control" aria-label="Expand mobile menu">
+                            <span class="footer__main-link">
+                                Resources
+                            </span>
+                            <i class="icon-chevron accordion__icon"></i>
+                        </span>
+                    </div>
+                    <div class="accordion__content">
+                        <div class="accordion__content-inner">
+                            <ul class="footer__list">
+                                <li class="footer__item">
+                                    <a href="https://aylien.com/resources/product-guides" class="footer__link">
+                                        Product Guides
+                                    </a>
+                                </li>
+                                <li class="footer__item">
+                                    <a href="https://aylien.com/resources/datasets" class="footer__link">
+                                        Datasets
+                                    </a>
+                                </li>
+                                <li class="footer__item">
+                                    <a href="https://aylien.com/resources/downloads" class="footer__link">
+                                        Downloads
+                                    </a>
+                                </li>
+                                <li class="footer__item">
+                                    <a href="https://aylien.com/blog" class="footer__link">
+                                        Blog
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion accordion--mobile footer__accordion">
+                    <div class="accordion__header">
+                        <span class="accordion__trigger accordion__control" aria-label="Expand mobile menu">
+                            <span class="footer__main-link">
+                                Company
+                            </span>
+                            <i class="icon-chevron accordion__icon"></i>
+                        </span>
+                    </div>
+                    <div class="accordion__content">
+                        <div class="accordion__content-inner">
+                            <ul class="footer__list">
+                                <li class="footer__item">
+                                    <a href="https://aylien.com/company/about-us" class="footer__link">
+                                        About Us
+                                    </a>
+                                </li>
+                                <li class="footer__item">
+                                    <a href="https://aylien.com/company/research-and-science" class="footer__link">
+                                        Research
+                                    </a>
+                                </li>
+                                <li class="footer__item">
+                                    <a href="https://aylien.com/company/careers-at-aylien" class="footer__link">
+                                        Careers
+                                    </a>
+                                </li>
+                                <li class="footer__item">
+                                    <a href="https://aylien.com/contact" class="footer__link">
+                                        Contact Us
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <ul class="footer__list footer__list--flex">
+                    <li class="footer__item footer__item--horizontal-desktop">
+                        <a href="https://aylien.com/privacy" class="footer__link footer__link--small">
+                            Privacy Policy
+                        </a>
+                    </li>
+                    <li class="footer__item footer__item--horizontal-desktop">
+                        <a href="https://aylien.com/terms" class="footer__link footer__link--small">
+                            Terms &amp; Conditions
+                        </a>
+                    </li>
+                </ul>
+                <span class="footer__text">
+                    Copyright © 2021 Aylien Ltd. All rights reserved.
+                </span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- All JS actions that are site wide should be in this file -->
+<script src="./ref-5_files/vendors.js.download"></script>
+<script src="./ref-5_files/main.js.download"></script>
+
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K8DGH5"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async="" defer="" src="./ref-5_files/1942801.js(2).download"></script>
+<!-- End of HubSpot Embed Code -->
+
+<script>
+  window.intercomSettings = {
+    app_id: "avndlx2d"
+  };
+</script>
+<script>
+// We pre-filled your app ID in the widget URL: 'https://widget.intercom.io/widget/avndlx2d'
+(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/avndlx2d';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
+</script>
+
+    <script src="./ref-5_files/inner.js.download"></script>
+
+
+
+<iframe name="_hjRemoteVarsFrame" title="_hjRemoteVarsFrame" id="_hjRemoteVarsFrame" src="./ref-5_files/box-5e3cec51ed8e99df6977c199d27812d7.html" style="display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;"></iframe><iframe id="intercom-frame" style="position: absolute !important; opacity: 0 !important; width: 1px !important; height: 1px !important; top: 0 !important; left: 0 !important; border: none !important; display: block !important; z-index: -1 !important; pointer-events: none;" aria-hidden="true" tabindex="-1" title="Intercom" src="./ref-5_files/saved_resource(1).html"></iframe><div class="intercom-lightweight-app" aria-live="polite"><style id="intercom-lightweight-app-style" type="text/css">
+  @keyframes intercom-lightweight-app-launcher {
+    from {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes intercom-lightweight-app-gradient {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes intercom-lightweight-app-messenger {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .intercom-lightweight-app {
+    position: fixed;
+    z-index: 2147483001;
+    width: 0;
+    height: 0;
+    font-family: intercom-font, "Helvetica Neue", "Apple Color Emoji", Helvetica, Arial, sans-serif;
+  }
+
+  .intercom-lightweight-app-gradient {
+    position: fixed;
+    z-index: 2147483002;
+    width: 500px;
+    height: 500px;
+    bottom: 0;
+    right: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse at bottom right,
+      rgba(29, 39, 54, 0.16) 0%,
+      rgba(29, 39, 54, 0) 72%);
+    animation: intercom-lightweight-app-gradient 200ms ease-out;
+  }
+
+  .intercom-lightweight-app-launcher {
+    position: fixed;
+    z-index: 2147483003;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #8abe06;
+    cursor: pointer;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.06), 0 2px 32px 0 rgba(0, 0, 0, 0.16);
+    animation: intercom-lightweight-app-launcher 250ms ease;
+  }
+
+  .intercom-lightweight-app-launcher:focus {
+    outline: none;
+    
+  }
+
+  .intercom-lightweight-app-launcher-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    transition: transform 100ms linear, opacity 80ms linear;
+  }
+
+  .intercom-lightweight-app-launcher-icon-open {
+    
+        opacity: 1;
+        transform: rotate(0deg) scale(1);
+      
+  }
+
+  .intercom-lightweight-app-launcher-icon-open svg {
+    width: 28px;
+    height: 32px;
+  }
+
+  .intercom-lightweight-app-launcher-icon-open svg path {
+    fill: rgb(255, 255, 255);
+  }
+
+  .intercom-lightweight-app-launcher-icon-self-serve {
+    
+        opacity: 1;
+        transform: rotate(0deg) scale(1);
+      
+  }
+
+  .intercom-lightweight-app-launcher-icon-self-serve svg {
+    height: 56px;
+  }
+
+  .intercom-lightweight-app-launcher-icon-self-serve svg path {
+    fill: rgb(255, 255, 255);
+  }
+
+  .intercom-lightweight-app-launcher-custom-icon-open {
+    max-height: 36px;
+    max-width: 36px;
+    
+        opacity: 1;
+        transform: rotate(0deg) scale(1);
+      
+  }
+
+  .intercom-lightweight-app-launcher-icon-minimize {
+    
+        opacity: 0;
+        transform: rotate(-60deg) scale(0);
+      
+  }
+
+  .intercom-lightweight-app-launcher-icon-minimize svg {
+    width: 16px;
+  }
+
+  .intercom-lightweight-app-launcher-icon-minimize svg path {
+    fill: rgb(255, 255, 255);
+  }
+
+  .intercom-lightweight-app-messenger {
+    position: fixed;
+    z-index: 2147483003;
+    overflow: hidden;
+    background-color: white;
+    animation: intercom-lightweight-app-messenger 250ms ease-out;
+    
+        width: 376px;
+        height: calc(100% - 120px);
+        max-height: 704px;
+        min-height: 250px;
+        right: 20px;
+        bottom: 100px;
+        box-shadow: 0 5px 40px rgba(0,0,0,0.16);
+        border-radius: 8px;
+      
+  }
+
+  .intercom-lightweight-app-messenger-header {
+    height: 75px;
+    background: linear-gradient(
+      135deg,
+      rgb(53, 73, 96) 0%,
+      rgb(17, 23, 30) 100%
+    );
+  }
+
+  @media print {
+    .intercom-lightweight-app {
+      display: none;
+    }
+  }
+</style><div class="intercom-lightweight-app-launcher intercom-launcher" role="button" tabindex="0" aria-label="Open Intercom Messenger"><div class="intercom-lightweight-app-launcher-icon intercom-lightweight-app-launcher-icon-open"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 32"><path d="M28 32s-4.714-1.855-8.527-3.34H3.437C1.54 28.66 0 27.026 0 25.013V3.644C0 1.633 1.54 0 3.437 0h21.125c1.898 0 3.437 1.632 3.437 3.645v18.404H28V32zm-4.139-11.982a.88.88 0 00-1.292-.105c-.03.026-3.015 2.681-8.57 2.681-5.486 0-8.517-2.636-8.571-2.684a.88.88 0 00-1.29.107 1.01 1.01 0 00-.219.708.992.992 0 00.318.664c.142.128 3.537 3.15 9.762 3.15 6.226 0 9.621-3.022 9.763-3.15a.992.992 0 00.317-.664 1.01 1.01 0 00-.218-.707z"></path></svg></div><div class="intercom-lightweight-app-launcher-icon intercom-lightweight-app-launcher-icon-minimize"><svg viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M.116 4.884l1.768-1.768L8 9.232l6.116-6.116 1.768 1.768L8 12.768.116 4.884z"></path></svg></div></div></div></body></html>

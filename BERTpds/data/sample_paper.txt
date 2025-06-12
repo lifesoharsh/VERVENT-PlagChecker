@@ -1,0 +1,248 @@
+Performance Evaluation of Word Representation
+Techniques using Deep Learning Methods
+
+Anjali Bohra
+MBM Engineering College
+(Jai Narain Vyas University, Jodhpur) Jodhpur, India vyas.anjalilucky@gmail.com
+Dr  N C Barwar
+MBM Engineering College
+(Jai Narain Vyas University, Jodhpur) Jodhpur, India 
+ncbarwar@jnvu.edu.in
+
+Abstract—Word vectors are the real-valued numbers which allow  machine  learning  algorithms  to  extract  the  semantic information  concern  with  the  words when  trained  on  natural language  corpora.  The  paper  explores  word  representation techniques  with  evaluation  criteria  to  measure  the  quality  of representation through  deep learning  models like BERT.  The performance of these words vectors can be  evaluated  using certain  measures.  Broadly, the two classes of  evaluation  are intrinsic and extrinsic evaluation. Intrinsic evaluators directly extract syntactic or semantic relationships between the words independent of any language processing task. These evaluators focus on subtasks while extrinsic evaluators consider complete natural language processing task as a measure of performance like  chunking,  sentiment  analysis  etc.  The experiments have been performed using BOW model,  Word2Vec  and  BERT language model. In this research work word-similarity task is considered for intrinsic evaluation and  part-of-speech  (POS) tagging task is used as a measure for extrinsic evaluation. The experiments   have   been   performed   using   python,   sklearn machine learning toolkit and  keras deep learning  framework. BERT language model is used which has recently emerged as the prominent tool for natural language processing. The result obtained   from   the   experiment   in   this   research   for   word embedding representation techniques are efficient and better compared   to   other   existing   traditional   models.   However, considering  large  datasets  this  can  be  enhanced  for  better accuracy
+
+Keywords—   Word   Vector,   Word   Embedding,   Distributed Representation,   Intrinsic   Evaluators,   Extrinsic   Evaluators, BOW, Word2Vec, BERT , Pre-trained Embedding.
+
+I.   INTRODUCTION 
+The   role   of   natural   language   processing   is   to   extract information   from   unstructured   text.   A   natural   language processing   system   allows   computers   to   understand   the natural     language     and     perform     specific     tasks     like classification, part-of-speech tagging or sentiment analysis etc. The most significant task is to represent the meaning of words in a computer. The systems should be able to extract the similarity and difference between the words.  Generally, the   taxonomy   like   WordNet   is   used   to   express   the hypernyms and synonyms sets. But this leads to a problem of missing words i.e.  the  words  which  are  not  defined  in  the corpus  cannot  be  expressed.  Word   vectors are   the   real number vectors that encode the notion of similarity and difference   between   the   words.   These   are   the   learned representation of the input. For example if there are k-million words  in  a  language,  then  there  exists  some  k-dimensional space   to   encode   the   semantics  of  the   language.     Each dimension encodes specific meaning which is transferred during communication.  The  numbers  in  the  word  vector represent  the  word’s  distributed  weight  across  dimensions. The numerical weight of the word represents the closeness of the concept [10].  The vector embeds both semantic and syntactic information of the word obtained from the corpus.
+The semantic dimension indicate tense (past/present/future tense),      number      (singular/plural      number),      gender (masculine/feminine gender) etc.  As shown in figure 1, each column represents the dimension which captures defined meaning or some specific concept. The four dimensions are animal, domestic, pet and fluffy respectively.  The each weight of the word within the column (dimension) represents its closeness with the concept.
+
+
+
+Figure   1:     word   vector   representation   with   specific dimensions [10].
+
+The dimensions of the vector contain the meaning of the word. Using these continuous vectors space machines can extract similarities between the different words [10]. The words with similar word vectors means they are similar in some context. Word-embedding  is  a  significant  tool  of  natural  language processing  to  learn  quality  representation  for  various  tasks like   semantic   analysis,   information   retrieval,   question- answering systems and machine translation etc [1]. The most significant point in the study of distributional semantics is to evaluate the quality of word representation models [15]. There are no clear criteria about  the  evaluation  of  these models.  lp  engineers  evaluate   the  performance  of  these models by experimenting on specific tasks like pos tagging, classification  etc  while  computational  linguistics  perform experimentation using methods of cognitive science.
+
+The     paper     presents     the     significance     of     word representation in natural language processing with various word representation approaches. It explains the comparative analysis of conventional and current word representational techniques for intrinsic and extrinsic evaluation. The paper is organized   as   follows:   The   section   1   cover   the   basic introduction and section 2 shows the related work done in the domain.  Section 3  describes  various  approaches  to  word representation.  The section 4 exposes the two classes of evaluation i.e.  Intrinsic and extrinsic evaluation of word representations. The section 5 covers the experimental setup and results regarding performance evaluation of  the  word representation models. The next section concludes the work with specific points to be considered for further work.
+
+
+
+978-1-7281-9180-5/20/$31.00 ©2020 IEEE
+II.  RELATED WORK
+The  section  briefly  describes  the  previous  work  done  for word embedding evaluation. The first work in the field was proposed in the year 2007[16]. In 2010, survey for the word embedding    tasks    was    preformed    with    the    help    of distributional semantics model [17]. In 2011, first paper was published  regarding  comparison  of  performance  of  various distributional semantic models [18]. In 2013, word2vec tool was    released,    which    explained    novel    approaches    to evaluation   like   word   analogy   task   [19].   In   2015,   the approaches  to  word  evaluation  were  classified  into  two classes’ intrinsic and extrinsic evaluation [20]. In 2016, the first workshop  on word  embeddings evaluation was held  at annual     meeting     of     association     of     computational linguistics[21].Thus, lot of research have been performed but the domain still contain un-answered questions.
+
+III.  APPROACHES TO WORD REPRESENTATION
+The  Neural  networks  are  the  building  blocks  of  natural language  processing     tasks.  Before  the  advent  of  these networks  the  words  were  mapped  into  real-valued  number through  some  basic  approaches  [3].  Based  on  the  use  of networks  for  generating  word-embeddings,  the  approaches are classified into three categories: traditional word vectors, neural  network  based   word   embeddings   and   lastly  pre- trained      word      embeddings.      Bag-of-Words      vector representation    is    the    most    common    traditional    word representation.   Each  word  or  n-gram  is  linked  to  a  vector marked  as  0  or  1  depending  on  its  occurrence.  TF-IDF  is another traditional technique used to find the weights of the given  words  based  on  the  context.  BOW  is  used  for  text classification while TF-IDF used for document classification task.  Neural-based  word  representations  assign  contextual information  by  representing  the  word  vector  in  terms  of dimensions   known   as   distributional   embeddings.     Each dimension   represents   semantic   information   as   well   the contextual information  regarding  the  word.  Word2Vec is most prominent model implementing neural-based approach. Other models are Glove and FastText.   With advent of deep neural networks remarkable results have been shown in field of  computer  vision  and  sequence  based  task.  Recently,  the introduction  of  encoder  and  attention  based  models  has changed   the   working   pattern.   These   models   help   in predicting the contextual information in efficient way. These are pre-trained using large datasets which are further used for solving   specific   tasks.   ELMo   and   BERT   are   the   most prominent pre-trained models. Broadly, word representation techniques   are   classified   into   two    categories:   Vector Representation and Distributed Representation.
+
+A.  VECTOR REPRESENTATIONS
+1.    One-hot vector
+One-hot vector is the simplest word representation. Each word is represented as an independent entity of real number with |V| X 1 vector having all 0s and one 1 only at the index of that word. R is the set of real numbers and |V| is the size of vocabulary. The representation of each word in a complete vocabulary space which is very large therefore subspace is preferred to encode the relationships between words.
+2.    Singular Value Decomposition Method (SVD)
+The method finds word co-occurrence counts (relation)
+through  iterative  numerical  methods.  Using  the  given
+dataset, the values regarding word are stored in a form of  matrix.  The  matrix  should  be  decomposed  to  easy calculations. SVD is a matrix decomposition method for reducing a matrix into its constituents. If A is a matrix then,  singular  value  decomposition  of  a  matrix  A  is UDVT  .where  U  and  V  are  left  and  right  singular vectors and D is diagonal matrix whose diagonal entries are the singular values [2]. If (n X d) is the dimension of A, then (n X r ) ,(r X r) and (r X d) are the dimensions of U,D  and  V  vector  respectively.  For  all  words  in  the dictionary,  the  rows  of  matrix  U  is  used  as  the  word embeddings [3].
+The word co-occurrence matrix is either word-document matrix or   window based   co-occurrence matrix.  The window-base co-occurrence matrix counts the word frequency inside   a   window   of particular size.    Both the word-document matrix and word co-occurrence matrix provide word vectors which sufficiently encode semantic and syntactic  information. For  M  million  documents  and  V  vocabulary of  words, the  size  of  word-document  matrix  is  |V|  X  M.  The matrix obtained from these methods is high dimensional and sparse.
+3.    Iteration-based Methods
+Iteration-based models create a model (language model) for learning to encode the probability of a word for the given  context.  Based  on  the  training,  the  probabilistic model   learns   little   information   for   the   unknown parameters. Iteration generates errors which are updated accordingly to  improve  the  performance  of  the  model. The language model assigns a probability to a sequence of tokens.  The  probability  of  any  given  sequence  of  n words  is  represented  as  P(w1,w2,………wn).  If  the words  are  completely  independent  then,  probability  is given by:
+
+
+…(1)
+The representation in  equation  1  is  known  as  unigram model.  But  in  general,  the  next  word  is  dependent  on previous word, therefore probability is given by:
+
+
+…..(2) Equation  2,  is  known  as  Bigram  model.  But the next word is dependent not only on previous words but also on overall context of the word i.e dependent on whole sentence. Therefore, the next approach consider over all sentence as  a  context  of  word.  Language  model  is known  as  continuous  bag  of  words  (CBOW)  which predict  the  center  word  from  the  surrounding  context. Another  approach  is  that  the  model  should  predict  the surrounding  words.  This  type  of  model  is  known  as Skip-Gram model.
+
+B.  DISTRIBUTED REPRESENTATIONS
+Word representation approach which  learns  a  distributed representation     is     called     word     embeddings.     Word Embeddings are low dimensional representations of a point in a higher dimensional vector space. Embedding convert a word   into   its numeric form to implement mathematical operation   for   extracting   the   semantic   of   a   word.   Each dimension of the embedding captures semantic   properties [4].   Word embeddings are  the  successful  applications of unsupervised learning  [5].  Deep learning research have attributes  major progress in the field of natural language processing. Google introduced  a  neural  network  architecture  which  has  many benefits  over  conventional  sequential  models  [22].  Neural network architecture is an encoder-decoder model which uses attention mechanism to forward sequence to the decoder [23].  Attention was  first  introduced  in  natural  language processing for machine translation task [24]. A transformer is a popular attention mechanism to  learn contextual relations between  words  in  a  text.  These  models  do  not  require annotated corpus rather extract information by learning itself from an available un-annotated corpus.
+Every feed-forward neural network that accepts words from vocabulary embeds them as vectors into a lower dimensional space    which    is    fine-tuned    through    back-propagation algorithm.  The  model  generates  word  embeddings  as  the weights  of  the  first  layer  which  is  known  as  Embedding layer. These models predict the probability that words other
+than input words in the corpus are context of the given word.
+An embedding matrix W € R KXD is a linear mapping from original k-dimensional space to a real-valued d-dimensional vector space.  Intermediate  layers  produce  an  intermediate representation  of  the  input  which  is  generally  a  LSTM network. A softmax layer which is the final layer produces a probability distribution over words in vocabulary V.
+1.    Pre-trained word embeddings
+Word embedding can  be  of  two  types  namely  non- contextual and contextual word embedding. Each word x in a vocabulary V is represented by vector v € Ŕ D of hyper-parameters,  where  R  is  the  set  of  positive  real numbers   and   D   is   the   dimension   used   for   word embedding.  These embeddings are  trained  for  specific tasks. The non contextual word embeddings are static in nature  and  cannot  capture  the  meaning  of  polysemous words  and  lead  to  the  problem  of  out-of-vocabulary. The problems can be resolved by using character-level and sub-word level word representations. The problem of  polysemous  words  is  solved  by  using  contextual word  representations.  Each  word  or  sub-word  x  t  in  a vocabulary (V) is calculated by following equation.
+
+
+……(3)
+Where  f  encoder   is  neural  contextual  encoder  which can be sequential or hierarchical( graph)[6]. H t   is an embedding  or  representation  of  a  word  in  a  vector space.  The  tanh  activation  then  rearranges  the  word representation  in  its  current  vector  space.  The  final layer  learns  information  of  the  new  vector  space  by combining   the   previous   content   according   to   their relevance to the problem [25].These character-level and word-level  embeddings  belong  to  the  class  of  pre- trained word embedding. The word embeddings learned for  one  task  which  can  be  used  for  solving  another similar  task.  These  embeddings  are  trained  on  large datasets  which  are  saved  and  further  used  for  solving other tasks. Transfer learning learns either embeddings
+or weights. If it learns embeddings then it is known as pre-trained word embeddings and if learns weights then it  is  known  as  pre-trained  models.  Embeddings  from language models (ELMo) accepts complete sentence as input   and   generate   representation   by   using   trained LSTM  network  for  a  specific  dataset. BERT[7]  and OpenAI GPT[8] are pre-trained neural work models which have proved their efficiency in various language processing tasks like POS tagging, chunking  etc.  BERT  is  the  best  method  in  natural language   processing   to   understand   the   contextual information for text.
+IV. EVALUATION TECHNIQUES FOR WORD VECTORS The   words   vectors   embed   syntactic   and   semantic
+information   concerned   with   words   of   a   language.   The methods like Word2vec and Glove deals with hidden information of a word in semantic context.  The performance of  these  words  vectors  can  be evaluated     using     certain     measures. An ideal word evaluator analyzes word embedding models from different perspectives using quantitative and representative metric.    An  efficient word   embedding   evaluator   should   have   some   specific properties  like  good  testing  data,  comprehensiveness,  high correlation,  efficiency  and  statistical  significance.  The  two types   of   evaluation   criteria   are   intrinsic   and   extrinsic evaluation.
+
+A.  Intrinsic Evaluation
+Intrinsic evaluation evaluates those word vectors which are generated for specific natural language processing tasks. Intrinsic evaluation of  word  vectors  is  less  significant unless it is coupled with an extrinsic task. It act as proxy for  the  downstream  tasks  [14].  These  tasks  are  fast, simple   and   help   to   understand   the   system.   These evaluators  measure  syntactic  or  semantic  relationships between the words directly.
+
+1.  Word similarity
+
+The  word  similarity  evaluator  correlates  word  vectors  and  human  perceived  semantic similarity.  The   evaluator measures the efficiency of human perceived similarity which is obtained by the word vector representations [1].  The commonly used evaluator is the cosine similarity defined as
+
+
+
+……..(4)
+
+For a given word, the  evaluator computes  the  correlation  between  all  vector dimensions  independent  of  their  relevance in a semantic cluster.  
+
+2.  Word analogy
+
+The popular intrinsic evaluation criteria for word vectors are  finding  word  vector  analogies.  In  a  word  vector analogy, the system is provided with incomplete analogy i.e. the relation of a and b is defined and system have to
+find the relation between c and d  (    a : b :: c : d?). The evaluator  is  to  find  the  cosine  similarity  between  the word  vectors.  The  system  identifies  that  word  vector which   maximizes   the   cosine   similarity   defined   as follows:
+
+
+
+…….(5)
+
+Generally,  analogies  are  fundamental  to  solving  human reasoning and logic[13]. The model which is trained for finding the analogies do not encode the exact mapping of human reasoning, therefore; the word embedding model may   obtain   different   relationship   as   obtained   from humans.
+
+3.    Concept categorization
+
+The  evaluator  splits  the words  into  different categories.      There  is  no  specific  method  for  evaluating the  quality  of  cluster.  For separating words into categories,  the model should categorize the words like milk, juice, soup burger,   dhokla   into   two   groups.   The   evaluator calculates corresponding   word   vectors for   the   given words using clustering algorithm like   k-means for classification into   two     different categories.[12].
+
+4.    Outlier detection
+
+Outlier detection evaluates word clustering to obtain compactness score of pair-wise similarities of the word [9].  If  W  is  the  set  of words   composed   of   ,      then   the compactness score c(w)  can be obtained as follows:
+
+
+…….(6) The  word  with  the  lowest  compactness  score  is  the outlier.
+
+5.    QVEC
+
+QVEC   is   an   intrinsic   evaluator   that   measures    correlation between word  vectors  and  manually  constructed  linguistic word   vectors. Manually constructed linguistic word vectors are defined   in  the   dataset  named   SemCor dataset. [11]. Linguistic word vectors are constructed to define  well-defined  linguistic  properties.    As  manually man-made word vectors are not completely defined and currently  word  embedding  models  perform  much  better as  based  on  statistical  relation  from data;  therefore  this evaluator   does   not   perform   well   for   other   defined downstream tasks.
+
+B.  Extrinsic Evaluation
+Extrinsic evaluation concern with the evaluation of word vectors for the real natural processing task. The subsystems involved in the process are elaborative,  slow in
+computation  and  are  dependent  on  intrinsic  computation. While  intrinsic  evaluation  measure  the  performance  of  an NLP  component  on  defined  subtask  extrinsic  evaluation focus on performance of complete task. If the performance of the   system   is   weak   then   modification   is   required   in implementation  of  intrinsic  subtasks.  The   system   which allows for the evaluation of answers from the questions is the extrinsic    evaluation    system.    Optimization    for    under- performing  extrinsic  evaluation  rather  than  identifying  the subsystem   at   fault   there   is   a   requirement   of   intrinsic evaluation.
+Generally,  most  natural  language  processing  tasks  can  be formulated  as  classification  tasks.  For  sentiment  analysis task,  the  given  sentence  can  be  classified  as  the  positive, negative  or  neutral  sentiment.  For identifying NER  for  the given word, it is required to classify words as context or the center word. For such problems, the training set is defined as {(xi,yi)} where  xi   is  a  d-dimensional  word  vector and yi is a C- dimensional  one-hot  vector  representing the labels  for prediction.  In  machine  learning  task  using  input  and  target data  training  is  implemented  using  optimization  techniques such  as  gradient  descent  etc.  methods.  However, in natural language processing applications the word vectors are  pre- trained when used for extrinsic tasks [13].
+
+V.  EXPERIMENTAL RESULTS
+
+A.  EXPERIMENTAL SETUP
+The experiment is performed using three word representation models:  Bag-of-Word, Word2Vec and BERT.  Each word model follows different approach for word representation. Bag-of-words is traditional approach to word representation, Word2Vec is a neural based approach and BERT is the pre- trained word embedding model. The performance evaluation of these models  is  performed  using  intrinsic  and  extrinsic evaluation  methods.    Intrinsic  evaluation  is  performed  for word-similarity  task  and  part-of-speech  tagging  is  used  for extrinsic   evaluation.   Task-specific   datasets   are   used   in experimentation.
+
+B.  DATASETS
+•		All the three models are given the same dataset as input for intrinsic evaluation as well as for extrinsic evaluation domain.
+
+•		For   intrinsic   evaluation  Artificial  Intelligence  dataset available       at       http://en.wikipedia.org/wiki/Artificial- Intelligence   is   use.   The   corpus   is   preprocessed   and sequence   of   tokens   are   generated   fro   BOW   and Word2Vec Model.   For BERT   experimentation separate sequence   of   sentences   is   generated   as   the   accepts sentences as input
+
+•		For  extrinsic  evaluation  UD-English-ParTUT  dataset  is used.         UD-English-ParTUT         dataset         is         a morphosyntactically   annotated   collection   of   different languages parallel  sentences. The treebank comprises of 167,000   tokens   with   an   average   amount   of   2,100 sentences per  language.  The dataset  is  in conllu  format. The   training,   development   and   testing   dataset   are available at
+o	http://archive.aueb.gr:8085/files/en_partut-ud- dev.conllu
+
+o	http://archive.aueb.gr:8085/files/en_partut-ud- test.conllu
+
+o	http://archive.aueb.gr:8085/files/en_partut-ud- train.conllu  respective url.
+
+C.  EXPERIMENTATION
+1.  Methodology
+
+All  experiments  are  performed  and  implemented  using python   3   and   sklearn   machine   learning   toolkit.   For neural network and pre-trained embedding, the model is created using keras deep learning framework. The bag of words is created and using sklearn toolkit and the cosine similarity is obtained for the query word. For Word2Vec Model   genisem   library   is   used.   Using   most-similar function  the  word-similarity  is  obtained  for  the  given word.   The   proposed   algorithm   AIWE   explains   the procedure of intrinsic evaluation for word-similarity and algorithm   AIEE   explains   the   procedure   of   extrinsic evaluation for POS tagging using BERT.
+Algorithm AIWE:
+DATA := Collect the data
+stDATA := Setencetokenization(DATA)
+for sentance in stDATA:
+wDATA.append(Wordtokenization(sentance))
+for word in wDATA:
+srwDATA.append(RemoveStopword(word))
+algoObject := createObject(srwDATA)
+vocab := algoObject.getVocab()
+w1 := 'artificial'
+w2 := 'intelligence'
+w1Vector := algoObject.getWordVector(w1) sim_words := algoObject.getMostSimilar(w2) file := openFile('sim')
+for element in sim_words:
+file.write(w1, element)
+file.close()
+coRelation:= algoObject.evaluateWordPairs(file)
+Algorithm AIEE:
+train_conllu_data := DownloadData('conllu_train') dev_conllu_data := DownloadData('conllu_dev') test_conllu_data := DownloadData('conllu_test') train_text = text_sequence(train_sentences)
+test_text = text_sequence(test_sentences) train_label = tag_sequence(train_sentences) test_label= tag_sequence(test_sentences) BertBaseModel = brtObject.getBaseModel()
+input_ids                                                                      = brtObject.convert_tokens_to_ids([tokens[i]   for   i   in orig_to_tok_map]) input_id=brtObject.layers.Input(shape=(max_seq_len gth,), name="input_ids") input_mask=brtObject.layers.Input(shape=(max_seq_ length,), name="input_masks") input_segment=max_seq_length.layers.Input(shape=( max_seq_length,), name="segment_ids")
+
+bert_inputs = [input_id, input_mask, input_segment] bert_output = brtObject.BertLayer()(bert_inputs) outputs=brtObject.layers.Dense(n_tags,activation=brt Object.softmax)(bert_output) model.compile(optimizer=brtObject.optimizers.Adam( lr=0.00004), loss=brtObject.losses.categorical_crossentropy, metrics=['accuracy'])
+2.  Inrinsic evaluation results
+
+As  implemented  according  to  algorithm,  the  figure  2 shows the word similarity of the given word 'intelligence' with words present in the corpus. It reveals that the word intelligence   is   having   highest   relevance   with   word
+‘artificial  Intelligence’.  The  figure  3  shows  the  sentence similarity of the  given  sentences  with other  sentences of the  corpus  using  BERT  model.  The  sentence  ‘nobody explained the thoughts’ is more close to ‘A man is reading a book’.
+
+
+
+Figure 2: word2vec similarity
+
+
+
+Figure 3: Bert-sentence-similarity
+3.  Extrinsic evaluation results
+
+Using  the  pre-defined  training,  development  and  testing datasets,  the  POS  tagging  is  implemented  for  BOW  and Word2Vec model. For POS tagging using BERT, first the pre-trained   model   is   obtained   which   is   available   at https://tfhub.dev/google/bert_uncased_L-12_H-768_A-
+12/1. Fine tuning of the model is done for prediction. As per   algorithm   B,   the   experiment   is   performed   using specified  dataset  and  word  embeddings  were  obtained. The  figure  4  shows  POS  tagging  of  the  input  sentence using  BERT  Model.  It  displays  the  predicted  tagging obtained using fine-tuned bert model. The accuracy shows the efficiency of the model.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Figure 4: POS Tagging Of BERT Model
+4.  Experimental Results and Discussion
+
+The table 1 shows the comparative analysis for extrinsic and  intrinsic  evaluation.  It  shows  the  performance  of three   word-representation   models   for   word-similarity and POS tagging task for the two defined datasets. Using different word embedding models, the word vectors were computed and their accuracy is obtained. The percentage in  the   table   shows  the   efficiency  of  the   model   for specific purpose.
+
+•	BOW  and  Word2vec models shows  average  results for   both   extrinsic   and   intrinsic   evaluation   but performance changes for BERT model.
+
+•	For intrinsic evaluation manual processing of data is performed,  the  use  of  defined  datasets  for  word similarity pair like WS-353 can improve the results.
+
+•	For extrinsic evaluation, the best results are obtained using  BERT  model  which  have  been  trained  using large  training  and  development  dataset  in  specified task format.
+
+•	Generally,  contextualized  word-embedding  models give best results when trained with large datasets.
+
+VI.  CONCLUSION
+The   word   vectors   contain   the   syntactic   and   semantic information  concerned  with  words.  Word-embedding  is  the building block of modern natural language processing tasks. The  performance  of  word  vectors  can  be  evaluated  using certain    measures.    The    paper    has    explained    detailed approaches for word representation which can be evaluated using intrinsic and extrinsic evaluations. Intrinsic evaluators directly capture syntactic or semantic relationships with the words.  Extrinsic  evaluators  are  concerned  with  real  and complete natural processing tasks. The work shows that:
+•	The contextualized word-embedding models though perform well need large and task specific datasets for efficient performance.
+
+•	Providing    generalized    and    large    datasets,    the contextualized     word-embedding     models     give average  results.
+
+•	Based on the researchers work and literature review in the area of the research, still no prominent single evaluation measure exists for intrinsic and extrinsic evaluation.
+
+•	We  are  continuing  the  research  for  exploring  the methods to improve linguistic information extraction of words in a language.
+
+REFERENCES
+
+[1]    Bin Wang et al , ‘ Evaluating word embedding models: methods and experimental    results.’,    APSIPA    Transaction    on    Signal    and Information Processing, 8, E19, DOI: 10.1017/ATSIP.2019.12
+
+[2]    Avrim  Blum,  John  Hopcroft  et  al  ,  ‘Foundations  of  Data  Science’, June  2017,  Cambridge  University  Press,  2020,  ISBN  978-1-108-
+48506-7, DOI:10.1017/9781108755528
+[3]    Francois  Chaubard,  Rohit  Mundra  et  al  ,  ‘Deep  Learning  for  NLP’ lecture       notes:       Part       I2,       Spring       2016       accessed       at https://cs224d.stanford.edu/lecture_notes/notes1.pdf
+[4]    Yoshua Bengio et al , ‘ Word representations: a simple and generated method for semi-supervised learning’, proceedings of the 48th Annual Meeting of the Association for computational Linguistics, pages 384-
+394, Uppsala, Sweden, 11-16 July 2010.
+[5]    Sebastian   Ruder,   ‘An   overview   of   word   embedding   and   their connections to distributional semantic models’, Oct 2016, accessed on
+31-5-2020.
+[6]    Xipeng  Qiu,  Tianxiang  Sun,  Yige  Xu,  Yunfan  Shao,Ning  Dai,  and Xuanjing  Huang.  2020.  Pre-trained  Models  for  Natural  Language Processing: A Survey.
+[7]    J.  Devlin,  M.-W.  et al ,’Bert:  Pre- training     of     deep     bidirectional     transformers     for     language understanding,’,  arXiv:1810.04805, 2018.
+[8]    A.   Radford et al, ‘Improving  language  understanding  by  g  enerative  pre-training,’ Technical report, OpenAI, 2018.
+[9]    J.  Camacho-Collados  and  R.  Navigli,  ‘Find  the  word  that  does  not belong:  A  framework  for  an  intrinsic  evaluation  of  word  vector representations’,  Proceedings  of  the  1st  Workshop  on  Evaluating Vector-Space Representations for NLP, 2016, pp. 43–50.
+[10]  Jayesh Bapu Ahire, ‘Introduction to Word Vectors’, MVB, March 14, AI DZone, accessed ON 3rd June.
+[11]  Y.   Tsvetkov et al , ‘Evaluationof  word  vector  representations  by  subspace  alignment’, Proceedings of   the   2015   Conference   on   Empirical   Methods   in Natural Language Processing, 2015, pp. 2049–2054
+[12]  M. Baroni et al , ‘Don’t count, predict! a sys- tematic    comparison    of    context-counting    vs.    context-predicting semanticvectors’, in Proceedings of the 52nd  Annual Meeting of the Associationfor Computational Linguistics (Volume 1:  Long Papers), vol. 1, 2014,pp. 238–247.
+[13]  Francois  Chaubard,  Rohit  Mundra  et  al  ,  ‘Deep  Learning  for  NLP’ lecture       notes:       Part       I2,       Spring       2016       accessed       at https://cs224d.stanford.edu/lecture_notes/notes2.pdf
+[14]  Yulia Tsvetkov, Manaal Faruqui and Chris Dyer, 2016 ‘Correlation- based Intrinsic Evaluation of Word Vector Representations’.
+[15]  Amir  Bakarov,  2018,  A  Survey  of  Word  Embeddings  Evaluation
+Methods.
+[16]  Griffiths  et al.,  Griffiths,  T.  L.,  Steyvers,  M., and Tenenbaum, J. B. (2007).   Topics  in  semantic   representation.  Psychological  review,
+114(2):21, 2007
+[17]  Turney and Pantel et al ,’ From frequency to meaning: Vector space models of semantic’, Journal of artificial intelligence research, volume 37, pages 141–188.
+[18]  McNamara, 2011. McNamara, D. S. (2011). Computational methods to   extract   meaning   from   text   and   advance   theories   of   human cognition. Topics in Cognitive Science, 3(1):3–17.
+[19]  Mikolov et al., ‘Efficient  estimation  of  word  representations  in  vector space.’, arXiv preprint arXiv:1301.3781, 2013.
+[20]  Schnabel et al., 2015. Schnabel, T., Labutov, I., Mimno, D. M., and Joachims,  T.  (2015).  Evaluation  methods  for  unsupervised  word embeddings. In EMNLP, pages 298–307.
+[21]  Faruqui et al, ‘Problems with evaluation of word embeddings using word similarity tasks.’,2016,  arXiv preprint arXiv:1605.02276.
+[22]  A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A.Gomez, L. Kaiser and I. Polosukhin, Attention Is All You Need (2017).
+[23]  Andrea   Galassi,   Marco   Lippi,  ‘ Attention   in   Natural   Language
+Processing.’, 28 May 2020.
+[24]  D. Bahdanau, K. Cho, et at, ‘Neural machine translation by jointly learning to align and translate,’ in ICLR, 2015.
+[25]  Scott    Rome.    ‘Understanding    Attension    in    Neural    Networks Mathematically’,  accessed  at  https://srome.github.io/Understanding- Attention-in-Neural-Networks-Mathematically/ on 7 Sep 2020.

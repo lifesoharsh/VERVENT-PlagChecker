@@ -1,0 +1,112 @@
+<!--
+
+  For publishers whose consent scope is group level,
+
+  host this html at the group level cookie access url.
+
+-->
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <iframe src="javascript:void(0)" title="" style="width: 0px; height: 0px; border: 0px none; display: none;"></iframe><script type="text/javascript">
+    function getCookie(name) {
+      var cookies = document.cookie
+        .split(';')
+        .filter(function(s) {
+          var cookie = s.trim();
+          if (cookie.indexOf(name + '=') === 0) {
+            return true;
+          };
+        })
+        .map(function(s) {
+          return s.trim().substring(name.length + 1);
+        });
+      return cookies;
+    }
+
+    var msgIsString = true;
+
+    function iframeCookieAccessMsgHandler(event) {
+      var msg = event.data;
+      msgIsString = typeof msg === "string";
+      var json;
+
+      if (msgIsString) {
+        json = event.data.indexOf("__qcCmpCookieAccessCall") !== -1 ? JSON.parse(event.data) : {};
+      } else {
+        json = event.data;
+      }
+
+      if (json.__qcCmpCookieAccessCall) {
+        var obj = json.__qcCmpCookieAccessCall;
+        var cookieNames = ['euconsent-v2', 'addtl_consent'];
+        var localNames = ['_cmpRepromptHash', 'noniabvendorconsent'];
+
+        if (cookieNames.indexOf(obj.cookieName) === -1 && localNames.indexOf(obj.cookieName) === -1) {
+          return;
+        }
+        var returnObj = {
+          "callId": json.callId,
+          "__qcCmpCookieAccessReturn": {
+            "cmd": obj.cmd
+          }
+        }
+        if (obj.cmd === "set") {
+          if (cookieNames.indexOf(obj.cookieName) !== -1) {
+            document.cookie =
+              obj.cookieName +
+              '=' +
+              obj.cookieValue +
+              ';path=' +
+              obj.cookiePath +
+              ';expires=' +
+              obj.expires +
+              ';domain=' + window.location.hostname +
+              ';SameSite=None;secure'
+          } else {
+            localStorage.setItem(obj.cookieName, obj.cookieValue);
+          }
+          returnObj.__qcCmpCookieAccessReturn.isSuccess = true;
+        } else if (obj.cmd === "get") {
+          var consentCookies = null;
+          var infoObj = null;
+          if (cookieNames.indexOf(obj.cookieName) !== -1) {
+            consentCookies = getCookie(obj.cookieName);
+            infoObj = returnObj.__qcCmpCookieAccessReturn;
+            if (consentCookies.length !== 0) {
+              infoObj.cookies = consentCookies;
+              infoObj.isSuccess = true;
+            } else {
+              infoObj.isSuccess = false;
+            }
+          } else {
+            consentCookies = localStorage.getItem(obj.cookieName);
+            infoObj = returnObj.__qcCmpCookieAccessReturn;
+            if (consentCookies) {
+              infoObj.cookies = consentCookies;
+              infoObj.isSuccess = true;
+            } else {
+              infoObj.isSuccess = false;
+            }
+          }
+        }
+        event.source.postMessage(msgIsString ?
+          JSON.stringify(returnObj) : returnObj, "*");
+      }
+    }
+
+    if (window.addEventListener) {
+      window.addEventListener('message', iframeCookieAccessMsgHandler, false);
+    } else {
+      window.attachEvent('onmessage', iframeCookieAccessMsgHandler);
+    }
+
+    // post a message to CMP that the event handler is loaded.
+    var registeredMessage = { "__qcCmpCookieAccessReturn": { "isHandlerRegistered": true } };
+    window.parent.postMessage(msgIsString ? JSON.stringify(registeredMessage) :
+      registeredMessage, "*");
+
+  </script>
+
+                              <script>!function(a){var e="https://s.go-mpulse.net/boomerang/",t="addEventListener";if("False"=="True")a.BOOMR_config=a.BOOMR_config||{},a.BOOMR_config.PageParams=a.BOOMR_config.PageParams||{},a.BOOMR_config.PageParams.pci=!0,e="https://s2.go-mpulse.net/boomerang/";if(window.BOOMR_API_key="LERXA-6VNES-W6PXS-U8C7F-BXSZH",function(){function n(e){a.BOOMR_onload=e&&e.timeStamp||(new Date).getTime()}if(!a.BOOMR||!a.BOOMR.version&&!a.BOOMR.snippetExecuted){a.BOOMR=a.BOOMR||{},a.BOOMR.snippetExecuted=!0;var i,_,o,r=document.createElement("iframe");if(a[t])a[t]("load",n,!1);else if(a.attachEvent)a.attachEvent("onload",n);r.src="javascript:void(0)",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="width:0;height:0;border:0;display:none;",o=document.getElementsByTagName("script")[0],o.parentNode.insertBefore(r,o);try{_=r.contentWindow.document}catch(O){i=document.domain,r.src="javascript:var d=document.open();d.domain='"+i+"';void(0);",_=r.contentWindow.document}_.open()._l=function(){var a=this.createElement("script");if(i)this.domain=i;a.id="boomr-if-as",a.src=e+"LERXA-6VNES-W6PXS-U8C7F-BXSZH",BOOMR_lstart=(new Date).getTime(),this.body.appendChild(a)},_.write("<bo"+'dy onload="document._l();">'),_.close()}}(),"".length>0)if(a&&"performance"in a&&a.performance&&"function"==typeof a.performance.setResourceTimingBufferSize)a.performance.setResourceTimingBufferSize();!function(){if(BOOMR=a.BOOMR||{},BOOMR.plugins=BOOMR.plugins||{},!BOOMR.plugins.AK){var e=""=="true"?1:0,t="",n="odclygyx27cduyiy2z3a-f-feb63872b-clientnsv4-s.akamaihd.net",i="false"=="true"?2:1,_={"ak.v":"32","ak.cp":"31027","ak.ai":parseInt("195948",10),"ak.ol":"0","ak.cr":60,"ak.ipv":4,"ak.proto":"h2","ak.rid":"72901ee3","ak.r":37688,"ak.a2":e,"ak.m":"x","ak.n":"essl","ak.bpcip":"112.196.188.0","ak.cport":39822,"ak.gh":"23.63.110.175","ak.quicv":"","ak.tlsv":"tls1.2","ak.0rtt":"","ak.csrc":"-","ak.acc":"","ak.t":"1629017718","ak.ak":"hOBiQwZUYzCg5VSAfCLimQ==3YJMUF4tn1Ww6ih7E0pIk8p2U9CcGchd277/cSesvhxWQYcEA17Pb/8AmgpvHneEd0ziIWpFgvhjW+9rVESbyf8ginw9cpClC798si0+uN9zCpeTYkiKKOCrxt5sJT5thj/jBLE2MVvM+Z3navb2kPuACHyG7lhkeEH+yL99GPxXNv2dolAmdEHZS/WIT1KPzfKbgoHwT+Cf+72H1SWgjA12ZpOIx7MW7iZ10tDHNNbVZgPdrCVEYa2c1g7hxXphHYCPJFZnyLvSLoxXQSKFXAj/VCgPBMqt4uanl7FH3AOGaKpfRRZMBKEc6U8chhdnbnfjut63+gyDjfuB/mU5z9aOjE2FoOTFmds1EQysIZT6odDoOBqhwep3q4AS0BhouYUoHccTc7oDRAkHQ0mElyJuhLI5zYf0nWTlkLmGAOU=","ak.pv":"126","ak.dpoabenc":"","ak.tf":i};if(""!==t)_["ak.ruds"]=t;var o={i:!1,av:function(e){var t="http.initiator";if(e&&(!e[t]||"spa_hard"===e[t]))_["ak.feo"]=void 0!==a.aFeoApplied?1:0,BOOMR.addVar(_)},rv:function(){var a=["ak.bpcip","ak.cport","ak.cr","ak.csrc","ak.gh","ak.ipv","ak.m","ak.n","ak.ol","ak.proto","ak.quicv","ak.tlsv","ak.0rtt","ak.r","ak.acc","ak.t","ak.tf"];BOOMR.removeVar(a)}};BOOMR.plugins.AK={akVars:_,akDNSPreFetchDomain:n,init:function(){if(!o.i){var a=BOOMR.subscribe;a("before_beacon",o.av,null,null),a("onbeacon",o.rv,null,null),o.i=!0}return this},is_complete:function(){return!0}}}}()}(window);</script></head>
+<body>
+</body></html>

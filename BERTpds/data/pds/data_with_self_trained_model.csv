@@ -1,0 +1,76 @@
+10, The numerical weight of the word represents the closeness of the concept ,"10]  Jayesh Bapu Ahire, ‘Introduction to Word Vectors’, MVB, March 14, AI DZone, accessed ON 3rd June."
+10,"
+
+
+
+Figure   1:     word   vector   representation   with   specific dimensions ","10]  Jayesh Bapu Ahire, ‘Introduction to Word Vectors’, MVB, March 14, AI DZone, accessed ON 3rd June."
+10, Using these continuous vectors space machines can extract similarities between the different words ,"10]  Jayesh Bapu Ahire, ‘Introduction to Word Vectors’, MVB, March 14, AI DZone, accessed ON 3rd June."
+1," Word-embedding  is  a  significant  tool  of  natural  language processing  to  learn  quality  representation  for  various  tasks like   semantic   analysis,   information   retrieval,   question- answering systems and machine translation etc ","1]    Bin Wang et al , ‘ Evaluating word embedding models: methods and experimental    results.’,    APSIPA    Transaction    on    Signal    and Information Processing, 8, E19, DOI: 10.1017/ATSIP.2019.12","Even with larger text data available, extracting and embedding all linguistic properties into a word representation directly
+important to further improve the performance. Domain adaption methods are able to leverage monolingual corpus for existing machine translation tasks. As compared to parallel corpus,
+word embedding model and manually constructed linguistic
+word embedding model differs for different language tasks. In
+evaluators and language tasks so as to provide insights into
+performance on word analogy and word similarity tasks has
+yield meaningful word representations and perhaps find
+for the part-Of-speech tagging, chunking and named-entity
+of deep-learning-based methods for machine translation. With
+in word model’s prototyping and development. Furthermore,","0.275
+0.277
+0.277
+0.296
+0.32
+0.324
+0.324
+0.327
+0.328
+0.328"
+15, The most significant point in the study of distributional semantics is to evaluate the quality of word representation models ,"15]  Amir  Bakarov,  2018,  A  Survey  of  Word  Embeddings  Evaluation"
+16, The first work in the field was proposed in the year 2007,"16]  Griffiths  et al.,  Griffiths,  T.  L.,  Steyvers,  M., and Tenenbaum, J. B. (2007).   Topics  in  semantic   representation.  Psychological  review,"
+17," In 2010, survey for the word embedding    tasks    was    preformed    with    the    help    of distributional semantics model ","17]  Turney and Pantel et al ,’ From frequency to meaning: Vector space models of semantic’, Journal of artificial intelligence research, volume 37, pages 141–188."
+18," In 2011, first paper was published  regarding  comparison  of  performance  of  various distributional semantic models ","18]  McNamara, 2011. McNamara, D. S. (2011). Computational methods to   extract   meaning   from   text   and   advance   theories   of   human cognition. Topics in Cognitive Science, 3(1):3–17."
+19," In 2013, word2vec tool was    released,    which    explained    novel    approaches    to evaluation   like   word   analogy   task   ","19]  Mikolov et al., ‘Efficient  estimation  of  word  representations  in  vector space.’, arXiv preprint arXiv:1301.3781, 2013."
+20,"   In   2015,   the approaches  to  word  evaluation  were  classified  into  two classes’ intrinsic and extrinsic evaluation ","20]  Schnabel et al., 2015. Schnabel, T., Labutov, I., Mimno, D. M., and Joachims,  T.  (2015).  Evaluation  methods  for  unsupervised  word embeddings. In EMNLP, pages 298–307."
+21," In 2016, the first workshop  on word  embeddings evaluation was held  at annual     meeting     of     association     of     computational linguistics","21]  Faruqui et al, ‘Problems with evaluation of word embeddings using word similarity tasks.’,2016,  arXiv preprint arXiv:1605.02276."
+3,  Before  the  advent  of  these networks  the  words  were  mapped  into  real-valued  number through  some  basic  approaches  ,"3]    Francois  Chaubard,  Rohit  Mundra  et  al  ,  ‘Deep  Learning  for  NLP’ lecture       notes:       Part       I2,       Spring       2016       accessed       at https://cs224d.stanford.edu/lecture_notes/notes1.pdf"
+2,where  U  and  V  are  left  and  right  singular vectors and D is diagonal matrix whose diagonal entries are the singular values ,"2]    Avrim  Blum,  John  Hopcroft  et  al  ,  ‘Foundations  of  Data  Science’, June  2017,  Cambridge  University  Press,  2020,  ISBN  978-1-108-"
+3,"  For  all  words  in  the dictionary,  the  rows  of  matrix  U  is  used  as  the  word embeddings ","3]    Francois  Chaubard,  Rohit  Mundra  et  al  ,  ‘Deep  Learning  for  NLP’ lecture       notes:       Part       I2,       Spring       2016       accessed       at https://cs224d.stanford.edu/lecture_notes/notes1.pdf"
+4,   Each dimension of the embedding captures semantic   properties ,"4]    Yoshua Bengio et al , ‘ Word representations: a simple and generated method for semi-supervised learning’, proceedings of the 48th Annual Meeting of the Association for computational Linguistics, pages 384-"
+5,   Word embeddings are  the  successful  applications of unsupervised learning  ,"5]    Sebastian   Ruder,   ‘An   overview   of   word   embedding   and   their connections to distributional semantic models’, Oct 2016, accessed on"
+22, Google introduced  a  neural  network  architecture  which  has  many benefits  over  conventional  sequential  models  ,"22]  A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A.Gomez, L. Kaiser and I. Polosukhin, Attention Is All You Need (2017)."
+23,  Neural network architecture is an encoder-decoder model which uses attention mechanism to forward sequence to the decoder ,"23]  Andrea   Galassi,   Marco   Lippi,  ‘ Attention   in   Natural   Language"
+24,  Attention was  first  introduced  in  natural  language processing for machine translation task ,"24]  D. Bahdanau, K. Cho, et at, ‘Neural machine translation by jointly learning to align and translate,’ in ICLR, 2015."
+6,"
+
+
+……(3)
+Where  f  encoder   is  neural  contextual  encoder  which can be sequential or hierarchical( graph)","6]    Xipeng  Qiu,  Tianxiang  Sun,  Yige  Xu,  Yunfan  Shao,Ning  Dai,  and Xuanjing  Huang.  2020.  Pre-trained  Models  for  Natural  Language Processing: A Survey."
+25,  The  final layer  learns  information  of  the  new  vector  space  by combining   the   previous   content   according   to   their relevance to the problem ,"25]  Scott    Rome.    ‘Understanding    Attension    in    Neural    Networks Mathematically’,  accessed  at  https://srome.github.io/Understanding- Attention-in-Neural-Networks-Mathematically/ on 7 Sep 2020."
+14, It act as proxy for  the  downstream  tasks  ,"14]  Yulia Tsvetkov, Manaal Faruqui and Chris Dyer, 2016 ‘Correlation- based Intrinsic Evaluation of Word Vector Representations’."
+1,  The   evaluator measures the efficiency of human perceived similarity which is obtained by the word vector representations ,"1]    Bin Wang et al , ‘ Evaluating word embedding models: methods and experimental    results.’,    APSIPA    Transaction    on    Signal    and Information Processing, 8, E19, DOI: 10.1017/ATSIP.2019.12","The word similarity evaluator correlates the distance between word vectors and human perceived semantic similarity.
+similarity is captured by the word vector representations, and
+method normalizes vector lengths using the cosine similarity
+evaluator tests the semantic coherence of vector space models,
+Because its scores are normalized by the vector length, it is
+average of these vectors gives the final representation of the
+of FastText. Here, to compare the word vector quality only,
+component-wise correlation between word vectors from a
+machine translation [14]. Extrinsic evaluators are more computationally expensive, and they may not be directly applicable. Intrinsic evaluators test the quality of a representation
+Intrinsic evaluators test the quality of a representation","0.214
+0.262
+0.288
+0.309
+0.314
+0.323
+0.323
+0.325
+0.331
+0.331"
+13,"(5)
+
+Generally,  analogies  are  fundamental  to  solving  human reasoning and logic","13]  Francois  Chaubard,  Rohit  Mundra  et  al  ,  ‘Deep  Learning  for  NLP’ lecture       notes:       Part       I2,       Spring       2016       accessed       at https://cs224d.stanford.edu/lecture_notes/notes2.pdf"
+12,,"12]  M. Baroni et al , ‘Don’t count, predict! a sys- tematic    comparison    of    context-counting    vs.    context-predicting semanticvectors’, in Proceedings of the 52nd  Annual Meeting of the Associationfor Computational Linguistics (Volume 1:  Long Papers), vol. 1, 2014,pp. 238–247."
+9,"    Outlier detection
+
+Outlier detection evaluates word clustering to obtain compactness score of pair-wise similarities of the word ","9]    J.  Camacho-Collados  and  R.  Navigli,  ‘Find  the  word  that  does  not belong:  A  framework  for  an  intrinsic  evaluation  of  word  vector representations’,  Proceedings  of  the  1st  Workshop  on  Evaluating Vector-Space Representations for NLP, 2016, pp. 43–50."
+11, ,"11]  Y.   Tsvetkov et al , ‘Evaluationof  word  vector  representations  by  subspace  alignment’, Proceedings of   the   2015   Conference   on   Empirical   Methods   in Natural Language Processing, 2015, pp. 2049–2054"
+13,"  However, in natural language processing applications the word vectors are  pre- trained when used for extrinsic tasks ","13]  Francois  Chaubard,  Rohit  Mundra  et  al  ,  ‘Deep  Learning  for  NLP’ lecture       notes:       Part       I2,       Spring       2016       accessed       at https://cs224d.stanford.edu/lecture_notes/notes2.pdf"

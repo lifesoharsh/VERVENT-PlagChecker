@@ -1,0 +1,4326 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Deep learning is a machine learning technique that teaches computers to learn by example. Learn more about deep learning with MATLAB examples and tools. ">
+
+	<link rel="icon" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/images/favicon.20210802225849994.ico" type="image/x-icon">
+	<link rel="canonical" href="ref6_files/deep-learning.html">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+
+	
+	
+	
+	
+
+	<meta property="og:url" content="https://www.mathworks.com/discovery/deep-learning.html">
+	<meta property="og:image:url" content="https://www.mathworks.com/content/dam/mathworks/mathworks-dot-com/images/responsive/thumbnails/thumbnail-generic-document.jpg">
+	<meta property="og:image:secure_url" content="https://www.mathworks.com/content/dam/mathworks/mathworks-dot-com/images/responsive/thumbnails/thumbnail-generic-document.jpg">
+	<meta property="og:description" content="Deep learning is a machine learning technique that teaches computers to learn by example. Learn more about deep learning with MATLAB examples and tools. ">
+	<meta property="og:title" content="What Is Deep Learning? | How It Works, Techniques &amp; Applications">
+	
+	
+
+	
+
+	
+	
+    
+<iframe src="javascript:void(0)" title="" style="width: 0px; height: 0px; border: 0px none; display: none;"></iframe><script async="" src="ref6_files/qevents.asc"></script><script type="text/javascript" async="" src="ref6_files/conversion_async.js"></script><script type="text/javascript" async="" src="ref6_files/insight.js"></script><script async="" src="ref6_files/uwt.js"></script><script src="ref6_files/quant.js" async="" type="text/javascript"></script><script src="ref6_files/186030155234771.js" async=""></script><script async="" src="ref6_files/fbevents.js"></script><script type="text/javascript" async="" src="ref6_files/ahy.es"></script><script type="text/javascript" async="" src="ref6_files/recaptcha__en.js" crossorigin="anonymous" integrity="sha384-ihgnzvjmxjrHVelu+na6lAkiamNxbvwvK0kfOcjIoHoQRt2yE5B+AD2bMn6jz0Ul"></script><script src="ref6_files/rules-p-zfNtLVVEHXE-1.js" async=""></script><script src="ref6_files/quant.js" async="" type="text/javascript"></script><script async="" type="text/javascript" src="ref6_files/cmp2.js"></script><script type="text/javascript" async="" src="ref6_files/elqCfg.js"></script><script async="" type="text/javascript" src="ref6_files/choice.js"></script><script type="text/javascript" src="ref6_files/ruxitagentjs_ICA27SVfhqrux_10209210209190405.js" data-dtconfig="rid=RID_1984194809|rpid=10117892|domain=mathworks.com|reportUrl=https://bf95589qej.bf.dynatrace.com/bf|app=ea7c4b59f27d43eb|cors=1|rcdec=1209600000|featureHash=ICA27SVfhqrux|srsr=1000|vcv=1|rdnt=1|uxrgce=1|bp=3|srmcrv=10|cuc=yak2vkuz|mel=100000|dpvc=1|md=mdcc1=bmwaReferenceId,mdcc2=bs.pageName|ssv=4|lastModification=1628790971124|dtVersion=10209210209190405|srmcrl=1|tp=500,50,0,1|uxdcw=1500|vs=2|agentUri=/ruxitagentjs_ICA27SVfhqrux_10209210209190405.js"></script><script src="ref6_files/jquery.js"></script>
+
+
+
+	
+
+	
+
+	
+	
+    
+<link rel="stylesheet" href="ref6_files/common.css" type="text/css">
+
+
+
+	
+    
+<link rel="stylesheet" href="ref6_files/mathworks-aem.css" type="text/css">
+
+
+
+
+	<link href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-italic-400.20210802225849994.woff2" rel="preload" as="font" type="font/woff2" crossorigin="">
+	<link href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-italic-500.20210802225849994.woff2" rel="preload" as="font" type="font/woff2" crossorigin="">
+	<link href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-italic-700.20210802225849994.woff2" rel="preload" as="font" type="font/woff2" crossorigin="">
+	<link href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-normal-400.20210802225849994.woff2" rel="preload" as="font" type="font/woff2" crossorigin="">
+	<link href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-normal-500.20210802225849994.woff2" rel="preload" as="font" type="font/woff2" crossorigin="">
+	<link href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-normal-700.20210802225849994.woff2" rel="preload" as="font" type="font/woff2" crossorigin="">
+	<link href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/mathworks.20210802225849994.woff" rel="preload" as="font" type="font/woff" crossorigin="">
+
+	
+		<script id="analyticsDigitalData"> digitalData = {
+  "pageInstanceID" : "https://www.mathworks.com/discovery/deep-learning.html",
+  "page" : {
+    "pageInfo" : {
+      "pageID" : "https://www.mathworks.com/discovery/deep-learning.html",
+      "destinationURL" : "https://www.mathworks.com/discovery/deep-learning.html"
+    },
+    "category" : {
+      "subCategory1" : "discovery/deep-learning",
+      "pageType" : "disc"
+    },
+    "attributes" : {
+      "descriptonCode" : "sts",
+      "aic" : [ "deep-learning" ]
+    }
+  },
+  "product" : [ {
+    "productInfo" : { }
+  } ],
+  "component" : [ ]
+};</script>
+		<script>(function(g,b,d,f){(function(a,c,d){if(a){var e=b.createElement("style");e.id=c;e.innerHTML=d;a.appendChild(e)}})(b.getElementsByTagName("head")[0],"at-body-style",d);setTimeout(function(){var a=b.getElementsByTagName("head")[0];if(a){var c=b.getElementById("at-body-style");c&&a.removeChild(c)}},f)})(window,document,"[class*='personalization-container']:not([id^='web-application']) {opacity: 0 !important}",2E3);</script>
+<script src="ref6_files/satelliteLib-e8d23c2e444abadc572df06537e2def59c01db09.js" async=""></script>
+
+	
+	
+
+	
+
+	
+		
+	
+
+	<title>What Is Deep Learning? | How It Works, Techniques &amp; Applications - MATLAB &amp; Simulink</title>
+
+                              <script>!function(a){var e="https://s.go-mpulse.net/boomerang/",t="addEventListener";if("False"=="True")a.BOOMR_config=a.BOOMR_config||{},a.BOOMR_config.PageParams=a.BOOMR_config.PageParams||{},a.BOOMR_config.PageParams.pci=!0,e="https://s2.go-mpulse.net/boomerang/";if(window.BOOMR_API_key="LERXA-6VNES-W6PXS-U8C7F-BXSZH",function(){function n(e){a.BOOMR_onload=e&&e.timeStamp||(new Date).getTime()}if(!a.BOOMR||!a.BOOMR.version&&!a.BOOMR.snippetExecuted){a.BOOMR=a.BOOMR||{},a.BOOMR.snippetExecuted=!0;var i,_,o,r=document.createElement("iframe");if(a[t])a[t]("load",n,!1);else if(a.attachEvent)a.attachEvent("onload",n);r.src="javascript:void(0)",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="width:0;height:0;border:0;display:none;",o=document.getElementsByTagName("script")[0],o.parentNode.insertBefore(r,o);try{_=r.contentWindow.document}catch(O){i=document.domain,r.src="javascript:var d=document.open();d.domain='"+i+"';void(0);",_=r.contentWindow.document}_.open()._l=function(){var a=this.createElement("script");if(i)this.domain=i;a.id="boomr-if-as",a.src=e+"LERXA-6VNES-W6PXS-U8C7F-BXSZH",BOOMR_lstart=(new Date).getTime(),this.body.appendChild(a)},_.write("<bo"+'dy onload="document._l();">'),_.close()}}(),"".length>0)if(a&&"performance"in a&&a.performance&&"function"==typeof a.performance.setResourceTimingBufferSize)a.performance.setResourceTimingBufferSize();!function(){if(BOOMR=a.BOOMR||{},BOOMR.plugins=BOOMR.plugins||{},!BOOMR.plugins.AK){var e=""=="true"?1:0,t="",n="odclygyx27cduyiy2zzq-f-db0de7c83-clientnsv4-s.akamaihd.net",i="false"=="true"?2:1,_={"ak.v":"32","ak.cp":"31027","ak.ai":parseInt("195948",10),"ak.ol":"0","ak.cr":24,"ak.ipv":4,"ak.proto":"h2","ak.rid":"72900f24","ak.r":37688,"ak.a2":e,"ak.m":"x","ak.n":"essl","ak.bpcip":"112.196.188.0","ak.cport":39822,"ak.gh":"23.63.110.175","ak.quicv":"","ak.tlsv":"tls1.2","ak.0rtt":"","ak.csrc":"-","ak.acc":"","ak.t":"1629017715","ak.ak":"hOBiQwZUYzCg5VSAfCLimQ==jR2IN8n8GXngniAsxwrwF8j2DGMHG9z4Z/OM6aI75H3FU31BBg58u/qDzDyIK6At9Hh4ZneS2Q1N1VVdBBWKcDi9An7hp5g2kntDNwUWXc2dHKiqFyA6aB+HtYz58WVZlsqxHH4hEg+4hvRpJtHPgT3/wNy0imX/nBOZYlyDAZcnsdJOh4qagSQDOsHTxFWDpFyFRQqz0NbtnnNcUIpoV3HEAj6FsAqQVaf0IAoguvXosmSSOtJQbVCPCsDiUdnaxn+fpTAZfv5VS0yrs/7wyqkZQ3RPAqUru5PZcf385cfcYwPYOCh9CT6HRfC4RFsGLLDFCTvKCmpVTKTZ/xO4HJ/0x+skxaDezkH+3QV7LVZ939SwBST45M2X9mbTxOtPwQDLgxEktJHC7JUtTa1KJnCS7y6mcloqAtWZgDCspRY=","ak.pv":"126","ak.dpoabenc":"","ak.tf":i};if(""!==t)_["ak.ruds"]=t;var o={i:!1,av:function(e){var t="http.initiator";if(e&&(!e[t]||"spa_hard"===e[t]))_["ak.feo"]=void 0!==a.aFeoApplied?1:0,BOOMR.addVar(_)},rv:function(){var a=["ak.bpcip","ak.cport","ak.cr","ak.csrc","ak.gh","ak.ipv","ak.m","ak.n","ak.ol","ak.proto","ak.quicv","ak.tlsv","ak.0rtt","ak.r","ak.acc","ak.t","ak.tf"];BOOMR.removeVar(a)}};BOOMR.plugins.AK={akVars:_,akDNSPreFetchDomain:n,init:function(){if(!o.i){var a=BOOMR.subscribe;a("before_beacon",o.av,null,null),a("onbeacon",o.rv,null,null),o.i=!0}return this},is_complete:function(){return!0}}}}()}(window);</script><style>
+.headernav_matrix button { 
+  width:24px; 
+  height:24px; 
+  padding:0;
+  border: none;
+  background:none transparent; 
+  display:inline-block;
+  transition:color .3s ease;
+  position: relative;
+}
+
+.headernav_matrix button > .icon-matrix { color:#777; font-size:24px; line-height:1.00 !important;}
+.headernav_matrix button:hover > .icon-matrix,
+.headernav_matrix button:focus > .icon-matrix { color:#333; }
+
+/* MATRIX MENU TABLET AND MOBILE*/
+#header_mobile .matrix_container { 
+  margin:1px auto 0; 
+  border:none; 
+  box-shadow:none; 
+  background:#fff; 
+  float:none; 
+  overflow:hidden; 
+  position:relative;
+  z-index:3;
+  display:block !important; 
+  height:auto !important;
+}
+#header_mobile .headernav_matrix > button { 
+  width:auto; 
+  min-width:37px; 
+  height:auto; 
+  min-height:37px; 
+  margin:3.5px -1.5px 0 0; 
+  float:right; 
+}
+#header_mobile .headernav_matrix > button > .icon-matrix { color:#0076a8; }
+
+@media (min-width:768px) and (max-width:991px) {
+  .matrix_menu_container_mobile { border-top:1px solid #e7e7e7; }
+}
+
+/* DESKTOP MATRIX MENU */
+.matrix_container { 
+  width:319px; 
+  padding:0 10px 10px; 
+  margin-top:2px; 
+  border:1px solid #999; 
+  background:#fff; 
+  box-shadow:0 1px 3px 0 rgba(0,0,0,0.25); 
+  float:right; 
+  overflow:hidden; 
+  position:absolute; 
+  right:0; 
+  z-index:1037; 
+}
+.matrix_container ul.matrix_links_primary { 
+  border-bottom:1px solid #ccc; 
+}
+.matrix_container ul[class*="matrix_links_"] { 
+  width:100%; 
+  padding:10px 0 0; 
+  margin-bottom:0; 
+  float:left; 
+} 
+.matrix_container ul[class*="matrix_links_"] > li { 
+  width:99px; 
+  height:72px;
+  padding:0 5px;
+  margin:0 0 10px; 
+  float:left;
+  font-size:12px; 
+  line-height:1.25; 
+  text-align:center; 
+  white-space:nowrap; 
+} 
+.matrix_container ul[class*="matrix_links_"] > li > a { 
+  width:100%; 
+  padding:7px 0 0 0; 
+  border:none;
+  color: #0076a8 !important;
+  background:transparent; 
+  display:block; 
+  text-decoration:none !important; 
+}
+
+.matrix_container ul[class*="matrix_links_"] > li > a > img { 
+  height:38px; 
+  padding:2px; 
+  width:auto; 
+  margin:0 auto 7px; 
+  border:1px solid transparent; 
+  border-radius:5px; 
+  background-color:#fff; 
+  display:block; 
+  transition:background-color .3s ease, border-color 0.3s ease; 
+}
+.matrix_container ul[class*="matrix_links_"] > li > a > .matrix_link_title { 
+  max-width:89px; 
+  display:block; 
+  line-height:1.15; 
+  white-space:normal; 
+}
+
+.matrix_container ul[class*="matrix_links_"] > li > a:hover > img,
+.matrix_container ul[class*="matrix_links_"] > li.matrix_active > a > img { 
+  border-color:#999;  
+  background-color:#f5f5f5; 
+}
+.matrix_container_zh { 
+  font-family:"Microsoft YaHei","Segoe UI",Arial,Helvetica; 
+}
+.matrix_container_ja { 
+  font-family:Meiryo,Verdana,Arial,Helvetica,"MS P ã‚´ã‚·ãƒƒã‚¯"; 
+}
+.matrix_container_kr { 
+  font-family:Malgun Gothic, Apple Gothic, Arial, sans-serif; 
+}
+
+[class*="matrix_container_"].matrix_container ul[class*="matrix_links_"] > li { 
+  height:90px; 
+}
+[class*="matrix_container_"] { padding-bottom:0; }
+[class*="matrix_container_"].matrix_container ul[class*="matrix_links_"] > li > a { 
+  padding-bottom:2px; 
+}
+[class*="matrix_container_"].matrix_container .matrix_link_title { 
+  font-size:13px !important; 
+  line-height:1.20 !important; 
+}</style><script src="ref6_files/EXb8e71c1cefe448b1a9a978413e979a3a-libraryCode_source.js" async=""></script><style type="text/css"> .qc-cmp-button {    background-color: #0076a8 !important;    border-color: #0076a8 !important;  }  .qc-cmp-button:hover {    border-color: #0076a8 !important;  }  .qc-cmp-alt-action,  .qc-cmp-link {    color: #0076a8 !important;  }  .qc-cmp-button.qc-cmp-secondary-button:hover {    background-color: #0076a8 !important;    border-color: #0076a8 !important;  }  .qc-cmp-button.qc-cmp-secondary-button:hover {    color: #ffffff !important;  }  .qc-cmp-button.qc-cmp-secondary-button {    color: #0076a8 !important;  }  .qc-cmp-button.qc-cmp-secondary-button {    background-color: #eee !important;    border-color: transparent !important;  }  .qc-cmp-ui,  .qc-cmp-ui .qc-cmp-title,  .qc-cmp-ui .qc-cmp-table,  .qc-cmp-ui .qc-cmp-messaging,  .qc-cmp-ui .qc-cmp-sub-title,  .qc-cmp-ui .qc-cmp-vendor-list,  .qc-cmp-ui .qc-cmp-purpose-info,  .qc-cmp-ui .qc-cmp-table-header,  .qc-cmp-ui .qc-cmp-beta-messaging,  .qc-cmp-ui .qc-cmp-main-messaging,  .qc-cmp-ui .qc-cmp-vendor-list-title{    color: #1a1a1a !important;  }  .qc-cmp-ui a,  .qc-cmp-ui .qc-cmp-alt-action {    color: #0076a8 !important;  }  .qc-cmp-ui {    background-color: #fef9ed !important;  } .dvsjko.dvsjko.dvsjko.dvsjko .qc-cmp2-footer .qc-cmp2-summary-buttons button { border-radius: 4px; }.dvsjko.dvsjko.dvsjko.dvsjko .qc-cmp2-footer .qc-cmp2-summary-buttons button:last-child:hover { background-color: #3391b9; }.iicKQX.iicKQX .qc-cmp2-footer .qc-cmp2-buttons-desktop button { border-radius: 4px; }.iicKQX.iicKQX .qc-cmp2-footer .qc-cmp2-buttons-desktop button:last-of-type:hover { background-color: #3391b9; }.iicKQX.iicKQX .qc-cmp2-footer > button { border-radius: 4px; }</style><script src="ref6_files/RC05fcb38027f5457d9e4fe41700e447c8-source.js" async=""></script><script src="ref6_files/RCd1433e5ffdb84d62affcaf374ea41254-source.js" async=""></script><script src="ref6_files/js.js"></script><script src="ref6_files/RCa296c2a0929149a18722e82b04bfd15d-source.js" async=""></script><script src="ref6_files/RCb721adba20764bcfb94f83ebfb62dc6b-source.js" async=""></script><script src="ref6_files/RCedfaed1d03de47189f18649f7e2d6cb0-source.js" async=""></script><script src="ref6_files/last-event-tag-latest.js"></script><script src="ref6_files/RC906de277bfc24b12a4b2a22af2719a77-source.js" async=""></script><script src="ref6_files/RC97d906c9d98b4f9db8241d9ad264e27c-source.js" async=""></script><img id="kewVF8nz8F8iowQTomHn" style="display:none" alt="" src="ref6_files/generic.gif"><img id="RRbUJ62CVxF2mfvjKRcV" style="display:none" alt="" src="ref6_files/t.gif"><script id="term-e7e5d07437489" src="ref6_files/t.js"></script><script defer="defer" src="ref6_files/QGS3LM6G.js"></script><script src="ref6_files/RC674a4c4f3dcf4045a7d0f57a972d2437-source.js" async=""></script><script src="ref6_files/RC99073bc6af974491b5287c7adca7eb07-source.js" async=""></script><script src="ref6_files/a"></script><style type="text/css" id="gsc-css-QGS3LM6G">.gsc-modal-wrapper{position:fixed;top:0;left:0;bottom:0;right:0;overflow-y:auto;z-index:9997;text-align:center;background:rgba(0,0,0,.6)}.gsc-modal{background-color:#fff;position:absolute;text-align:left;z-index:9998;overflow:hidden}.gsc-modal-content{position:relative}.gsc-modal-content .gsc-image{height:auto;max-width:100%}.gsc-modal-close{position:absolute;top:10px;right:10px;width:25px;height:25px;cursor:pointer;z-index:9999}.gsc-banner{background-color:#666;color:#fff;left:0;position:fixed;z-index:9996}.gsc-banner-content{padding:10px 60px 10px 10px;text-align:center}.gsc-banner-close-btn{background:#fff;border:none;border-radius:10px;color:#000;cursor:pointer;font-weight:700;height:20px;padding-left:0;padding-right:0;position:absolute;right:30px;top:10px;width:20px}.gsc-flyin{background-color:#fff;display:none;position:fixed;z-index:11}.gsc-flyin.gsc-flyin-visible{display:block}.gsc-flyin.gsc-flyin-setting-dimensions{display:block;left:-9999px}.gsc-flyin .gsc-image{height:auto;max-width:100%}.gsc-flyin-close-btn{cursor:pointer;position:absolute;right:5px;top:5px;background:none;border:none}</style><script src="ref6_files/serving.js"></script><style type="text/css" id="ki-_q2-_yl"></style><style type="text/css" id="ki-_q2-_nv"></style></head>
+
+
+	<body data-label-chat-online="Chat with Support" data-label-chat-offline="Chat is Offline" data-label-chatbot="Start MathWorks Bot" data-image-chatbot="/content/dam/mathworks/mathworks-dot-com/images/responsive/logos/chatbot.png" style="" class="">
+
+	<a class="skip_link sr-only" href="#content_container" tabindex="1">Skip to content</a>
+
+	
+<!-- Mobile TopNav: Start -->
+<div class="header visible-xs visible-sm" id="header_mobile" style="">
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="navbar-header">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-3">
+						<button type="button" class="navbar-toggle topnav_toggle" tabindex="1" data-toggle="collapse" data-target="#topnav_collapse">
+							<span class="sr-only">Toggle Main Navigation</span>
+							<span class="icon-menu"></span>
+						</button>
+					</div>
+					<div class="col-xs-6">
+						<div class="text-center">
+							<a href="https://www.mathworks.com/?s_tid=gn_logo" class="svg_link navbar-brand" tabindex="3">
+								<img src="ref6_files/pic-header-mathworks-logo.svg" class="mw_logo" alt="MathWorks - Mobile View">
+							</a>
+						</div>
+					</div>
+					<div class="col-xs-3">
+						<div class="matrix_affordance_container_mobile" id="matrix_affordance_container_mobile"><div id="headernav_matrix_small" class="headernav_matrix"><button title="Matrix Menu" class="navbar-toggle matrix_toggle" data-toggle="collapse" data-target="#matrix_collapse" id="matrix_waffle_small" aria-label="Mathworks Menu" type="button"><span class="icon-matrix"></span></button></div></div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row visible-xs visible-sm">
+					<div class="col-xs-12">
+						<div class="navbar-collapse collapse" id="topnav_collapse">
+							<div class="topNavigation topnavigation containsResourceName resourceClass-topnavigation">
+
+<ul class="nav navbar-nav" id="topnav">
+	<li class="headernav_login" style="">
+	<a class="mwa-nav_login" tabindex="2" href="https://www.mathworks.com/login?uri=https%3A%2F%2Fwww.mathworks.com%2Fdiscovery%2Fdeep-learning.html"><span class="visible-xs visible-sm">Sign In <span class="sr-only">to Your MathWorks Account</span></span><span class="visible-lg visible-md"><span class="sr-only">Sign In to Your MathWorks Account</span></span></a>
+</li>
+<li class="headernav_logout dropdown" style="display: none;">
+	<a href="#" role="button" aria-haspopup="menu" aria-controls="mwa-nav" class="dropdown-toggle mwa_image_drop_down" data-toggle="dropdown" tabindex="2">
+		<span class="visible-xs visible-sm">
+			<span class="mobile_account_image sr-only">
+				Access your MathWorks Account
+			</span>
+			<span class="mobile_account_name" aria-hidden="true"></span>
+			<b class="caret"></b>
+		</span>
+	</a>
+	<ul role="menu" class="dropdown-menu" id="mwa-nav">
+		<li class="mwa-nav_account"><a role="menuitem" class="mwa-account" tabindex="2">My Account</a></li>
+		<li class="mwa-nav_community"><a role="menuitem" class="mwa-community-profile" tabindex="2">My Community Profile</a></li>
+		<li class="mwa-nav_associate"><a role="menuitem" class="mwa-link-license" tabindex="2">Link License</a></li>
+		<li class="mwa-nav_logout"><a role="menuitem" class="mwa-logout" tabindex="2">Sign Out</a>
+		</li>
+	</ul>
+</li>
+
+	
+		<li class="topnav_products ">
+			<a href="https://www.mathworks.com/products.html?s_tid=gn_ps" tabindex="2">Products</a>
+		</li>
+	
+		<li class="topnav_solutions ">
+			<a href="https://www.mathworks.com/solutions.html?s_tid=gn_sol" tabindex="2">Solutions</a>
+		</li>
+	
+		<li class="topnav_academia ">
+			<a href="https://www.mathworks.com/academia.html?s_tid=gn_acad" tabindex="2">Academia</a>
+		</li>
+	
+		<li class="topnav_support ">
+			<a href="https://www.mathworks.com/support.html?s_tid=gn_supp" tabindex="2">Support</a>
+		</li>
+	
+		<li class="topnav_community ">
+			<a href="https://www.mathworks.com/matlabcentral/?s_tid=gn_mlc" tabindex="2">Community</a>
+		</li>
+	
+		<li class="topnav_events ">
+			<a href="https://www.mathworks.com/company/events.html?s_tid=gn_ev" tabindex="2">Events</a>
+		</li>
+	
+	
+		<li class="headernav_store">
+			<a href="https://www.mathworks.com/products/get-matlab.html?s_tid=gn_getml" tabindex="2">Get MATLAB</a>
+		</li>
+	
+</ul>
+</div>
+
+						</div>
+						<div class="navbar-collapse collapse" id="matrix_collapse">
+							<div class="matrix_menu_container_mobile" id="matrix_menu_container_mobile"><header class="App-header"><div class="matrix_container collapse" aria-describedby="matrix_title"><nav class="matrix_content"><h3 class="sr-only" id="matrix_title">MathWorks Matrix Menu</h3><ul class="list-unstyled matrix_links_primary"><li class=""><a class="svg_link" href="https://matlab.mathworks.com/" role="button" aria-label="MATLAB" id="matrix_link_matlab_home"><img src="ref6_files/ico-matrix-matlabonline.svg" alt="matlab_home" aria-hidden="true"><span class="matrix_link_title">MATLAB</span></a></li><li class=""><a class="svg_link" href="https://www.mathworks.com/help/" role="button" aria-label="Help Center" id="matrix_link_help_center"><img src="ref6_files/ico-matrix-helpcenter.svg" alt="help_center" aria-hidden="true"><span class="matrix_link_title">Help Center</span></a></li><li class=""><a class="svg_link" href="https://www.mathworks.com/" role="button" aria-label="MathWorks" id="matrix_link_mathworks_dotcom"><img src="ref6_files/ico-matrix-mathworks.svg" alt="mathworks_dotcom" aria-hidden="true"><span class="matrix_link_title">MathWorks</span></a></li></ul><ul class="list-unstyled matrix_links_secondary"><li class=""><a class="svg_link" href="https://www.mathworks.com/matlabcentral/answers/index" role="button" aria-label="Answers" id="matrix_link_answers"><img src="ref6_files/ico-matrix-answers.svg" alt="answers" aria-hidden="true"><span class="matrix_link_title">Answers</span></a></li><li class=""><a class="svg_link" href="https://www.mathworks.com/matlabcentral/fileexchange" role="button" aria-label="File Exchange" id="matrix_link_file_exchange"><img src="ref6_files/ico-matrix-fileexchange.svg" alt="file_exchange" aria-hidden="true"><span class="matrix_link_title">File Exchange</span></a></li><li class=""><a class="svg_link" href="https://www.mathworks.com/videos.html" role="button" aria-label="Videos" id="matrix_link_videos"><img src="ref6_files/ico-matrix-videos.svg" alt="videos" aria-hidden="true"><span class="matrix_link_title">Videos</span></a></li><li class=""><a class="svg_link" href="https://matlabacademy.mathworks.com/" role="button" aria-label="Online Training" id="matrix_link_online_training"><img src="ref6_files/ico-matrix-onlinetraining.svg" alt="online_training" aria-hidden="true"><span class="matrix_link_title">Online Training</span></a></li><li class=""><a class="svg_link" href="https://blogs.mathworks.com/" role="button" aria-label="Blogs" id="matrix_link_blogs"><img src="ref6_files/ico-matrix-blogs.svg" alt="blogs" aria-hidden="true"><span class="matrix_link_title">Blogs</span></a></li><li class=""><a class="svg_link" href="https://www.mathworks.com/matlabcentral/cody" role="button" aria-label="Cody" id="matrix_link_cody"><img src="ref6_files/ico-matrix-cody.svg" alt="cody" aria-hidden="true"><span class="matrix_link_title">Cody</span></a></li><li class=""><a class="svg_link" href="https://drive.matlab.com/" role="button" aria-label="MATLAB Drive" id="matrix_link_matlab_drive"><img src="ref6_files/ico-matrix-matlabdrive.svg" alt="matlab_drive" aria-hidden="true"><span class="matrix_link_title">MATLAB Drive</span></a></li><li class=""><a class="svg_link" href="https://grader.mathworks.com/" role="button" aria-label="MATLAB Grader" id="matrix_link_matlab_grader"><img src="ref6_files/ico-matrix-matlabgrader.svg" alt="matlab_grader" aria-hidden="true"><span class="matrix_link_title">MATLAB Grader</span></a></li><li class=""><a class="svg_link" href="https://thingspeak.com/" role="button" aria-label="ThingSpeak" id="matrix_link_thingspeak"><img src="ref6_files/ico-matrix-thingspeak.svg" alt="thingspeak" aria-hidden="true"><span class="matrix_link_title">ThingSpeak</span></a></li><li class=""><a class="svg_link" href="https://www.mathworks.com/matlabcentral/" role="button" aria-label="Community" id="matrix_link_community"><img src="ref6_files/ico-matrix-community.svg" alt="community" aria-hidden="true"><span class="matrix_link_title">Community</span></a></li><li class=""><a class="svg_link" href="https://www.mathworks.com/support/bugreports/" role="button" aria-label="Bug Reports" id="matrix_link_bug_reports"><img src="ref6_files/ico-matrix-bugreports.svg" alt="bug_reports" aria-hidden="true"><span class="matrix_link_title">Bug Reports</span></a></li></ul></nav></div></header></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+</div>
+<!-- Mobile TopNav: End -->
+<!-- Desktop TopNav: Start -->
+<div class="header hidden-xs hidden-sm" id="header_desktop">
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9">
+					<div class="navbar-header">
+						<div class="logo_container hidden-xs hidden-sm">
+							<a href="https://www.mathworks.com/?s_tid=gn_logo" class="svg_link pull-left" tabindex="1">
+								<img src="ref6_files/pic-header-mathworks-logo.svg" class="mw_logo" alt="MathWorks">
+							</a>
+						</div>
+						<div class="navbar-collapse collapse hidden-xs hidden-sm">
+							
+							<div class="topNavigation topnavigation containsResourceName resourceClass-topnavigation">
+
+
+	<ul id="topnav" class="nav navbar-nav">
+		<li class="topnav_products ">
+			<a href="https://www.mathworks.com/products.html?s_tid=gn_ps" tabindex="2">Products</a>
+		</li>
+	
+		<li class="topnav_solutions ">
+			<a href="https://www.mathworks.com/solutions.html?s_tid=gn_sol" tabindex="2">Solutions</a>
+		</li>
+	
+		<li class="topnav_academia ">
+			<a href="https://www.mathworks.com/academia.html?s_tid=gn_acad" tabindex="2">Academia</a>
+		</li>
+	
+		<li class="topnav_support ">
+			<a href="https://www.mathworks.com/support.html?s_tid=gn_supp" tabindex="2">Support</a>
+		</li>
+	
+		<li class="topnav_community ">
+			<a href="https://www.mathworks.com/matlabcentral/?s_tid=gn_mlc" tabindex="2">Community</a>
+		</li>
+	
+		<li class="topnav_events ">
+			<a href="https://www.mathworks.com/company/events.html?s_tid=gn_ev" tabindex="2">Events</a>
+		</li>
+	</ul>
+	
+</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="headerNavigation headernavigation containsResourceName resourceClass-headernavigation">
+<div class="collapse navbar-collapse" id="headernav_collapse">
+	<ul class="nav navbar-nav navbar-right" id="headernav">
+		
+			<li class="headernav_store"><a href="https://www.mathworks.com/products/get-matlab.html?s_tid=gn_getml" class="btn btn_color_blue companion_btn btn-xs" tabindex="2">Get MATLAB</a></li>
+		
+		<li class="headernav_login" style="">
+	<a class="mwa-nav_login" tabindex="2" href="https://www.mathworks.com/login?uri=https%3A%2F%2Fwww.mathworks.com%2Fdiscovery%2Fdeep-learning.html"><span class="visible-xs visible-sm">Sign In <span class="sr-only">to Your MathWorks Account</span></span><span class="visible-lg visible-md"><span class="sr-only">Sign In to Your MathWorks Account</span></span></a>
+</li>
+<li class="headernav_logout dropdown" style="display: none;">
+	<a href="#" role="button" aria-haspopup="menu" aria-controls="mwa-nav" class="dropdown-toggle mwa_image_drop_down" data-toggle="dropdown" tabindex="2">
+		<span class="visible-xs visible-sm">
+			<span class="mobile_account_image sr-only">
+				Access your MathWorks Account
+			</span>
+			<span class="mobile_account_name" aria-hidden="true"></span>
+			<b class="caret"></b>
+		</span>
+	</a>
+	<ul role="menu" class="dropdown-menu" id="mwa-nav">
+		<li class="mwa-nav_account"><a role="menuitem" class="mwa-account" tabindex="2">My Account</a></li>
+		<li class="mwa-nav_community"><a role="menuitem" class="mwa-community-profile" tabindex="2">My Community Profile</a></li>
+		<li class="mwa-nav_associate"><a role="menuitem" class="mwa-link-license" tabindex="2">Link License</a></li>
+		<li class="mwa-nav_logout"><a role="menuitem" class="mwa-logout" tabindex="2">Sign Out</a>
+		</li>
+	</ul>
+</li>
+
+		<li id="headernav_matrix" class="headernav_matrix"><div id="wrapper"><button title="Matrix Menu" class="waffle" id="matrix_waffle_large" aria-label="Mathworks Menu" type="button"><span class="icon-matrix"></span></button><header class="App-header"><div class="matrix_container collapse" aria-describedby="matrix_title"><nav class="matrix_content"><h3 class="sr-only" id="matrix_title">MathWorks Matrix Menu</h3><ul class="list-unstyled matrix_links_primary"><li class=""><a class="svg_link" href="https://matlab.mathworks.com/" role="button" aria-label="MATLAB" id="matrix_link_matlab_home"><img src="ref6_files/ico-matrix-matlabonline.svg" alt="matlab_home" aria-hidden="true"><span class="matrix_link_title">MATLAB</span></a></li><li class=""><a class="svg_link" href="https://www.mathworks.com/help/" role="button" aria-label="Help Center" id="matrix_link_help_center"><img src="ref6_files/ico-matrix-helpcenter.svg" alt="help_center" aria-hidden="true"><span class="matrix_link_title">Help Center</span></a></li><li class=""><a class="svg_link" href="https://www.mathworks.com/" role="button" aria-label="MathWorks" id="matrix_link_mathworks_dotcom"><img src="ref6_files/ico-matrix-mathworks.svg" alt="mathworks_dotcom" aria-hidden="true"><span class="matrix_link_title">MathWorks</span></a></li></ul><ul class="list-unstyled matrix_links_secondary"><li class=""><a class="svg_link" href="https://www.mathworks.com/matlabcentral/answers/index" role="button" aria-label="Answers" id="matrix_link_answers"><img src="ref6_files/ico-matrix-answers.svg" alt="answers" aria-hidden="true"><span class="matrix_link_title">Answers</span></a></li><li class=""><a class="svg_link" href="https://www.mathworks.com/matlabcentral/fileexchange" role="button" aria-label="File Exchange" id="matrix_link_file_exchange"><img src="ref6_files/ico-matrix-fileexchange.svg" alt="file_exchange" aria-hidden="true"><span class="matrix_link_title">File Exchange</span></a></li><li class=""><a class="svg_link" href="https://www.mathworks.com/videos.html" role="button" aria-label="Videos" id="matrix_link_videos"><img src="ref6_files/ico-matrix-videos.svg" alt="videos" aria-hidden="true"><span class="matrix_link_title">Videos</span></a></li><li class=""><a class="svg_link" href="https://matlabacademy.mathworks.com/" role="button" aria-label="Online Training" id="matrix_link_online_training"><img src="ref6_files/ico-matrix-onlinetraining.svg" alt="online_training" aria-hidden="true"><span class="matrix_link_title">Online Training</span></a></li><li class=""><a class="svg_link" href="https://blogs.mathworks.com/" role="button" aria-label="Blogs" id="matrix_link_blogs"><img src="ref6_files/ico-matrix-blogs.svg" alt="blogs" aria-hidden="true"><span class="matrix_link_title">Blogs</span></a></li><li class=""><a class="svg_link" href="https://www.mathworks.com/matlabcentral/cody" role="button" aria-label="Cody" id="matrix_link_cody"><img src="ref6_files/ico-matrix-cody.svg" alt="cody" aria-hidden="true"><span class="matrix_link_title">Cody</span></a></li><li class=""><a class="svg_link" href="https://drive.matlab.com/" role="button" aria-label="MATLAB Drive" id="matrix_link_matlab_drive"><img src="ref6_files/ico-matrix-matlabdrive.svg" alt="matlab_drive" aria-hidden="true"><span class="matrix_link_title">MATLAB Drive</span></a></li><li class=""><a class="svg_link" href="https://grader.mathworks.com/" role="button" aria-label="MATLAB Grader" id="matrix_link_matlab_grader"><img src="ref6_files/ico-matrix-matlabgrader.svg" alt="matlab_grader" aria-hidden="true"><span class="matrix_link_title">MATLAB Grader</span></a></li><li class=""><a class="svg_link" href="https://thingspeak.com/" role="button" aria-label="ThingSpeak" id="matrix_link_thingspeak"><img src="ref6_files/ico-matrix-thingspeak.svg" alt="thingspeak" aria-hidden="true"><span class="matrix_link_title">ThingSpeak</span></a></li><li class=""><a class="svg_link" href="https://www.mathworks.com/matlabcentral/" role="button" aria-label="Community" id="matrix_link_community"><img src="ref6_files/ico-matrix-community.svg" alt="community" aria-hidden="true"><span class="matrix_link_title">Community</span></a></li><li class=""><a class="svg_link" href="https://www.mathworks.com/support/bugreports/" role="button" aria-label="Bug Reports" id="matrix_link_bug_reports"><img src="ref6_files/ico-matrix-bugreports.svg" alt="bug_reports" aria-hidden="true"><span class="matrix_link_title">Bug Reports</span></a></li></ul></nav></div></header></div></li>
+	</ul>
+</div></div>
+
+				</div>
+			</div>
+		</div>
+	</nav>
+</div>
+<!-- Desktop TopNav: End -->
+
+	<div class="sticky_header_container affix-top">
+		<!-- Section Header: Start -->
+		<div class="section_header level_3">
+			<div class="container">
+				<div class="row" id="mobile_search_row">
+					<div class="col-sm-6 col-md-7" id="section_header_title">
+						<div><div class="sectionHead sectionhead containsResourceName resourceClass-sectionhead">
+	<div class="section_header_content">
+		<div class="section_header_title">
+			<p class="h1">
+				
+				Deep Learning
+			</p>
+			
+			
+		</div>
+		
+	</div>
+</div>
+</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-5" id="mobile_search">
+						<div><div class="sectionHeadSearchBox sectionheadsearchbox containsResourceName resourceClass-sectionheadsearchbox">
+<div class="search_nested_content_container">
+	
+	<div id="search_scope_site" class="collapse in">
+		<form name="search" id="site_search" class="site_search" action="/search.html" method="get">
+			<div class="input-group">
+				<label id="search-mathworks" class="sr-only" for="query">Search MathWorks.com</label>
+				<input type="hidden" name="c[]" value="entire_site">
+				<input type="search" name="q" id="query" class="form-control conjoined_search" placeholder="Search MathWorks.com" autocomplete="off" data-site-domain="www" data-site-language="en" aria-labelledby="search-mathworks">
+				<div class="input-group-btn">
+					
+					<button type="submit" id="searchbutton" class="btn icon-search btn_search_adjacent btn_search icon_16" aria-label="Search"><span class="sr-only">Search</span></button>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+		<script>
+			$(".search_scope_trigger").click(function handlerSearch(event) {
+				var target1 = event.target.parentNode.attributes.getNamedItem("data-groupid").nodeValue;
+				$('#' + target1).removeClass("in");
+			});
+		</script>
+	
+
+</div>
+<button class="btn icon-remove btn_search pull-right icon_32 visible-xs" data-toggle="collapse" data-target="#mobile_search" aria-expanded="false" aria-controls="mobile_search"><span class="sr-only">Close Mobile Search</span>
+</button>
+
+</div>
+</div>
+					</div>
+					<div class="visible-xs" id="search_actuator">
+						<button class="btn icon-search btn_search pull-right icon_16 containsResourceName resourceClass-button" data-toggle="collapse" data-target="#mobile_search" aria-expanded="false" aria-controls="mobile_search"><span class="sr-only">Close Mobile Search</span></button>
+					</div>
+				</div>
+				<!-- Mobile Local Nav: Start -->
+				
+				<!-- Mobile Local Nav: End -->
+			</div>
+		</div>
+		
+	</div>
+
+
+
+	
+
+	
+
+	
+		
+		
+			
+			<div class="content_container" id="content_container" tabindex="-1">
+				
+					
+					<section><div class="mainParsys parsys containsResourceName resourceClass-parsys"><div class="cqBand containsResourceName section resourceClass-band">
+
+
+<div class="band add_background_cover add_display_table   section_upsize add_font_color_white " style="background-image: url(&quot;https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_189784273_copy/backgroundImage.adapt.fullx320.medium.jpg/1628494447457.jpg&quot;);">
+	
+	
+    
+<script src="ref6_files/adaptiveimage.js"></script>
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="" data-image="https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_189784273_copy/backgroundImage.adapt.[width].medium.jpg/1628494447457.jpg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium" data-backgroundimage="true">
+		
+	</div>
+
+	<div class="add_display_table_cell add_vertical_align_bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<div><div class="mainParsys parsys containsResourceName resourceClass-parsys"><div class="cqColumns containsResourceName section resourceClass-columns"><div class="row   text-center ">
+
+	
+		<div class=" col-xs-12"><div class="parsys containsResourceName resourceClass-parsys"><div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<p class="add_margin_40 hidden_xs">&nbsp;</p>
+<h1>What Is Deep Learning?</h1>
+<h2 class="add_margin_0">3 things you need to know</h2>
+
+</div>
+</div>
+
+</div>
+</div>
+	
+</div>
+</div>
+
+</div>
+</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="cqBand containsResourceName section resourceClass-band">
+
+
+<div class="band   ">
+	
+	
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<div><div class="mainParsys parsys containsResourceName resourceClass-parsys"><div class="cqColumns containsResourceName section resourceClass-columns"><div class="row   section_upsize ">
+
+	
+		<div class=" col-xs-12 col-md-8 col-md-offset-2"><div class="parsys containsResourceName resourceClass-parsys"><div class="text containsResourceName section resourceClass-text"><div class="mw-text add_margin_40  ">
+	<p class="section_upsize add_font_futura_book">Deep learning is a 
+machine learning technique that teaches computers to do what comes 
+naturally to humans: learn by example. Deep learning is a key technology
+ behind driverless cars, enabling them to recognize a stop sign, or to 
+distinguish a pedestrian from a lamppost. It is the key to voice control
+ in consumer devices like phones, tablets, TVs, and hands-free speakers.
+ Deep learning is getting lots of attention lately and for good reason. 
+It’s achieving results that were not possible before.</p>
+<p class="section_upsize add_font_futura_book">In deep learning, a 
+computer model learns to perform classification tasks directly from 
+images, text, or sound. Deep learning models can achieve 
+state-of-the-art accuracy, sometimes exceeding human-level performance. 
+Models are trained by using a large set of labeled data and neural 
+network architectures that contain many layers.</p>
+
+</div>
+</div>
+
+</div>
+</div>
+	
+</div>
+</div>
+<div class="cqColumns containsResourceName section resourceClass-columns"><div class="row add_margin_40  ">
+
+	
+		<div class=" col-xs-12 col-md-8 col-md-offset-2"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqColumns containsResourceName section resourceClass-columns"><div class="row add_margin_0  text-center add_equal_heights">
+
+	
+		<div class=" col-xs-12 col-sm-4"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqPanel containsResourceName resourceClass-panel section">
+
+
+<div class="panel panel-default add_margin_0 ">
+	
+
+	
+
+	
+
+	<div class="panel-body">
+		
+			
+			<div class="panelParsys parsys containsResourceName resourceClass-parsys"><div class="text containsResourceName section resourceClass-text"><div class="mw-text add_margin_0  ">
+	<h4 class="text-center  add_font_futura_book"><a title="whyitmatters" href="#whyitmatters" target="_self">Why It Matters</a></h4>
+</div>
+</div>
+
+</div>
+
+		
+	</div>
+
+	
+
+</div></div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-sm-4"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqPanel containsResourceName resourceClass-panel section">
+
+
+<div class="panel panel-default add_margin_0 ">
+	
+
+	
+
+	
+
+	<div class="panel-body">
+		
+			
+			<div class="panelParsys parsys containsResourceName resourceClass-parsys"><div class="text containsResourceName section resourceClass-text"><div class="mw-text add_margin_0  ">
+	<h4 class="text-center  add_font_futura_book"><a href="#howitworks" target="_self">How It Works</a></h4>
+</div>
+</div>
+
+</div>
+
+		
+	</div>
+
+	
+
+</div></div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-sm-4"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqPanel containsResourceName resourceClass-panel section">
+
+
+<div class="panel panel-default add_margin_0 ">
+	
+
+	
+
+	
+
+	<div class="panel-body">
+		
+			
+			<div class="panelParsys parsys containsResourceName resourceClass-parsys"><div class="text containsResourceName section resourceClass-text"><div class="mw-text add_margin_0  ">
+	<h4 class="text-center  add_font_futura_book"><a href="#withmatlab" target="_self">Deep Learning with MATLAB</a></h4>
+</div>
+</div>
+
+</div>
+
+		
+	</div>
+
+	
+
+</div></div>
+
+</div>
+</div>
+	
+</div>
+</div>
+
+</div>
+</div>
+	
+</div>
+</div>
+
+</div>
+</div>
+				</div>
+			</div>
+		</div>
+	
+</div>
+</div>
+<div class="cqBand containsResourceName section resourceClass-band">
+
+
+<div class="band add_padding_20   section_upsize ">
+	
+	
+		
+			<div class="row">
+				<div class="col-xs-12">
+					<div><div class="mainParsys parsys containsResourceName resourceClass-parsys"><div class="text containsResourceName section resourceClass-text"><div class="mw-text add_margin_0 add_margin_0_xs ">
+	<h2 class="h1 add_font_color_orange add_margin_0 add_center_rule text-center"><a name="whyitmatters"></a><span>Why Deep Learning Matters</span></h2>
+
+</div>
+</div>
+
+</div>
+</div>
+				</div>
+			</div>
+		
+	
+</div>
+</div>
+<div class="cqBand containsResourceName section resourceClass-band">
+
+
+<div class="band   section_upsize ">
+	
+	
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<div><div class="mainParsys parsys containsResourceName resourceClass-parsys"><div class="cqColumns containsResourceName section resourceClass-columns"><div class="row   ">
+
+	
+		<div class=" col-xs-12 col-md-10 col-md-offset-1"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqColumns containsResourceName section resourceClass-columns"><div class="row   ">
+
+	
+		<div class=" col-xs-12 col-sm-12 col-md-8"><div class="parsys containsResourceName resourceClass-parsys"><div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<h3>How does deep learning attain such impressive results?</h3>
+<p>In a word, accuracy. Deep learning achieves recognition accuracy at 
+higher levels than ever before. This helps consumer electronics meet 
+user expectations, and it is crucial for safety-critical applications 
+like driverless cars. Recent advances in deep learning have improved to 
+the point where deep learning outperforms humans in some tasks like 
+classifying objects in images.</p>
+<p>While deep learning was first theorized in the 1980s, there are two main reasons it has only recently become useful:</p>
+<ol>
+<li>Deep learning requires large amounts of <b>labeled data</b>. For example, driverless car development requires millions of images and thousands of hours of video.</li>
+<li>Deep learning requires substantial <b>computing power</b>. 
+High-performance GPUs have a parallel architecture that is efficient for
+ deep learning. When combined with clusters or cloud computing, this 
+enables development teams to reduce training time for a deep learning 
+network from weeks to hours or less.</li>
+</ol>
+
+</div>
+</div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-sm-6 col-md-4 section_downsize"><div class="parsys containsResourceName resourceClass-parsys"><div class="spotlight containsResourceName section resourceClass-spotlight">
+
+
+
+
+
+	<div class="panel panel-default add_cursor_pointer  ">
+		
+		<a href="https://www.mathworks.com/campaigns/offers/deep-learning-with-matlab.html" style="display:none;" tabindex="-1" data-link="lead" data-offertype="Deep Learning with MATLAB::Deep Learning with MATLAB::Live Chat for Introducing Deep Learning with MATLAB" data-component="spotlight">
+			Panel Navigation
+		</a>
+		<div class="panel-heading add_background_cover add_min_height_100" style="background-image: url(&quot;https://www.mathworks.com/campaigns/offers/deep-learning-with-matlab/_jcr_content/thumbnail.adapt.320x150.medium.jpg/1620316357372.jpg&quot;);">
+			
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="" data-image="https://www.mathworks.com/campaigns/offers/deep-learning-with-matlab/_jcr_content/thumbnail.adapt.[width].medium.jpg/1620316357372.jpg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium" data-backgroundimage="true">
+		
+	</div>
+
+		</div>
+		<div class="panel-body add_padding_30">
+			
+			
+			<div class="add_margin_5"><p class="category_label">
+				FREE EBOOK</p>
+			</div>
+			<p class="h4">
+				
+	
+	<a href="https://www.mathworks.com/campaigns/offers/deep-learning-with-matlab.html" data-link="lead" data-offertype="Deep Learning with MATLAB::Deep Learning with MATLAB::Live Chat for Introducing Deep Learning with MATLAB" data-component="spotlight" tabindex="-1">
+
+		
+
+		
+			
+			Introducing Deep Learning with MATLAB</a>
+
+			</p>
+			
+			
+	
+	
+		
+	
+	
+	
+	
+	
+	<a href="https://www.mathworks.com/campaigns/offers/deep-learning-with-matlab.html" class="icon-chevron add_margin_0 " data-link="lead" data-offertype="Deep Learning with MATLAB::Deep Learning with MATLAB::Live Chat for Introducing Deep Learning with MATLAB" data-component="spotlight" tabindex="-1">
+
+		
+
+		
+			
+			Download ebook</a>
+
+
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+	
+</div>
+</div>
+<div class="cqColumns containsResourceName section resourceClass-columns"><div class="row   ">
+
+	
+		<div class=" col-xs-12 col-sm-12 col-md-8"><div class="parsys containsResourceName resourceClass-parsys"><div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<h3>Examples of Deep Learning at Work</h3>
+<p>Deep learning applications are used in industries from automated driving to medical devices.</p>
+<p>Automated Driving:&nbsp;Automotive researchers are using deep 
+learning to automatically detect objects such as stop signs and traffic 
+lights. In addition, deep learning is used to detect pedestrians, which 
+helps decrease accidents.</p>
+<p>Aerospace and Defense:&nbsp;Deep learning is used to identify objects
+ from satellites that locate areas of interest, and identify safe or 
+unsafe zones for troops.</p>
+<p>Medical Research:&nbsp;Cancer researchers are using deep learning to 
+automatically detect cancer cells. Teams at UCLA built an advanced 
+microscope that yields a high-dimensional data set used to train a deep 
+learning application to accurately identify cancer cells.</p>
+<p>Industrial Automation:&nbsp;Deep learning is helping to improve 
+worker safety around heavy machinery by automatically detecting when 
+people or objects are within an unsafe distance of machines.</p>
+<p>Electronics:&nbsp;Deep learning is being used in automated hearing 
+and speech translation. For example, home assistance devices that 
+respond to your voice and know your preferences are powered by deep 
+learning applications.</p>
+
+</div>
+</div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-sm-6 col-md-4 section_downsize"><div class="parsys containsResourceName resourceClass-parsys"><div class="spotlight containsResourceName section resourceClass-spotlight">
+
+
+
+
+
+	<div class="panel panel-default add_cursor_pointer  ">
+		
+		<a href="https://explore.mathworks.com/deep-learning-knowledge-quiz" style="display:none;" tabindex="-1">
+			Panel Navigation
+		</a>
+		<div class="panel-heading add_background_cover add_min_height_100" style="background-image: url(&quot;https://www.mathworks.com/campaigns/offers/shared-content/how-much-do-you-know-about-deep-learning/_jcr_content/thumbnail.adapt.320x150.medium.jpg/1620018045212.jpg&quot;);">
+			
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="" data-image="https://www.mathworks.com/campaigns/offers/shared-content/how-much-do-you-know-about-deep-learning/_jcr_content/thumbnail.adapt.[width].medium.jpg/1620018045212.jpg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium" data-backgroundimage="true">
+		
+	</div>
+
+		</div>
+		<div class="panel-body add_padding_30">
+			
+			
+			<div class="add_margin_5">
+			</div>
+			<p class="h4">
+				
+	
+	<a href="https://explore.mathworks.com/deep-learning-knowledge-quiz" tabindex="-1">
+
+		
+
+		
+			
+			How much do you know about deep learning?</a>
+
+			</p>
+			
+			
+	
+	
+		
+	
+	
+	
+	
+	
+	<a href="https://explore.mathworks.com/deep-learning-knowledge-quiz" class="icon-chevron add_margin_0 " tabindex="-1">
+
+		
+
+		
+			
+			Start quiz</a>
+
+
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+	
+</div>
+</div>
+
+</div>
+</div>
+	
+</div>
+</div>
+
+</div>
+</div>
+				</div>
+			</div>
+		</div>
+	
+</div>
+</div>
+<div class="cqBand containsResourceName section resourceClass-band">
+
+
+<div class="band add_padding_20   section_upsize ">
+	
+	
+		
+			<div class="row">
+				<div class="col-xs-12">
+					<div><div class="mainParsys parsys containsResourceName resourceClass-parsys"><div class="text containsResourceName section resourceClass-text"><div class="mw-text add_margin_0 add_margin_0_xs ">
+	<h2 class="h1 add_font_color_orange add_margin_0 add_center_rule text-center" name="howitworks"><span>How Deep Learning Works</span></h2>
+
+</div>
+</div>
+
+</div>
+</div>
+				</div>
+			</div>
+		
+	
+</div>
+</div>
+<div class="cqBand containsResourceName section resourceClass-band">
+
+
+<div class="band   section_upsize ">
+	
+	
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<div><div class="mainParsys parsys containsResourceName resourceClass-parsys"><div class="cqColumns containsResourceName section resourceClass-columns"><div class="row   ">
+
+	
+		<div class=" col-xs-12 col-md-10 col-md-offset-1"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqColumns containsResourceName section resourceClass-columns"><div class="row   ">
+
+	
+		<div class=" col-xs-12 col-sm-12 col-md-8"><div class="parsys containsResourceName resourceClass-parsys"><div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<p>Most deep learning methods use <b><a href="https://www.mathworks.com/discovery/neural-network.html" target="_self">neural network</a></b> architectures, which is why deep learning models are often referred to as <b>deep neural networks</b>.</p>
+<p>The term “deep” usually refers to the number of hidden layers in the neural network. <a href="https://www.mathworks.com/videos/getting-started-with-neural-networks-using-matlab-1591081815576.html">Traditional neural networks</a> only contain 2-3 hidden layers, while deep networks can have as many as 150.</p>
+<p>Deep learning models are trained by using large sets of labeled data 
+and neural network architectures that learn features directly from the 
+data without the need for manual feature extraction.</p>
+
+</div>
+</div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-sm-6 col-md-4 section_downsize"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqThumbnail containsResourceName resourceClass-thumbnail section"><script type="text/javascript">
+	$(document).ready(function () {
+		if (document.cookie.indexOf('video-reg') !== -1) {
+			//target dom span class
+			$('.icon-video-locked').css('display', 'none');
+		}
+	});
+</script>
+
+
+
+
+
+
+
+
+
+	<div class="thumbnail thumbnail_asset asset_overlay add_margin_20  ">
+		<div class="row">
+			
+			
+			
+			<div class="col-xs-12">
+				
+	<div class="add_margin_5">
+		
+		
+	
+	
+	
+	<a href="https://www.mathworks.com/videos/ai-for-engineers-building-an-ai-system-1603356830725.html" title="Get an overview of how engineers can build an AI system, and learn about the ways in which artificial intelligence fits into an engineering workflow.">
+
+		
+			<span class="sr-only">Deep Learning and Traditional Machine Learning: Choosing the Right Approach.</span>
+			
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="" data-class="fluid_image" data-image="https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_2123350969_copy_1983242569/mainParsys/columns_1635259577/1/columns_1433445209_c_860958964/2/thumbnail_copy.adapt.[width].medium.jpg/1621572640991.jpg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium">
+		<noscript>
+			
+			
+				<img src='https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_2123350969_copy_1983242569/mainParsys/columns_1635259577/1/columns_1433445209_c_860958964/2/thumbnail_copy.adapt.full.medium.jpg/1621572640991.jpg' alt='' class="fluid_image"/>
+			
+		</noscript>
+	<img alt="" class="fluid_image responsiveImage" loading="lazy" src="ref6_files/1621572640991.jpg"></div>
+
+			
+			<div class="overlay_container text-center" style="font-size: 12.2917px; padding: 2.04861px;">
+				<span class="icon-video add_icon_color_white"><span class="video_length" aria-hidden="true" style="font-size: 12.2917px;">3:40</span>
+					<span class="sr-only">Video length is 3:40.</span>
+				</span>
+			</div>
+			
+		
+
+		</a>
+
+
+	</div>
+
+				
+	<div class="asset_title">
+		
+		
+	
+	
+	
+	<a href="https://www.mathworks.com/videos/ai-for-engineers-building-an-ai-system-1603356830725.html">
+
+		
+
+		
+			<span></span>
+			Deep Learning and Traditional Machine Learning: Choosing the Right Approach<span class="video_length series"></span></a>
+
+
+		
+	</div>
+	
+	
+	
+
+			</div>
+			
+			
+			
+			
+		</div>
+	</div>
+
+
+
+</div>
+
+</div>
+</div>
+	
+</div>
+</div>
+<div class="cqImage containsResourceName section resourceClass-image">
+
+
+
+
+
+	
+	
+	<div class="clearfix mw-image thumbnail      ">
+
+		
+		
+
+		
+		
+
+		
+		
+
+	
+	
+	
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="Figure 1. Neural networks, which are organized in layers consisting of a set of interconnected nodes. Networks can have tens or hundreds of hidden layers." data-title="Figure 1. Neural networks, which are organized in layers consisting of a set of interconnected nodes. Networks can have tens or hundreds of hidden layers." data-class=" remove_border" data-image="https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_2123350969_copy_1983242569/mainParsys/columns_1635259577/1/image_2128876021_cop_1731669336.adapt.[width].medium.svg/1628494449189.svg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium">
+		<noscript>
+			
+				<img src='https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_2123350969_copy_1983242569/mainParsys/columns_1635259577/1/image_2128876021_cop_1731669336.adapt.full.medium.svg/1628494449189.svg' alt='Figure 1. Neural networks, which are organized in layers consisting of a set of interconnected nodes. Networks can have tens or hundreds of hidden layers.' title="Figure 1. Neural networks, which are organized in layers consisting of a set of interconnected nodes. Networks can have tens or hundreds of hidden layers." class=" remove_border" data-aem-src="/content/dam/mathworks/mathworks-dot-com/images/responsive/supporting/discovery/deeplearning-neural-network-weights-biases.svg"/>
+			
+			
+		</noscript>
+	<img alt="Figure 1. Neural networks, which are organized in layers consisting of a set of interconnected nodes. Networks can have tens or hundreds of hidden layers." title="Figure 1. Neural networks, which are organized in layers consisting of a set of interconnected nodes. Networks can have tens or hundreds of hidden layers." class="remove_border responsiveImage" loading="lazy" src="ref6_files/1628494449189.svg"></div>
+
+
+	
+
+
+		<div class="caption">
+			<p>Figure 1: Neural networks, which are organized in layers 
+consisting of a set of interconnected nodes. Networks can have tens or 
+hundreds of hidden layers.</p>
+
+		</div>
+
+	</div>
+
+
+
+
+
+</div>
+<div class="text containsResourceName section resourceClass-text"><div class="mw-text add_margin_40  ">
+	<p>One of the most popular types of deep neural networks is known as <a href="https://www.mathworks.com/discovery/convolutional-neural-network-matlab.html">convolutional neural networks</a><b> (CNN</b> or<b> ConvNet)</b>.
+ A CNN convolves learned features with input data, and uses 2D 
+convolutional layers, making this architecture well suited to processing
+ 2D data, such as images.</p>
+<p>CNNs eliminate the need for manual <a href="https://www.mathworks.com/discovery/feature-extraction.html">feature extraction</a>,
+ so you do not need to identify features used to classify images. The 
+CNN works by extracting features directly from images. The relevant 
+features are not pretrained; they are learned while the network trains 
+on a collection of images. This automated feature extraction makes deep 
+learning models highly accurate for computer vision tasks such as object
+ classification.</p>
+
+</div>
+</div>
+<div class="cqImage containsResourceName section resourceClass-image">
+
+
+
+
+
+	
+	
+	<div class="clearfix mw-image thumbnail      ">
+
+		
+		
+
+		
+		
+
+		
+		
+
+	
+	
+	
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="Figure 2. Example of a network with many convolutional layers. Filters are applied to each training image at different resolutions, and the output of each convolved image serves as the input to the next layer. " data-title="Figure 2. Example of a network with many convolutional layers. Filters are applied to each training image at different resolutions, and the output of each convolved image serves as the input to the next layer. " data-class=" remove_border" data-image="https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_2123350969_copy_1983242569/mainParsys/columns_1635259577/1/image_2128876021_cop.adapt.[width].medium.svg/1628494449219.svg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium">
+		<noscript>
+			
+				<img src='https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_2123350969_copy_1983242569/mainParsys/columns_1635259577/1/image_2128876021_cop.adapt.full.medium.svg/1628494449219.svg' alt='Figure 2. Example of a network with many convolutional layers. Filters are applied to each training image at different resolutions, and the output of each convolved image serves as the input to the next layer. ' title="Figure 2. Example of a network with many convolutional layers. Filters are applied to each training image at different resolutions, and the output of each convolved image serves as the input to the next layer. " class=" remove_border" data-aem-src="/content/dam/mathworks/mathworks-dot-com/images/responsive/supporting/discovery/deeplearning-image-classification.svg"/>
+			
+			
+		</noscript>
+	<img alt="Figure 2. Example of a network with many convolutional layers. Filters are applied to each training image at different resolutions, and the output of each convolved image serves as the input to the next layer. " title="Figure 2. Example of a network with many convolutional layers. Filters are applied to each training image at different resolutions, and the output of each convolved image serves as the input to the next layer. " class="remove_border responsiveImage" loading="lazy" src="ref6_files/1628494449219.svg"></div>
+
+
+	
+
+
+		<div class="caption">
+			<p>Figure 2: Example of a network with many convolutional layers. 
+Filters are applied to each training image at different resolutions, and
+ the output of each convolved image serves as the input to the next 
+layer.</p>
+
+		</div>
+
+	</div>
+
+
+
+
+
+</div>
+<div class="text containsResourceName section resourceClass-text"><div class="mw-text add_margin_40  ">
+	<p>CNNs learn to detect different features of an image using tens or 
+hundreds of hidden layers. Every hidden layer increases the complexity 
+of the learned image features. For example, the first hidden layer could
+ learn how to detect edges, and the last learns how to detect more 
+complex shapes specifically catered to the shape of the object we are 
+trying to recognize.</p>
+<h3>What's the Difference Between Machine Learning and Deep Learning?</h3>
+<p>Deep learning is a specialized form of machine learning. A machine 
+learning workflow starts with relevant features being manually extracted
+ from images. The features are then used to create a model that 
+categorizes the objects in the image. With a deep learning workflow, 
+relevant features are automatically extracted from images. In addition, 
+deep learning performs “end-to-end learning” – where a network is given 
+raw data and a task to perform, such as classification, and it learns 
+how to do this automatically.</p>
+<p>Another key difference is deep learning algorithms scale with data, 
+whereas shallow learning converges. Shallow learning refers to machine 
+learning methods that plateau at a certain level of performance when you
+ add more examples and training data to the network.</p>
+<p>A key advantage of deep learning networks is that they often continue to improve as the size of your data increases.</p>
+
+</div>
+</div>
+<div class="cqImage containsResourceName section resourceClass-image">
+
+
+
+
+
+	
+	
+	<div class="clearfix mw-image thumbnail      ">
+
+		
+		
+
+		
+		
+
+		
+		
+
+	
+	
+	
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="Figure 3. Comparing a machine learning approach to categorizing vehicles (left) with deep learning (right)." data-title="Figure 3. Comparing a machine learning approach to categorizing vehicles (left) with deep learning (right)." data-class=" remove_border" data-image="https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_2123350969_copy_1983242569/mainParsys/columns_1635259577/1/image_792810770_copy.adapt.[width].medium.svg/1628494449249.svg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium">
+		<noscript>
+			
+				<img src='https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_2123350969_copy_1983242569/mainParsys/columns_1635259577/1/image_792810770_copy.adapt.full.medium.svg/1628494449249.svg' alt='Figure 3. Comparing a machine learning approach to categorizing vehicles (left) with deep learning (right).' title="Figure 3. Comparing a machine learning approach to categorizing vehicles (left) with deep learning (right)." class=" remove_border" data-aem-src="/content/dam/mathworks/mathworks-dot-com/images/responsive/supporting/discovery/deeplearning-machine-vs-deep-learning.svg"/>
+			
+			
+		</noscript>
+	<img alt="Figure 3. Comparing a machine learning approach to categorizing vehicles (left) with deep learning (right)." title="Figure 3. Comparing a machine learning approach to categorizing vehicles (left) with deep learning (right)." class="remove_border responsiveImage" loading="lazy" src="ref6_files/1628494449249.svg"></div>
+
+
+	
+
+
+		<div class="caption">
+			<p>Figure 3. Comparing a machine learning approach to categorizing vehicles (left) with deep learning (right).</p>
+
+		</div>
+
+	</div>
+
+
+
+
+
+</div>
+<div class="text containsResourceName section resourceClass-text"><div class="mw-text add_margin_20  ">
+	<p>In machine learning, you manually choose features and a classifier 
+to sort images. With deep learning, feature extraction and modeling 
+steps are automatic.<br>
+</p>
+
+</div>
+</div>
+<div class="actionlink containsResourceName section resourceClass-actionlink">
+
+
+
+	
+	
+	
+	
+	
+	<a href="https://www.mathworks.com/videos/object-recognition-deep-learning-and-machine-learning-for-computer-vision-121144.html" class="add_margin_20   icon-chevron icon-video add_icon_color_null null  ">
+
+		
+
+		
+			<span></span>
+			Object Recognition: Deep Learning and Machine Learning for Computer Vision<span class="video_length series"> (26:57)</span></a>
+
+
+
+
+</div>
+<div class="actionlink containsResourceName section resourceClass-actionlink">
+
+
+
+	
+	
+	
+	
+	
+	<a href="https://www.mathworks.com/videos/introduction-to-deep-learning-what-are-convolutional-neural-networks--1489512765771.html" class="add_margin_20   icon-chevron icon-video add_icon_color_null null  ">
+
+		
+
+		
+			<span></span>
+			Introduction to Deep Learning: What Are Convolutional Neural Networks?<span class="video_length series"> (4:44)</span></a>
+
+
+
+
+</div>
+<div class="cqColumns containsResourceName section resourceClass-columns"><div class="row   ">
+
+	
+		<div class=" col-xs-12 col-sm-12 col-md-8"><div class="parsys containsResourceName resourceClass-parsys"><div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<h3>Choosing Between Machine Learning and Deep Learning</h3>
+<p>Machine learning offers a variety of techniques and models you can 
+choose based on your application, the size of data you're processing, 
+and the type of problem you want to solve. A successful deep learning 
+application requires a very large amount of data (thousands of images) 
+to train the model, as well as <a href="https://www.mathworks.com/solutions/gpu-computing.html">GPUs, or graphics processing units</a>, to rapidly process your data.</p>
+<p>When choosing between machine learning and deep learning, consider 
+whether you have a high-performance GPU and lots of labeled data. If you
+ don’t have either of those things, it may make more sense to use 
+machine learning instead of deep learning. Deep learning is generally 
+more complex, so you’ll need at least a few thousand images to get 
+reliable results. Having a high-performance GPU means the model will 
+take less time to analyze all those images.</p>
+
+</div>
+</div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-sm-6 col-md-4 section_downsize"><div class="parsys containsResourceName resourceClass-parsys"><div class="spotlight containsResourceName section resourceClass-spotlight">
+
+
+
+
+
+	<div class="panel panel-default add_cursor_pointer  ">
+		
+		<a href="https://www.mathworks.com/campaigns/offers/deep-learning-vs-machine-learning-algorithm.html" style="display:none;" tabindex="-1" data-link="lead" data-offertype="Deep Learning vs. Machine Learning: Choosing the Best Approach::Deep Learning vs. Machine Learning: Choosing the Best Approach::Live Chat for Deep Learning vs. Machine Learning: Choosing the Best Approach" data-component="spotlight">
+			Panel Navigation
+		</a>
+		<div class="panel-heading add_background_cover add_min_height_100" style="background-image: url(&quot;https://www.mathworks.com/campaigns/offers/deep-learning-vs-machine-learning-algorithm/_jcr_content/thumbnail.adapt.320x150.medium.jpg/1620317451365.jpg&quot;);">
+			
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="" data-image="https://www.mathworks.com/campaigns/offers/deep-learning-vs-machine-learning-algorithm/_jcr_content/thumbnail.adapt.[width].medium.jpg/1620317451365.jpg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium" data-backgroundimage="true">
+		
+	</div>
+
+		</div>
+		<div class="panel-body add_padding_30">
+			
+			
+			<div class="add_margin_5">
+			</div>
+			<p class="h4">
+				
+	
+	<a href="https://www.mathworks.com/campaigns/offers/deep-learning-vs-machine-learning-algorithm.html" data-link="lead" data-offertype="Deep Learning vs. Machine Learning: Choosing the Best Approach::Deep Learning vs. Machine Learning: Choosing the Best Approach::Live Chat for Deep Learning vs. Machine Learning: Choosing the Best Approach" data-component="spotlight" tabindex="-1">
+
+		
+
+		
+			
+			Deep Learning and Traditional Machine Learning: Choosing the Right Approach</a>
+
+			</p>
+			
+			
+	
+	
+		
+	
+	
+	
+	
+	
+	<a href="https://www.mathworks.com/campaigns/offers/deep-learning-vs-machine-learning-algorithm.html" class="icon-chevron add_margin_0 " data-link="lead" data-offertype="Deep Learning vs. Machine Learning: Choosing the Best Approach::Deep Learning vs. Machine Learning: Choosing the Best Approach::Live Chat for Deep Learning vs. Machine Learning: Choosing the Best Approach" data-component="spotlight" tabindex="-1">
+
+		
+
+		
+			
+			Read ebook</a>
+
+
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+	
+</div>
+</div>
+<div class="text containsResourceName section resourceClass-text"><div class="mw-text add_margin_20  ">
+	<h3>How to Create and Train Deep Learning Models</h3>
+<p>The three most common ways people use deep learning to perform object classification are:</p>
+<p><b>Training from Scratch</b></p>
+<p>To train a deep network from scratch, you gather a very large labeled
+ data set and design a network architecture that will learn the features
+ and model. This is good for new applications, or applications that will
+ have a large number of output categories. This is a less common 
+approach because with the large amount of data and rate of learning, 
+these networks typically take days or weeks to train.</p>
+
+</div>
+</div>
+<div class="actionlink containsResourceName section resourceClass-actionlink">
+
+
+
+	
+	
+	
+	
+	
+	<a href="https://www.mathworks.com/videos/deep-learning-in-11-lines-of-matlab-code-1481229977318.html" class="add_margin_20   icon-chevron icon-video add_icon_color_null null  ">
+
+		
+
+		
+			<span></span>
+			Deep Learning with MATLAB: Deep Learning in 11 Lines of MATLAB Code<span class="video_length series"> (2:38)</span></a>
+
+
+
+
+</div>
+<div class="text containsResourceName section resourceClass-text"><div class="mw-text add_margin_20  ">
+	<p><b>Transfer Learning</b></p>
+<p>Most deep learning applications use the <a href="https://www.mathworks.com/discovery/transfer-learning.html">transfer learning</a>
+ approach, a process that involves fine-tuning a pretrained model. You 
+start with an existing network, such as AlexNet or GoogLeNet, and feed 
+in new data containing previously unknown classes. After making some 
+tweaks to the network, you can now perform a new task, such as 
+categorizing only dogs or cats instead of 1000 different objects. This 
+also has the advantage of needing much less data (processing thousands 
+of images, rather than millions), so computation time drops to minutes 
+or hours.</p>
+<p>Transfer learning requires an interface to the internals of the 
+pre-existing network, so it can be surgically modified and enhanced for 
+the new task. <a href="https://www.mathworks.com/products/matlab.html">MATLAB<sup>®</sup></a> has tools and functions designed to help you do transfer learning.</p>
+
+</div>
+</div>
+<div class="actionlink containsResourceName section resourceClass-actionlink">
+
+
+
+	
+	
+	
+	
+	
+	<a href="https://www.mathworks.com/videos/deep-learning-with-matlab-transfer-learning-in-10-lines-of-matlab-code-1487714838381.html" class="add_margin_20   icon-chevron icon-video add_icon_color_null null  ">
+
+		
+
+		
+			<span></span>
+			Deep Learning with MATLAB: Transfer Learning in 10 Lines of MATLAB Code<span class="video_length series"> (3:59)</span></a>
+
+
+
+
+</div>
+<div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<p><b>Feature Extraction</b></p> 
+<p>A slightly less common, more specialized approach to deep learning is to use the network as a&nbsp;<b>feature extractor</b>.
+ Since all the layers are tasked with learning certain features from 
+images, we can pull these features out of the network at any time during
+ the training process. These features can then be used as input to 
+a&nbsp;<a href="https://www.mathworks.com/solutions/machine-learning.html">machine learning model</a>&nbsp;such as&nbsp;<a href="https://www.mathworks.com/discovery/support-vector-machine.html">support vector machines (SVM)</a>.</p> 
+<h3>Accelerating Deep Learning Models with GPUs</h3> 
+<p>Training a deep learning model can take a long time, from days to 
+weeks. Using GPU acceleration can speed up the process significantly. 
+Using MATLAB with a GPU reduces the time required to train a network and
+ can cut the training time for an image classification problem from days
+ down to hours. In training deep learning models, MATLAB uses GPUs (when
+ available) without requiring you to understand how to program GPUs 
+explicitly.</p>
+</div>
+</div>
+<div class="cqColumns containsResourceName section resourceClass-columns"><div class="row   ">
+
+	
+		<div class=" col-xs-12 col-md-8 col-lg-6"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqImage containsResourceName section resourceClass-image">
+
+
+
+
+
+	
+	
+	<div class="clearfix mw-image thumbnail      ">
+
+		
+		
+
+		
+		
+
+		
+		
+
+	
+	
+	
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="Figure 4. Deep Learning Toolbox commands for training your own CNN from scratch or using a pretrained model for transfer learning." data-title="Figure 4. Deep Learning Toolbox commands for training your own CNN from scratch or using a pretrained model for transfer learning." data-class=" remove_border" data-image="https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_2123350969_copy_1983242569/mainParsys/columns_1635259577/1/columns_704985006/1/image_2109075398_cop.adapt.[width].medium.svg/1628494449602.svg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium">
+		<noscript>
+			
+				<img src='https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_2123350969_copy_1983242569/mainParsys/columns_1635259577/1/columns_704985006/1/image_2109075398_cop.adapt.full.medium.svg/1628494449602.svg' alt='Figure 4. Deep Learning Toolbox commands for training your own CNN from scratch or using a pretrained model for transfer learning.' title="Figure 4. Deep Learning Toolbox commands for training your own CNN from scratch or using a pretrained model for transfer learning." class=" remove_border" data-aem-src="/content/dam/mathworks/mathworks-dot-com/images/responsive/supporting/discovery/deeplearning-neuralnetworktb-cnn.svg"/>
+			
+			
+		</noscript>
+	<img alt="Figure 4. Deep Learning Toolbox commands for training your own CNN from scratch or using a pretrained model for transfer learning." title="Figure 4. Deep Learning Toolbox commands for training your own CNN from scratch or using a pretrained model for transfer learning." class="remove_border responsiveImage" loading="lazy" src="ref6_files/1628494449602.svg"></div>
+
+
+	
+
+
+		<div class="caption">
+			<p>Figure 4. Deep Learning Toolbox commands for training your own CNN
+ from scratch or using a pretrained model for transfer learning.</p>
+
+		</div>
+
+	</div>
+
+
+
+
+
+</div>
+
+</div>
+</div>
+	
+</div>
+</div>
+
+</div>
+</div>
+	
+</div>
+</div>
+
+</div>
+</div>
+				</div>
+			</div>
+		</div>
+	
+</div>
+</div>
+<div class="cqBand containsResourceName section resourceClass-band">
+
+
+<div class="band add_background_color_gray add_margin_60  section_upsize ">
+	
+	
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<div><div class="mainParsys parsys containsResourceName resourceClass-parsys"><div class="cqColumns containsResourceName section resourceClass-columns"><div class="row   ">
+
+	
+		<div class=" col-xs-12 col-md-10 col-md-offset-1"><div class="parsys containsResourceName resourceClass-parsys"><div class="text containsResourceName section resourceClass-text"><div class="mw-text add_margin_40  ">
+	<h2 class="text-center">Deep Learning Applications</h2>
+<p>Pretrained deep neural network models can be used to quickly apply 
+deep learning to your problems by performing transfer learning or 
+feature extraction. For MATLAB users, some available models include 
+AlexNet, VGG-16, and VGG-19, as well as Caffe models (for example, from 
+Caffe Model Zoo) imported using importCaffeNetwork.</p>
+
+</div>
+</div>
+<div class="cqPanel containsResourceName resourceClass-panel section">
+
+
+<div class="panel panel-default add_background_color_white   add_padding_20 section_downsize">
+	
+
+	
+
+	
+
+	<div class="panel-body">
+		
+			
+			<div class="panelParsys parsys containsResourceName resourceClass-parsys"><div class="cqImage containsResourceName section resourceClass-image">
+
+
+
+
+
+	
+	
+	<div class="clearfix mw-image thumbnail      col-sm-6 col-md-5 col-lg-5 pull-right add_indent_15 add_margin_15">
+
+		
+		
+
+		
+		
+
+		
+		
+
+	
+	
+	
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="117044_wl_Rutgers_fig1_wl.jpg" data-class="fluid_image remove_border" data-image="https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_copy_1918174607/mainParsys/columns/1/panel_896931235_copy/panelParsys/image.adapt.[width].medium.png/1628494449911.png" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium">
+		<noscript>
+			
+				<img src='https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_copy_1918174607/mainParsys/columns/1/panel_896931235_copy/panelParsys/image.adapt.full.medium.png/1628494449911.png' alt='117044_wl_Rutgers_fig1_wl.jpg' class="fluid_image remove_border" data-aem-src="/content/dam/mathworks/mathworks-dot-com/images/responsive/supporting/discovery/recognize_objects_webcam.png"/>
+			
+			
+		</noscript>
+	<img alt="117044_wl_Rutgers_fig1_wl.jpg" class="fluid_image remove_border responsiveImage" loading="lazy" src="ref6_files/1628494449911.png"></div>
+
+
+	
+
+
+		
+
+	</div>
+
+
+
+
+
+</div>
+<div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<h3>Use AlexNet to Recognize Objects with Your Webcam</h3>
+<p>Use MATLAB, a simple webcam, and a deep neural network to identify objects in your surroundings.</p>
+
+</div>
+</div>
+<div class="actionlink containsResourceName section resourceClass-actionlink">
+
+
+
+	
+	
+	
+	
+	
+	<a href="https://www.mathworks.com/matlabcentral/fileexchange/60659-deep-learning-in-11-lines-of-matlab-code" class="add_margin_0  icon-chevron  null add_icon_color_null null  ">
+
+		
+
+		
+			
+			Learn more</a>
+
+
+
+
+</div>
+
+</div>
+
+		
+	</div>
+
+	
+
+</div></div>
+<div class="cqPanel containsResourceName resourceClass-panel section">
+
+
+<div class="panel panel-default add_background_color_white   add_padding_20 section_downsize">
+	
+
+	
+
+	
+
+	<div class="panel-body">
+		
+			
+			<div class="panelParsys parsys containsResourceName resourceClass-parsys"><div class="cqImage containsResourceName section resourceClass-image">
+
+
+
+
+
+	
+	
+	<div class="clearfix mw-image thumbnail      col-sm-6 col-md-5 col-lg-5 pull-right add_indent_15 add_margin_15">
+
+		
+		
+
+		
+		
+
+		
+		
+
+	
+	
+	
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="Detecting Low-Speed Car Crashes" data-class="fluid_image remove_border" data-image="https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_copy_1918174607/mainParsys/columns/1/panel_896931235_copy_1683195252/panelParsys/image.adapt.[width].medium.png/1628494450089.png" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium">
+		<noscript>
+			
+				<img src='https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_copy_1918174607/mainParsys/columns/1/panel_896931235_copy_1683195252/panelParsys/image.adapt.full.medium.png/1628494450089.png' alt='Detecting Low-Speed Car Crashes' class="fluid_image remove_border" data-aem-src="/content/dam/mathworks/mathworks-dot-com/images/responsive/supporting/discovery/object_detection_deep_learning.png"/>
+			
+			
+		</noscript>
+	<img alt="Detecting Low-Speed Car Crashes" class="fluid_image remove_border responsiveImage" loading="lazy" src="ref6_files/1628494450089.png"></div>
+
+
+	
+
+
+		
+
+	</div>
+
+
+
+
+
+</div>
+<div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<h3>Example: Object Detection Using Deep Learning</h3>
+<p>In addition to <a href="https://www.mathworks.com/solutions/image-video-processing/object-recognition.html">object recognition</a>, which identifies a specific object in an image or video, deep learning can also be used for <b>object detection</b>. <a href="https://www.mathworks.com/discovery/object-detection.html">Object detection</a>&nbsp;algorithms like YOLO can recognize and locate the object in a scene, and can locate multiple objects within the image.</p>
+
+</div>
+</div>
+<div class="actionlink containsResourceName section resourceClass-actionlink">
+
+
+
+	
+	
+	
+	
+	
+	<a href="https://github.com/matlab-deep-learning/Object-Detection-Using-YOLO-v2-Deep-Learning" class="add_margin_20   icon-chevron null add_icon_color_null null  " target="_blank">
+
+		
+
+		
+			
+			See example</a>
+
+
+
+
+</div>
+
+</div>
+
+		
+	</div>
+
+	
+
+</div></div>
+
+</div>
+</div>
+	
+</div>
+</div>
+
+</div>
+</div>
+				</div>
+			</div>
+		</div>
+	
+</div>
+</div>
+<div class="cqBand containsResourceName section resourceClass-band">
+
+
+<div class="band add_padding_20   section_upsize ">
+	
+	
+		
+			<div class="row">
+				<div class="col-xs-12">
+					<div><div class="mainParsys parsys containsResourceName resourceClass-parsys"><div class="text containsResourceName section resourceClass-text"><div class="mw-text add_margin_0 add_margin_0_xs ">
+	<h2 class="h1 add_font_color_orange add_margin_0 add_center_rule text-center"><a name="withmatlab"></a><span>Deep Learning with MATLAB</span></h2>
+
+</div>
+</div>
+
+</div>
+</div>
+				</div>
+			</div>
+		
+	
+</div>
+</div>
+<div class="cqBand containsResourceName section resourceClass-band">
+
+
+<div class="band   section_upsize ">
+	
+	
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<div><div class="mainParsys parsys containsResourceName resourceClass-parsys"><div class="cqColumns containsResourceName section resourceClass-columns"><div class="row   ">
+
+	
+		<div class=" col-xs-12 col-md-10 col-md-offset-1"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqColumns containsResourceName section resourceClass-columns"><div class="row   ">
+
+	
+		<div class=" col-xs-12 col-sm-12 col-md-8"><div class="parsys containsResourceName resourceClass-parsys"><div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<p>MATLAB makes deep learning easy. With tools and functions for 
+managing large data sets, MATLAB also offers specialized toolboxes for 
+working with machine learning, neural networks, computer vision, and 
+automated driving.</p>
+<p>With just a few lines of code, MATLAB lets you do deep learning 
+without being an expert. Get started quickly, create and visualize 
+models, and deploy models to servers and embedded devices.</p>
+<p>Teams are successful using MATLAB for deep learning because it lets you:</p>
+<ol>
+<li><b>Create and Visualize Models with Just a Few Lines of Code.</b></li>
+<p>MATLAB lets you build deep learning models with minimal code. With 
+MATLAB, you can quickly import pretrained models and visualize and debug
+ intermediate results as you adjust training parameters.</p>
+<li><b>Perform Deep Learning Without Being an Expert.</b></li>
+<p>You can use MATLAB to learn and gain expertise in the area of deep 
+learning. Most of us have never taken a course in deep learning. We have
+ to learn on the job. MATLAB makes learning about this field practical 
+and accessible. In addition, MATLAB enables domain experts to do deep 
+learning – instead of handing the task over to data scientists who may 
+not know your industry or application.</p>
+<li><b>Automate Ground Truth Labeling of Images and Video.</b></li>
+<p>MATLAB enables users to interactively label objects within images and
+ can automate ground truth labeling within videos for training and 
+testing deep learning models. This interactive and automated approach 
+can lead to better results in less time.</p>
+<li><b>Integrate Deep Learning in a Single Workflow.</b></li>
+<p>MATLAB can unify multiple domains in a single workflow. With MATLAB, 
+you can do your thinking and programming in one environment. It offers 
+tools and functions for deep learning, and also for a range of domains 
+that feed into deep learning algorithms, such as signal processing, 
+computer vision, and data analytics.</p>
+</ol>
+<p>With MATLAB, you can integrate results into your existing 
+applications. MATLAB automates deploying your deep learning models on 
+enterprise systems, clusters, clouds, and embedded devices.</p>
+<p>See more <a href="https://www.mathworks.com/solutions/deep-learning.html">deep learning features and get example code</a>.<br>
+</p>
+<p>Related products: <a href="https://www.mathworks.com/products/matlab.html">MATLAB</a>, <a href="https://www.mathworks.com/products/computer-vision.html">Computer Vision Toolbox™</a>, <a href="https://www.mathworks.com/products/statistics.html">Statistics and Machine Learning Toolbox™</a>, <a href="https://www.mathworks.com/products/deep-learning.html">Deep Learning Toolbox™</a>, and <a href="https://www.mathworks.com/products/automated-driving.html">Automated Driving Toolbox™</a>.</p>
+
+</div>
+</div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-sm-6 col-md-4"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqThumbnail containsResourceName resourceClass-thumbnail section"><script type="text/javascript">
+	$(document).ready(function () {
+		if (document.cookie.indexOf('video-reg') !== -1) {
+			//target dom span class
+			$('.icon-video-locked').css('display', 'none');
+		}
+	});
+</script>
+
+
+
+
+
+
+
+
+
+	<div class="thumbnail thumbnail_asset asset_overlay add_margin_20  ">
+		<div class="row">
+			
+			
+			
+			
+			
+			
+			
+			
+				<div class="col-xs-6 col-sm-12">
+					
+	
+		
+		
+	
+	
+	
+	<a href="https://www.mathworks.com/videos/top-5-reasons-to-use-matlab-for-deep-learning-1569565612133.html" title="Learn how MATLAB can help with any part of the deep learning workflow: from preprocessing through deployment. Get a high-level overview of deep learning with MATLAB, and explore several applications.">
+
+		
+			<span class="sr-only">Top 5 Reasons to Use MATLAB for Deep Learning.</span>
+			
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="" data-class="fluid_image" data-image="https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_copy_1416103391/mainParsys/columns/1/columns/2/thumbnail_copy.adapt.[width].medium.jpg/1624459998839.jpg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium">
+		<noscript>
+			
+			
+				<img src='https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_copy_1416103391/mainParsys/columns/1/columns/2/thumbnail_copy.adapt.full.medium.jpg/1624459998839.jpg' alt='' class="fluid_image"/>
+			
+		</noscript>
+	<img alt="" class="fluid_image responsiveImage" loading="lazy" src="ref6_files/1624459998839.jpg"></div>
+
+			
+			<div class="overlay_container text-center" style="font-size: 12.2917px; padding: 2.04861px;">
+				<span class="icon-video add_icon_color_white"><span class="video_length" aria-hidden="true" style="font-size: 12.2917px;">2:16</span>
+					<span class="sr-only">Video length is 2:16.</span>
+				</span>
+			</div>
+			
+		
+
+		</a>
+
+
+	
+
+				</div>
+				<div class="col-xs-6 col-sm-12">
+					
+	<div class="asset_title">
+		
+		
+	
+	
+	
+	<a href="https://www.mathworks.com/videos/top-5-reasons-to-use-matlab-for-deep-learning-1569565612133.html">
+
+		
+
+		
+			<span></span>
+			Top 5 Reasons to Use MATLAB for Deep Learning<span class="video_length series"></span></a>
+
+
+		
+	</div>
+	
+	
+	
+
+				</div>
+			
+		</div>
+	</div>
+
+
+
+</div>
+<div class="cqThumbnail containsResourceName resourceClass-thumbnail section"><script type="text/javascript">
+	$(document).ready(function () {
+		if (document.cookie.indexOf('video-reg') !== -1) {
+			//target dom span class
+			$('.icon-video-locked').css('display', 'none');
+		}
+	});
+</script>
+
+
+
+
+
+
+
+
+
+	<div class="thumbnail thumbnail_asset asset_overlay add_margin_20  ">
+		<div class="row">
+			
+			
+			
+			
+			
+			
+			
+			
+				<div class="col-xs-6 col-sm-12">
+					
+	
+		
+		
+	
+	
+	
+	<a href="https://www.mathworks.com/solutions/deep-learning.html">
+
+		
+			<span class="sr-only">See more deep learning features and get example code.</span>
+			
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="MATLAB for Deep Learning" data-class="fluid_image" data-image="https://www.mathworks.com/solutions/deep-learning/_jcr_content/thumbnail.adapt.[width].medium.jpg/1624884148255.jpg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium">
+		<noscript>
+			
+				<img src='https://www.mathworks.com/solutions/deep-learning/_jcr_content/thumbnail.adapt.full.medium.jpg/1624884148255.jpg' alt='MATLAB for Deep Learning' class="fluid_image" data-aem-src="/content/dam/mathworks/mathworks-dot-com/images/responsive/supporting/solutions/deep-learning/thumbnail-deeplearning.jpg"/>
+			
+			
+		</noscript>
+	<img alt="MATLAB for Deep Learning" class="fluid_image responsiveImage" loading="lazy" src="ref6_files/1624884148255.jpg"></div>
+
+			
+			
+			
+		
+
+		</a>
+
+
+	
+
+				</div>
+				<div class="col-xs-6 col-sm-12">
+					
+	<div class="asset_title">
+		
+		
+	
+	
+	
+	<a href="https://www.mathworks.com/solutions/deep-learning.html">
+
+		
+
+		
+			
+			See more deep learning features and get example code</a>
+
+
+		
+	</div>
+	
+	
+	
+
+				</div>
+			
+		</div>
+	</div>
+
+
+
+</div>
+
+</div>
+</div>
+	
+</div>
+</div>
+
+</div>
+</div>
+	
+</div>
+</div>
+
+</div>
+</div>
+				</div>
+			</div>
+		</div>
+	
+</div>
+</div>
+<div class="cqBand containsResourceName section resourceClass-band">
+
+
+<div class="band add_border_top   ">
+	
+	
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<div><div class="mainParsys parsys containsResourceName resourceClass-parsys"><div class="cqColumns containsResourceName section resourceClass-columns"><div class="row   section_upsize text-center ">
+
+	
+		<div class=" col-xs-12 col-md-10 col-md-offset-1"><div class="parsys containsResourceName resourceClass-parsys"><div class="text containsResourceName section resourceClass-text"><div class="mw-text add_margin_30  ">
+	<h2>Learn More About Deep Learning</h2>
+
+</div>
+</div>
+
+</div>
+</div>
+	
+</div>
+</div>
+<div class="cqColumns containsResourceName section resourceClass-columns"><div class="row   ">
+
+	
+		<div class=" col-xs-12 col-md-10 col-md-offset-1"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqColumns containsResourceName section resourceClass-columns"><div class="row   add_equal_heights">
+
+	
+		<div class=" col-xs-12 col-sm-6 col-md-4"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqPanel containsResourceName resourceClass-panel section">
+
+
+<div class="panel panel-default">
+	
+
+	
+
+	
+
+	<div class="panel-body">
+		
+			
+			<div class="panelParsys parsys containsResourceName resourceClass-parsys"><div class="cqThumbnail containsResourceName resourceClass-thumbnail section"><script type="text/javascript">
+	$(document).ready(function () {
+		if (document.cookie.indexOf('video-reg') !== -1) {
+			//target dom span class
+			$('.icon-video-locked').css('display', 'none');
+		}
+	});
+</script>
+
+
+
+
+
+
+
+
+
+	<div class="thumbnail thumbnail_asset asset_overlay add_margin_0  ">
+		<div class="row">
+			
+			
+			
+			<div class="col-xs-12">
+				
+	<div class="add_margin_5">
+		
+		
+	
+	
+	
+	<a href="https://www.mathworks.com/videos/introduction-to-deep-learning-what-is-deep-learning--1489502328819.html" title="Explore deep learning fundamentals in this MATLAB Tech Talk. You’ll learn why deep learning has become so popular, and you’ll walk through 3 concepts: what deep learning is, how it is used in the real world, and how you can get started.">
+
+		
+			<span class="sr-only">Introduction to Deep Learning: What Is Deep Learning?.</span>
+			
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="" data-class="fluid_image" data-image="https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_1961927124_c/1/panel/panelParsys/thumbnail.adapt.[width].medium.jpg/1618586747761.jpg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium">
+		<noscript>
+			
+			
+				<img src='https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_1961927124_c/1/panel/panelParsys/thumbnail.adapt.full.medium.jpg/1618586747761.jpg' alt='' class="fluid_image"/>
+			
+		</noscript>
+	<img alt="" class="fluid_image responsiveImage" loading="lazy" src="ref6_files/1618586747761.jpg"></div>
+
+			
+			<div class="overlay_container text-center" style="font-size: 12px; padding: 2px;">
+				<span class="icon-video add_icon_color_white"><span class="video_length" aria-hidden="true" style="font-size: 12px;">3:33</span>
+					<span class="sr-only">Video length is 3:33.</span>
+				</span>
+			</div>
+			
+		
+
+		</a>
+
+
+	</div>
+
+				
+	<div class="asset_title">
+		
+		
+	
+	
+	
+	<a href="https://www.mathworks.com/videos/introduction-to-deep-learning-what-is-deep-learning--1489502328819.html">
+
+		
+
+		
+			<span></span>
+			Introduction to Deep Learning: What Is Deep Learning?<span class="video_length series"></span></a>
+
+
+		
+	</div>
+	
+	<span class="asset_description">Explore deep learning fundamentals in 
+this MATLAB Tech Talk. You’ll learn why deep learning has become so 
+popular, and you’ll walk through 3 concepts: what deep learning is, how 
+it is used in the real world, and how you can get started.</span>
+	
+
+			</div>
+			
+			
+			
+			
+		</div>
+	</div>
+
+
+
+</div>
+
+</div>
+
+		
+	</div>
+
+	
+
+</div></div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-sm-6 col-md-4"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqPanel containsResourceName resourceClass-panel section">
+
+
+<div class="panel panel-default">
+	
+
+	
+
+	
+
+	<div class="panel-body">
+		
+			
+			<div class="panelParsys parsys containsResourceName resourceClass-parsys"><div class="cqThumbnail containsResourceName resourceClass-thumbnail section"><script type="text/javascript">
+	$(document).ready(function () {
+		if (document.cookie.indexOf('video-reg') !== -1) {
+			//target dom span class
+			$('.icon-video-locked').css('display', 'none');
+		}
+	});
+</script>
+
+
+
+
+
+
+
+
+
+	<div class="thumbnail thumbnail_asset asset_overlay add_margin_0  ">
+		<div class="row">
+			
+			
+			
+			<div class="col-xs-12">
+				
+	<div class="add_margin_5">
+		
+		
+	
+	
+	
+	<a href="https://www.mathworks.com/videos/deep-learning-in-11-lines-of-matlab-code-1481229977318.html" title="See how to use MATLAB, a simple webcam, and a deep neural network to identify objects in your surroundings. This demo uses AlexNet, a pretrained deep convolutional neural network that has been trained on over a million images.">
+
+		
+			<span class="sr-only">Deep Learning with MATLAB: Deep Learning in 11 Lines of MATLAB Code.</span>
+			
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="" data-class="fluid_image" data-image="https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_1961927124_c/2/panel_copy/panelParsys/thumbnail.adapt.[width].medium.jpg/1601881596884.jpg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium">
+		<noscript>
+			
+			
+				<img src='https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_1961927124_c/2/panel_copy/panelParsys/thumbnail.adapt.full.medium.jpg/1601881596884.jpg' alt='' class="fluid_image"/>
+			
+		</noscript>
+	<img alt="" class="fluid_image responsiveImage" loading="lazy" src="ref6_files/1601881596884.jpg"></div>
+
+			
+			<div class="overlay_container text-center" style="font-size: 12px; padding: 2px;">
+				<span class="icon-video add_icon_color_white"><span class="video_length" aria-hidden="true" style="font-size: 12px;">2:38</span>
+					<span class="sr-only">Video length is 2:38.</span>
+				</span>
+			</div>
+			
+		
+
+		</a>
+
+
+	</div>
+
+				
+	<div class="asset_title">
+		
+		
+	
+	
+	
+	<a href="https://www.mathworks.com/videos/deep-learning-in-11-lines-of-matlab-code-1481229977318.html">
+
+		
+
+		
+			<span></span>
+			Deep Learning with MATLAB: Deep Learning in 11 Lines of MATLAB Code<span class="video_length series"></span></a>
+
+
+		
+	</div>
+	
+	<span class="asset_description">See how to use MATLAB, a simple webcam,
+ and a deep neural network to identify objects in your surroundings. 
+This demo uses AlexNet, a pretrained deep convolutional neural network 
+that has been trained on over a million images.</span>
+	
+
+			</div>
+			
+			
+			
+			
+		</div>
+	</div>
+
+
+
+</div>
+
+</div>
+
+		
+	</div>
+
+	
+
+</div></div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-sm-6 col-md-4"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqPanel containsResourceName resourceClass-panel section">
+
+
+<div class="panel panel-default">
+	
+
+	
+
+	
+
+	<div class="panel-body">
+		
+			
+			<div class="panelParsys parsys containsResourceName resourceClass-parsys"><div class="cqThumbnail containsResourceName resourceClass-thumbnail section"><script type="text/javascript">
+	$(document).ready(function () {
+		if (document.cookie.indexOf('video-reg') !== -1) {
+			//target dom span class
+			$('.icon-video-locked').css('display', 'none');
+		}
+	});
+</script>
+
+
+
+
+
+
+
+
+
+	<div class="thumbnail thumbnail_asset asset_overlay add_margin_0  ">
+		<div class="row">
+			
+			
+			
+			<div class="col-xs-12">
+				
+	<div class="add_margin_5">
+		
+		
+	
+	
+	
+	<a href="https://www.mathworks.com/videos/series/deep-learning-for-engineers.html" title="This video series addresses deep learning topics for engineers such as accessing data, training a network, using transfer learning, and incorporating your model into a larger design.">
+
+		
+			<span class="sr-only">Deep Learning for Engineers.</span>
+			
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="" data-class="fluid_image" data-image="https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_1961927124_c/3/panel_copy/panelParsys/thumbnail.adapt.[width].medium.jpg/1620023212125.jpg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium">
+		<noscript>
+			
+			
+				<img src='https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_1961927124_c/3/panel_copy/panelParsys/thumbnail.adapt.full.medium.jpg/1620023212125.jpg' alt='' class="fluid_image"/>
+			
+		</noscript>
+	<img alt="" class="fluid_image responsiveImage" loading="lazy" src="ref6_files/1620023212125.jpg"></div>
+
+			
+			<div class="overlay_container text-center" style="font-size: 12px; padding: 2px;">
+				<span class="icon-video add_icon_color_white"><span class="video_length" style="font-size: 12px;"> 5 Videos</span>
+					<span class="sr-only">Video length is .</span>
+				</span>
+			</div>
+			
+		
+
+		</a>
+
+
+	</div>
+
+				
+	<div class="asset_title">
+		
+		
+	
+	
+	
+	<a href="https://www.mathworks.com/videos/series/deep-learning-for-engineers.html">
+
+		
+
+		
+			
+			Deep Learning for Engineers<span class="video_length series"> (5 Videos)</span></a>
+
+
+		
+	</div>
+	
+	<span class="asset_description">This video series addresses deep 
+learning topics for engineers such as accessing data, training a 
+network, using transfer learning, and incorporating your model into a 
+larger design.</span>
+	
+
+			</div>
+			
+			
+			
+			
+		</div>
+	</div>
+
+
+
+</div>
+
+</div>
+
+		
+	</div>
+
+	
+
+</div></div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-sm-6 col-md-4"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqPanel containsResourceName resourceClass-panel section">
+
+
+<div class="panel panel-default">
+	
+
+	
+
+	
+
+	<div class="panel-body">
+		
+			
+			<div class="panelParsys parsys containsResourceName resourceClass-parsys"><div class="cqThumbnail containsResourceName resourceClass-thumbnail section"><script type="text/javascript">
+	$(document).ready(function () {
+		if (document.cookie.indexOf('video-reg') !== -1) {
+			//target dom span class
+			$('.icon-video-locked').css('display', 'none');
+		}
+	});
+</script>
+
+
+
+
+
+
+
+
+
+	<div class="thumbnail thumbnail_asset asset_overlay add_margin_0  ">
+		<div class="row">
+			
+			
+			
+			<div class="col-xs-12">
+				
+	<div class="add_margin_5">
+		
+		
+	
+	
+	
+	<a href="https://www.mathworks.com/videos/get-started-with-deep-learning-using-matlab-1564487611332.html" title="Perform four common deep learning tasks with MATLAB.">
+
+		
+			<span class="sr-only">Get Started with Deep Learning Using MATLAB.</span>
+			
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="" data-class="fluid_image" data-image="https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_1961927124_c/4/panel_copy/panelParsys/thumbnail.adapt.[width].medium.jpg/1626315912646.jpg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium">
+		<noscript>
+			
+			
+				<img src='https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_1961927124_c/4/panel_copy/panelParsys/thumbnail.adapt.full.medium.jpg/1626315912646.jpg' alt='' class="fluid_image"/>
+			
+		</noscript>
+	<img alt="" class="fluid_image responsiveImage" loading="lazy" src="ref6_files/1626315912646.jpg"></div>
+
+			
+			<div class="overlay_container text-center" style="font-size: 12px; padding: 2px;">
+				<span class="icon-video add_icon_color_white"><span class="video_length" aria-hidden="true" style="font-size: 12px;">18:23</span>
+					<span class="sr-only">Video length is 18:23.</span>
+				</span>
+			</div>
+			
+		
+
+		</a>
+
+
+	</div>
+
+				
+	<div class="asset_title">
+		
+		
+	
+	
+	
+	<a href="https://www.mathworks.com/videos/get-started-with-deep-learning-using-matlab-1564487611332.html">
+
+		
+
+		
+			<span></span>
+			Get Started with Deep Learning Using MATLAB<span class="video_length series"></span></a>
+
+
+		
+	</div>
+	
+	<span class="asset_description">Perform four common deep learning tasks with MATLAB.</span>
+	
+
+			</div>
+			
+			
+			
+			
+		</div>
+	</div>
+
+
+
+</div>
+
+</div>
+
+		
+	</div>
+
+	
+
+</div></div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-sm-6 col-md-4"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqPanel containsResourceName resourceClass-panel section">
+
+
+<div class="panel panel-default">
+	
+
+	
+
+	
+
+	<div class="panel-body">
+		
+			
+			<div class="panelParsys parsys containsResourceName resourceClass-parsys"><div class="cqThumbnail containsResourceName resourceClass-thumbnail section"><script type="text/javascript">
+	$(document).ready(function () {
+		if (document.cookie.indexOf('video-reg') !== -1) {
+			//target dom span class
+			$('.icon-video-locked').css('display', 'none');
+		}
+	});
+</script>
+
+
+
+
+
+
+
+
+
+	<div class="thumbnail thumbnail_asset asset_overlay add_margin_0  ">
+		<div class="row">
+			
+			
+			
+			<div class="col-xs-12">
+				
+	<div class="add_margin_5">
+		
+		
+	
+	
+	
+	<a href="https://www.mathworks.com/videos/deep-learning-in-simulink-1599214701480.html" title="See how you can use the Deep Learning Toolbox block library as well as MATLAB Function block to simulate trained deep learning models in Simulink.">
+
+		
+			<span class="sr-only">Deep Learning in Simulink.</span>
+			
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="" data-class="fluid_image" data-image="https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_1961927124_c/5/panel_copy/panelParsys/thumbnail.adapt.[width].medium.jpg/1604311145666.jpg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium">
+		<noscript>
+			
+			
+				<img src='https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_1961927124_c/5/panel_copy/panelParsys/thumbnail.adapt.full.medium.jpg/1604311145666.jpg' alt='' class="fluid_image"/>
+			
+		</noscript>
+	<img alt="" class="fluid_image responsiveImage" loading="lazy" src="ref6_files/1604311145666.jpg"></div>
+
+			
+			<div class="overlay_container text-center" style="font-size: 12px; padding: 2px;">
+				<span class="icon-video add_icon_color_white"><span class="video_length" aria-hidden="true" style="font-size: 12px;">3:45</span>
+					<span class="sr-only">Video length is 3:45.</span>
+				</span>
+			</div>
+			
+		
+
+		</a>
+
+
+	</div>
+
+				
+	<div class="asset_title">
+		
+		
+	
+	
+	
+	<a href="https://www.mathworks.com/videos/deep-learning-in-simulink-1599214701480.html">
+
+		
+
+		
+			<span></span>
+			Deep Learning in Simulink<span class="video_length series"></span></a>
+
+
+		
+	</div>
+	
+	<span class="asset_description">See how you can use the Deep Learning 
+Toolbox block library as well as MATLAB Function block to simulate 
+trained deep learning models in Simulink.</span>
+	
+
+			</div>
+			
+			
+			
+			
+		</div>
+	</div>
+
+
+
+</div>
+
+</div>
+
+		
+	</div>
+
+	
+
+</div></div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-sm-6 col-md-4"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqPanel containsResourceName resourceClass-panel section">
+
+
+<div class="panel panel-default">
+	
+
+	
+
+	
+
+	<div class="panel-body">
+		
+			
+			<div class="panelParsys parsys containsResourceName resourceClass-parsys"><div class="cqThumbnail containsResourceName resourceClass-thumbnail section"><script type="text/javascript">
+	$(document).ready(function () {
+		if (document.cookie.indexOf('video-reg') !== -1) {
+			//target dom span class
+			$('.icon-video-locked').css('display', 'none');
+		}
+	});
+</script>
+
+
+
+
+
+
+
+
+
+	<div class="thumbnail thumbnail_asset asset_overlay add_margin_0  ">
+		<div class="row">
+			
+			
+			
+			<div class="col-xs-12">
+				
+	<div class="add_margin_5">
+		
+		
+	
+	
+	
+	<a href="https://www.mathworks.com/campaigns/offers/deep-learning-examples-with-matlab.html" data-link="lead" data-offertype="Practical Deep Learning Examples with MATLAB::Practical Deep Learning Examples with MATLAB::Live Chat for Practical Deep Learning Examples with MATLAB" data-component="thumbnail">
+
+		
+			<span class="sr-only">Practical Deep Learning Examples with MATLAB (ebook).</span>
+			
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="Practical Deep Learning Examples with MATLAB" data-class="fluid_image" data-image="https://www.mathworks.com/campaigns/offers/deep-learning-examples-with-matlab/_jcr_content/thumbnail.adapt.[width].medium.jpg/1620319424814.jpg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium">
+		<noscript>
+			
+				<img src='https://www.mathworks.com/campaigns/offers/deep-learning-examples-with-matlab/_jcr_content/thumbnail.adapt.full.medium.jpg/1620319424814.jpg' alt='Practical Deep Learning Examples with MATLAB' class="fluid_image" data-aem-src="/content/dam/mathworks/mathworks-dot-com/images/responsive/supporting/campaigns/products/deep-learning-practical-examples-ebook-thumbnail.jpg"/>
+			
+			
+		</noscript>
+	<img alt="Practical Deep Learning Examples with MATLAB" class="fluid_image responsiveImage" loading="lazy" src="ref6_files/1620319424814.jpg"></div>
+
+			
+			<div class="overlay_container text-center" style="font-size: 12px; padding: 2px;">
+				<span class="icon-technical-article add_icon_color_white">
+					<span class="sr-only">Video length is .</span>
+				</span>
+			</div>
+			
+		
+
+		</a>
+
+
+	</div>
+
+				
+	<div class="asset_title">
+		
+		
+	
+	
+	
+	<a href="https://www.mathworks.com/campaigns/offers/deep-learning-examples-with-matlab.html" data-link="lead" data-offertype="Practical Deep Learning Examples with MATLAB::Practical Deep Learning Examples with MATLAB::Live Chat for Practical Deep Learning Examples with MATLAB" data-component="thumbnail">
+
+		
+
+		
+			
+			Practical Deep Learning Examples with MATLAB (ebook)</a>
+
+
+		
+	</div>
+	
+	
+	<span class="asset_description">Learn three approaches to training a 
+deep learning neural network: training from scratch, transfer learning, 
+and semantic segmentation.</span>
+
+			</div>
+			
+			
+			
+			
+		</div>
+	</div>
+
+
+
+</div>
+
+</div>
+
+		
+	</div>
+
+	
+
+</div></div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-sm-6 col-md-4"><div class="parsys containsResourceName resourceClass-parsys">
+</div>
+</div>
+	
+</div>
+</div>
+<div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<h2>Related Topics</h2>
+
+</div>
+</div>
+<div class="cqColumns containsResourceName section resourceClass-columns"><div class="row   text-center ">
+
+	
+		<div class=" col-xs-12 col-sm-6 col-md-4"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqPanel containsResourceName resourceClass-panel section">
+
+
+<div class="panel panel-default">
+	
+
+	
+
+	
+
+	<div class="panel-body">
+		
+			
+			<div class="panelParsys parsys containsResourceName resourceClass-parsys"><div class="pictogram containsResourceName section resourceClass-pictogram">
+
+
+	<div>
+
+		
+		
+	
+	<a href="https://www.mathworks.com/discovery/predictive-analytics.html" class="svg_link ">
+
+		
+			<span class="sr-only">.</span>
+			
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="Machine Learning" data-class="pictogram_72" data-image="https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_copy_copy_co/1/panel/panelParsys/pictogram.adapt.[width].medium.svg/1628494451787.svg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium">
+		<noscript>
+			
+				<img src='https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_copy_copy_co/1/panel/panelParsys/pictogram.adapt.full.medium.svg/1628494451787.svg' alt='Machine Learning' class="pictogram_72" data-aem-src="/content/dam/mathworks/mathworks-dot-com/images/responsive/pictograms/gearbulb.svg"/>
+			
+			
+		</noscript>
+	<img alt="Machine Learning" class="pictogram_72 responsiveImage" loading="lazy" src="ref6_files/1628494451787.svg"></div>
+
+			
+			
+			
+		
+
+		</a>
+
+
+		
+		
+	</div>
+
+
+</div>
+<div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<h3><a href="https://www.mathworks.com/discovery/machine-learning.html">Machine Learning</a></h3>
+
+</div>
+</div>
+
+</div>
+
+		
+	</div>
+
+	
+
+</div></div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-sm-6 col-md-4"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqPanel containsResourceName resourceClass-panel section">
+
+
+<div class="panel panel-default">
+	
+
+	
+
+	
+
+	<div class="panel-body">
+		
+			
+			<div class="panelParsys parsys containsResourceName resourceClass-parsys"><div class="pictogram containsResourceName section resourceClass-pictogram">
+
+
+	<div>
+
+		
+		
+	
+	<a href="https://www.mathworks.com/discovery/machine-learning.html" class="svg_link ">
+
+		
+			<span class="sr-only">.</span>
+			
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="Deep Learning" data-class="pictogram_72" data-image="https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_copy_copy_co/2/panel_copy/panelParsys/pictogram_1198790462.adapt.[width].medium.svg/1628494451860.svg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium">
+		<noscript>
+			
+				<img src='https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_copy_copy_co/2/panel_copy/panelParsys/pictogram_1198790462.adapt.full.medium.svg/1628494451860.svg' alt='Deep Learning' class="pictogram_72" data-aem-src="/content/dam/mathworks/mathworks-dot-com/images/responsive/pictograms/deep-learning.svg"/>
+			
+			
+		</noscript>
+	<img alt="Deep Learning" class="pictogram_72 responsiveImage" loading="lazy" src="ref6_files/1628494451860.svg"></div>
+
+			
+			
+			
+		
+
+		</a>
+
+
+		
+		
+	</div>
+
+
+</div>
+<div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<h3><a href="https://www.mathworks.com/discovery/neural-network.html">Neural Networks</a></h3>
+
+</div>
+</div>
+
+</div>
+
+		
+	</div>
+
+	
+
+</div></div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-sm-6 col-md-4"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqPanel containsResourceName resourceClass-panel section">
+
+
+<div class="panel panel-default">
+	
+
+	
+
+	
+
+	<div class="panel-body">
+		
+			
+			<div class="panelParsys parsys containsResourceName resourceClass-parsys"><div class="pictogram containsResourceName section resourceClass-pictogram">
+
+
+	<div>
+
+		
+		
+	
+	<a href="https://www.mathworks.com/discovery/deep-learning.html" class="svg_link ">
+
+		
+			<span class="sr-only">.</span>
+			
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="Predictive Analytics" data-class="pictogram_72" data-image="https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_copy_copy_co/3/panel_copy/panelParsys/pictogram_351558871.adapt.[width].medium.svg/1628494451934.svg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium">
+		<noscript>
+			
+				<img src='https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_copy_copy_co/3/panel_copy/panelParsys/pictogram_351558871.adapt.full.medium.svg/1628494451934.svg' alt='Predictive Analytics' class="pictogram_72" data-aem-src="/content/dam/mathworks/mathworks-dot-com/images/responsive/pictograms/predictive-analytics.svg"/>
+			
+			
+		</noscript>
+	<img alt="Predictive Analytics" class="pictogram_72 responsiveImage" loading="lazy" src="ref6_files/1628494451934.svg"></div>
+
+			
+			
+			
+		
+
+		</a>
+
+
+		
+		
+	</div>
+
+
+</div>
+<div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<h3><a href="https://www.mathworks.com/discovery/predictive-analytics.html">Predictive Analytics</a></h3>
+
+</div>
+</div>
+
+</div>
+
+		
+	</div>
+
+	
+
+</div></div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-sm-6 col-md-4"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqPanel containsResourceName resourceClass-panel section">
+
+
+<div class="panel panel-default">
+	
+
+	
+
+	
+
+	<div class="panel-body">
+		
+			
+			<div class="panelParsys parsys containsResourceName resourceClass-parsys"><div class="pictogram containsResourceName section resourceClass-pictogram">
+
+
+	<div>
+
+		
+		
+	
+	<a href="https://www.mathworks.com/discovery/predictive-analytics.html" class="svg_link ">
+
+		
+			<span class="sr-only">.</span>
+			
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="Artificial Intelligence " data-class="pictogram_72" data-image="https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_copy_copy_co/b651514b-abc7-4a7f-87e9-78ebd4311903/panel_copy_copy/panelParsys/pictogram.adapt.[width].medium.svg/1628494452011.svg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium">
+		<noscript>
+			
+				<img src='https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_copy_copy_co/b651514b-abc7-4a7f-87e9-78ebd4311903/panel_copy_copy/panelParsys/pictogram.adapt.full.medium.svg/1628494452011.svg' alt='Artificial Intelligence ' class="pictogram_72" data-aem-src="/content/dam/mathworks/mathworks-dot-com/images/responsive/pictograms/artificial-intelligence.svg"/>
+			
+			
+		</noscript>
+	<img alt="Artificial Intelligence " class="pictogram_72 responsiveImage" loading="lazy" src="ref6_files/1628494452011.svg"></div>
+
+			
+			
+			
+		
+
+		</a>
+
+
+		
+		
+	</div>
+
+
+</div>
+<div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<h3><a href="https://www.mathworks.com/discovery/artificial-intelligence.html">Artificial Intelligence</a></h3>
+
+</div>
+</div>
+
+</div>
+
+		
+	</div>
+
+	
+
+</div></div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-xs-push-null col-xs-pull-null col-xs-offset-null col-sm-6 col-sm-push-null col-sm-pull-null col-sm-offset-null col-md-4 col-md-push-null col-md-pull-null col-md-offset-null col-lg-null col-lg-push-null col-lg-pull-null col-lg-offset-null"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqPanel containsResourceName resourceClass-panel section">
+
+
+<div class="panel panel-default">
+	
+
+	
+
+	
+
+	<div class="panel-body">
+		
+			
+			<div class="panelParsys parsys containsResourceName resourceClass-parsys"><div class="pictogram containsResourceName section resourceClass-pictogram">
+
+
+	<div>
+
+		
+		
+
+		
+		
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="Reinforcement Learning" data-title="Reinforcement Learning" data-class="pictogram_72" data-image="https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_copy_copy_co/ac23141d-365a-4d53-92d9-4d6a84561bb8/panel_copy_copy/panelParsys/pictogram.adapt.[width].medium.svg/1628494452085.svg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium">
+		<noscript>
+			
+				<img src='https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_copy_copy_co/ac23141d-365a-4d53-92d9-4d6a84561bb8/panel_copy_copy/panelParsys/pictogram.adapt.full.medium.svg/1628494452085.svg' alt='Reinforcement Learning' title="Reinforcement Learning" class="pictogram_72" data-aem-src="/content/dam/mathworks/mathworks-dot-com/images/responsive/pictograms/reinforcement-learning.svg"/>
+			
+			
+		</noscript>
+	<img alt="Reinforcement Learning" title="Reinforcement Learning" class="pictogram_72 responsiveImage" loading="lazy" src="ref6_files/1628494452085.svg"></div>
+
+	</div>
+
+
+</div>
+<div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<h3><a href="https://www.mathworks.com/discovery/reinforcement-learning.html">Reinforcement Learning</a></h3>
+
+</div>
+</div>
+
+</div>
+
+		
+	</div>
+
+	
+
+</div></div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-sm-6 col-md-4"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqPanel containsResourceName resourceClass-panel section">
+
+
+<div class="panel panel-default">
+	
+
+	
+
+	
+
+	<div class="panel-body">
+		
+			
+			<div class="panelParsys parsys containsResourceName resourceClass-parsys"><div class="pictogram containsResourceName section resourceClass-pictogram">
+
+
+	<div>
+
+		
+		
+	
+	<a href="https://www.mathworks.com/discovery/machine-learning.html" class="svg_link ">
+
+		
+			<span class="sr-only">.</span>
+			
+	
+    
+
+
+
+
+	
+	
+	<div data-adaptivepicture="" data-alt="Deep Learning" data-class="pictogram_72" data-image="https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_copy_copy_co/17d08f08-75e6-43ff-809a-2bc1b9f16089/panel_copy_copy_copy/panelParsys/pictogram_1198790462.adapt.[width].medium.svg/1628161558634.svg" data-has-mobile="false" data-mobile-breakpoint="481" data-mobile-image=".adapt.[width].medium">
+		<noscript>
+			
+				<img src='https://www.mathworks.com/discovery/deep-learning/_jcr_content/mainParsys/band_515501525_copy/mainParsys/columns_1667997000_c/1/columns_copy_copy_co/17d08f08-75e6-43ff-809a-2bc1b9f16089/panel_copy_copy_copy/panelParsys/pictogram_1198790462.adapt.full.medium.svg/1628161558634.svg' alt='Deep Learning' class="pictogram_72" data-aem-src="/content/dam/mathworks/mathworks-dot-com/images/responsive/pictograms/deep-learning.svg"/>
+			
+			
+		</noscript>
+	<img alt="Deep Learning" class="pictogram_72 responsiveImage" loading="lazy" src="ref6_files/1628161558634.svg"></div>
+
+			
+			
+			
+		
+
+		</a>
+
+
+		
+		
+	</div>
+
+
+</div>
+<div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<h3><a href="https://www.mathworks.com/discovery/convolutional-neural-network-matlab.html">Convolutional Neural Network</a></h3>
+
+</div>
+</div>
+
+</div>
+
+		
+	</div>
+
+	
+
+</div></div>
+
+</div>
+</div>
+	
+</div>
+</div>
+
+</div>
+</div>
+	
+</div>
+</div>
+
+</div>
+</div>
+				</div>
+			</div>
+		</div>
+	
+</div>
+</div>
+
+</div>
+</section>
+					
+					
+					
+						
+
+<div><div class="modalParsys parsys containsResourceName resourceClass-parsys">
+</div>
+</div>
+
+						<div id="location_content" style="display:none;"></div>
+
+<div class="modal fade" id="country-unselected" tabindex="-1" role="dialog" aria-labelledby="country-unselected-title" translate="no" style="display: none;">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<img src="ref6_files/pic-header-mathworks-logo.svg" style="width:167px; height:auto;" class="mw_logo" alt="MathWorks - Domain Selector">
+			</div>
+			<div class="modal-body">
+				<div class="row add_margin_40">
+					<div class="col-xs-12">
+						<p class="h1 icon-globe add_icon_color_darkblue" id="country-unselected-title">Select a Web
+							Site</p>
+						<p>Choose a web site to get translated content where available and see local events and
+							offers. Based on
+							your location, we recommend that you select: <strong class="recommended-country">India</strong>.
+						</p>
+						<a href="https://in.mathworks.com/" id="recommended_domain_button" class="btn btn_color_blue containsResourceName resourceClass-button">Select <span class="recommended-country">India</span> web site</a>
+					</div>
+				</div>
+				<p>You can also select a web site from the following list:</p>
+				<div class="alert alert-warning" id="china_performance_alert" style="display:none;"><span class="alert_icon icon-alert-warning"></span>
+					<h2>How to Get Best Site Performance</h2>
+					<p>Select the China site (in Chinese or English) for best site performance. Other MathWorks country
+						sites are not optimized for visits from your location.</p>
+				</div>
+				<div class="row add_margin_20">
+					<div class="col-sm-4 col-md-3">
+						<h3 class="add_bottom_rule">Americas</h3>
+						<ul class="list-unstyled">
+							<li><a href="https://la.mathworks.com/" class="domain_selector_link" data-country-code="LA" data-subdomain="la" data-lang="es" data-default-lang="true" data-selected-text="América Latina" data-recommended-text="América Latina" data-do-not-rewrite="true">América Latina</a> (Español)
+							</li>
+							<li><a href="https://www.mathworks.com/" class="domain_selector_link" data-country-code="CA" data-subdomain="www" data-lang="en" data-do-not-rewrite="true">Canada</a> (English)
+							</li>
+							<li><a href="https://www.mathworks.com/" class="domain_selector_link" data-country-code="US" data-subdomain="www" data-lang="en" data-default-lang="true" data-selected-text="United States" data-recommended-text="United States" data-do-not-rewrite="true">United States</a> (English)
+							</li>
+						</ul>
+					</div>
+					<div class="col-sm-4 col-md-6">
+						<h3 class="add_bottom_rule">Europe</h3>
+						<div class="row">
+							<div class="col-xs-6 col-sm-12 col-md-6">
+								<ul class="list-unstyled add_margin_0_sm">
+									<li><a href="https://nl.mathworks.com/" class="domain_selector_link" data-country-code="BE" data-subdomain="nl" data-lang="en" data-do-not-rewrite="true">Belgium</a> (English)
+									</li>
+									<li><a href="https://se.mathworks.com/" class="domain_selector_link" data-country-code="DK" data-subdomain="se" data-lang="en" data-do-not-rewrite="true">Denmark</a> (English)
+									</li>
+									<li><a href="https://de.mathworks.com/" class="domain_selector_link" data-country-code="DE" data-subdomain="de" data-lang="de" data-default-lang="true" data-selected-text="Deutschland" data-recommended-text="Deutschland" data-do-not-rewrite="true">Deutschland</a> (Deutsch)
+									</li>
+									<li><a href="https://es.mathworks.com/" class="domain_selector_link" data-country-code="ES" data-subdomain="es" data-lang="es" data-default-lang="true" data-selected-text="España" data-recommended-text="España" data-do-not-rewrite="true">España</a> (Español)
+									</li>
+									<li><a href="https://se.mathworks.com/" class="domain_selector_link" data-country-code="FI" data-subdomain="se" data-lang="en" data-do-not-rewrite="true">Finland</a> (English)
+									</li>
+									<li><a href="https://fr.mathworks.com/" class="domain_selector_link" data-country-code="FR" data-subdomain="fr" data-lang="fr" data-default-lang="true" data-selected-text="France" data-recommended-text="France" data-do-not-rewrite="true">France</a> (Français)
+									</li>
+									<li><a href="https://uk.mathworks.com/" class="domain_selector_link" data-country-code="IE" data-subdomain="uk" data-lang="en" data-do-not-rewrite="true">Ireland</a> (English)
+									</li>
+									<li><a href="https://it.mathworks.com/" class="domain_selector_link" data-country-code="IT" data-subdomain="it" data-lang="it" data-default-lang="true" data-selected-text="Italia" data-recommended-text="Italia" data-do-not-rewrite="true">Italia</a> (Italiano)
+									</li>
+									<li><a href="https://nl.mathworks.com/" class="domain_selector_link" data-country-code="LU" data-subdomain="nl" data-lang="en" data-do-not-rewrite="true">Luxembourg</a> (English)
+									</li>
+								</ul>
+							</div>
+							<div class="col-xs-6 col-sm-12 col-md-6">
+								<ul class="list-unstyled">
+									<li><a href="https://nl.mathworks.com/" class="domain_selector_link" data-country-code="NL" data-subdomain="nl" data-lang="en" data-default-lang="true" data-selected-text="Benelux" data-recommended-text="Netherlands" data-do-not-rewrite="true">Netherlands</a> (English)
+									</li>
+									<li><a href="https://se.mathworks.com/" class="domain_selector_link" data-country-code="NO" data-subdomain="se" data-lang="en" data-do-not-rewrite="true">Norway</a> (English)
+									</li>
+									<li><a href="https://de.mathworks.com/" class="domain_selector_link" data-country-code="AT" data-subdomain="de" data-lang="de" data-do-not-rewrite="true">Österreich</a> (Deutsch)
+									</li>
+									<li><a href="https://www.mathworks.com/" class="domain_selector_link" data-country-code="PT" data-subdomain="www" data-lang="en" data-do-not-rewrite="true">Portugal</a> (English)
+									</li>
+									<li><a href="https://se.mathworks.com/" class="domain_selector_link" data-country-code="Sweden" data-subdomain="se" data-lang="en" data-default-lang="true" data-selected-text="Nordic" data-recommended-text="Sweden" data-do-not-rewrite="true">Sweden</a> (English)
+									</li>
+									<li>Switzerland
+										<ul class="list-unstyled add_indent_20">
+											<li><a href="https://ch.mathworks.com/" class="domain_selector_link" data-country-code="CH" data-subdomain="ch" data-lang="de" data-selected-text="Schweiz" data-recommended-text="Schweiz" data-do-not-rewrite="true">Deutsch</a>
+											</li>
+											<li><a href="https://ch.mathworks.com/" class="domain_selector_link" data-country-code="CH" data-subdomain="ch" data-lang="en" data-default-lang="true" data-selected-text="Switzerland" data-recommended-text="Switzerland" data-do-not-rewrite="true">English</a>
+											</li>
+											<li><a href="https://ch.mathworks.com/" class="domain_selector_link" data-country-code="CH" data-subdomain="ch" data-lang="fr" data-selected-text="Suisse" data-recommended-text="Suisse" data-do-not-rewrite="true">Français</a>
+											</li>
+										</ul>
+									</li>
+									<li><a href="https://uk.mathworks.com/" class="domain_selector_link" data-country-code="GB" data-subdomain="uk" data-lang="en" data-default-lang="true" data-selected-text="United Kingdom" data-recommended-text="United Kingdom" data-do-not-rewrite="true">United Kingdom</a>
+										(English)
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 col-md-3">
+						<h3 class="add_bottom_rule">Asia Pacific</h3>
+						<ul class="list-unstyled">
+							<li><a href="https://au.mathworks.com/" class="domain_selector_link" data-country-code="AU" data-subdomain="au" data-lang="en" data-default-lang="true" data-selected-text="Australia" data-recommended-text="Australia" data-do-not-rewrite="true">Australia</a> (English)
+							</li>
+							<li><a href="https://in.mathworks.com/" class="domain_selector_link" data-country-code="IN" data-subdomain="in" data-lang="en" data-default-lang="true" data-selected-text="India" data-recommended-text="India" data-do-not-rewrite="true">India</a> (English)
+							</li>
+							<li><a href="https://au.mathworks.com/" class="domain_selector_link" data-country-code="NZ" data-subdomain="au" data-lang="en" data-do-not-rewrite="true">New Zealand</a> (English)
+							</li>
+							<li>中国
+								<ul class="list-unstyled add_indent_20">
+									<li><a href="https://ww2.mathworks.cn/" class="domain_selector_link" data-country-code="CN" data-subdomain="ww2" data-lang="zh" data-default-lang="true" data-selected-text="中国" data-recommended-text="中国" data-do-not-rewrite="true">简体中文<span class="sr-only">Chinese</span>
+										</a>
+									</li>
+									<li><a href="https://ww2.mathworks.cn/" class="domain_selector_link" data-country-code="CN" data-subdomain="ww2" data-lang="en" data-default-lang="true" data-selected-text="China" data-recommended-text="China" data-do-not-rewrite="true">English</a>
+									</li>
+								</ul>
+							</li>
+							<li><a href="https://jp.mathworks.com/" class="domain_selector_link" data-country-code="JP" data-subdomain="jp" data-lang="ja" data-default-lang="true" data-selected-text="日本" data-recommended-text="日本" data-do-not-rewrite="true">日本<span class="sr-only">Japanese</span></a> (日本語)
+							</li>
+							<li><a href="https://kr.mathworks.com/" class="domain_selector_link" data-country-code="KR" data-subdomain="kr" data-lang="ko" data-default-lang="true" data-selected-text="한국" data-recommended-text="한국" data-do-not-rewrite="true">한국<span class="sr-only">Korean</span></a> (한국어)
+							</li>
+						</ul>
+					</div>
+				</div>
+				<p class="text-center"><a href="https://in.mathworks.com/" class="worldwide_link">Contact your local office</a></p>
+			</div>
+		</div>
+	</div>
+</div>
+					
+				
+			</div>
+			
+		
+	
+
+	
+		<div class="cta_container_mobile visible-sm visible-xs">
+	<div class="container-fluid">      
+		<div class="row">
+			<div class="col-xs-12">
+				<div><div class="callToAction calltoactionheader containsResourceName resourceClass-calltoactionheader">
+
+
+	<div class="cta_box">
+		<ul class="list-inline">
+			<li class="cta_item cta_item_general">
+				<a href="https://www.mathworks.com/campaigns/products/trials.html" class="
+						  icon-download
+						  " data-link="lead" data-offertype="trial" data-component="calltoactionheader">
+					Trial software
+				</a>
+			</li>
+		
+			<li class="cta_item cta_item_general">
+				<a href="https://www.mathworks.com/company/aboutus/contact_us/contact_sales.html" class="
+						  icon-phone
+						  " data-link="lead" data-offertype="Contact Sales" data-component="calltoactionheader">
+					Contact sales
+				</a>
+			</li>
+		</ul>
+	</div>
+
+
+
+</div>
+</div>
+			</div>
+		</div>
+	</div>
+</div>
+		
+	
+
+	
+		<footer id="footer" class="bs-footer">
+
+	<div class="fat_footer_container">
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="fat_footer"><div class="fatFooterParsys iparsys parsys resourceClass-iparsys containsResourceName"><div class="section"><div class="new containsResourceName resourceClass-new"></div>
+</div><div class="iparys_inherited"><div class="fatFooterParsys iparsys parsys containsResourceName resourceClass-par"><div class="cqColumns containsResourceName section resourceClass-columns"><div class="row   ">
+
+	
+		<div class=" col-xs-12 col-md-12 col-lg-3 col-lg-push-null add_margin_20"><div class="parsys containsResourceName resourceClass-parsys"><div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<p class="h4 add_font_futura_medium add_margin_0">MathWorks</p>
+<p><i>Accelerating the pace of engineering and science</i></p>
+
+</div>
+</div>
+<div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<p>MathWorks is the leading developer of mathematical computing software for engineers and scientists.</p>
+
+</div>
+</div>
+<div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<p><a href="https://www.mathworks.com/discovery.html?s_tid=hp_ff_a_discover" data-target="same">Discover…</a></p>
+</div>
+</div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-md-12 col-lg-9"><div class="parsys containsResourceName resourceClass-parsys"><div class="cqColumns containsResourceName section resourceClass-columns"><div class="row add_margin_20  ">
+
+	
+		<div class=" col-xs-12 col-sm-2"><div class="parsys containsResourceName resourceClass-parsys"><div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<p class="ff_section_title"><a href="#fatfooter_products" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="fatfooter_products">Explore Products<span class="caret"></span></a></p>
+<div class="collapse" id="fatfooter_products"><ul class="list-unstyled">
+<li><a href="https://www.mathworks.com/products/matlab.html?s_tid=hp_ff_p_matlab" target="_self">MATLAB</a></li>
+<li><a href="https://www.mathworks.com/products/simulink.html?s_tid=hp_ff_p_simulink" target="_self">Simulink</a></li>
+<li><a href="https://www.mathworks.com/products/matlab/student.html?s_tid=hp_ff_p_student" target="_self">Student Software</a></li>
+<li><a href="https://www.mathworks.com/hardware-support/home.html?s_tid=hp_ff_p_hwsupport" target="_self">Hardware Support</a></li>
+<li><a href="https://www.mathworks.com/matlabcentral/fileexchange/?s_tid=hp_ff_p_fx">File Exchange</a></li>
+</ul>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-sm-2"><div class="parsys containsResourceName resourceClass-parsys"><div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<p class="ff_section_title"><a href="#fatfooter_buy" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="fatfooter_buy">Try or Buy<span class="caret"></span></a></p>
+<div class="collapse" id="fatfooter_buy"><ul class="list-unstyled">
+<li><a href="https://www.mathworks.com/downloads/web_downloads/?s_iid=hp_ff_t_downloads">Downloads</a></li>
+<li><a href="https://www.mathworks.com/campaigns/products/trials.html?s_iid=hp_ff_p_trial" data-target="same" data-link="lead" data-offertype="trial" data-component="footer">Trial Software</a></li>
+<li><a href="https://www.mathworks.com/company/aboutus/contact_us/contact_sales.html?s_iid=hp_ff_t_sales" target="_self" data-link="lead" data-offertype="Contact Sales" data-component="footer">Contact Sales</a></li>
+<li><a href="https://www.mathworks.com/pricing-licensing.html?s_iid=hp_ff_t_pricing" target="_self" data-link="lead" data-offertype="pl" data-component="footer">Pricing and Licensing</a></li>
+<li><a href="https://www.mathworks.com/store/?s_iid=hp_ff_t_buy" target="_self" data-link="store" data-component="footer">How to Buy</a></li>
+</ul>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-sm-2"><div class="parsys containsResourceName resourceClass-parsys"><div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<p class="ff_section_title"><a href="#fatfooter_use" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="fatfooter_use">Learn to Use<span class="caret"></span></a></p>
+<div class="collapse" id="fatfooter_use"><ul class="list-unstyled">
+<li><a href="https://www.mathworks.com/help/?s_tid=hp_ff_l_doc" data-target="same">Documentation</a></li>
+<li><a href="https://www.mathworks.com/support/learn-with-matlab-tutorials.html?s_tid=hp_ff_l_tutorials" data-target="same">Tutorials</a></li>
+<li><a href="https://www.mathworks.com/help/examples.html?s_tid=hp_ff_l_examples" data-target="same">Examples</a></li>
+<li><a href="https://www.mathworks.com/videos.html?s_tid=hp_ff_l_videos" target="_self">Videos and Webinars</a></li>
+<li><a href="https://www.mathworks.com/services/training.html?s_tid=hp_ff_l_training" target="_self">Training</a></li>
+</ul>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-sm-2"><div class="parsys containsResourceName resourceClass-parsys"><div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<p class="ff_section_title"><a href="#fatfooter_support" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="fatfooter_support">Get Support<span class="caret"></span></a></p>
+<div class="collapse" id="fatfooter_support"><ul class="list-unstyled">
+<li><a href="https://www.mathworks.com/help/install/?s_tid=hp_ff_s_install">Installation Help</a></li>
+<li><a href="https://www.mathworks.com/matlabcentral/answers/index?s_tid=hp_ff_s_answers">Answers</a></li>
+<li><a href="https://www.mathworks.com/services/consulting.html?s_tid=hp_ff_s_consulting" target="_self">Consulting</a></li>
+<li><a href="https://www.mathworks.com/licensecenter/?s_tid=hp_ff_s_license">License Center</a></li>
+<li><a href="https://www.mathworks.com/support/contact_us.html?s_tid=hp_ff_s_support" target="_self">Contact Support</a></li>
+</ul>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+	
+		<div class=" col-xs-12 col-sm-2"><div class="parsys containsResourceName resourceClass-parsys"><div class="text containsResourceName section resourceClass-text"><div class="mw-text   ">
+	<p class="ff_section_title"><a href="#fatfooter_about" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="fatfooter_about">About MathWorks<span class="caret"></span></a></p>
+<div class="collapse" id="fatfooter_about"><ul class="list-unstyled">
+<li><a href="https://www.mathworks.com/company/jobs/opportunities.html?s_tid=hp_ff_a_careers">Careers</a></li>
+<li><a href="https://www.mathworks.com/company/newsroom.html?s_tid=hp_ff_a_newsroom" target="_self">Newsroom</a></li>
+<li><a href="https://www.mathworks.com/company/aboutus/soc_mission.html?s_tid=hp_ff_a_socialmission" target="_self">Social Mission</a></li>
+<li><a href="https://www.mathworks.com/company/customer-stories.html?s_tid=hp_ff_a_customerstories" target="_self">Customer Stories</a></li>
+<li><a href="https://www.mathworks.com/company.html?s_tid=hp_ff_a_company" target="_self">About MathWorks</a></li>
+</ul>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+	
+</div>
+</div>
+
+</div>
+</div>
+	
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+		</div>
+	</div>
+</div></div>
+
+	<!-- BASIC FOOTER CONTENT - Begin -->
+	<div class="container">
+		<div class="footer">
+			<div class="row">
+				<div class="col-xs-12 col-md-9">
+					<ul class="countrynav">
+						<!-- Code to Remove Tracking from Previous page and add new tracking -->
+						<li class="footernav_country">
+							<a href="#" data-toggle="modal" data-target="#country-unselected">
+								<span class="sr-only">Select a Web Site</span>
+								<span class="icon-globe icon_color_quinary icon_16"></span><span id="countrySelectorButtonText">United States</span>
+							</a>
+						</li>
+					</ul>
+					<div class="clearfix"></div>
+					
+					<div><div class="footerNavigation footernavigation containsResourceName resourceClass-footernavigation">
+	<ul class="footernav  ">
+		<li class="footernav_footernav_patents">
+			<a href="https://www.mathworks.com/company/aboutus/policies_statements/trust-center.html?s_tid=gf_tc">Trust Center</a>
+		</li>
+	
+		<li class="footernav_footernav_trademarks">
+			<a href="https://www.mathworks.com/company/aboutus/policies_statements/trademarks.html?s_tid=gf_trd">Trademarks</a>
+		</li>
+	
+		<li class="footernav_footernav_privacy">
+			<a href="https://www.mathworks.com/company/aboutus/policies_statements.html?s_tid=gf_priv">Privacy Policy</a>
+		</li>
+	
+		<li class="footernav_footernav_piracy">
+			<a href="https://www.mathworks.com/company/aboutus/policies_statements/piracy.html?s_tid=gf_pir">Preventing Piracy</a>
+		</li>
+	
+		<li class="footernav_footernav_status">
+			<a href="https://status.mathworks.com/?s_tid=gf_application">Application Status</a>
+		</li>
+	</ul>
+	
+
+</div>
+</div>
+					
+					<div><div class="footerCompanyAddress footercompanyaddress containsResourceName resourceClass-footercompanyaddress">
+	
+	<div class="cq-placeholder" data-emptytext="Footer Company Address"></div>
+
+</div>
+</div>
+					
+					<div><div class="footerParsys iparsys parsys resourceClass-iparsys containsResourceName"><div class="section"><div class="new containsResourceName resourceClass-new"></div>
+</div><div class="iparys_inherited"><div class="footerParsys iparsys parsys containsResourceName resourceClass-par"></div>
+</div>
+</div>
+</div>
+					<div class="clearfix"></div>
+					<p class="copyright">© 1994-2021 The MathWorks, Inc.</p>
+				</div>
+				<div class="clearfix visible-sm add_margin_10"></div>
+				<div class="col-xs-12 col-md-3">
+					
+					<div><div class="socialMediaIconParsys iparsys parsys resourceClass-iparsys containsResourceName"><div class="section"><div class="new containsResourceName resourceClass-new"></div>
+</div><div class="iparys_inherited"><div class="socialMediaIconParsys iparsys parsys containsResourceName resourceClass-par"><div class="socialmediaicon containsResourceName resourceClass-socialmediaicon section">
+
+
+	<div class="social_media  ">
+		<ul class="social_media_icons list-unstyled  ">
+			
+			<li>
+				<a href="https://www.facebook.com/MATLAB" class="svg_link" target="_blank">
+					<img class="ico_facebook" alt="Facebook" src="ref6_files/ico-facebook.svg">
+				</a>
+
+				 
+				
+			</li>
+			
+			<li>
+				<a href="https://www.twitter.com/MATLAB" class="svg_link" target="_blank">
+					<img class="ico_twitter" alt="Twitter" src="ref6_files/ico-twitter.svg">
+				</a>
+
+				 
+				
+			</li>
+			
+			<li>
+				<a href="https://www.instagram.com/matlab/" class="svg_link" target="_blank">
+					<img class="ico_instagram" alt="Instagram" src="ref6_files/ico-instagram.svg">
+				</a>
+
+				 
+				
+			</li>
+			
+			<li>
+				<a href="https://www.youtube.com/user/MATLAB" class="svg_link" target="_blank">
+					<img class="ico_youtube" alt="YouTube" src="ref6_files/ico-youtube.svg">
+				</a>
+
+				 
+				
+			</li>
+			
+			<li>
+				<a href="https://www.linkedin.com/company/the-mathworks_2" class="svg_link" target="_blank">
+					<img class="ico_linkedin" alt="LinkedIn" src="ref6_files/ico-linkedin.svg">
+				</a>
+
+				 
+				
+			</li>
+			
+			<li>
+				<a href="https://www.mathworks.com/company/rss.html" class="svg_link">
+					<img class="ico_rss" alt="RSS" src="ref6_files/ico-rss.svg">
+				</a>
+
+				 
+				
+			</li>
+			
+			
+		</ul>
+		<div class="clearfix"></div>
+	</div>
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+					<div class="clearfix"></div>
+					<p class="pull_right_sm pull_right_md pull_right_lg"><small class="percent_90"><em>Join the conversation</em></small></p>
+				</div>
+			</div>
+			
+		</div>
+
+	</div>
+	<!-- BASIC FAT FOOTER CONTENT - End -->
+</footer>
+
+		
+
+		
+    
+<script src="ref6_files/akamai.js"></script>
+<script src="ref6_files/lodash.js"></script>
+<script src="ref6_files/common.js"></script>
+
+
+
+		
+    
+<script src="ref6_files/mathworks-aem.js"></script>
+
+
+
+
+		
+
+		
+
+		
+			
+    
+<script src="ref6_files/matrixmenu.js"></script>
+
+
+
+			<script>
+				if (typeof matrix !== 'undefined') {
+					matrix.show({
+						largeId: 'headernav_matrix',
+						smallId: ['matrix_affordance_container_mobile', 'matrix_menu_container_mobile'],
+						env: 'prod',
+						tier: 'DOTCOM',
+						lang: 'en'
+					});
+				}
+			</script>
+		
+
+		
+
+		
+	
+	
+
+
+
+<script>
+(function() {
+  var host = 'mathworks.com';
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://quantcast.mgr.consensu.org'
+    .concat('/choice/', 'zfNtLVVEHXE-1', '/', host, '/choice.js')
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            event.source.postMessage(returnMsg, '*');
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  }
+
+  makeStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+//End of universal script
+//API call and event listener callback 
+__tcfapi('addEventListener', 2, function(tcData, success) { 
+//defining string prototypes & variables
+  if (!String.prototype.isInList) {
+    Object.defineProperty(String.prototype, 'isInList', {
+      get: function get() {
+        return function () {
+          for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+          }
+          var value = this.valueOf();
+          for (var i = 0, l = args.length; i < l; i += 1) {
+            if (arguments[i] === value) return true;
+          }
+          return false;
+        };
+      }
+    });
+  }   
+  if (!String.prototype.isNotInList) {
+    Object.defineProperty(String.prototype, 'isNotInList', {
+      get: function get() {
+        return function () {
+          for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+          }
+          var value = this.valueOf();
+          for (var i = 0, l = args.length; i < l; i += 1) {
+            if (arguments[i] === value) return false;
+          }
+          return true;
+        };
+      }
+    });
+  }
+  var server = window.location.hostname;
+  var google = false;
+  var facebook = false;
+  var quantcast = false;
+  var twitter = false;
+  var twitterJapan = false;
+  var adCloud = false;
+  var linkedIn = false;
+  var yahoo = false; 
+  var across = false;
+  var baidu = false;
+  var weChat = false;
+  var researchGate = false;
+  var terminus = false;
+  var fancyDigital = false;
+  var quora = false;
+  var consentResult = false;
+  var liResult = false;
+
+//set services by domain
+  if(server.isNotInList('ww2.mathworks.cn')){
+    google = true;
+    facebook = true;
+    adCloud = true;
+  }
+    if(server.isNotInList('au.mathworks.com','ww2.mathworks.cn' )){
+    terminus = true;
+  }
+  if(server.isInList('www.mathworks.com', 'explore.mathworks.com', 'matlabacademy.mathworks.com')){
+    quora = true;
+  }
+  if(server.isNotInList('ww2.mathworks.cn', 'in.mathworks.com')){
+    quantcast = true;
+  }
+  if(server.isNotInList('ww2.mathworks.cn', 'kr.mathworks.com','jp.mathworks.com')){
+    twitter = true;
+    linkedIn = true;
+  }
+  if(server.isInList('jp.mathworks.com', 'explore.mathworks.com', 'matlabacademy.mathworks.com')){
+    yahoo = true;
+    twitterJapan = true;
+  }    
+  if(server.isInList('kr.mathworks.com', 'explore.mathworks.com')){
+    across = true;
+  }
+  if(server.isInList('ww2.mathworks.cn','explore.mathworks.com')){
+    baidu = true;
+    weChat = true;
+    fancyDigital = true;
+  }
+  if(server.isInList('matlabacademy.mathworks.com')){
+    weChat = true;
+  }
+  if (success) {
+   if (tcData.gdprApplies) {
+     if (tcData.eventStatus === 'tcloaded') {
+             if ('1' in tcData.purpose.consents && tcData.purpose.consents[10] === true) {
+              for (i = 1; i < 6; i++){
+                    if(tcData.purpose.consents[i] === false){
+                    consentResult = false;
+                    break;
+                  } else {
+                    consentResult = true;
+                  }
+                }
+              }
+
+             if ('1' in tcData.purpose.legitimateInterests && tcData.purpose.legitimateInterests[2] && tcData.purpose.legitimateInterests[5] && tcData.purpose.legitimateInterests[10]){
+                liResult = 'true';
+              }
+                //fire scripts here
+                if ((consentResult) && (liResult) && (google)){_satellite.track('googleBase');}
+                if ((consentResult) && (liResult) && (facebook)) {_satellite.track('facebookBase');}
+                if ((consentResult) && (liResult) && (quantcast)) {_satellite.track('quantcastBase');}
+                if ((consentResult) && (liResult) && (adCloud)) {_satellite.track('adCloudBase');}
+                if ((consentResult) && (liResult) && (twitter)) {_satellite.track('twitterBase');}
+                if ((consentResult) && (liResult) && (researchGate)) {_satellite.track('researchGateBase');}
+                if ((consentResult) && (liResult) && (terminus)) {_satellite.track('terminusBase');}
+                if ((consentResult) && (liResult) && (linkedIn)) {_satellite.track('linkedInBase');}
+                if ((consentResult) && (liResult) && (twitterJapan)) {_satellite.track('twitterBaseJapan');}
+                if ((consentResult) && (liResult) && (yahoo)) {_satellite.track('yahooBase');}
+                if ((consentResult) && (liResult) && (across)) {_satellite.track('acrossBase');}
+                if ((consentResult) && (liResult) && (baidu)) {_satellite.track('baiduBase');}
+                if ((consentResult) && (liResult) && (weChat)) {_satellite.track('weChatBase');}
+                if ((consentResult) && (liResult) && (fancyDigital)) {_satellite.track('fancyDigitalBase');}
+                if ((consentResult) && (liResult) && (quora)) {_satellite.track('quoraBase');}
+
+     } else if (tcData.eventStatus === 'useractioncomplete') {
+              if ('1' in tcData.purpose.consents && tcData.purpose.consents[10] === true) {
+              for (i = 1; i < 6; i++){
+                    if(tcData.purpose.consents[i] === false){
+                    consentResult = false;
+                    break;
+                  } else {
+                    consentResult = true;
+                  }
+                }
+              }
+
+             if ('1' in tcData.purpose.legitimateInterests && tcData.purpose.legitimateInterests[2] && tcData.purpose.legitimateInterests[5] && tcData.purpose.legitimateInterests[10]){
+                liResult = 'true';
+              }
+                //fire scripts here
+                if ((consentResult) && (liResult) && (google)){_satellite.track('googleBase');}
+                if ((consentResult) && (liResult) && (facebook)) {_satellite.track('facebookBase');}
+                if ((consentResult) && (liResult) && (quantcast)) {_satellite.track('quantcastBase');}
+                if ((consentResult) && (liResult) && (adCloud)) {_satellite.track('adCloudBase');}
+                if ((consentResult) && (liResult) && (twitter)) {_satellite.track('twitterBase');}
+                if ((consentResult) && (liResult) && (researchGate)) {_satellite.track('researchGateBase');}
+                if ((consentResult) && (liResult) && (terminus)) {_satellite.track('terminusBase');}
+                if ((consentResult) && (liResult) && (twitterJapan)) {_satellite.track('twitterBaseJapan');}
+                if ((consentResult) && (liResult) && (linkedIn)) {_satellite.track('linkedInBase');}
+                if ((consentResult) && (liResult) && (yahoo)) {_satellite.track('yahooBase');}
+                if ((consentResult) && (liResult) && (across)) {_satellite.track('acrossBase');}
+                if ((consentResult) && (liResult) && (baidu)) {_satellite.track('baiduBase');}
+                if ((consentResult) && (liResult) && (weChat)) {_satellite.track('weChatBase');}
+                if ((consentResult) && (liResult) && (fancyDigital)) {_satellite.track('fancyDigitalBase');}
+                if ((consentResult) && (liResult) && (quora)) {_satellite.track('quoraBase');}
+     } else {
+       // print a debug error message to the console
+     }
+   } else { /* gdpr does not apply */
+     // Most likely you want to make the ad request in this case 
+      if (google) {_satellite.track('googleBase');}
+      if (facebook) {_satellite.track('facebookBase');}
+      if (quantcast) {_satellite.track('quantcastBase');}
+      if (adCloud) {_satellite.track('adCloudBase');}
+      if (twitter) {_satellite.track('twitterBase');}
+      if (researchGate) {_satellite.track('researchGateBase');}
+      if (terminus) {_satellite.track('terminusBase');}
+      if (twitterJapan) {_satellite.track('twitterBaseJapan');}
+      if (linkedIn) {_satellite.track('linkedInBase');}
+      if (yahoo) {_satellite.track('yahooBase');}
+      if (across) {_satellite.track('acrossBase');}
+      if (baidu) {_satellite.track('baiduBase');}
+      if (weChat) {_satellite.track('weChatBase');}
+      if (fancyDigital) {_satellite.track('fancyDigitalBase');}
+      if (quora) {_satellite.track('quoraBase');}
+   }
+ }
+})
+</script><iframe style="display: none;" name="__tcfapiLocator"></iframe><script>
+var _elqQ = _elqQ || [];
+_elqQ.push(["elqSetSiteId", "646005169"]), _elqQ.push(["elqUseFirstPartyCookie", "tracking.mathworks.com"]), _elqQ.push(["elqTrackPageView", window.location.href]),
+  function() {
+    function e() {
+      var e = document.createElement("script");
+      e.type = "text/javascript", e.async = !0, e.src = "//img03.en25.com/i/elqCfg.min.js";
+      var t = document.getElementsByTagName("script")[0];
+      t.parentNode.insertBefore(e, t)
+    }
+    e()
+  }();
+</script><a class="btn btn_color_mediumgray" id="go-top" tabindex="0"><span class="sr-only">Go to top of page</span><span class="icon-arrow-open-up icon_24"></span></a><iframe src="ref6_files/index.html" style="display: none;" id="_qc_cookie_access"></iframe><script src="ref6_files/enterprise.js" async=""></script><script>_satellite["_runScript1"](function(event, target, Promise) {
+_satellite.cookie.set("_sdsat_eid",_satellite.getVar('eid'),1);
+});</script><script>_satellite["_runScript2"](function(event, target, Promise) {
+var _kiq=_kiq||[];_kiq.push(["enableAccessibilityMode"]),setTimeout(function(){var e=document,t=e.getElementsByTagName("script")[0],s=e.createElement("script");s.type="text/javascript",s.async=!0,s.src="//s3.amazonaws.com/ki.js/49559/ahy.js",t.parentNode.insertBefore(s,t)},1);
+});</script><script>
+function gtag(){dataLayer.push(arguments)}var gtagLibrary=document.createElement("script");gtagLibrary.setAttribute("src","https://www.googletagmanager.com/gtag/js?id=AW-1023777138"),document.head.appendChild(gtagLibrary),window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","AW-1023777138");
+</script><script>_satellite["_runScript3"](function(event, target, Promise) {
+!function(e,t,n,c,o,a,f){e.fbq||(o=e.fbq=function(){o.callMethod?o.callMethod.apply(o,arguments):o.queue.push(arguments)},e._fbq||(e._fbq=o),(o.push=o).loaded=!0,o.version="2.0",o.queue=[],(a=t.createElement(n)).async=!0,a.src=c,(f=t.getElementsByTagName(n)[0]).parentNode.insertBefore(a,f))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js"),fbq("init","186030155234771"),fbq("track","PageView");
+});</script><script>_satellite["_runScript4"](function(event, target, Promise) {
+var _qevents=_qevents||[];!function(){var e=document.createElement("script");e.src=("https:"==document.location.protocol?"https://secure":"http://edge")+".quantserve.com/quant.js",e.async=!0,e.type="text/javascript";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}(),_qevents.push({qacct:"p-zfNtLVVEHXE-1",labels:" ",orderid:" ",revenue:" ",event:"refresh"});
+});</script><script>_satellite["_runScript5"](function(event, target, Promise) {
+var my_awesome_script=document.createElement("script");my_awesome_script.setAttribute("src","https://www.everestjs.net/static/le/last-event-tag-latest.min.js"),document.head.appendChild(my_awesome_script);var adCloudCheck=0,adCloudInterval=setInterval(function(){"undefined"!=typeof AdCloudEvent&&(AdCloudEvent("B1441C8B533095C00A490D4D@AdobeOrg","mathwgbl"),window.clearInterval(adCloudInterval)),5==++adCloudCheck&&window.clearInterval(adCloudInterval)},200);
+});</script><script>_satellite["_runScript6"](function(event, target, Promise) {
+!function(e,t,n,i,a,c){e.twq||((i=e.twq=function(){i.exe?i.exe.apply(i,arguments):i.queue.push(arguments)}).version="1.1",i.queue=[],(a=t.createElement(n)).async=!0,a.src="//static.ads-twitter.com/uwt.js",(c=t.getElementsByTagName(n)[0]).parentNode.insertBefore(a,c))}(window,document,"script"),twq("init","nyhmw"),twq("track","PageView");
+});</script><div><div class="grecaptcha-badge" data-style="bottomright" style="width: 256px; height: 60px; display: block; transition: right 0.3s ease 0s; position: fixed; bottom: 14px; right: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;"><div class="grecaptcha-logo"><iframe title="reCAPTCHA" src="ref6_files/anchor.html" role="presentation" name="a-a0d4dnmc94po" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" width="256" height="60" frameborder="0"></iframe></div><div class="grecaptcha-error"></div><textarea id="g-recaptcha-response-100000" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div><iframe style="display: none;"></iframe></div><script>_satellite["_runScript7"](function(event, target, Promise) {
+var terminusLibrary=document.createElement("script");terminusLibrary.setAttribute("id","term-e7e5d07437489"),terminusLibrary.setAttribute("src","https://vidassets.terminus.services/a889772d-9ff6-4a01-b405-8c67866e57d4/t.js");var terminusWebExperienceLibrary=document.createElement("script");terminusWebExperienceLibrary.setAttribute("defer",""),terminusWebExperienceLibrary.setAttribute("src","https://cdn.getsmartcontent.com/QGS3LM6G.js"),document.head.appendChild(terminusLibrary),document.head.appendChild(terminusWebExperienceLibrary);
+});</script><script>_satellite["_runScript8"](function(event, target, Promise) {
+_linkedin_partner_id="34128",window._linkedin_data_partner_ids=window._linkedin_data_partner_ids||[],window._linkedin_data_partner_ids.push(_linkedin_partner_id),function(){var n=document.getElementsByTagName("script")[0],i=document.createElement("script");i.type="text/javascript",i.async=!0,i.src="https://snap.licdn.com/li.lms-analytics/insight.min.js",n.parentNode.insertBefore(i,n)}();
+});</script><script>_satellite["_runScript9"](function(event, target, Promise) {
+!function(e,t,n,c,p,a){e.qp||((c=e.qp=function(){c.qp?c.qp.apply(c,arguments):c.queue.push(arguments)}).queue=[],(p=document.createElement(t)).async=!0,p.src=n,(a=document.getElementsByTagName(t)[0]).parentNode.insertBefore(p,a))}(window,"script","https://a.quora.com/qevents.js"),qp("init","804e7bec804c4c28b176de5e0395a246"),qp("track","ViewContent");
+});</script><iframe id="qualaroo_dnt_frame" style="width: 1px; height: 1px; display: none; opacity: 0;" src="ref6_files/frame.html"></iframe><script src="ref6_files/adsct.js" type="text/javascript"></script></body></html>

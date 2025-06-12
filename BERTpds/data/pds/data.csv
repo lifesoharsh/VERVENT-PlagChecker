@@ -1,0 +1,508 @@
+10, The numerical weight of the word represents the closeness of the concept ,"10]  Jayesh Bapu Ahire, ‘Introduction to Word Vectors’, MVB, March 14, AI DZone, accessed ON 3rd June.",0.4465,"{                     ""@context"": ""http://schema.org"",                     ""@type"": ""Article"",                     ""headline"": ""Introduction to Word Vectors"",                     ""author"": {                       ""@type"": ""Person"",                       ""name"": ""Jayesh Bapu Ahire""                     },                     ""audience"": ""software developers"",                     ""keywords"": ""ai,word vectors,tutorial,deep learning,neural networks"",                     ""timeRequired"": ""PT8M"",                     ""commentCount"": 1,                     ""wordCount"": ""1837"",                     ""accessMode"": ""textual, visual"",                     ""dateCreated"": ""2018-03-14T18:01:42Z"",                     ""datePublished"": ""2018-03-14T00:00:00Z"",                     ""dateModified"": ""2019-05-25T07:58:45Z"",                     ""articleSection"": ""artificial-intelligence-tutorials-tools-news"",                     ""publisher"": {                       ""@type"": ""Organization"",                       ""name"": ""DZone"",                       ""url"": ""https://dzone.com"",                       ""logo"": {                         ""@type"": ""ImageObject"",                         ""url"": ""https://dzone.com/themes/dz20/images/dz_cropped.png""                       }                     },                     ""articleBody"": ""Word Vectors Word vectors represent a significant leap forward in advancing our ability to analyze relationships across words, sentences, and documents. In doing so, they advance technology by providing machines with much more information about words than has previously been possible using traditional representations of words. It is word vectors that make technologies such as speech recognition and machine translation possible. There are many excellent explanations of word vectors, but in this one, I want to make the concept accessible to data and research people who aren't very familiar with natural language processing (NLP). What Are Word Vectors? Word vectors are simply vectors of numbers that represent the meaning of a word. For now, that's not very clear, but we'll come back to it in a bit. It is useful, first of all, to consider why word vectors are considered such a leap forward from traditional representations of words. Traditional approaches to NLP, such as one-hot encoding and bag-of-words models (i.e. using dummy variables to represent the presence or absence of a word in an observation, i.e. a sentence), while useful for some machine learning (ML) tasks, do not capture information about a word's meaning or context. This means that potential relationships, such as contextual closeness, are not captured across collections of words. For example, a one-hot encoding cannot capture simple relationships, such as determining that the words \""dog\"" and \""cat\"" both refer to animals that are often discussed in the context of household pets. Such encodings often provide sufficient baselines for simple NLP tasks (for example, email spam classifiers), but lack the sophistication for more complex tasks such as translation and speech recognition. In essence, traditional approaches to NLP such as one-hot encodings do not capture syntactic (structure) and semantic (meaning) relationships across collections of words and, therefore, represent language in a very naive way. In contrast, word vectors represent words as multidimensional continuous floating point numbers where semantically similar words are mapped to proximate points in geometric space. In simpler terms, a word vector is a row of real-valued numbers (as opposed to dummy numbers) where each point captures a dimension of the word's meaning and where semantically similar words have similar vectors. This means that words such as wheel and engine should have similar word vectors to the word car (because of the similarity of their meanings), whereas the word banana should be quite distant. Put differently, words that are used in a similar context will be mapped to a proximate vector space (we will get to how these word vectors are created below). The beauty of representing words as vectors is that they lend themselves to mathematical operators. For example, we can add and subtract vectors — the canonical example here is showing that by using word vectors we can determine that: king - man + woman = queen In other words, we can subtract one meaning from the word vector for king (i.e. maleness), add another meaning (femaleness), and show that this new word vector (king - man + woman) maps most closely to the word vector for queen. The numbers in the word vector represent the word's distributed weight across dimensions. In a simplified sense, each dimension represents a meaning and the word's numerical weight on that dimension captures the closeness of its association with and to that meaning. Thus, the semantics of the word are embedded across the dimensions of the vector. A Simplified Representation of Word Vectors In the figure, we are imagining that each dimension captures a clearly defined meaning. For example, if you imagine that the first dimension represents the meaning or concept of \""animal,\"" then each word's weight on that dimension represents how closely it relates to that concept. This is quite a large simplification of word vectors as the dimensions do not hold such clearly defined meanings, but it is a useful and intuitive way to wrap your head around the concept of word vector dimensions. We create a list of words, apply spaCy's parser, extract the vector for each word, stack them together, and then extract two-principal components for visualization purposes. import numpy as np import spacy from sklearn.decomposition import PCA nlp = spacy.load(\""en\"") animals = \""dog cat hamster lion tiger elephant cheetah monkey gorilla antelope rabbit mouse rat zoo home pet fluffy wild domesticated\"" animal_tokens = nlp(animals) animal_vectors = np.vstack([word.vector for word in animal_tokens if word.has_vector]) pca = PCA(n_components=2) animal_vecs_transformed = pca.fit_transform(animal_vectors) animal_vecs_transformed = np.c_[animals.split(), animal_vecs_transformed] Here, we simply extract vectors for different animals and words that might be used to describe some of them. As mentioned in the beginning, word vectors are amazingly powerful because they allow us (and machines) to identify similarities across different words by representing them in a continuous vector space. You can see here how the vectors for animals like \""lion,\"" \""tiger,\"" \""cheetah,\"" and \""elephant\"" are very close together. This is likely because they are often discussed in similar contexts; for example, these animals are big, wild and, potentially dangerous — indeed, the descriptive word \""wild\"" maps quite closely to this group of animals. Similar words are mapped together in the vector space. Notice how close \""cat\"" and \""dog\"" are to \""pet,\"" how clustered \""elephant,\"" \""lion,\"" and \""tiger\"" are, and how descriptive words also cluster together. What is also interesting here is how closely the words \""wild,\"" \""zoo,\"" and \""domesticated\"" map to one another. It makes sense given that they are words that are frequently used to describe animals, but highlights the amazing power of word vectors! Where Do Word Vectors Come From? An excellent question at this point is, Where do these dimensions and weights come from?! There are two common ways through which word vectors are generated: Counts of word/context co-occurrences Predictions of context given word (skip-gram neural network models, i.e. word2vec) Note: Below, I describe a high-level word2vec approach to generating word vectors, but a good overview of the count/co-occurence approach can be found here. Both approaches to generating word vectors build on Firth's (1957) distributional hypothesis which states: \""You shall know a word by the company it keeps.\"" Put differently, words that share similar contexts tend to have similar meanings. The context of a word in a practical sense refers to its surrounding word(s) and word vectors are (typically) generated by predicting the probability of a context given a word. Put differently, the weights that comprise a word vector are learned by making predictions on the probability that other words are contextually close to a given word. This is akin to attempting to fill in the blanks around some given input word. For example, given the input sequence, \""The fluffy dog barked as it chased a cat,\"" the two-window (two-words preceding and proceeding the focal word) context for the words \""dog\"" and \""barked\"" would look like: I don't wish to delve into the mathematical details how neural networks learn word embeddings too much, as people much more qualified to do so have explicated this already. In particular, these posts have been helpful to me when trying to understand how word vectors are learned: Deep Learning, NLP, and Representations The Amazing Power of Word Vectors Word2Vec Tutorial: The Skip-Gram Model It is useful, however, to touch on the workings of the word2vec model given its popularity and usefulness. A word2vec model is simply a neural network with a single hidden layer that is designed to reconstruct the context of words by estimating the probability that a word is \""close\"" to another word given as input. The model is trained on word, context pairings for every word in the corpus, i.e.: (DOG, THE)(DOG), FLUFFY(DOG, BARKED)(DOG, AS) Note that this is technically a supervised learning process, but you do not need labeled data — the labels (the targets/dependent variables) are generated from the words that form the context of a focal word. Thus, using the window function the model learns the context in which words are used. In this simple example, the model will learn that \""fluffy\"" and \""barked\"" are used in the context (as defined by the window length) of the word \""dog.\"" One of the fascinating things about word vectors created by word2vec models is that they are the side effects of a predictive task, not its output. In other words, a word vector is not predicted, (it is context probabilities that are predicted), the word vector is a learned representation of the input that is used on the predictive task — i.e. predicting a word given a context. The word vector is the model's attempt to learn a good numerical representation of the word in order to minimize the loss (error) of its predictions. As the model iterates, it adjusts its neurons' weights in an attempt to minimize the error of its predictions and in doing so, it gradually refines its representation of the word. In doing so, the word's \""meaning\"" becomes embedded in the weight learned by each neuron in the hidden layer of the network. A word2vec model, therefore, accepts as input a single word (represented as a one-hot encoding amongst all words in the corpus) and the model attempts to predict the probability that a randomly chosen word in the corpus is at a nearby position to the input word. This means that for every input word there are n output probabilities, where n is equal to the total size of the corpus. The magic here is that the training process includes only the word's context, not all words in the corpus. This means in our simple example above, given the word \""dog\"" as input, \""barked\"" will have a higher probability estimate than \""cat\"" because it is closer in context, i.e. it is learned in the training process. Put differently, the model attempts to predict the probability that other words in the corpus belong to the context of the input word. Therefore, given the sentence above (\""The fluffy dog barked as it chased a cat\"") as input a run of the model would look like this: Note: This conceptual NN is a close friend of the diagram in Chris McCormick's blog post linked to above. The value of going through this process is to extract the weights that have been learned by the neurons of the model's hidden layer. It is these weights that form the word vector, i.e. if you have a 300-neuron hidden layer, you will create a 300-dimension word vector for each word in the corpus. The output of this process, therefore, is a word-vector mapping of size n-input words * n-hidden layer neurons. Next Up Word vectors are an amazingly powerful concept and a technology that will enable significant breakthroughs in NLP applications and research. They also highlight the beauty of neural network deep learning and, particularly, the power of learned representations of input data in hidden layers. In my next post, I will be using word vectors in a convolutional neural network for a classification task. This will highlight word vectors in practice, as well as how to bring pre-trained word vectors into a Keras model."",                     ""mainEntityOfPage"": {                       ""@type"": ""WebPage"",                       ""@id"": ""https://dzone.com/articles/introduction-to-word-vectors""                     },                     ""image"": {                       ""@type"": ""ImageObject"",                       ""url"": ""https://dzone.com//dz2cdn2.dzone.com/storage/article-thumb/8468113-thumb.jpg""                     }                   }                                       {                       ""@context"": ""https://schema.org"",                       ""@type"": ""BreadcrumbList"",                       ""itemListElement"": [{                         ""@type"": ""ListItem"",                         ""position"": 1,                         ""name"": ""DZone"",                         ""item"": ""https://dzone.com""                       }, {                         ""@type"": ""ListItem"",                         ""position"": 2,                         ""name"": ""AI Zone"",                         ""item"": ""https://dzone.com/artificial-intelligence-tutorials-tools-news""                       }, {                         ""@type"": ""ListItem"",                         ""position"": 3,                         ""name"": ""Introduction to Word Vectors"",                         ""item"": ""https://dzone.com/articles/introduction-to-word-vectors""                       }]                     }
+The numbers in the word vector represent the word's distributed weight across dimensions.  In a simplified sense, each dimension represents a meaning and the  word's numerical weight on that dimension captures the closeness of its  association with and to that meaning. Thus, the semantics of the word  are embedded across the dimensions of the vector.
+represents how closely it relates to that concept.
+or concept of ""animal,"" then each word's weight on that dimension 
+relationships across collections of words and, therefore, represent 
+relationships, such as contextual closeness, are not captured across 
+dimensions do not hold such clearly defined meanings, but it is a useful
+Put differently, words that share similar contexts tend to have similar meanings.  The context of a word in a practical sense refers to its surrounding  word(s) and word vectors are (typically) generated by predicting the  probability of a context given a word. Put differently, the weights that  comprise a word vector are learned by making predictions on the  probability that other words are contextually close to a given word.  This is akin to attempting to fill in the blanks around some given input  word. For example, given the input sequence, ""The fluffy dog barked as  it chased a cat,"" the two-window (two-words preceding and proceeding the  focal word) context for the words ""dog"" and ""barked"" would look like:
+In contrast, word vectors represent words as multidimensional  continuous floating point numbers where semantically similar words are  mapped to proximate points in geometric space. In simpler terms, a word  vector is a row of real-valued numbers (as opposed to dummy numbers)  where each point captures a dimension of the word's meaning and where  semantically similar words have similar vectors. This means that words  such as wheel and engine should have similar word vectors to the word car (because of the similarity of their meanings), whereas the word banana  should be quite distant. Put differently, words that are used in a  similar context will be mapped to a proximate vector space (we will get  to how these word vectors are created below). The beauty of representing  words as vectors is that they lend themselves to mathematical  operators. For example, we can add and subtract vectors — the canonical  example here is showing that by using word vectors we can determine  that:
+In other words, we can subtract one meaning from the word ","0.252
+0.252
+0.42
+0.46
+0.462
+0.486
+0.486
+0.534
+0.554
+0.559"
+10,"
+
+
+
+Figure   1:     word   vector   representation   with   specific dimensions ","10]  Jayesh Bapu Ahire, ‘Introduction to Word Vectors’, MVB, March 14, AI DZone, accessed ON 3rd June.",0.2723,"{                     ""@context"": ""http://schema.org"",                     ""@type"": ""Article"",                     ""headline"": ""Introduction to Word Vectors"",                     ""author"": {                       ""@type"": ""Person"",                       ""name"": ""Jayesh Bapu Ahire""                     },                     ""audience"": ""software developers"",                     ""keywords"": ""ai,word vectors,tutorial,deep learning,neural networks"",                     ""timeRequired"": ""PT8M"",                     ""commentCount"": 1,                     ""wordCount"": ""1837"",                     ""accessMode"": ""textual, visual"",                     ""dateCreated"": ""2018-03-14T18:01:42Z"",                     ""datePublished"": ""2018-03-14T00:00:00Z"",                     ""dateModified"": ""2019-05-25T07:58:45Z"",                     ""articleSection"": ""artificial-intelligence-tutorials-tools-news"",                     ""publisher"": {                       ""@type"": ""Organization"",                       ""name"": ""DZone"",                       ""url"": ""https://dzone.com"",                       ""logo"": {                         ""@type"": ""ImageObject"",                         ""url"": ""https://dzone.com/themes/dz20/images/dz_cropped.png""                       }                     },                     ""articleBody"": ""Word Vectors Word vectors represent a significant leap forward in advancing our ability to analyze relationships across words, sentences, and documents. In doing so, they advance technology by providing machines with much more information about words than has previously been possible using traditional representations of words. It is word vectors that make technologies such as speech recognition and machine translation possible. There are many excellent explanations of word vectors, but in this one, I want to make the concept accessible to data and research people who aren't very familiar with natural language processing (NLP). What Are Word Vectors? Word vectors are simply vectors of numbers that represent the meaning of a word. For now, that's not very clear, but we'll come back to it in a bit. It is useful, first of all, to consider why word vectors are considered such a leap forward from traditional representations of words. Traditional approaches to NLP, such as one-hot encoding and bag-of-words models (i.e. using dummy variables to represent the presence or absence of a word in an observation, i.e. a sentence), while useful for some machine learning (ML) tasks, do not capture information about a word's meaning or context. This means that potential relationships, such as contextual closeness, are not captured across collections of words. For example, a one-hot encoding cannot capture simple relationships, such as determining that the words \""dog\"" and \""cat\"" both refer to animals that are often discussed in the context of household pets. Such encodings often provide sufficient baselines for simple NLP tasks (for example, email spam classifiers), but lack the sophistication for more complex tasks such as translation and speech recognition. In essence, traditional approaches to NLP such as one-hot encodings do not capture syntactic (structure) and semantic (meaning) relationships across collections of words and, therefore, represent language in a very naive way. In contrast, word vectors represent words as multidimensional continuous floating point numbers where semantically similar words are mapped to proximate points in geometric space. In simpler terms, a word vector is a row of real-valued numbers (as opposed to dummy numbers) where each point captures a dimension of the word's meaning and where semantically similar words have similar vectors. This means that words such as wheel and engine should have similar word vectors to the word car (because of the similarity of their meanings), whereas the word banana should be quite distant. Put differently, words that are used in a similar context will be mapped to a proximate vector space (we will get to how these word vectors are created below). The beauty of representing words as vectors is that they lend themselves to mathematical operators. For example, we can add and subtract vectors — the canonical example here is showing that by using word vectors we can determine that: king - man + woman = queen In other words, we can subtract one meaning from the word vector for king (i.e. maleness), add another meaning (femaleness), and show that this new word vector (king - man + woman) maps most closely to the word vector for queen. The numbers in the word vector represent the word's distributed weight across dimensions. In a simplified sense, each dimension represents a meaning and the word's numerical weight on that dimension captures the closeness of its association with and to that meaning. Thus, the semantics of the word are embedded across the dimensions of the vector. A Simplified Representation of Word Vectors In the figure, we are imagining that each dimension captures a clearly defined meaning. For example, if you imagine that the first dimension represents the meaning or concept of \""animal,\"" then each word's weight on that dimension represents how closely it relates to that concept. This is quite a large simplification of word vectors as the dimensions do not hold such clearly defined meanings, but it is a useful and intuitive way to wrap your head around the concept of word vector dimensions. We create a list of words, apply spaCy's parser, extract the vector for each word, stack them together, and then extract two-principal components for visualization purposes. import numpy as np import spacy from sklearn.decomposition import PCA nlp = spacy.load(\""en\"") animals = \""dog cat hamster lion tiger elephant cheetah monkey gorilla antelope rabbit mouse rat zoo home pet fluffy wild domesticated\"" animal_tokens = nlp(animals) animal_vectors = np.vstack([word.vector for word in animal_tokens if word.has_vector]) pca = PCA(n_components=2) animal_vecs_transformed = pca.fit_transform(animal_vectors) animal_vecs_transformed = np.c_[animals.split(), animal_vecs_transformed] Here, we simply extract vectors for different animals and words that might be used to describe some of them. As mentioned in the beginning, word vectors are amazingly powerful because they allow us (and machines) to identify similarities across different words by representing them in a continuous vector space. You can see here how the vectors for animals like \""lion,\"" \""tiger,\"" \""cheetah,\"" and \""elephant\"" are very close together. This is likely because they are often discussed in similar contexts; for example, these animals are big, wild and, potentially dangerous — indeed, the descriptive word \""wild\"" maps quite closely to this group of animals. Similar words are mapped together in the vector space. Notice how close \""cat\"" and \""dog\"" are to \""pet,\"" how clustered \""elephant,\"" \""lion,\"" and \""tiger\"" are, and how descriptive words also cluster together. What is also interesting here is how closely the words \""wild,\"" \""zoo,\"" and \""domesticated\"" map to one another. It makes sense given that they are words that are frequently used to describe animals, but highlights the amazing power of word vectors! Where Do Word Vectors Come From? An excellent question at this point is, Where do these dimensions and weights come from?! There are two common ways through which word vectors are generated: Counts of word/context co-occurrences Predictions of context given word (skip-gram neural network models, i.e. word2vec) Note: Below, I describe a high-level word2vec approach to generating word vectors, but a good overview of the count/co-occurence approach can be found here. Both approaches to generating word vectors build on Firth's (1957) distributional hypothesis which states: \""You shall know a word by the company it keeps.\"" Put differently, words that share similar contexts tend to have similar meanings. The context of a word in a practical sense refers to its surrounding word(s) and word vectors are (typically) generated by predicting the probability of a context given a word. Put differently, the weights that comprise a word vector are learned by making predictions on the probability that other words are contextually close to a given word. This is akin to attempting to fill in the blanks around some given input word. For example, given the input sequence, \""The fluffy dog barked as it chased a cat,\"" the two-window (two-words preceding and proceeding the focal word) context for the words \""dog\"" and \""barked\"" would look like: I don't wish to delve into the mathematical details how neural networks learn word embeddings too much, as people much more qualified to do so have explicated this already. In particular, these posts have been helpful to me when trying to understand how word vectors are learned: Deep Learning, NLP, and Representations The Amazing Power of Word Vectors Word2Vec Tutorial: The Skip-Gram Model It is useful, however, to touch on the workings of the word2vec model given its popularity and usefulness. A word2vec model is simply a neural network with a single hidden layer that is designed to reconstruct the context of words by estimating the probability that a word is \""close\"" to another word given as input. The model is trained on word, context pairings for every word in the corpus, i.e.: (DOG, THE)(DOG), FLUFFY(DOG, BARKED)(DOG, AS) Note that this is technically a supervised learning process, but you do not need labeled data — the labels (the targets/dependent variables) are generated from the words that form the context of a focal word. Thus, using the window function the model learns the context in which words are used. In this simple example, the model will learn that \""fluffy\"" and \""barked\"" are used in the context (as defined by the window length) of the word \""dog.\"" One of the fascinating things about word vectors created by word2vec models is that they are the side effects of a predictive task, not its output. In other words, a word vector is not predicted, (it is context probabilities that are predicted), the word vector is a learned representation of the input that is used on the predictive task — i.e. predicting a word given a context. The word vector is the model's attempt to learn a good numerical representation of the word in order to minimize the loss (error) of its predictions. As the model iterates, it adjusts its neurons' weights in an attempt to minimize the error of its predictions and in doing so, it gradually refines its representation of the word. In doing so, the word's \""meaning\"" becomes embedded in the weight learned by each neuron in the hidden layer of the network. A word2vec model, therefore, accepts as input a single word (represented as a one-hot encoding amongst all words in the corpus) and the model attempts to predict the probability that a randomly chosen word in the corpus is at a nearby position to the input word. This means that for every input word there are n output probabilities, where n is equal to the total size of the corpus. The magic here is that the training process includes only the word's context, not all words in the corpus. This means in our simple example above, given the word \""dog\"" as input, \""barked\"" will have a higher probability estimate than \""cat\"" because it is closer in context, i.e. it is learned in the training process. Put differently, the model attempts to predict the probability that other words in the corpus belong to the context of the input word. Therefore, given the sentence above (\""The fluffy dog barked as it chased a cat\"") as input a run of the model would look like this: Note: This conceptual NN is a close friend of the diagram in Chris McCormick's blog post linked to above. The value of going through this process is to extract the weights that have been learned by the neurons of the model's hidden layer. It is these weights that form the word vector, i.e. if you have a 300-neuron hidden layer, you will create a 300-dimension word vector for each word in the corpus. The output of this process, therefore, is a word-vector mapping of size n-input words * n-hidden layer neurons. Next Up Word vectors are an amazingly powerful concept and a technology that will enable significant breakthroughs in NLP applications and research. They also highlight the beauty of neural network deep learning and, particularly, the power of learned representations of input data in hidden layers. In my next post, I will be using word vectors in a convolutional neural network for a classification task. This will highlight word vectors in practice, as well as how to bring pre-trained word vectors into a Keras model."",                     ""mainEntityOfPage"": {                       ""@type"": ""WebPage"",                       ""@id"": ""https://dzone.com/articles/introduction-to-word-vectors""                     },                     ""image"": {                       ""@type"": ""ImageObject"",                       ""url"": ""https://dzone.com//dz2cdn2.dzone.com/storage/article-thumb/8468113-thumb.jpg""                     }                   }                                       {                       ""@context"": ""https://schema.org"",                       ""@type"": ""BreadcrumbList"",                       ""itemListElement"": [{                         ""@type"": ""ListItem"",                         ""position"": 1,                         ""name"": ""DZone"",                         ""item"": ""https://dzone.com""                       }, {                         ""@type"": ""ListItem"",                         ""position"": 2,                         ""name"": ""AI Zone"",                         ""item"": ""https://dzone.com/artificial-intelligence-tutorials-tools-news""                       }, {                         ""@type"": ""ListItem"",                         ""position"": 3,                         ""name"": ""Introduction to Word Vectors"",                         ""item"": ""https://dzone.com/articles/introduction-to-word-vectors""                       }]                     }
+The numbers in the word vector represent the word's distributed weight across dimensions.  In a simplified sense, each dimension represents a meaning and the  word's numerical weight on that dimension captures the closeness of its  association with and to that meaning. Thus, the semantics of the word  are embedded across the dimensions of the vector.
+A Simplified Representation of Word Vectors
+This is quite a large simplification of word vectors as the 
+Word vectors are simply vectors of numbers that represent the
+ possible using traditional representations of words. It is word vectors
+Word Vectors
+Introduction to Word Vectors
+classification task. This will highlight word vectors in practice, as 
+In contrast, word vectors represent words as multidimensional  continuous floating point numbers where semantically similar words are  mapped to proximate points in geometric space. In simpler terms, a word  vector is a row of real-valued numbers (as opposed to dummy numbers)  where each point captures a dimension of the word's meaning and where  semantically similar words have similar vectors. This means that words  such as wheel and engine should have similar word vectors to the word car (because of the similarity of their meanings), whereas the word banana  should be quite distant. Put differently, words that are used in a  similar context will be mapped to a proximate vector space (we will get  to how these word vectors are created below). The beauty of representing  words as vectors is that they lend themselves to mathematical  operators. For example, we can add and subtract vectors — the canonical  example here is showing that by using word vectors we can determine  that:","0.229
+0.256
+0.256
+0.261
+0.273
+0.282
+0.282
+0.285
+0.299
+0.3"
+10, Using these continuous vectors space machines can extract similarities between the different words ,"10]  Jayesh Bapu Ahire, ‘Introduction to Word Vectors’, MVB, March 14, AI DZone, accessed ON 3rd June.",0.2439,"{                     ""@context"": ""http://schema.org"",                     ""@type"": ""Article"",                     ""headline"": ""Introduction to Word Vectors"",                     ""author"": {                       ""@type"": ""Person"",                       ""name"": ""Jayesh Bapu Ahire""                     },                     ""audience"": ""software developers"",                     ""keywords"": ""ai,word vectors,tutorial,deep learning,neural networks"",                     ""timeRequired"": ""PT8M"",                     ""commentCount"": 1,                     ""wordCount"": ""1837"",                     ""accessMode"": ""textual, visual"",                     ""dateCreated"": ""2018-03-14T18:01:42Z"",                     ""datePublished"": ""2018-03-14T00:00:00Z"",                     ""dateModified"": ""2019-05-25T07:58:45Z"",                     ""articleSection"": ""artificial-intelligence-tutorials-tools-news"",                     ""publisher"": {                       ""@type"": ""Organization"",                       ""name"": ""DZone"",                       ""url"": ""https://dzone.com"",                       ""logo"": {                         ""@type"": ""ImageObject"",                         ""url"": ""https://dzone.com/themes/dz20/images/dz_cropped.png""                       }                     },                     ""articleBody"": ""Word Vectors Word vectors represent a significant leap forward in advancing our ability to analyze relationships across words, sentences, and documents. In doing so, they advance technology by providing machines with much more information about words than has previously been possible using traditional representations of words. It is word vectors that make technologies such as speech recognition and machine translation possible. There are many excellent explanations of word vectors, but in this one, I want to make the concept accessible to data and research people who aren't very familiar with natural language processing (NLP). What Are Word Vectors? Word vectors are simply vectors of numbers that represent the meaning of a word. For now, that's not very clear, but we'll come back to it in a bit. It is useful, first of all, to consider why word vectors are considered such a leap forward from traditional representations of words. Traditional approaches to NLP, such as one-hot encoding and bag-of-words models (i.e. using dummy variables to represent the presence or absence of a word in an observation, i.e. a sentence), while useful for some machine learning (ML) tasks, do not capture information about a word's meaning or context. This means that potential relationships, such as contextual closeness, are not captured across collections of words. For example, a one-hot encoding cannot capture simple relationships, such as determining that the words \""dog\"" and \""cat\"" both refer to animals that are often discussed in the context of household pets. Such encodings often provide sufficient baselines for simple NLP tasks (for example, email spam classifiers), but lack the sophistication for more complex tasks such as translation and speech recognition. In essence, traditional approaches to NLP such as one-hot encodings do not capture syntactic (structure) and semantic (meaning) relationships across collections of words and, therefore, represent language in a very naive way. In contrast, word vectors represent words as multidimensional continuous floating point numbers where semantically similar words are mapped to proximate points in geometric space. In simpler terms, a word vector is a row of real-valued numbers (as opposed to dummy numbers) where each point captures a dimension of the word's meaning and where semantically similar words have similar vectors. This means that words such as wheel and engine should have similar word vectors to the word car (because of the similarity of their meanings), whereas the word banana should be quite distant. Put differently, words that are used in a similar context will be mapped to a proximate vector space (we will get to how these word vectors are created below). The beauty of representing words as vectors is that they lend themselves to mathematical operators. For example, we can add and subtract vectors — the canonical example here is showing that by using word vectors we can determine that: king - man + woman = queen In other words, we can subtract one meaning from the word vector for king (i.e. maleness), add another meaning (femaleness), and show that this new word vector (king - man + woman) maps most closely to the word vector for queen. The numbers in the word vector represent the word's distributed weight across dimensions. In a simplified sense, each dimension represents a meaning and the word's numerical weight on that dimension captures the closeness of its association with and to that meaning. Thus, the semantics of the word are embedded across the dimensions of the vector. A Simplified Representation of Word Vectors In the figure, we are imagining that each dimension captures a clearly defined meaning. For example, if you imagine that the first dimension represents the meaning or concept of \""animal,\"" then each word's weight on that dimension represents how closely it relates to that concept. This is quite a large simplification of word vectors as the dimensions do not hold such clearly defined meanings, but it is a useful and intuitive way to wrap your head around the concept of word vector dimensions. We create a list of words, apply spaCy's parser, extract the vector for each word, stack them together, and then extract two-principal components for visualization purposes. import numpy as np import spacy from sklearn.decomposition import PCA nlp = spacy.load(\""en\"") animals = \""dog cat hamster lion tiger elephant cheetah monkey gorilla antelope rabbit mouse rat zoo home pet fluffy wild domesticated\"" animal_tokens = nlp(animals) animal_vectors = np.vstack([word.vector for word in animal_tokens if word.has_vector]) pca = PCA(n_components=2) animal_vecs_transformed = pca.fit_transform(animal_vectors) animal_vecs_transformed = np.c_[animals.split(), animal_vecs_transformed] Here, we simply extract vectors for different animals and words that might be used to describe some of them. As mentioned in the beginning, word vectors are amazingly powerful because they allow us (and machines) to identify similarities across different words by representing them in a continuous vector space. You can see here how the vectors for animals like \""lion,\"" \""tiger,\"" \""cheetah,\"" and \""elephant\"" are very close together. This is likely because they are often discussed in similar contexts; for example, these animals are big, wild and, potentially dangerous — indeed, the descriptive word \""wild\"" maps quite closely to this group of animals. Similar words are mapped together in the vector space. Notice how close \""cat\"" and \""dog\"" are to \""pet,\"" how clustered \""elephant,\"" \""lion,\"" and \""tiger\"" are, and how descriptive words also cluster together. What is also interesting here is how closely the words \""wild,\"" \""zoo,\"" and \""domesticated\"" map to one another. It makes sense given that they are words that are frequently used to describe animals, but highlights the amazing power of word vectors! Where Do Word Vectors Come From? An excellent question at this point is, Where do these dimensions and weights come from?! There are two common ways through which word vectors are generated: Counts of word/context co-occurrences Predictions of context given word (skip-gram neural network models, i.e. word2vec) Note: Below, I describe a high-level word2vec approach to generating word vectors, but a good overview of the count/co-occurence approach can be found here. Both approaches to generating word vectors build on Firth's (1957) distributional hypothesis which states: \""You shall know a word by the company it keeps.\"" Put differently, words that share similar contexts tend to have similar meanings. The context of a word in a practical sense refers to its surrounding word(s) and word vectors are (typically) generated by predicting the probability of a context given a word. Put differently, the weights that comprise a word vector are learned by making predictions on the probability that other words are contextually close to a given word. This is akin to attempting to fill in the blanks around some given input word. For example, given the input sequence, \""The fluffy dog barked as it chased a cat,\"" the two-window (two-words preceding and proceeding the focal word) context for the words \""dog\"" and \""barked\"" would look like: I don't wish to delve into the mathematical details how neural networks learn word embeddings too much, as people much more qualified to do so have explicated this already. In particular, these posts have been helpful to me when trying to understand how word vectors are learned: Deep Learning, NLP, and Representations The Amazing Power of Word Vectors Word2Vec Tutorial: The Skip-Gram Model It is useful, however, to touch on the workings of the word2vec model given its popularity and usefulness. A word2vec model is simply a neural network with a single hidden layer that is designed to reconstruct the context of words by estimating the probability that a word is \""close\"" to another word given as input. The model is trained on word, context pairings for every word in the corpus, i.e.: (DOG, THE)(DOG), FLUFFY(DOG, BARKED)(DOG, AS) Note that this is technically a supervised learning process, but you do not need labeled data — the labels (the targets/dependent variables) are generated from the words that form the context of a focal word. Thus, using the window function the model learns the context in which words are used. In this simple example, the model will learn that \""fluffy\"" and \""barked\"" are used in the context (as defined by the window length) of the word \""dog.\"" One of the fascinating things about word vectors created by word2vec models is that they are the side effects of a predictive task, not its output. In other words, a word vector is not predicted, (it is context probabilities that are predicted), the word vector is a learned representation of the input that is used on the predictive task — i.e. predicting a word given a context. The word vector is the model's attempt to learn a good numerical representation of the word in order to minimize the loss (error) of its predictions. As the model iterates, it adjusts its neurons' weights in an attempt to minimize the error of its predictions and in doing so, it gradually refines its representation of the word. In doing so, the word's \""meaning\"" becomes embedded in the weight learned by each neuron in the hidden layer of the network. A word2vec model, therefore, accepts as input a single word (represented as a one-hot encoding amongst all words in the corpus) and the model attempts to predict the probability that a randomly chosen word in the corpus is at a nearby position to the input word. This means that for every input word there are n output probabilities, where n is equal to the total size of the corpus. The magic here is that the training process includes only the word's context, not all words in the corpus. This means in our simple example above, given the word \""dog\"" as input, \""barked\"" will have a higher probability estimate than \""cat\"" because it is closer in context, i.e. it is learned in the training process. Put differently, the model attempts to predict the probability that other words in the corpus belong to the context of the input word. Therefore, given the sentence above (\""The fluffy dog barked as it chased a cat\"") as input a run of the model would look like this: Note: This conceptual NN is a close friend of the diagram in Chris McCormick's blog post linked to above. The value of going through this process is to extract the weights that have been learned by the neurons of the model's hidden layer. It is these weights that form the word vector, i.e. if you have a 300-neuron hidden layer, you will create a 300-dimension word vector for each word in the corpus. The output of this process, therefore, is a word-vector mapping of size n-input words * n-hidden layer neurons. Next Up Word vectors are an amazingly powerful concept and a technology that will enable significant breakthroughs in NLP applications and research. They also highlight the beauty of neural network deep learning and, particularly, the power of learned representations of input data in hidden layers. In my next post, I will be using word vectors in a convolutional neural network for a classification task. This will highlight word vectors in practice, as well as how to bring pre-trained word vectors into a Keras model."",                     ""mainEntityOfPage"": {                       ""@type"": ""WebPage"",                       ""@id"": ""https://dzone.com/articles/introduction-to-word-vectors""                     },                     ""image"": {                       ""@type"": ""ImageObject"",                       ""url"": ""https://dzone.com//dz2cdn2.dzone.com/storage/article-thumb/8468113-thumb.jpg""                     }                   }                                       {                       ""@context"": ""https://schema.org"",                       ""@type"": ""BreadcrumbList"",                       ""itemListElement"": [{                         ""@type"": ""ListItem"",                         ""position"": 1,                         ""name"": ""DZone"",                         ""item"": ""https://dzone.com""                       }, {                         ""@type"": ""ListItem"",                         ""position"": 2,                         ""name"": ""AI Zone"",                         ""item"": ""https://dzone.com/artificial-intelligence-tutorials-tools-news""                       }, {                         ""@type"": ""ListItem"",                         ""position"": 3,                         ""name"": ""Introduction to Word Vectors"",                         ""item"": ""https://dzone.com/articles/introduction-to-word-vectors""                       }]                     }
+In contrast, word vectors represent words as multidimensional  continuous floating point numbers where semantically similar words are  mapped to proximate points in geometric space. In simpler terms, a word  vector is a row of real-valued numbers (as opposed to dummy numbers)  where each point captures a dimension of the word's meaning and where  semantically similar words have similar vectors. This means that words  such as wheel and engine should have similar word vectors to the word car (because of the similarity of their meanings), whereas the word banana  should be quite distant. Put differently, words that are used in a  similar context will be mapped to a proximate vector space (we will get  to how these word vectors are created below). The beauty of representing  words as vectors is that they lend themselves to mathematical  operators. For example, we can add and subtract vectors — the canonical  example here is showing that by using word vectors we can determine  that:
+Here, we simply extract vectors for different animals and words that might be used to describe some of  them. As mentioned in the beginning, word vectors are amazingly  powerful because they allow us (and machines) to identify similarities  across different words by representing them in a continuous vector  space. You can see here how the vectors for animals like ""lion,""  ""tiger,"" ""cheetah,"" and ""elephant"" are very close together. This is  likely because they are often discussed in similar contexts; for  example, these animals are big, wild and, potentially dangerous —  indeed, the descriptive word ""wild"" maps quite closely to this group of  animals.
+The numbers in the word vector represent the word's distributed weight across dimensions.  In a simplified sense, each dimension represents a meaning and the  word's numerical weight on that dimension captures the closeness of its  association with and to that meaning. Thus, the semantics of the word  are embedded across the dimensions of the vector.
+This is quite a large simplification of word vectors as the 
+An excellent question at this point is, Where do these dimensions and weights come from?! There are two common ways through which word vectors are generated:
+ vector for each word, stack them together, and then extract 
+ possible using traditional representations of words. It is word vectors
+A Simplified Representation of Word Vectors
+Word vectors are simply vectors of numbers that represent the","0.206
+0.206
+0.209
+0.209
+0.242
+0.251
+0.251
+0.288
+0.288
+0.289"
+1," Word-embedding  is  a  significant  tool  of  natural  language processing  to  learn  quality  representation  for  various  tasks like   semantic   analysis,   information   retrieval,   question- answering systems and machine translation etc ","1]    Bin Wang et al , ‘ Evaluating word embedding models: methods and experimental    results.’,    APSIPA    Transaction    on    Signal    and Information Processing, 8, E19, DOI: 10.1017/ATSIP.2019.12",0.3076,"Even with larger text data available, extracting and embedding all linguistic properties into a word representation directly
+important to further improve the performance. Domain adaption methods are able to leverage monolingual corpus for existing machine translation tasks. As compared to parallel corpus,
+word embedding model and manually constructed linguistic
+word embedding model differs for different language tasks. In
+evaluators and language tasks so as to provide insights into
+performance on word analogy and word similarity tasks has
+yield meaningful word representations and perhaps find
+for the part-Of-speech tagging, chunking and named-entity
+of deep-learning-based methods for machine translation. With
+in word model’s prototyping and development. Furthermore,","0.275
+0.277
+0.277
+0.296
+0.32
+0.324
+0.324
+0.327
+0.328
+0.328"
+15, The most significant point in the study of distributional semantics is to evaluate the quality of word representation models ,"15]  Amir  Bakarov,  2018,  A  Survey  of  Word  Embeddings  Evaluation",0.31189999999999996,"most important questions in the studies of distributional semantics is how to
+on the nature of semantics, and therefore, to consistently evaluate the existing
+Lenci, 2008. Lenci, A. (2008). Distributional semantics in linguistic and cognitive research. Italian journal of linguistics, 20(1):1–31.
+computational linguists exploring the nature of semantics tend to investigate
+to capture lexical semantics and trained on natural language corpora.
+tasks that could be solved with the help of distributional semantics models was
+some kind of a global evaluation score for distributional semantics.
+Word embeddings, real-valued representations of words produced by distributional semantic models (DSMs), are one of the most popular tools in modern
+these patterns have to do with lexical semantics, and with other linguistic data
+the task of word embeddings evaluation strongly depends on the existence of","0.168
+0.265
+0.297
+0.298
+0.328
+0.331
+0.349
+0.351
+0.364
+0.368"
+16, The first work in the field was proposed in the year 2007,"16]  Griffiths  et al.,  Griffiths,  T.  L.,  Steyvers,  M., and Tenenbaum, J. B. (2007).   Topics  in  semantic   representation.  Psychological  review,",0.5559999999999999,"Gallo, 2001). Results of this kind have led to the development of
+The topic model provides a starting point for an investigation of
+Anderson & Bower, 1974). One of the first experimental studies of
+illustrate this potential. We hope to use this framework to develop
+learned automatically. Recently there has been some progress in
+points in space, but they are typically trained on artificially generated data. A second thrust of recent research has been exploring
+The topic model may be able to play a part in a theoretical
+the topic model also makes it possible to define novel measures of
+approach and serves as a starting point for exploring how generative models can be used to address questions about human se-
+over topics, turning the model into a genuine generative model for","0.501
+0.522
+0.524
+0.528
+0.553
+0.566
+0.576
+0.584
+0.6
+0.606"
+17," In 2010, survey for the word embedding    tasks    was    preformed    with    the    help    of distributional semantics model ","17]  Turney and Pantel et al ,’ From frequency to meaning: Vector space models of semantic’, Journal of artificial intelligence research, volume 37, pages 141–188.",0.4166,"survey is to show the breadth of applications of VSMs for semantics, to provide a new
+looks at some of these linguistic tools for semantic VSMs.
+Girju, R., Nakov, P., Nastase, V., Szpakowicz, S., Turney, P., & Yuret, D. (2007). Semeval2007 task 04: Classification of semantic relations between nominals. In Proceedings
+Nastase, V., Sayyad-Shirabad, J., Sokolova, M., & Szpakowicz, S. (2006). Learning nounmodifier semantic relations with corpus-based and WordNet-based features. In Proceedings of the 21st National Conference on Artificial Intelligence (AAAI-06), pp.
+to the main verb of the sentence. Erk (2007) presented a system in which a word–context
+al. (2006) demonstrate that a word–context frequency matrix can facilitate fact extraction.
+Vyas and Pantel (2009) propose a semi-supervised model using a word–context matrix for
+goal is to give the reader an impression of the scope and flexibility of VSMs for semantics.
+Bullinaria, J., & Levy, J. (2007). Extracting semantic representations from word cooccurrence statistics: A computational study. Behavior Research Methods, 39 (3),
+retrieval library.6 For word–context VSMs, we explore the Semantic Vectors package, which","0.363
+0.398
+0.412
+0.417
+0.42
+0.421
+0.422
+0.434
+0.438
+0.441"
+18," In 2011, first paper was published  regarding  comparison  of  performance  of  various distributional semantic models ","18]  McNamara, 2011. McNamara, D. S. (2011). Computational methods to   extract   meaning   from   text   and   advance   theories   of   human cognition. Topics in Cognitive Science, 3(1):3–17.",0.35230000000000006,"PosPMI, and BEAGLE). They examine the ability of these nine models to extract semantic
+Riordan and Jones (2010, this volume) compared models’ ability to capture semantic
+includes two studies that compared models in terms of their ability to account for cognitive
+Comparing semantic models improves our understanding of which aspects of the models
+Shapiro, A. M., & McNamara, D. S. (2000). The use of latent semantic analysis as a tool for the quantitative
+Latent semantic analysis has been extremely successful in helping researchers understand
+consistently found to be comparable to the feature-based norms in reproducing semantic
+To go beyond the simulation of knowledge, and account for performance on a wide variety of tasks, it seems that semantic models must use a combination of approaches. First,
+3. Comparing semantic models
+and distributional models of semantic representation. Topics in Cognitive Science, DOI: 10.1111/j.17568765.2010.01111.x","0.316
+0.342
+0.349
+0.352
+0.353
+0.355
+0.358
+0.359
+0.369
+0.37"
+19," In 2013, word2vec tool was    released,    which    explained    novel    approaches    to evaluation   like   word   analogy   task   ","19]  Mikolov et al., ‘Efficient  estimation  of  word  representations  in  vector space.’, arXiv preprint arXiv:1301.3781, 2013.",0.4181,"The Microsoft Sentence Completion Challenge has been recently introduced as a task for advancing
+The main goal of this paper is to introduce techniques that can be used for learning high-quality word
+[17] T. Mikolov, A. Deoras, S. Kombrink, L. Burget, J. Černocký. Empirical Evaluation and Combination of Advanced Language Modeling Techniques, In: Proceedings of Interspeech, 2011.
+We have used a Google News corpus for training the word vectors. This corpus contains about
+Table 7: Comparison and combination of models on the Microsoft Sentence Completion Challenge.
+data set. Furthermore, we show that these vectors provide state-of-the-art performance on our test set for measuring syntactic and semantic word similarities.
+[32] G. Zweig, C.J.C. Burges. The Microsoft Research Sentence Completion Challenge, Microsoft
+Table 4: Comparison of publicly available word vectors on the Semantic-Syntactic Word Relationship test set, and word vectors from our models. Full vocabularies are used.
+with such semantic relationships could be used to improve many existing NLP applications, such
+Our ongoing work shows that the word vectors can be successfully applied to automatic extension","0.351
+0.4
+0.401
+0.416
+0.425
+0.431
+0.435
+0.435
+0.438
+0.449"
+20,"   In   2015,   the approaches  to  word  evaluation  were  classified  into  two classes’ intrinsic and extrinsic evaluation ","20]  Schnabel et al., 2015. Schnabel, T., Labutov, I., Mimno, D. M., and Joachims,  T.  (2015).  Evaluation  methods  for  unsupervised  word embeddings. In EMNLP, pages 298–307.",0.4001,"Previous work in evaluation for word embeddings can be divided into intrinsic and extrinsic evaluations. Intrinsic evaluations measure the
+how outcomes from three different evaluation criteria are connected: word relatedness, coherence,
+extrinsic and intrinsic evaluation. In extrinsic evaluation, we use word embeddings as input features
+We balanced our query inventory also with respect to parts of speech and abstractness vs. concreteness. Figure 1(c) shows the relative performances of all embeddings for the four POS
+have to define a metric that compares scored word
+Query inventory. We compiled a diverse inventory of 100 query words that balance frequency, part of speech (POS), and concreteness.
+Table 5: F1 sentiment analysis results using different word embeddings as features. The p-values are
+address how to better measure linguistic relationships between words in the embedding space, e.g.,
+Intrinsic evaluations directly test for syntactic or
+• Categorization: Here, the goal is to recover a clustering of words into different categories. To do this, the corresponding word","0.248
+0.295
+0.402
+0.406
+0.419
+0.43
+0.435
+0.452
+0.456
+0.458"
+21," In 2016, the first workshop  on word  embeddings evaluation was held  at annual     meeting     of     association     of     computational linguistics","21]  Faruqui et al, ‘Problems with evaluation of word embeddings using word similarity tasks.’,2016,  arXiv preprint arXiv:1605.02276.",0.4972,"Rastogi et al. (2015) observed that the improvements shown on small word similarity task
+David Mimno, and Thorsten Joachims. 2015. Evaluation methods for unsupervised word embeddings.
+use of word similarity tasks for evaluation
+on word similarity and word analogy tasks.
+Problems With Evaluation of Word Embeddings
+and multiple word prototypes. In Proc. of ACL.
+In these studies, extrinsic evaluation tasks are those tasks
+of word vectors on word similarity and extrinsic evaluation NLP tasks like text classification,
+Our findings suggest that word similarity tasks are
+be evaluated on word similarity tasks.","0.455
+0.481
+0.485
+0.488
+0.491
+0.501
+0.505
+0.516
+0.524
+0.526"
+3,  Before  the  advent  of  these networks  the  words  were  mapped  into  real-valued  number through  some  basic  approaches  ,"3]    Francois  Chaubard,  Rohit  Mundra  et  al  ,  ‘Deep  Learning  for  NLP’ lecture       notes:       Part       I2,       Spring       2016       accessed       at https://cs224d.stanford.edu/lecture_notes/notes1.pdf"
+2,where  U  and  V  are  left  and  right  singular vectors and D is diagonal matrix whose diagonal entries are the singular values ,"2]    Avrim  Blum,  John  Hopcroft  et  al  ,  ‘Foundations  of  Data  Science’, June  2017,  Cambridge  University  Press,  2020,  ISBN  978-1-108-",0.5169999999999999,"are discussed such as matrix norms and VC-dimension. This book is suitable for
+3.8 Singular Vectors and Eigenvectors
+3.6 Left Singular Vectors
+9.3 Nonnegative Matrix Factorization
+3.3 Singular Vectors
+modeling and nonnegative matrix factorization, wavelets, and compressed sensing.
+3 Best-Fit Subspaces and Singular Value Decomposition (SVD)
+2.7 Random Projection and Johnson-Lindenstrauss Lemma
+11.7 Suficient Conditions for the Wavelets to Be Orthogonal
+6.3 Matrix Algorithms Using Sampling","0.41
+0.435
+0.44
+0.474
+0.49
+0.543
+0.578
+0.585
+0.599
+0.616"
+3,"  For  all  words  in  the dictionary,  the  rows  of  matrix  U  is  used  as  the  word embeddings ","3]    Francois  Chaubard,  Rohit  Mundra  et  al  ,  ‘Deep  Learning  for  NLP’ lecture       notes:       Part       I2,       Spring       2016       accessed       at https://cs224d.stanford.edu/lecture_notes/notes1.pdf"
+4,   Each dimension of the embedding captures semantic   properties ,"4]    Yoshua Bengio et al , ‘ Word representations: a simple and generated method for semi-supervised learning’, proceedings of the 48th Annual Meeting of the Association for computational Linguistics, pages 384-",0.3338,"number of dimensions of the word embeddings.
+dimension of the embedding represents a latent
+Like many NLP systems, the baseline system contains only binary features. The word embeddings,
+representations are called word embeddings. Each
+embedding parameters. We induced embeddings
+# of embedding dimensions
+# of embedding dimensions
+The model concatenates the learned embeddings
+the current actual embedding is transformed
+HLBL embeddings","0.292
+0.306
+0.311
+0.323
+0.332
+0.35
+0.35
+0.355
+0.357
+0.362"
+5,   Word embeddings are  the  successful  applications of unsupervised learning  ,"5]    Sebastian   Ruder,   ‘An   overview   of   word   embedding   and   their connections to distributional semantic models’, Oct 2016, accessed on",0.31100000000000005,"Word embeddings are considered to be among a small number of successful applications of unsupervised learning at present. The fact that they do not require pricey annotation is probably their main benefit. Rather, they can be derived from already available unannotated corpora.
+Unsupervisedly learned word embeddings have seen tremendous success in numerous NLP tasks in recent years. So much so that in many NLP architectures, they are close to fully replacing more traditional distributional representations such as LSA features and Brown clusters.
+Word embedding models
+Word2Vec is arguably the most popular of the word embedding models. Because word embeddings are a key element of deep learning models for NLP, it is generally assumed to belong to the same group. However, word2vec is not technically not be considered a component of deep learning, with the reasoning being that its architecture is neither deep nor uses non-linearities (in contrast to Bengio's model and the C&W model).
+1. Embedding Layer: This layer generates word embeddings by multiplying an index vector with a word embedding matrix;
+The term word embeddings was originally coined by Bengio et al. in 2003 who trained them in a neural language model together with the model’s parameters. However, Collobert and Weston were arguably the first to demonstrate the power of pre-trained word embeddings in their 2008 paper A unified architecture for natural language processing, in which they establish word embeddings as a highly effective tool when used in downstream tasks, while also announcing a neural network architecture that many of today’s approaches were built upon. It was Mikolov et al. (2013), however, who really brought word embedding to the fore through the creation of word2vec, a toolkit enabling the training and use of pre-trained embeddings. A year later, Pennington et al. introduced us to GloVe, a competitive set of pre-trained embeddings, suggesting that word embeddings was suddenly among the mainstream.
+DSMs can be seen as count models as they ""count"" co-occurrences among words by operating on co-occurrence matrices. Neural word embedding models, in contrast, can be viewed as predict models, as they try to predict surrounding words.
+An overview of word embeddings and their connection to distributional semantic models
+Bengio et al. were among the first to introduce what has become to be known as a word embedding, a real-valued word feature vector in (mathbb{R}). The foundations of their model can still be found in today’s neural language and word embedding models. They are:
+In 2008, Collobert and Weston [4] (thus C&amp;W) demonstrated that word embeddings trained on an adequately large dataset carry syntactic and semantic meaning and improve performance on downstream tasks. In their 2011 paper, they further expand on this [8].","0.222
+0.248
+0.284
+0.292
+0.322
+0.33
+0.344
+0.35
+0.359
+0.359"
+22, Google introduced  a  neural  network  architecture  which  has  many benefits  over  conventional  sequential  models  ,"22]  A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A.Gomez, L. Kaiser and I. Polosukhin, Attention Is All You Need (2017).",0.5494,"                         [13] SeppHochreiterandJürgenSchmidhuber.Longshort-termmemory.           Neuralcomputation ,
+                         Recurrentneuralnetworks,longshort-termmemory[    13]andgatedrecurrent[ 7]neuralnetworks
+                            3.3Position-wiseFeed-ForwardNetworks
+            Input-Input Layer5         what
+                                GoogleBrain            GoogleBrain         GoogleResearch       GoogleResearch
+              Input-Input Layer5
+            Input-Input Layer5
+            Input-Input Layer5
+            Input-Input Layer5
+                         querywiththecorrespondingkey.","0.45
+0.496
+0.516
+0.568
+0.573
+0.577
+0.577
+0.577
+0.577
+0.583"
+23,  Neural network architecture is an encoder-decoder model which uses attention mechanism to forward sequence to the decoder ,"23]  Andrea   Galassi,   Marco   Lippi,  ‘ Attention   in   Natural   Language",0.29569999999999996,"The encoder is a bidirectional recurrent neural network
+which could be encoded within the neural architecture.
+The attention mechanism is a part of a neural architecture
+Neural architectures exploiting attention performed well
+exploit neural conditional random fields to model the (conditional) attention distribution. The attention weights are thus
+be used to inject this kind of knowledge in a neural network.
+computed, such information is fed to the attention model as
+self-attention is exploited during the encoding and decoding
+The decoder consists of two cascading elements: the attention function and an RNN. At each time step t, the attention
+encoder/decoder architecture.","0.241
+0.267
+0.283
+0.288
+0.29
+0.306
+0.308
+0.324
+0.324
+0.326"
+24,  Attention was  first  introduced  in  natural  language processing for machine translation task ,"24]  D. Bahdanau, K. Cho, et at, ‘Neural machine translation by jointly learning to align and translate,’ in ICLR, 2015.",0.5936,"                           NEURAL MACHINE TRANSLATION
+                                 Schuster,M.andPaliwal,K.K.(1997).Bidirectionalrecurrentneuralnetworks.                           SignalProcessing,
+                           BY JOINTLY LEARNINGTO ALIGNAND TRANSLATE
+                              Linguistics.
+                              machinetranslation:Encoder–Decoderapproaches.In          EighthWorkshoponSyntax,Semantics
+                              LearningphraserepresentationsusingRNNencoder-decoderforstatisticalmachinetranslation.
+                                 Hochreiter,S.andSchmidhuber,J.(1997).Longshort-termmemory.                             NeuralComputation , 9(8),
+                             A.1.1R     ECURRENT NEURAL NETWORK
+                              neuralnetworkjointmodelsforstatisticalmachinetranslation.In       AssociationforComputational
+                             contextvector ci foreachtargetword       yi.                                                      ","0.409
+0.573
+0.576
+0.583
+0.587
+0.624
+0.638
+0.645
+0.647
+0.654"
+6,"
+
+
+……(3)
+Where  f  encoder   is  neural  contextual  encoder  which can be sequential or hierarchical( graph)","6]    Xipeng  Qiu,  Tianxiang  Sun,  Yige  Xu,  Yunfan  Shao,Ning  Dai,  and Xuanjing  Huang.  2020.  Pre-trained  Models  for  Natural  Language Processing: A Survey.",0.382,"[124] Diego Marcheggiani, Joost Bastings, and Ivan Titov. Exploiting semantics in neural machine translation with graph
+learning knowledge graph embeddings and word embedding
+Maosong Sun. Representation learning of knowledge graphs
+from BERT into simple neural networks. arXiv preprint
+Figure 2: Neural Contextual Encoders
+Knowledge graph representation with jointly structural and
+Figure 1: Generic Neural Architecture for NLP
+output vectors of neural encoders are also called contextual
+a pre-defined tree or graph structure between words, such as
+the representation at the top layer into the task-specific model","0.348
+0.372
+0.373
+0.377
+0.38
+0.388
+0.393
+0.396
+0.396
+0.397"
+25,  The  final layer  learns  information  of  the  new  vector  space  by combining   the   previous   content   according   to   their relevance to the problem ,"25]  Scott    Rome.    ‘Understanding    Attension    in    Neural    Networks Mathematically’,  accessed  at  https://srome.github.io/Understanding- Attention-in-Neural-Networks-Mathematically/ on 7 Sep 2020.",0.41800000000000004,"takes the word, rotates/scales it and then translates it. So, this  layer rearranges the word representation in its current vector space.  The tanh activation then twists and bends (but does not break!) the  vector space into a manifold. Because W:\mathbb{R}^{K_w}\to\mathbb{R}^{K_w} (i.e., it does not change the dimension of h_t), then there is no information lost in this step. If W projected h_t to a lower dimensional space, then we would lose information from our word embedding. Embedding h_t into a higher dimensional space would not give us any new information about h_t, but it would add computational complexity, so no one does that.
+We can clearly see that v  has identified important information in the vector space representing  the words. This is what the word-level context vector’s role is. It  picks out the important parts of the vector space for our model to focus  in on. This means that the previous layer will move the input vector  space around so that v  can easily pick out the important words! In fact, the softmax values of  “dog” and “cat” will be larger in this case than “rain” and “snow”.  That’s exactly what we want.
+To answer that question, we’re going to explain what each step  actually does geometrically, and this will illuminate names like  “word-level context vector”. I recommend reading my post on how neural networks bend and twist the input space, so this next bit will make a lot more sense.
+Interestingly, there is increasing research  that calls this mechanism “Memory”, which some claim is a better title  for such a versatile layer. Indeed, the Attention layer can allow a  model to “look back” at previous examples that are relevant at  prediction time, and the mechanism has been used in that way for so  called Memory Networks. A discussion of Memory Networks is outside the  scope of this post, so for our purposes, we will discuss Attention named  as such, and explore the properties apparent to this nomenclature.
+The next layer does not have a particularly geometric flavor to it.  The application of the softmax is a monotonic transformation (i.e. the  importances picked out by v^Tu_t stay the same). This allows the final representation of the input sentence to be a linear combination of h_t, weighting the word representations by their importance. There is however another way to view the Attention output…
+\begin{equation} u_t = \tanh(W h_t + b)\end{equation} \begin{equation} \alpha_t = \text{softmax}(v^T u_t)\end{equation} \begin{equation} s = \sum_{t=1}^{M} \alpha_t h_t\end{equation}      \begin{equation}u_t = tanh(Wh_t+b)\end{equation}   \begin{equation}v^T u_t\end{equation} As both v,u_t\in \mathbb{R}^{K_w}, it is v’s job to learn information of this new vector space induced by the previous layer. You can think of v as combining the components of u_t according to their relevance to the problem at hand. Geometrically, you can imagine that v “emphasizes” the important dimensions of the vector space.
+First, remember that h_t  is an embedding or representation of a word in a vector space. That’s a  fancy way of saying that we pick some N-dimensional space, and we pick a  point for every word (hopefully in a clever way). For N=2,  we would be drawing a bunch of dots on a piece of paper to represent  our words. Every layer of the neural net moves these dots around (and  transforms the paper itself!), and this is the key to understanding how  attention works. The first piece
+Softmax: The resulting vector is passed through a softmax layer
+the sentence and pair them with their corresponding Attention output 
+If we look at the summary, we can trace the dimensions through the model.","0.304
+0.356
+0.369
+0.404
+0.423
+0.434
+0.462
+0.475
+0.475
+0.478"
+14, It act as proxy for  the  downstream  tasks  ,"14]  Yulia Tsvetkov, Manaal Faruqui and Chris Dyer, 2016 ‘Correlation- based Intrinsic Evaluation of Word Vector Representations’.",0.4373,"dimensions is an auxiliary mechanism for analyzing how these properties affect the target downstream task. It thus facilitates refinement of word
+the downstream tasks.
+approximates a range of related downstream tasks
+the downstream task the embeddings are tailored
+downstream tasks (e.g., part-of-speech tagging) by
+intrinsic evaluation to be used as a proxy to the
+Tsvetkov et al. (2015) proposed an evaluation measure—QVEC—that was shown to correlate well with downstream semantic tasks. Additionally, it helps shed new light on how vector spaces encode meaning thus facilitating the
+model (Lample et al., 2016), and the second is dependency parsing (Parse), using the stack-LSTM
+captures exactly the set of optimal lexical properties for a downstream task. Resources that capture more coarse-grained, general properties can
+evaluation obtains higher and more consistent correlations with downstream tasks,","0.365
+0.39
+0.436
+0.438
+0.438
+0.44
+0.453
+0.456
+0.471
+0.486"
+1,  The   evaluator measures the efficiency of human perceived similarity which is obtained by the word vector representations ,"1]    Bin Wang et al , ‘ Evaluating word embedding models: methods and experimental    results.’,    APSIPA    Transaction    on    Signal    and Information Processing, 8, E19, DOI: 10.1017/ATSIP.2019.12",0.302,"The word similarity evaluator correlates the distance between word vectors and human perceived semantic similarity.
+similarity is captured by the word vector representations, and
+method normalizes vector lengths using the cosine similarity
+evaluator tests the semantic coherence of vector space models,
+Because its scores are normalized by the vector length, it is
+average of these vectors gives the final representation of the
+of FastText. Here, to compare the word vector quality only,
+component-wise correlation between word vectors from a
+machine translation [14]. Extrinsic evaluators are more computationally expensive, and they may not be directly applicable. Intrinsic evaluators test the quality of a representation
+Intrinsic evaluators test the quality of a representation","0.214
+0.262
+0.288
+0.309
+0.314
+0.323
+0.323
+0.325
+0.331
+0.331"
+13,"(5)
+
+Generally,  analogies  are  fundamental  to  solving  human reasoning and logic","13]  Francois  Chaubard,  Rohit  Mundra  et  al  ,  ‘Deep  Learning  for  NLP’ lecture       notes:       Part       I2,       Spring       2016       accessed       at https://cs224d.stanford.edu/lecture_notes/notes2.pdf",0.4944,"Natural language is a discrete/symbolic/categorical system
+philosophy of language and linguistics has been done to conceptualize human language and distinguish words from their references,
+to be able to design algorithms to allow computers to ""understand""
+context and from these words, be able to predict or generate the
+example that might help gain some intuition:
+could learn these probabilities.
+then move forward to discuss the concept of representing words as
+basically can learn these pairwise probabilities. But again, this would
+all NLP tasks is how we represent words as input to any of our models. Much of the earlier NLP work that we will not cover treats words
+of the frequency of the vocabulary. To augment our formulation of","0.441
+0.458
+0.486
+0.497
+0.504
+0.507
+0.51
+0.512
+0.514
+0.515"
+12,,"12]  M. Baroni et al , ‘Don’t count, predict! a sys- tematic    comparison    of    context-counting    vs.    context-predicting semanticvectors’, in Proceedings of the 52nd  Annual Meeting of the Associationfor Computational Linguistics (Volume 1:  Long Papers), vol. 1, 2014,pp. 238–247.",0.22729999999999997,"
+dramatic drop of the count model on ansem. A
+in Mikolov et al. (2013a) specifically to test predict models. The data-set contains about 9K semantic and 10.5K syntactic analogy questions. A
+Table 2 summarizes the evaluation results. The
+an
+an
+approximation to word meaning, since semantically similar words tend to have similar contextual distributions (Miller and Charles, 1991). In
+decreasingly ordered by performance, was 35. See
+of vector transforms in earlier models with a single, well-defined supervised learning step. At the
+objective function being used? subsampling? . . . )","0.0
+0.186
+0.186
+0.186
+0.213
+0.213
+0.299
+0.319
+0.335
+0.336"
+9,"    Outlier detection
+
+Outlier detection evaluates word clustering to obtain compactness score of pair-wise similarities of the word ","9]    J.  Camacho-Collados  and  R.  Navigli,  ‘Find  the  word  that  does  not belong:  A  framework  for  an  intrinsic  evaluation  of  word  vector representations’,  Proceedings  of  the  1st  Workshop  on  Evaluating Vector-Space Representations for NLP, 2016, pp. 43–50.",0.37,"for detecting outliers based on semantic similarity.
+word similarity as a method for evaluating distributional semantic models. In Proceedings of the ACL
+Pedersen. 2003. Using measures of semantic relatedness for word sense disambiguation. In Computational linguistics and intelligent text processing,
+embeddings for word and relational similarity. In
+Word similarity, which numerically measures
+for each topic to provide a set of eight words belonging to the chosen topic (elements in the cluster), and a set of eight heterogeneous outliers, selected varying their similarity to and relatedness
+is their ability to create semantic clusters in the
+Wang, and Ting Liu. 2014. Learning semantic hierarchies via word embeddings. In ACL (1), pages
+word similarity, this task aims at evaluating the
+Table 3 shows the results of all the word embedding models on the 8-8-8 outlier detection dataset.","0.283
+0.363
+0.37
+0.375
+0.378
+0.379
+0.383
+0.383
+0.384
+0.402"
+11, ,"11]  Y.   Tsvetkov et al , ‘Evaluationof  word  vector  representations  by  subspace  alignment’, Proceedings of   the   2015   Conference   on   Empirical   Methods   in Natural Language Processing, 2015, pp. 2049–2054",0.2157,"
+Thomas K Landauer and Susan T. Dumais. 1997. A
+verbs that occur in SemCor at least 5 times. The
+dimensions in the distributional word vectors. The
+been assigned similarity ratings by humans. The
+judged by its utility in downstream NLP tasks. This
+train three versions of vector sets per model. This
+in
+Broad-coverage sense disambiguation and information extraction with a supersense sequence tagger. In
+Ross T. Bunker. 1993. A semantic concordance. In","0.0
+0.186
+0.186
+0.186
+0.186
+0.258
+0.258
+0.299
+0.299
+0.299"
+13,"  However, in natural language processing applications the word vectors are  pre- trained when used for extrinsic tasks ","13]  Francois  Chaubard,  Rohit  Mundra  et  al  ,  ‘Deep  Learning  for  NLP’ lecture       notes:       Part       I2,       Spring       2016       accessed       at https://cs224d.stanford.edu/lecture_notes/notes2.pdf",0.3621,"natural language in order to perform some task. Example tasks come
+word vectors, we can quite easily encode this ability in the vectors
+all NLP tasks is how we represent words as input to any of our models. Much of the earlier NLP work that we will not cover treats words
+U as u j . Note that we do in fact learn two vectors for every word wi
+Natural language is a discrete/symbolic/categorical system
+output words are completely independent.
+- u: (output vector) when the word is
+- v: (input vector) when the word is in
+models for NLP whose first step is to transform each word in a vector. For each special task (Named Entity Recognition, Part-of-Speech
+sufficient to encode semantic and syntactic (part of speech) information but are associated with many other problems:","0.317
+0.333
+0.343
+0.354
+0.368
+0.369
+0.379
+0.382
+0.387
+0.389"
