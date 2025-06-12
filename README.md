@@ -1,13 +1,8 @@
-Here's a **copyable version** of the `README.md` for **Vervent**, now with BERT-based similarity mentioned:
-
----
-
-````markdown
 # Vervent
 
-**Vervent** is a document comparison tool that analyzes the similarity between multiple files and
-generates visual, interactive HTML reports. It supports classic difflib-based comparison as well as
-future integration with advanced models like **BERT** for semantic similarity detection.
+**Vervent** is a document comparison tool built in Python, that analyzes the similarity between 
+multiple files and generates visual, interactive HTML reports. It supports classic difflib-based
+comparison as well as future integration with advanced models like **BERT** for semantic similarity detection.
 
 ## ✨ Features
 
